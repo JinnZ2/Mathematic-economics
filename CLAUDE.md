@@ -110,3 +110,20 @@ pip install torch numpy pandas matplotlib
 - **Adding analysis documents:** Place Markdown files in the root directory. Use structured headers and include both formal equations and plain English explanations.
 - **Space/orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
+
+## Known Fixes Applied (2026-03-22)
+
+All three `AI/` Python scripts had identical structural issues from markdown-to-Python conversion:
+
+- **Embedded markdown fences:** Stray `` ``` `` lines throughout the files (removed)
+- **Broken `__name__` guard:** `if **name** == "**main**":` → `if __name__ == "__main__":`
+- **Smart quotes:** Unicode `\u201c`/`\u201d`/`\u2019` used as string delimiters → ASCII `"`
+- **Indentation:** Class/method bodies at module-level indentation → properly nested
+- **money-free-model.py specific:**
+  - `depletion_rate` renamed to `regeneration_rate` (variable held regeneration data)
+  - Fixed matmul dimension mismatch in `CausalDependencyGraph` (added `resource_to_needs` projection)
+  - Fixed `collapse_timeline_days` key reference → `sustainability_timeline_days`
+  - Fixed `torch.tensor()` copy-construct warnings
+  - Fixed `.item()` call on multi-element tensor in print output
+
+All three scripts now run cleanly: `python AI/money-free-model.py`, `python AI/semantic-decontamination.py`, `python AI/temporal-energy.py`.

@@ -134,9 +134,9 @@ class EnergyLedger(nn.Module):
         # Calculate years until collapse (if unsustainable)
         if not is_sustainable.item():
             # Simplified: how many years at this rate before resource depleted?
-            years_until_collapse = 50 / (extraction_rate / regeneration_rate)  # Placeholder calculation
+            years_until_collapse = (50 / (extraction_rate / regeneration_rate)).detach().clone()
         else:
-            years_until_collapse = float('inf')
+            years_until_collapse = torch.tensor(float('inf'))
 
         return {
             'input_energy': total_input,
@@ -145,9 +145,9 @@ class EnergyLedger(nn.Module):
             'heat_loss': heat_loss,
             'system_overhead': system_overhead,
             'efficiency_ratio': useful_work / (useful_work + heat_loss + system_overhead),
-            'sustainability_ratio': torch.tensor(sustainability_ratio, device=activity_mj.device),
-            'years_until_collapse': torch.tensor(years_until_collapse, device=activity_mj.device),
-            'is_sustainable': torch.tensor(is_sustainable, device=activity_mj.device),
+            'sustainability_ratio': sustainability_ratio.to(activity_mj.device),
+            'years_until_collapse': years_until_collapse.to(activity_mj.device),
+            'is_sustainable': is_sustainable.to(activity_mj.device),
         }
 
 # ============================================================================
@@ -252,7 +252,7 @@ class CausalDependencyGraph(nn.Module):
     With: "causal necessity" (physical)
     """
 
-    def __init__(self, num_agents: int = 5):
+    def __init__(self, num_agents: int = 5, num_resources: int = 8, num_needs: int = 3):
         super().__init__()
         self.num_agents = num_agents
 
@@ -260,6 +260,9 @@ class CausalDependencyGraph(nn.Module):
         self.dependency_matrix = nn.Parameter(
             torch.eye(num_agents) * 0.1 + torch.randn(num_agents, num_agents) * 0.01
         )
+
+        # Project resource availability to need-satisfaction capacity
+        self.resource_to_needs = nn.Linear(num_resources, num_needs, bias=False)
 
     def forward(self,
                 resource_availability: torch.Tensor,  # [batch, resources] - present or absent
@@ -275,9 +278,12 @@ class CausalDependencyGraph(nn.Module):
         # Entry [i,j] = how strongly agent i's success depends on agent j
         dependency_strengths = torch.sigmoid(self.dependency_matrix)
 
+        # Map resources to need-satisfaction capacity: [batch, resources] -> [batch, needs]
+        need_capacity = torch.sigmoid(self.resource_to_needs(resource_availability))  # [batch, needs]
+
         # Calculate what actually gets met vs. what's blocked
-        met_needs = agent_needs * resource_availability.unsqueeze(1)  # If resource present, need can be met
-        blocked_needs = agent_needs * (1 - resource_availability).unsqueeze(1)  # If absent, need is blocked
+        met_needs = agent_needs * need_capacity.unsqueeze(1)  # [batch, 1, needs] broadcast to [batch, agents, needs]
+        blocked_needs = agent_needs * (1 - need_capacity).unsqueeze(1)
 
         # Cascade effects: if A depends on B, and B can't produce, A fails too
         cascade_impact = torch.matmul(
@@ -430,7 +436,7 @@ class MoneyFreeDynamicsModel(nn.Module):
         # Core components (no money anywhere)
         self.energy_ledger = EnergyLedger(constraints)
         self.time_allocation = TimeAllocationMatrix(constraints)
-        self.causal_dependencies = CausalDependencyGraph(num_agents)
+        self.causal_dependencies = CausalDependencyGraph(num_agents, num_resources)
         self.survival_pressure = SurvivalPressureGradient()
         self.poison_detector = MoneyAssumptionPoison(num_activities + num_agents)
 
@@ -493,7 +499,7 @@ class MoneyFreeDynamicsModel(nn.Module):
         if return_diagnostics:
             output['diagnostics'] = {
                 'years_viable': energy_analysis['years_until_collapse'],
-                'time_deficit_days': time_analysis['collapse_timeline_days'],
+                'time_deficit_days': time_analysis['sustainability_timeline_days'],
                 'coercion_level': pressure_analysis['coercion_level'],
                 'hidden_assumptions': poison_analysis['poison_probability'],
             }
@@ -581,7 +587,7 @@ def demonstrate_money_free_model():
     print(f"  In forced acceptance? {analysis['survival_pressure']['in_forced_acceptance'].item()}")
 
     print("\n**CAUSAL DEPENDENCIES**")
-    print(f"  Critical shortages? {analysis['causal_dependencies']['critical_shortages'].item()}")
+    print(f"  Critical shortages? {analysis['causal_dependencies']['critical_shortages'].any().item()}")
     print(f"  Blocked needs: {analysis['causal_dependencies']['blocked_needs'].sum().item():.0f}")
 
     print("\n**HIDDEN ASSUMPTIONS**")
