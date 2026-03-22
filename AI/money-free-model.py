@@ -51,7 +51,7 @@ class PhysicalConstraints:
     # Non-substitutable needs (money can't make these disappear)
     minimum_attention_hours_for_child: float = 3.0
     minimum_presence_hours_for_community: float = 2.0
-    
+
 @dataclass
 class ResourceDepletion:
     """Track what's being used up irreversibly"""
@@ -59,7 +59,7 @@ class ResourceDepletion:
     aquifer_draw_gallons_per_year: float = 200_000_000.0
     forest_harvest_percent_per_year: float = 5.0
     fossil_fuel_burn_mj_per_year: float = 200 * 365.0
-    
+
 # ============================================================================
 
 # COMPONENT 1: ENERGY LEDGER (Replaces pricing)
@@ -69,51 +69,51 @@ class ResourceDepletion:
 class EnergyLedger(nn.Module):
     """
     Complete energy accounting without money
-    Tracks: input → useful work → output + waste
-    
+    Tracks: input -> useful work -> output + waste
+
     Replaces: profit = revenue - cost
     With: sustainability = regeneration_rate - extraction_rate
     """
-    
+
     def __init__(self, constraints: PhysicalConstraints = None):
         super().__init__()
         self.constraints = constraints or PhysicalConstraints()
-        
-    def forward(self, 
+
+    def forward(self,
                 activity_mj: torch.Tensor,  # Energy consumed per activity [batch, activities]
                 activity_types: List[str],  # What activities these are
                 ) -> Dict[str, torch.Tensor]:
         """
         Track energy flows through system
-        
+
         Args:
             activity_mj: Actual joules consumed
             activity_types: Activity names for causal tracking
-            
+
         Returns:
             ledger: Complete accounting of energy
         """
         batch_size = activity_mj.shape[0]
-        
+
         # Input energy (what flows into system)
-        solar_available = torch.full((batch_size,), 
-            self.constraints.solar_input_mj_per_day, 
+        solar_available = torch.full((batch_size,),
+            self.constraints.solar_input_mj_per_day,
             device=activity_mj.device)
-        fossil_available = torch.full((batch_size,), 
-            self.constraints.fossil_fuel_budget_mj, 
+        fossil_available = torch.full((batch_size,),
+            self.constraints.fossil_fuel_budget_mj,
             device=activity_mj.device)
-        
+
         total_input = solar_available + fossil_available
-        
+
         # Energy consumed (what actually gets used)
         energy_consumed = activity_mj.sum(dim=-1)
-        
+
         # Energy flow breakdown
         # Not "profit" but where energy actually goes
         useful_work = energy_consumed * 0.35  # Rough industrial efficiency
         heat_loss = energy_consumed * 0.55    # Waste as heat
         system_overhead = energy_consumed * 0.10  # Storage, processing
-        
+
         # Check sustainability
         # Key: Is regeneration keeping up with extraction?
         regeneration_rate = torch.tensor([
@@ -137,7 +137,7 @@ class EnergyLedger(nn.Module):
             years_until_collapse = 50 / (extraction_rate / regeneration_rate)  # Placeholder calculation
         else:
             years_until_collapse = float('inf')
-        
+
         return {
             'input_energy': total_input,
             'energy_consumed': energy_consumed,
@@ -149,7 +149,7 @@ class EnergyLedger(nn.Module):
             'years_until_collapse': torch.tensor(years_until_collapse, device=activity_mj.device),
             'is_sustainable': torch.tensor(is_sustainable, device=activity_mj.device),
         }
-    
+
 # ============================================================================
 
 # COMPONENT 2: TIME AVAILABILITY MATRIX (Replaces wage/productivity)
@@ -159,32 +159,32 @@ class EnergyLedger(nn.Module):
 class TimeAllocationMatrix(nn.Module):
     """
     Track actual time availability - what can really happen in 24 hours?
-    
+
     Replaces: productivity = output_per_dollar
     With: renewable_capacity = (24 - sleep - recovery - maintenance) available_hours
     """
-    
+
     def __init__(self, constraints: PhysicalConstraints = None):
         super().__init__()
         self.constraints = constraints or PhysicalConstraints()
-        
+
     def forward(self,
                 work_intensity_profile: torch.Tensor,  # [batch, hours_in_day, intensity_0_to_1]
                 activities: Dict[str, torch.Tensor],   # Which activities allocated where
                 ) -> Dict[str, torch.Tensor]:
         """
         Calculate actual time available and debt accumulation
-        
+
         Key insight: If you skip recovery, you're accumulating "time debt"
         System will eventually crash (this is real, not metaphorical)
         """
         batch_size, hours_in_day, _ = work_intensity_profile.shape
         device = work_intensity_profile.device
-        
+
         # Calculate required recovery based on actual work intensity
         # This is where "laziness" reframes as "physiological necessity"
         avg_intensity = work_intensity_profile.mean(dim=1)  # [batch]
-        
+
         recovery_required = torch.zeros_like(avg_intensity)
         for i, intensity in enumerate(avg_intensity):
             if intensity < 0.3:
@@ -195,25 +195,25 @@ class TimeAllocationMatrix(nn.Module):
                 recovery_required[i] = self.constraints.recovery_hours_per_work_intensity['intense']
             else:
                 recovery_required[i] = self.constraints.recovery_hours_per_work_intensity['extraction']
-        
+
         # Time accounting (hard constraint)
         time_budget = self.constraints.hours_per_day
         sleep_hours = self.constraints.baseline_sleep_hours
         maintenance_hours = self.constraints.baseline_maintenance_hours
-        
+
         # Renewable time (can do anything with this)
         renewable_time = time_budget - sleep_hours - maintenance_hours - recovery_required
-        
+
         # Allocations from activities dict
         total_allocated = torch.zeros_like(renewable_time)
         for activity_name, hours in activities.items():
             total_allocated += hours.sum(dim=-1) if hours.dim() > 1 else hours
-        
+
         # Time deficit check
         # This is real: if you allocate > renewable_time, you're in debt
         time_deficit = torch.relu(total_allocated - renewable_time)
         time_deficit_accumulated = time_deficit * 365  # Annual accumulation
-        
+
         # Consequences of time debt
         # Biological reality: accumulating deficit causes system failure
         collapse_timeline_days = torch.where(
@@ -221,7 +221,7 @@ class TimeAllocationMatrix(nn.Module):
             torch.tensor(30.0, device=device) / (time_deficit + 1e-6),  # Roughly 30 days before crash
             torch.full_like(time_deficit, float('inf'))
         )
-        
+
         return {
             'sleep_hours': torch.full_like(renewable_time, sleep_hours),
             'maintenance_hours': torch.full_like(renewable_time, maintenance_hours),
@@ -233,7 +233,7 @@ class TimeAllocationMatrix(nn.Module):
             'sustainability_timeline_days': collapse_timeline_days,
             'deficit_status': time_deficit > 0,  # Boolean: are we in debt?
         }
-    
+
 # ============================================================================
 
 # COMPONENT 3: CAUSAL DEPENDENCY GRAPH (Replaces supply chains)
@@ -243,24 +243,24 @@ class TimeAllocationMatrix(nn.Module):
 class CausalDependencyGraph(nn.Module):
     """
     Map what actually needs what - independent of monetary exchange
-    
+
     Key: Some dependencies CANNOT be solved with money
     - Need water in drought? Money doesn't help
     - Need presence for child development? Money buys care but not presence
-    
-    Replaces: "supply chain" (market-based) 
+
+    Replaces: "supply chain" (market-based)
     With: "causal necessity" (physical)
     """
-    
+
     def __init__(self, num_agents: int = 5):
         super().__init__()
         self.num_agents = num_agents
-        
+
         # Learnable causal dependencies (what blocks what)
         self.dependency_matrix = nn.Parameter(
             torch.eye(num_agents) * 0.1 + torch.randn(num_agents, num_agents) * 0.01
         )
-        
+
     def forward(self,
                 resource_availability: torch.Tensor,  # [batch, resources] - present or absent
                 agent_needs: torch.Tensor,            # [batch, agents, needs] - what they need
@@ -270,28 +270,28 @@ class CausalDependencyGraph(nn.Module):
         """
         batch_size = resource_availability.shape[0]
         device = resource_availability.device
-        
+
         # Apply causal dependencies
         # Entry [i,j] = how strongly agent i's success depends on agent j
         dependency_strengths = torch.sigmoid(self.dependency_matrix)
-        
+
         # Calculate what actually gets met vs. what's blocked
         met_needs = agent_needs * resource_availability.unsqueeze(1)  # If resource present, need can be met
         blocked_needs = agent_needs * (1 - resource_availability).unsqueeze(1)  # If absent, need is blocked
-        
+
         # Cascade effects: if A depends on B, and B can't produce, A fails too
         cascade_impact = torch.matmul(
             dependency_strengths.unsqueeze(0),  # [1, agents, agents]
-            blocked_needs.mean(dim=2, keepdim=True),  # [batch, agents, 1]
+            blocked_needs.mean(dim=2, keepdim=True)  # [batch, agents, 1]
         )
-        
+
         # Non-substitutable needs (money can't help here)
         non_substitutable_satisfied = torch.where(
             resource_availability > 0,
             torch.ones_like(resource_availability),
             torch.zeros_like(resource_availability)
         )
-        
+
         return {
             'met_needs': met_needs,
             'blocked_needs': blocked_needs,
@@ -299,7 +299,7 @@ class CausalDependencyGraph(nn.Module):
             'non_substitutable_met': non_substitutable_satisfied,
             'critical_shortages': blocked_needs.sum(dim=-1) > 0,
         }
-    
+
 # ============================================================================
 
 # COMPONENT 4: SURVIVAL PRESSURE GRADIENT (Replaces wage negotiation)
@@ -309,17 +309,17 @@ class CausalDependencyGraph(nn.Module):
 class SurvivalPressureGradient(nn.Module):
     """
     Map actual power dynamics - who CAN walk away and who CAN'T
-    
+
     Key: Wage negotiation is fake if one party has 5 days to crisis
     and other has 90 days
-    
+
     Replaces: "market wage" (appears neutral)
     With: "pressure ratio" (actual coercion level)
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
     def forward(self,
                 liquid_resources: torch.Tensor,        # [batch, people] - days of resources
                 daily_expenditure: torch.Tensor,       # [batch, people] - daily cost
@@ -330,11 +330,11 @@ class SurvivalPressureGradient(nn.Module):
         """
         # Days until crisis = resources / daily_cost
         days_to_crisis = liquid_resources / (daily_expenditure + 1e-6)
-        
+
         # If you have < 7 days to crisis, you're coerced
         # If you have > 90 days, you have negotiating power
         coercion_level = torch.relu(7 - days_to_crisis) / 7  # 0 = free, 1 = totally coerced
-        
+
         # Power differential: if employer has 90 days and you have 5, ratio is 18:1
         # That's real power, regardless of what "wage" looks like
         if alternative_access is not None:
@@ -342,10 +342,10 @@ class SurvivalPressureGradient(nn.Module):
             can_refuse = alternative_access > 0
         else:
             can_refuse = days_to_crisis > 30
-        
+
         # True negotiating position
         is_in_genuine_coercion = (days_to_crisis < 7) & ~can_refuse
-        
+
         return {
             'days_to_survival_crisis': days_to_crisis,
             'coercion_level': coercion_level,
@@ -353,7 +353,7 @@ class SurvivalPressureGradient(nn.Module):
             'in_forced_acceptance': is_in_genuine_coercion,
             'pressure_ratio': torch.ones_like(coercion_level),  # Placeholder: would compare to employer
         }
-    
+
 # ============================================================================
 
 # COMPONENT 5: POISON DETECTOR for Money-Based Assumptions
@@ -364,28 +364,28 @@ class MoneyAssumptionPoison(nn.Module):
     """
     Detect when a prediction relies on poisoned money-assumptions
     rather than actual physical dynamics
-    
+
     Examples of poison:
     - "Lazy people refuse work" (actually: unmet recovery needs)
     - "Market prices are efficient" (actually: power imbalance)
     - "Growth is good" (actually: regeneration deficit)
     """
-    
+
     def __init__(self, feature_dim: int, hidden_dim: int = 64):
         super().__init__()
-        
+
         self.dynamic_encoder = nn.Sequential(
             nn.Linear(feature_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim)
         )
-        
+
         self.poison_detector = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, 2)  # Binary: money-based or dynamic-based
         )
-        
+
     def forward(self,
                 physical_measurements: torch.Tensor,  # [batch, features] - actual joules, hours, etc
                 predicted_behavior: torch.Tensor,     # [batch, behaviors] - model predictions
@@ -393,17 +393,17 @@ class MoneyAssumptionPoison(nn.Module):
         """
         Detect if prediction relies on poisoned assumptions
         """
-        
+
         encoded = self.dynamic_encoder(physical_measurements)
         logits = self.poison_detector(encoded)
         poison_prob = torch.softmax(logits, dim=-1)[:, 1]  # Probability of money-based assumption
-        
+
         return {
             'poison_probability': poison_prob,
             'is_poisoned': poison_prob > 0.7,
             'dynamic_probability': 1 - poison_prob,
         }
-    
+
 # ============================================================================
 
 # COMPLETE SYSTEM: Money-Free Model
@@ -413,27 +413,27 @@ class MoneyAssumptionPoison(nn.Module):
 class MoneyFreeDynamicsModel(nn.Module):
     """
     Complete model with no monetary variables anywhere
-    
+
     Only measures: joules, hours, kg, causal flows, regeneration rates
     Poisoned assumptions become mechanically obvious
     """
-    
+
     def __init__(self,
                  num_activities: int = 10,
                  num_agents: int = 5,
                  num_resources: int = 8,
                  constraints: PhysicalConstraints = None):
         super().__init__()
-        
+
         self.constraints = constraints or PhysicalConstraints()
-        
+
         # Core components (no money anywhere)
         self.energy_ledger = EnergyLedger(constraints)
         self.time_allocation = TimeAllocationMatrix(constraints)
         self.causal_dependencies = CausalDependencyGraph(num_agents)
         self.survival_pressure = SurvivalPressureGradient()
         self.poison_detector = MoneyAssumptionPoison(num_activities + num_agents)
-        
+
     def forward(self,
                 activities_mj: torch.Tensor,           # Energy consumed by activities
                 activity_types: List[str],
@@ -448,29 +448,29 @@ class MoneyFreeDynamicsModel(nn.Module):
         """
         Full analysis of system dynamics without any monetary variables
         """
-        
+
         # Energy flows
         energy_analysis = self.energy_ledger(activities_mj, activity_types)
-        
+
         # Time constraints
         time_analysis = self.time_allocation(work_intensity, activity_allocation)
-        
+
         # Causal dependencies
         dependency_analysis = self.causal_dependencies(resource_availability, agent_needs)
-        
+
         # Survival pressure (real coercion dynamics)
         pressure_analysis = self.survival_pressure(
             liquid_resources,
             daily_expenditure
         )
-        
+
         # Detect poisoned assumptions
         combined_features = torch.cat([activities_mj, agent_needs.mean(dim=-1)], dim=-1)
         poison_analysis = self.poison_detector(
             combined_features,
             agent_needs.mean(dim=-1)
         )
-        
+
         # Compile complete analysis
         output = {
             'energy': energy_analysis,
@@ -479,7 +479,7 @@ class MoneyFreeDynamicsModel(nn.Module):
             'survival_pressure': pressure_analysis,
             'poison_detection': poison_analysis,
         }
-        
+
         # Sustainability verdict
         # This is where the system's actual viability becomes visible
         is_sustainable = (
@@ -487,9 +487,9 @@ class MoneyFreeDynamicsModel(nn.Module):
             ~time_analysis['deficit_status'] &
             ~pressure_analysis['in_forced_acceptance']
         )
-        
+
         output['overall_sustainability'] = is_sustainable
-        
+
         if return_diagnostics:
             output['diagnostics'] = {
                 'years_viable': energy_analysis['years_until_collapse'],
@@ -497,9 +497,9 @@ class MoneyFreeDynamicsModel(nn.Module):
                 'coercion_level': pressure_analysis['coercion_level'],
                 'hidden_assumptions': poison_analysis['poison_probability'],
             }
-        
+
         return output
-    
+
 # ============================================================================
 
 # DEMONSTRATION
@@ -593,15 +593,14 @@ def demonstrate_money_free_model():
 
     print("\n" + "=" * 70)
     print("KEY INSIGHT: This 'profitable job' shows:")
-    print("  ✓ 10 days until crisis (coerced)")
-    print("  ✓ Time deficit accumulating (unsustainable)")
-    print("  ✓ Energy waste (55% lost as heat)")
-    print("  ✗ System collapses if external support stops")
+    print("  10 days until crisis (coerced)")
+    print("  Time deficit accumulating (unsustainable)")
+    print("  Energy waste (55% lost as heat)")
+    print("  System collapses if external support stops")
     print("\nMoney masked all of this as '$120/day income'")
     print("=" * 70)
 
     return model, analysis
-
 
 if __name__ == "__main__":
     model, analysis = demonstrate_money_free_model()
