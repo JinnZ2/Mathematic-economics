@@ -65,6 +65,8 @@ Productive Capitalism: VE/VL < 0.1 (capital facilitates production)
 Extraction (Mercantilism): VE/VL > 0.3 (capital extracts from production)
 ```
 
+**Falsification:** Obtain BLS labor share data (series PRS85006173). Compute VE/VL = (1 - labor_share) / labor_share. If measured VE/VL < 0.1 for the current period, the system is within Smith's productive threshold. Counter-measurement requires providing alternative labor share data from a comparable source. **Data API:** FRED series COE (compensation) and CP (corporate profits).
+
 -----
 
 ### Equation 2: Collective vs. Private Resource Dependence
@@ -118,6 +120,8 @@ SID = 1.0 (pure socialist enterprise)
 - **SID > 0.8:** Business essentially socialist
 - **SID = 1.0:** Pure socialist enterprise (defense contractors, government employees)
 
+**Falsification:** For a specific business, enumerate all collectively-funded inputs (roads, educated workers, legal system, currency, police) and assign market-equivalent values. Enumerate purely private inputs. Compute SID. If SID < 0.5, the business is majority private-resource-dependent. **Data API:** BEA NIPA Table 3.1 (government expenditures), Census state/local government finances API.
+
 -----
 
 ### Equation 3: Risk Distribution Inequality
@@ -162,6 +166,8 @@ Workers bear 4x more risk than investors per capita
 - **Stated assumption:** Investors bear more risk (RI < 1)
 - **Measured:** Workers bear more risk per capita (RI > 3)
 
+**Falsification:** Compute normalized risk scores for workers (BLS JOLTS layoff rate, Census uninsured rate, BLS wage variance) and investors (portfolio drawdown adjusted for diversification, limited liability, bailout probability). If RI < 1, investors bear more per-capita risk. **Data API:** BLS JOLTS series JTS000000000000000LDR, FRED VIX series VIXCLS.
+
 -----
 
 ### Equation 4: Democratic Power Distribution
@@ -205,6 +211,8 @@ Variance is enormous → DI approaches oligarchy
 Actual democracy: DI = Low (one person, one vote regardless of wealth)
 ```
 
+**Falsification:** Compute power scores using wealth (Fed SCF data) and influence multiplier (OpenSecrets lobbying data, board positions). If power ratio < 1,000:1 between top and median, concentration is lower than estimated. **Data API:** FRED series WFRBST01134 (top 1% wealth share), OpenSecrets API.
+
 -----
 
 ### Equation 5: Wealth Source Analysis
@@ -243,6 +251,8 @@ Trend: Decreasing LWR = increasing extraction
 - LWR should increase (productive labor rewarded)
 - **Actual:** LWR decreasing (extraction increasing)
 
+**Falsification:** Using Fed SCF microdata, compute median LWR across wealth deciles. If median LWR > 1 for the general population, labor remains the primary wealth source. Track trend over time to test direction. **Data API:** FRED series MEHOINUSA672N (median income), SP500 (asset returns).
+
 -----
 
 ### Equation 6: Money Creation Socialist Index
@@ -270,6 +280,8 @@ MSI ≈ 0.95 to 1.0
 - **Current system:** MSI ≈ 0.98
 
 95%+ of money supply originates through government issuance or government-regulated fractional reserve banking. MSI measures collective-origin fraction of the money supply.
+
+**Falsification:** Compute ratio of non-government-originated money (cryptocurrency, private scrip) to total money supply (M2). If this ratio exceeds 0.1, MSI < 0.9. **Data API:** FRED series M2SL, CURRCIR, BOGMBASE.
 
 -----
 
@@ -312,6 +324,8 @@ Individual bears full loss; BSC = 0 (no collective coverage)
 - **Large capital holders:** BSC >> 1 (high collective coverage)
 - **Workers:** BSC ≈ 0 (minimal collective coverage)
 
+**Falsification:** Compute total government support (TARP + Fed facilities + FDIC guarantees) and total private-sector losses for a specific crisis period. If BSC < 1, collective rescue was less than private losses. **Data API:** FRED series WALCL (Fed balance sheet), Treasury TARP reports.
+
 -----
 
 ### Equation 8: Fractional Reserve Socialist Multiplier
@@ -341,6 +355,8 @@ Socialist creation percentage = 900/1000 = 90%
 
 - **MM > 5:** Highly socialist money creation
 - **Current system:** MM ≈ 10 (90% collective creation)
+
+**Falsification:** Compare FRED MULT series (actual money multiplier) to theoretical 1/reserve_requirement. If actual multiplier is significantly lower, collective-creation fraction is below theoretical maximum. **Data API:** FRED series MULT, REQRESNS.
 
 -----
 
@@ -375,6 +391,8 @@ Average ISR for typical business: 5-20x
 = Significant collective subsidy to nominally private business
 ```
 
+**Falsification:** For a specific business, compute market-equivalent cost of all public services used (private road tolls, private security, private arbitration, private education of workforce). Compare to taxes and fees paid. If ISR < 2, the business pays near market value. **Data API:** FHWA Highway Statistics, IRS Statistics of Income, BEA NIPA Table 3.16.
+
 -----
 
 ## Composite Indices
@@ -407,6 +425,8 @@ OSDI = 0.776 (77.6% collective-infrastructure dependency)
 - **OSDI > 0.7:** Predominantly collective-dependent system
 - **Current US economy:** OSDI ≈ 0.75-0.80
 - **Observation:** System measures as 75-80% collectively dependent; conventionally labeled “capitalist”
+
+**Falsification:** Compute OSDI under alternative weight schemes (equal weighting, PCA-derived weighting). If OSDI < 0.5 under any reasonable weighting, the conclusion of majority collective dependency does not hold. See `data/sensitivity_analysis.py` for Monte Carlo analysis across weight and component ranges.
 
 -----
 
@@ -447,6 +467,8 @@ If system redistributes wealth downward:
 Measured direction of wealth flow is upward, not downward.
 ```
 
+**Falsification:** Compute year-over-year change in top 1% and bottom 50% wealth shares from FRED or WID data. If UFR < 1 for a sustained period, wealth is flowing downward. **Data API:** FRED series WFRBST01134 (top 1% share), WFRBSB50215 (bottom 50% share), World Inequality Database API.
+
 -----
 
 ### Equation 11: Labor Value Extraction Rate
@@ -480,6 +502,8 @@ Trend: Increasing extraction from labor
 - Competitive markets should decrease ER (labor gets more)
 - **Actual:** ER increasing (capital extracts more)
 - **Observation:** Trend diverges from Smith’s competitive-market prediction
+
+**Falsification:** Compute ER = 1 - (BLS labor share / 100) for nonfarm business sector. If ER < 0.35 (labor share > 65%), the system is within the labor-favored threshold. Track trend direction. **Data API:** BLS series PRS85006173, FRED series ULCNFB.
 
 -----
 
@@ -516,6 +540,8 @@ Average across major industries: HHI ≈ 3,500
 - **Actual system:** HHI high (concentrated power)
 - **Observation:** Concentration levels exceed Smith's competitive-market thresholds
 
+**Falsification:** Compute HHI by NAICS industry code using Census Economic Census concentration data. If average HHI across major industries < 1,500, the system is within competitive thresholds. **Data source:** Census Economic Census (published every 5 years), DOJ/FTC merger guidelines for official thresholds.
+
 -----
 
 ## Temporal Analysis: Definition Drift
@@ -546,6 +572,8 @@ Meaning inverted completely over 64 years at 2.2%/year
 - Semantic drift introduces measurement instability in term-based analysis
 - Mathematical definitions remain invariant over time
 - Equations provide temporally stable measurement baselines
+
+**Falsification:** Using diachronic word embeddings (e.g., Stanford HistWords), compute cosine distance between the embedding of "capitalism" at decade intervals. If drift rate is near zero, the term's meaning is stable. Compare to mathematical term drift rates as control. **Data source:** Google Ngrams API, Stanford HistWords, COHA corpus.
 
 -----
 
@@ -847,4 +875,38 @@ The equations measure structural properties independent of labeling conventions.
 
 -----
 
-*This framework measures structural properties of economic systems — energy flows, resource dependencies, risk distributions, and power concentrations — using falsifiable equations. The measurements characterize the current system as predominantly collectively dependent, extraction-dominant, and highly concentrated in control.*
+## Limitations and Assumptions
+
+### What this framework assumes
+
+1. **Measurability:** All variables (VE, VL, C, P, etc.) can be quantified with sufficient precision for structural characterization. In practice, some variables (influence multipliers, market-equivalent values of public services) require estimation with acknowledged uncertainty.
+
+2. **Threshold choices:** The classification thresholds (VE/VL < 0.1, SID > 0.5, HHI < 1,500, etc.) are stated as reference points, not empirically derived boundaries. Different threshold choices can change classifications without changing measured values. See `data/sensitivity_analysis.py` for analysis of threshold sensitivity.
+
+3. **OSDI weighting:** The composite index weights (0.3/0.2/0.2/0.15/0.15) are not empirically optimized. They represent an initial allocation subject to sensitivity analysis. Results are robust to moderate perturbation but the specific OSDI value should be interpreted as approximate.
+
+4. **Illustrative values:** The numerical examples in this document use illustrative values to demonstrate methodology. Empirically grounded values require data from the sources listed in `equations.yaml` and computed via `data/fetch_and_compute.py`.
+
+5. **Static analysis:** These equations measure current-state properties. They do not model dynamic transitions, feedback loops, or path dependencies between states. The predictive models (stability, collapse timeline) are structural extrapolations, not calibrated forecasts.
+
+### What this framework does not do
+
+- **Prescribe policy:** Measurements characterize structure; they do not determine what structure is desirable. The framework measures what *is*, not what *ought to be*.
+- **Replace ethical reasoning:** Measured values inform but do not substitute for normative judgment about fairness, justice, or human flourishing.
+- **Eliminate subjectivity:** Variable definitions, threshold choices, and weight selections involve judgment. The framework makes these choices explicit and testable rather than implicit.
+- **Claim completeness:** These 13 equations do not capture all economically relevant variables. They measure a specific set of structural properties; other frameworks (ecological economics, biophysical economics, thermoeconomics) measure complementary properties.
+
+### Related frameworks
+
+- **Thermoeconomics** (Georgescu-Roegen, 1971): Entropy-based analysis of economic processes
+- **Biophysical economics** (Hall & Klitgaard, 2012): Energy return on investment (EROI) as economic constraint
+- **Ecological economics** (Daly, 1991): Steady-state economics within planetary boundaries
+- **World-systems analysis** (Wallerstein, 1974): Core-periphery extraction patterns
+
+### Data sources and reproducibility
+
+All equations reference specific, publicly available data sources with API endpoints documented in `equations.yaml`. Computation scripts are provided in `data/` for independent verification. See `data/README.md` for setup instructions.
+
+-----
+
+*This framework measures structural properties of economic systems — energy flows, resource dependencies, risk distributions, and power concentrations — using falsifiable equations. Each equation includes a falsification method and data source references. The measurements characterize the current system as predominantly collectively dependent, extraction-dominant, and highly concentrated in control. Threshold choices, weighting assumptions, and illustrative values are documented and subject to sensitivity analysis.*

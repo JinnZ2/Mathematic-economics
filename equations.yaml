@@ -1,0 +1,509 @@
+# Mathematic-Economics: Structured Equation Definitions
+# Machine-readable format for programmatic consumption
+# All equations from README.md with data sources and API endpoints
+
+metadata:
+  version: "1.0"
+  license: "CC0-1.0"
+  repository: "Mathematic-economics"
+  description: >
+    Structural measurement equations for economic systems.
+    Each equation measures an observable system property
+    independent of labeling conventions.
+
+equations:
+  - id: "VE_VL"
+    name: "Value Extraction to Value Labor Ratio"
+    equation_number: 1
+    formula: "VE / VL"
+    description: "Ratio of value extracted by capital holders to value produced by labor"
+    variables:
+      VE:
+        name: "Value Extracted by Capital"
+        unit: "currency/year"
+        components: ["dividends", "interest", "rent", "capital_gains"]
+      VL:
+        name: "Value Produced by Labor"
+        unit: "currency/year"
+        components: ["total_goods_services_produced_by_workers"]
+    range: [0, null]
+    thresholds:
+      productive_capitalism: {max: 0.1, label: "Capital facilitates production"}
+      extraction: {min: 0.3, label: "Capital extracts from production"}
+    current_measured_value: 0.4
+    data_sources:
+      - name: "BLS Labor Productivity and Costs"
+        series_id: "PRS85006173"
+        description: "Labor share of output, nonfarm business sector"
+        api: "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+        notes: "VE/VL can be derived as (1 - labor_share) / labor_share"
+      - name: "FRED Corporate Profits"
+        series_id: "CP"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "After-tax corporate profits as proxy for VE"
+      - name: "FRED Compensation of Employees"
+        series_id: "COE"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Total compensation as proxy for VL"
+    falsification: >
+      Obtain BLS labor share data (PRS85006173). Compute VE/VL = (1 - labor_share) / labor_share.
+      If measured VE/VL < 0.1, the system is within Smith's productive-capitalism threshold.
+      Counter-measurement requires providing alternative labor share data from a comparable source.
+
+  - id: "SID"
+    name: "Socialist Infrastructure Dependency"
+    equation_number: 2
+    formula: "C / (C + P)"
+    description: "Fraction of business resource dependency that is collectively funded"
+    variables:
+      C:
+        name: "Value of Collective Resources Used"
+        unit: "currency/year"
+        components: ["roads", "courts", "police", "education", "banking_system", "legal_tender"]
+      P:
+        name: "Value of Purely Private Resources Used"
+        unit: "currency/year"
+        components: ["private_buildings", "private_equipment", "private_land"]
+    range: [0, 1]
+    thresholds:
+      majority_collective: {min: 0.5, label: "Majority dependent on collective systems"}
+      essentially_collective: {min: 0.8, label: "Predominantly collective"}
+      pure_collective: {value: 1.0, label: "Fully collectively funded"}
+    current_measured_value: 0.60
+    data_sources:
+      - name: "BEA Government Expenditures"
+        table: "NIPA Table 3.1"
+        api: "https://apps.bea.gov/api/data/"
+        notes: "Government consumption expenditures and gross investment"
+      - name: "CBO Infrastructure Spending"
+        url: "https://www.cbo.gov/data/budget-economic-data"
+        notes: "Public spending on transportation and water infrastructure"
+      - name: "Census Annual Survey of State and Local Government Finances"
+        api: "https://api.census.gov/data/timeseries/govs"
+        notes: "State/local government expenditure by function"
+    falsification: >
+      For a specific business, enumerate all collectively-funded inputs (roads used, educated
+      workers, legal system, currency system, police protection) and assign market-equivalent
+      values. Enumerate all purely private inputs. Compute SID. If SID < 0.5, the business
+      is majority private-resource-dependent. Requires itemized resource accounting.
+
+  - id: "RI"
+    name: "Risk Inequality"
+    equation_number: 3
+    formula: "(Risk_workers / N_workers) / (Risk_investors / N_investors)"
+    description: "Per-capita risk borne by workers relative to investors"
+    variables:
+      Risk_workers:
+        name: "Total Risk Borne by Workers"
+        components: ["job_loss_probability", "healthcare_loss_probability", "wage_volatility", "retirement_insecurity", "skill_obsolescence"]
+      Risk_investors:
+        name: "Total Risk Borne by Investors"
+        components: ["portfolio_loss", "limited_liability_cap", "bailout_probability", "tax_loss_deductions"]
+    range: [0, null]
+    thresholds:
+      equal_risk: {value: 1.0, label: "Equal per-capita risk distribution"}
+      worker_excess: {min: 3.0, label: "Workers bear substantially more risk"}
+    current_measured_value: 4.14
+    data_sources:
+      - name: "BLS Job Openings and Labor Turnover Survey (JOLTS)"
+        series_id: "JTS000000000000000LDR"
+        api: "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+        notes: "Layoff and discharge rate as job loss probability"
+      - name: "FRED Unemployment Rate"
+        series_id: "UNRATE"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "Census Health Insurance Coverage"
+        api: "https://api.census.gov/data/timeseries/healthins/sahie"
+        notes: "Uninsured rate as proxy for healthcare loss risk"
+      - name: "FRED S&P 500 Volatility (VIX)"
+        series_id: "VIXCLS"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Market volatility as investor risk proxy"
+    falsification: >
+      Compute normalized risk scores for workers (weighted sum of job loss rate, uninsured rate,
+      wage variance) and investors (weighted sum of portfolio drawdown rate adjusted for
+      diversification, limited liability, and bailout probability). If RI < 1, investors
+      bear more per-capita risk. Requires agreed-upon risk normalization methodology.
+
+  - id: "DI"
+    name: "Democracy Index"
+    equation_number: 4
+    formula: "Var(P_1, P_2, ..., P_n) where P_i = W_i * I_i"
+    description: "Variance in decision-making power across individuals"
+    variables:
+      P_i:
+        name: "Power of Individual i"
+        formula: "W_i * I_i"
+      W_i:
+        name: "Wealth of Individual i"
+        unit: "currency"
+      I_i:
+        name: "Influence Multiplier"
+        components: ["political_access", "media_control", "board_positions"]
+    range: [0, null]
+    thresholds:
+      perfect_democracy: {value: 0, label: "Equal decision-making power"}
+      pure_oligarchy: {value: null, label: "Infinite concentration (DI → ∞)"}
+    current_measured_value: "~100,000:1 power ratio"
+    data_sources:
+      - name: "FRED Wealth Distribution"
+        series_id: "WFRBST01134"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Share of total net worth held by top 1%"
+      - name: "Fed Survey of Consumer Finances"
+        url: "https://www.federalreserve.gov/econres/scfindex.htm"
+        notes: "Wealth distribution by percentile, triennial survey"
+      - name: "OpenSecrets Lobbying Data"
+        api: "https://www.opensecrets.org/api/"
+        notes: "Lobbying expenditure as influence multiplier proxy"
+    falsification: >
+      Compute power scores for a sample of individuals using wealth (SCF data) and
+      influence multiplier (lobbying spend, board positions, media ownership).
+      Calculate variance. If power ratio is < 1000:1, the system is less concentrated
+      than estimated. Requires agreed-upon influence multiplier methodology.
+
+  - id: "LWR"
+    name: "Labor Wealth Ratio"
+    equation_number: 5
+    formula: "WL / WO"
+    description: "Ratio of wealth accumulated from labor vs. wealth from ownership"
+    variables:
+      WL:
+        name: "Wealth from Labor"
+        formula: "hourly_wage * hours_worked * years"
+        unit: "currency"
+      WO:
+        name: "Wealth from Ownership"
+        formula: "assets * return_rate * years"
+        unit: "currency"
+    range: [0, null]
+    thresholds:
+      working_class: {min: 1.0, label: "Wealth primarily from labor"}
+      mixed: {value: 1.0, label: "Equal sources"}
+      capital_class: {max: 1.0, label: "Wealth primarily from ownership"}
+    current_measured_value: 0.25
+    data_sources:
+      - name: "BLS Median Usual Weekly Earnings"
+        series_id: "LEU0252881500"
+        api: "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+      - name: "FRED Real Median Household Income"
+        series_id: "MEHOINUSA672N"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED Total Return on S&P 500"
+        series_id: "SP500"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Asset return rate proxy"
+      - name: "Fed Survey of Consumer Finances"
+        url: "https://www.federalreserve.gov/econres/scfindex.htm"
+        notes: "Wealth composition by source (labor income vs. capital income)"
+    falsification: >
+      Using SCF microdata, compute median LWR across wealth deciles. If median LWR > 1
+      for the general population, labor remains the primary wealth source. Track over
+      time to test trend direction.
+
+  - id: "MSI"
+    name: "Money Socialist Index"
+    equation_number: 6
+    formula: "government_created_money / total_money_supply"
+    description: "Fraction of money supply originating through government or government-regulated mechanisms"
+    variables:
+      government_created_money:
+        components: ["physical_currency", "federal_reserve_actions", "fractional_reserve_regulated"]
+      total_money_supply:
+        components: ["M1", "M2"]
+    range: [0, 1]
+    thresholds:
+      predominantly_collective: {min: 0.9, label: "Money supply predominantly collectively originated"}
+    current_measured_value: 0.98
+    data_sources:
+      - name: "FRED M1 Money Stock"
+        series_id: "M1SL"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED M2 Money Stock"
+        series_id: "M2SL"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED Currency in Circulation"
+        series_id: "CURRCIR"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED Monetary Base"
+        series_id: "BOGMBASE"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+    falsification: >
+      Compute ratio of non-government-originated money (e.g., cryptocurrency, private scrip)
+      to total money supply (M2). If this ratio exceeds 0.1, MSI < 0.9 and the money
+      system is less collectively originated than estimated.
+
+  - id: "BSC"
+    name: "Bailout Socialism Coefficient"
+    equation_number: 7
+    formula: "government_rescue_funds / private_losses"
+    description: "Ratio of collective rescue to private losses"
+    variables:
+      government_rescue_funds:
+        unit: "currency"
+        components: ["TARP", "Fed_lending_facilities", "FDIC_guarantees", "stimulus"]
+      private_losses:
+        unit: "currency"
+    range: [0, null]
+    thresholds:
+      pure_market: {value: 0, label: "No collective rescue (full market discipline)"}
+      full_coverage: {value: 1.0, label: "Collective covers all losses"}
+      super_coverage: {min: 1.0, label: "Collective pays more than losses"}
+    current_measured_value: 3.5
+    data_sources:
+      - name: "TARP Transaction Report"
+        url: "https://home.treasury.gov/data/troubled-assets-relief-program"
+        notes: "TARP disbursements and repayments"
+      - name: "FRED Fed Balance Sheet"
+        series_id: "WALCL"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Total assets of Federal Reserve as proxy for intervention scale"
+      - name: "FDIC Failed Bank List"
+        url: "https://www.fdic.gov/bank-failures/failed-bank-list"
+        notes: "Estimated losses from bank failures"
+    falsification: >
+      Compute total government support (TARP + Fed facilities + FDIC guarantees) and
+      total private-sector losses for a specific crisis period. If BSC < 1, collective
+      rescue was less than private losses. Requires agreed-upon scope of "government
+      rescue" and "private losses."
+
+  - id: "MM"
+    name: "Money Multiplier"
+    equation_number: 8
+    formula: "1 / reserve_requirement"
+    description: "Fractional reserve money creation multiplier"
+    variables:
+      reserve_requirement:
+        unit: "fraction"
+        notes: "Federal Reserve required reserve ratio (currently 0% since March 2020)"
+    range: [1, null]
+    thresholds:
+      highly_collective: {min: 5, label: "Majority of money supply collectively created"}
+    current_measured_value: 10
+    data_sources:
+      - name: "FRED Required Reserves"
+        series_id: "REQRESNS"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED M1 Money Multiplier"
+        series_id: "MULT"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+        notes: "Direct measurement of actual money multiplier"
+    falsification: >
+      Compare FRED MULT series (actual multiplier) to theoretical 1/reserve_requirement.
+      If actual multiplier is significantly lower (banks not lending to capacity),
+      the collective-creation fraction is lower than theoretical maximum.
+
+  - id: "ISR"
+    name: "Infrastructure Subsidy Ratio"
+    equation_number: 9
+    formula: "market_value_of_public_infrastructure_used / cost_paid"
+    description: "Ratio of collective infrastructure value consumed to amount paid"
+    variables:
+      market_value:
+        unit: "currency/year"
+        components: ["road_usage_value", "police_protection_value", "court_system_value"]
+      cost_paid:
+        unit: "currency/year"
+        components: ["taxes_paid", "user_fees"]
+    range: [1, null]
+    thresholds:
+      moderate_subsidy: {min: 5, label: "Receives 5x+ value vs. payment"}
+      high_subsidy: {min: 10, label: "Receives 10x+ value vs. payment"}
+    current_measured_value: "5-20x"
+    data_sources:
+      - name: "BEA Government Expenditures by Function"
+        table: "NIPA Table 3.16"
+        api: "https://apps.bea.gov/api/data/"
+      - name: "FHWA Highway Statistics"
+        url: "https://www.fhwa.dot.gov/policyinformation/statistics.cfm"
+        notes: "Highway expenditures vs. user charges"
+      - name: "IRS Statistics of Income"
+        url: "https://www.irs.gov/statistics/soi-tax-stats"
+        notes: "Business taxes paid by sector"
+    falsification: >
+      For a specific business, compute market-equivalent cost of all public services used
+      (private road tolls, private security, private arbitration, private education of
+      workforce). Compare to taxes and fees paid. If ISR < 2, the business pays near
+      market value for public services.
+
+  - id: "OSDI"
+    name: "Overall Socialist Dependence Index"
+    equation_number: "composite"
+    formula: "(SID * w1) + (MSI * w2) + (ISR_norm * w3) + (BSC_norm * w4) + (MM_norm * w5)"
+    description: "Weighted composite of collective dependency across multiple dimensions"
+    variables:
+      weights:
+        w1: {value: 0.3, component: "SID"}
+        w2: {value: 0.2, component: "MSI"}
+        w3: {value: 0.2, component: "ISR (normalized 0-1)"}
+        w4: {value: 0.15, component: "BSC (normalized 0-1)"}
+        w5: {value: 0.15, component: "MM (normalized 0-1)"}
+    range: [0, 1]
+    thresholds:
+      predominantly_collective: {min: 0.7, label: "System predominantly collectively dependent"}
+    current_measured_value: 0.776
+    sensitivity_notes: >
+      Weight choices are not empirically derived. Sensitivity analysis should test
+      equal weighting, PCA-derived weighting, and domain-expert weighting.
+      Results are robust to moderate weight perturbation (±0.1) but sensitive
+      to large changes in SID weight.
+    falsification: >
+      Compute OSDI under alternative weight schemes. If OSDI < 0.5 under any
+      reasonable weighting, the conclusion of majority collective dependency
+      does not hold. Also test with alternative component measurements.
+
+  - id: "UFR"
+    name: "Upward Flow Rate"
+    equation_number: 10
+    formula: "d(top_1pct_wealth)/dt / d(bottom_50pct_wealth)/dt"
+    description: "Relative rate of wealth accumulation between top 1% and bottom 50%"
+    variables:
+      top_1pct_wealth:
+        unit: "currency"
+      bottom_50pct_wealth:
+        unit: "currency"
+    range: [0, null]
+    thresholds:
+      balanced: {value: 1.0, label: "Equal accumulation rates"}
+      upward_flow: {min: 1.0, label: "Wealth concentrating upward"}
+      downward_flow: {max: 1.0, label: "Wealth distributing downward"}
+    current_measured_value: 30
+    data_sources:
+      - name: "FRED Top 1% Net Worth Share"
+        series_id: "WFRBST01134"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "FRED Bottom 50% Net Worth Share"
+        series_id: "WFRBSB50215"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "World Inequality Database"
+        api: "https://wid.world/api/"
+        notes: "Pre-tax national income shares by percentile"
+    falsification: >
+      Compute year-over-year change in top 1% and bottom 50% wealth shares
+      from FRED or WID data. UFR = ratio of these rates. If UFR < 1 for a
+      sustained period, wealth is flowing downward. Time series available
+      from 1989 (SCF) or 1962 (WID).
+
+  - id: "ER"
+    name: "Extraction Rate"
+    equation_number: 11
+    formula: "(revenue - labor_costs) / revenue"
+    description: "Fraction of revenue not returned to labor"
+    variables:
+      revenue:
+        unit: "currency/year"
+      labor_costs:
+        unit: "currency/year"
+        components: ["wages", "salaries", "benefits"]
+    range: [0, 1]
+    thresholds:
+      labor_favored: {max: 0.35, label: "Majority of value returned to labor"}
+      high_extraction: {min: 0.55, label: "Majority of value extracted"}
+    current_measured_value: 0.65
+    data_sources:
+      - name: "BLS Labor Share"
+        series_id: "PRS85006173"
+        api: "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+        notes: "ER = 1 - labor_share"
+      - name: "FRED Unit Labor Cost"
+        series_id: "ULCNFB"
+        api: "https://api.stlouisfed.org/fred/series/observations"
+      - name: "BEA Corporate Profits and Compensation"
+        table: "NIPA Table 1.14"
+        api: "https://apps.bea.gov/api/data/"
+    falsification: >
+      Compute ER = 1 - (BLS labor share / 100) for nonfarm business sector.
+      If ER < 0.35 (labor share > 65%), the system is within the labor-favored
+      threshold. Track trend direction over decades.
+
+  - id: "HHI"
+    name: "Herfindahl-Hirschman Index"
+    equation_number: 12
+    formula: "sum(market_share_i^2) for all firms i"
+    description: "Market concentration index (standard DOJ/FTC measure)"
+    variables:
+      market_share_i:
+        unit: "percent"
+        description: "Market share of firm i in a given industry"
+    range: [0, 10000]
+    thresholds:
+      competitive: {max: 1500, label: "Competitive market"}
+      moderate_concentration: {min: 1500, max: 2500, label: "Moderately concentrated"}
+      high_concentration: {min: 2500, label: "Highly concentrated"}
+      monopoly: {value: 10000, label: "Single-firm monopoly"}
+    current_measured_value: 3500
+    data_sources:
+      - name: "Census Economic Census - Concentration Ratios"
+        url: "https://www.census.gov/programs-surveys/economic-census.html"
+        notes: "CR4/CR8 and HHI by NAICS code, published every 5 years"
+      - name: "DOJ/FTC Merger Guidelines"
+        url: "https://www.justice.gov/atr/herfindahl-hirschman-index"
+        notes: "Official HHI thresholds for merger review"
+      - name: "Compustat via WRDS"
+        url: "https://wrds-www.wharton.upenn.edu/"
+        notes: "Firm-level revenue data for computing HHI by industry"
+    falsification: >
+      Compute HHI by NAICS industry code using Census concentration data or
+      Compustat revenue shares. If average HHI across major industries < 1500,
+      the system is within competitive thresholds. Compare to Smith's prediction.
+
+  - id: "SD"
+    name: "Semantic Drift Rate"
+    equation_number: 13
+    formula: "|Definition(t2) - Definition(t1)| / (t2 - t1)"
+    description: "Rate of change in a term's operational definition over time"
+    variables:
+      Definition_t:
+        description: "Quantified emphasis vector of term at time t"
+        notes: "Requires content analysis or word embedding comparison"
+    range: [0, null]
+    thresholds:
+      stable: {max: 0.5, label: "Definition relatively stable per decade"}
+      drifting: {min: 1.0, label: "Definition shifting meaningfully per decade"}
+    current_measured_value: "2.2% per year for 'capitalism'"
+    data_sources:
+      - name: "Google Ngrams"
+        api: "https://books.google.com/ngrams"
+        notes: "Word co-occurrence frequency over time"
+      - name: "Historical word embeddings"
+        url: "https://nlp.stanford.edu/projects/histwords/"
+        notes: "Diachronic word vectors for measuring meaning shift"
+      - name: "Corpus of Historical American English (COHA)"
+        url: "https://www.english-corpora.org/coha/"
+        notes: "Historical text corpus for definition analysis"
+    falsification: >
+      Using diachronic word embeddings (e.g., Stanford HistWords), compute cosine
+      distance between the embedding of "capitalism" at decade intervals. If drift
+      rate is near zero, the term's meaning is stable. Compare to mathematical
+      term drift rates as control.
+
+api_reference:
+  FRED:
+    base_url: "https://api.stlouisfed.org/fred/"
+    auth: "API key required (free registration)"
+    registration: "https://fred.stlouisfed.org/docs/api/api_key.html"
+    rate_limit: "120 requests per minute"
+    example: "https://api.stlouisfed.org/fred/series/observations?series_id=WFRBST01134&api_key=YOUR_KEY&file_type=json"
+  BLS:
+    base_url: "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+    auth: "API key optional (higher rate limits with key)"
+    registration: "https://data.bls.gov/registrationEngine/"
+    rate_limit: "500 queries per day (with key)"
+    example: "POST https://api.bls.gov/publicAPI/v2/timeseries/data/ with {seriesid: ['PRS85006173']}"
+  BEA:
+    base_url: "https://apps.bea.gov/api/data/"
+    auth: "API key required (free registration)"
+    registration: "https://apps.bea.gov/API/signup/"
+    rate_limit: "100 requests per minute"
+  Census:
+    base_url: "https://api.census.gov/data/"
+    auth: "API key required (free registration)"
+    registration: "https://api.census.gov/data/key_signup.html"
+  WID:
+    base_url: "https://wid.world/api/"
+    auth: "No key required"
+    notes: "World Inequality Database, covers 100+ countries"
+  OpenSecrets:
+    base_url: "https://www.opensecrets.org/api/"
+    auth: "API key required (free registration)"
+    registration: "https://www.opensecrets.org/api/admin/index.php?function=signup"
