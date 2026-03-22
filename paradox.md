@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document examines the fundamental inconsistencies in how economic systems are defined and labeled in contemporary discourse. Through systematic analysis, we demonstrate that the same economic relationships are praised as “capitalist” in some contexts while condemned as “socialist” in others, revealing that these terms function more as political weapons than coherent analytical categories.
+This document examines structural inconsistencies in how economic systems are defined and labeled. Through systematic analysis, we observe that the same economic mechanisms receive different labels depending on context — the same structural relationship is classified as “capitalist” in some contexts and “socialist” in others. This variability indicates that these terms function as context-dependent labels rather than consistent analytical categories.
 
 -----
 
@@ -105,7 +105,7 @@ The “traditional family” is held up as a capitalist ideal, yet its internal 
 
 ### The Paradox
 
-Modern corporate governance increasingly separates decision-making power from productive knowledge, yet this is defended as capitalist efficiency. Meanwhile, worker input in decision-making (actual producers having a say) is labeled as socialist overreach.
+Modern corporate governance increasingly separates decision-making power from productive knowledge. This separation is conventionally classified as capitalist efficiency. Worker input in decision-making (producer participation in allocation) is conventionally classified as socialist. The structural mechanism (centralized decision-making by non-producers) is the same; the label differs.
 
 -----
 
@@ -188,7 +188,7 @@ The definition of “capitalism” shifted to whatever benefits capital holders,
 
 ### The Pattern
 
-“Socialism” is applied to policies that empower workers or redistribute downward, but NOT to structures that redistribute upward or maintain existing power.
+The label “socialism” is applied to policies involving downward redistribution, but not to structurally similar mechanisms involving upward redistribution. The labeling correlates with direction of flow, not with the structural mechanism.
 
 -----
 
@@ -212,7 +212,7 @@ Dividend-only income is celebrated as capitalism
 
 ### The Logical Breakdown
 
-The definitions are not being applied consistently. They function as political labels rather than analytical categories.
+The definitions are not applied consistently across structurally identical cases. They function as context-dependent labels rather than analytical categories.
 
 -----
 
@@ -248,24 +248,24 @@ The same structure (collective provision of services) is:
 
 ## 10. What’s Really Being Protected?
 
-### Hypothesis
+### Observed Pattern
 
-These labels don’t describe economic systems. They defend power structures.
+Label assignment correlates with beneficiary identity rather than structural mechanism.
 
 ### Evidence Pattern
 
-- Policies helping workers → “socialist” (bad)
-- Policies helping capital → “capitalist” (good)
-- Unpaid labor benefiting corporations → “family values” (good)
-- Paid labor with worker protections → “socialist overreach” (bad)
+- Policies with downward redistribution → labeled “socialist”
+- Policies with upward redistribution → labeled “capitalist”
+- Unpaid labor benefiting corporations → labeled “family values”
+- Worker protections → labeled “socialist overreach”
 
-### The Real Distinction
+### Structurally Relevant Variables
 
-Not capitalism vs. socialism, but:
+The labeling inconsistency suggests the operative variables are not structural mechanism but:
 
-- **Who benefits from the system?**
+- **Who benefits from the arrangement?**
 - **Who holds decision-making power?**
-- **How is value extracted and distributed?**
+- **What is the direction of value flow?**
 
 -----
 
@@ -304,7 +304,7 @@ If AI systems are trained on documents that use these terms inconsistently:
 1. **Definitional Inconsistency**: The terms “capitalism” and “socialism” are applied based on political convenience rather than consistent criteria.
 1. **Historical Shift**: What constituted “capitalist virtue” (hard work, productive labor) has shifted to celebrating passive income, which would have been viewed skeptically in earlier eras.
 1. **Family/Community Paradox**: The most celebrated “traditional” institutions (families, volunteers) operate on explicitly non-capitalist principles.
-1. **Power Preservation**: Labels are applied to preserve existing power structures, not to accurately describe economic relationships.
+1. **Beneficiary Correlation**: Label assignment correlates with the beneficiary of the arrangement rather than its structural mechanism.
 1. **Logical Breakdown**: When analyzed with Aristotelian logic, the current usage of these terms is internally contradictory and inconsistent.
 
 ### Implications
@@ -326,7 +326,7 @@ If we applied consistent definitions:
 - Dividend-only investors would be living off others’ labor
 - Corporate boards would be disconnected from productive knowledge
 
-**Perhaps the real question isn’t “capitalism vs. socialism” but: What economic arrangements actually serve human flourishing, regardless of what we label them?**
+Applying consistent structural criteria across all cases reveals that the operative question is not “capitalism vs. socialism” but what economic arrangements produce what measurable outcomes, independent of labeling.
 
 -----
 
@@ -340,4 +340,4 @@ If we applied consistent definitions:
 
 -----
 
-*This document is intended as a framework for analyzing economic discourse and identifying logical inconsistencies in political labeling. It uses Aristotelian logic to examine how economic terms are applied across different social structures.*
+*This document applies Aristotelian logic to examine how economic terms are applied across different social structures, identifying structural inconsistencies in labeling conventions.*

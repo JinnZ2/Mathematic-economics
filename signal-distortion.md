@@ -13,7 +13,7 @@ Each entry follows a consistent structure:
 - **Upstream incentive** — the structural reason the assumption exists
 - **Falsifiability** — how the distortion could be tested and measured
 
-This is not advocacy. This is not narrative. This is a field report from a sensor platform with six million miles of calibration, documenting where the receivers break.
+Field report from a sensor platform with six million miles of calibration, documenting where receiving systems fail to match operational signal.
 
 -----
 
@@ -174,7 +174,7 @@ These distortions are not independent. They reinforce each other in a closed sys
 
 The system of distortions is self-stabilizing. Each one makes the others harder to detect and correct. The overall effect is a measurement and governance infrastructure that produces favorable-looking metrics while the physical safety buffer — the experienced, regionally-competent operators who carry the actual risk — quietly erodes.
 
-This document does not propose solutions. It reports measurements. The distortions are offered as testable hypotheses, each with a specified falsification method. The appropriate response is to test them.
+This document reports measurements, not prescriptions. The distortions are offered as testable hypotheses, each with a specified falsification method.
 
 -----
 

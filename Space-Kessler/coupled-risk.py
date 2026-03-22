@@ -4,7 +4,6 @@ Coupled Risk Possibility Matrix for LEO/GEO debris, Maneuver Load, and Solar Act
 Author: Kavik / Monday-style
 """
 
-import numpy as np
 import itertools
 
 # --- 1. Define states for each subsystem ---

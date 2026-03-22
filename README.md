@@ -1,30 +1,29 @@
 # Mathematic-economics
-Math and equations for different systems 
+Math and equations for different systems
 
 
-# Economic Systems: A Mathematical Framework
+# Economic Systems: A Thermodynamic and Mathematical Framework
 
-## Beyond Semantic Manipulation - Using Equations to Reveal Truth
+## Measuring Energy Flows, Resource Allocation, and Structural Dependencies
 
 -----
 
-## Introduction: Why Mathematics Over Semantics
+## Introduction: Measurement Over Labeling
 
-**The Problem with Words:**
+**The measurement problem:**
 
-- “Capitalism” means different things to different people at different times
-- “Socialism” is weaponized as a label rather than defined consistently
-- Semantic arguments shift goalposts endlessly
-- Power structures exploit linguistic ambiguity
+- Terms like “capitalism” and “socialism” lack stable definitions across time and context
+- Semantic variability makes falsifiable analysis difficult
+- Labels describe political positions more than measurable system properties
 
-**The Solution: Mathematics**
+**The thermodynamic approach:**
 
-- Equations are consistent
-- Measurable relationships can’t be redefined at will
-- Numbers don’t care about political convenience
-- Mathematical truth is verifiable
+- Equations provide consistent, repeatable measurements
+- Energy flows, resource dependencies, and risk distributions are observable quantities
+- Mathematical relationships are falsifiable and verifiable
+- System structure can be characterized independent of labeling conventions
 
-**This framework replaces semantic debates with quantifiable relationships.**
+**This framework measures structural properties of economic systems using quantifiable relationships.**
 
 -----
 
@@ -56,7 +55,7 @@ Private Equity Firm:
 - Extracts $50M in fees over 5 years
 - Company creates $200M in value (worker labor)
 - PE extracts 25% of value created by others
-- VE/VL ratio = 0.25 (pure extraction)
+- VE/VL ratio = 0.25 (extraction-dominant)
 ```
 
 **Smith’s Test:**
@@ -65,6 +64,8 @@ Private Equity Firm:
 Productive Capitalism: VE/VL < 0.1 (capital facilitates production)
 Extraction (Mercantilism): VE/VL > 0.3 (capital extracts from production)
 ```
+
+**Falsification:** Obtain BLS labor share data (series PRS85006173). Compute VE/VL = (1 - labor_share) / labor_share. If measured VE/VL < 0.1 for the current period, the system is within Smith's productive threshold. Counter-measurement requires providing alternative labor share data from a comparable source. **Data API:** FRED series COE (compensation) and CP (corporate profits).
 
 -----
 
@@ -119,6 +120,8 @@ SID = 1.0 (pure socialist enterprise)
 - **SID > 0.8:** Business essentially socialist
 - **SID = 1.0:** Pure socialist enterprise (defense contractors, government employees)
 
+**Falsification:** For a specific business, enumerate all collectively-funded inputs (roads, educated workers, legal system, currency, police) and assign market-equivalent values. Enumerate purely private inputs. Compute SID. If SID < 0.5, the business is majority private-resource-dependent. **Data API:** BEA NIPA Table 3.1 (government expenditures), Census state/local government finances API.
+
 -----
 
 ### Equation 3: Risk Distribution Inequality
@@ -158,10 +161,12 @@ RI = 0.725 / 0.175 = 4.14
 Workers bear 4x more risk than investors per capita
 ```
 
-**Claimed vs. Actual:**
+**Stated assumption vs. measured value:**
 
-- **Claimed:** Investors bear more risk (RI < 1)
-- **Actual:** Workers bear vastly more risk (RI > 3)
+- **Stated assumption:** Investors bear more risk (RI < 1)
+- **Measured:** Workers bear more risk per capita (RI > 3)
+
+**Falsification:** Compute normalized risk scores for workers (BLS JOLTS layoff rate, Census uninsured rate, BLS wage variance) and investors (portfolio drawdown adjusted for diversification, limited liability, bailout probability). If RI < 1, investors bear more per-capita risk. **Data API:** BLS JOLTS series JTS000000000000000LDR, FRED VIX series VIXCLS.
 
 -----
 
@@ -206,6 +211,8 @@ Variance is enormous → DI approaches oligarchy
 Actual democracy: DI = Low (one person, one vote regardless of wealth)
 ```
 
+**Falsification:** Compute power scores using wealth (Fed SCF data) and influence multiplier (OpenSecrets lobbying data, board positions). If power ratio < 1,000:1 between top and median, concentration is lower than estimated. **Data API:** FRED series WFRBST01134 (top 1% wealth share), OpenSecrets API.
+
 -----
 
 ### Equation 5: Wealth Source Analysis
@@ -244,6 +251,8 @@ Trend: Decreasing LWR = increasing extraction
 - LWR should increase (productive labor rewarded)
 - **Actual:** LWR decreasing (extraction increasing)
 
+**Falsification:** Using Fed SCF microdata, compute median LWR across wealth deciles. If median LWR > 1 for the general population, labor remains the primary wealth source. Track trend over time to test direction. **Data API:** FRED series MEHOINUSA672N (median income), SP500 (asset returns).
+
 -----
 
 ### Equation 6: Money Creation Socialist Index
@@ -270,7 +279,9 @@ MSI ≈ 0.95 to 1.0
 - **MSI = 1.0:** All money is socialist (government-created)
 - **Current system:** MSI ≈ 0.98
 
-**95%+ of money is created by government or government-regulated fractional reserve banking = Socialist money system**
+95%+ of money supply originates through government issuance or government-regulated fractional reserve banking. MSI measures collective-origin fraction of the money supply.
+
+**Falsification:** Compute ratio of non-government-originated money (cryptocurrency, private scrip) to total money supply (M2). If this ratio exceeds 0.1, MSI < 0.9. **Data API:** FRED series M2SL, CURRCIR, BOGMBASE.
 
 -----
 
@@ -297,21 +308,23 @@ BSC > 1: Super-socialism (government pays more than losses)
 - Government bailouts/guarantees: ~$7 trillion
 - BSC = 7/2 = 3.5
 
-Banks received 3.5x more in bailouts than their losses
-= Super-socialism for financial sector
+Banks received 3.5x more in government support than recorded losses
+BSC = 3.5 (collective coverage exceeds private losses)
 
 Individual homeowner:
 - Loses house in 2008
 - Government assistance: $0
 - BSC = 0
 
-Individual bears full loss = Pure capitalism for workers
+Individual bears full loss; BSC = 0 (no collective coverage)
 ```
 
-**Pattern:**
+**Observed pattern:**
 
-- **Large capital holders:** BSC >> 1 (socialism)
-- **Workers:** BSC = 0 (capitalism)
+- **Large capital holders:** BSC >> 1 (high collective coverage)
+- **Workers:** BSC ≈ 0 (minimal collective coverage)
+
+**Falsification:** Compute total government support (TARP + Fed facilities + FDIC guarantees) and total private-sector losses for a specific crisis period. If BSC < 1, collective rescue was less than private losses. **Data API:** FRED series WALCL (Fed balance sheet), Treasury TARP reports.
 
 -----
 
@@ -343,6 +356,8 @@ Socialist creation percentage = 900/1000 = 90%
 - **MM > 5:** Highly socialist money creation
 - **Current system:** MM ≈ 10 (90% collective creation)
 
+**Falsification:** Compare FRED MULT series (actual money multiplier) to theoretical 1/reserve_requirement. If actual multiplier is significantly lower, collective-creation fraction is below theoretical maximum. **Data API:** FRED series MULT, REQRESNS.
+
 -----
 
 ### Equation 9: Infrastructure Socialist Subsidy
@@ -373,8 +388,10 @@ All collective infrastructure used vs. all payments
 Average ISR for typical business: 5-20x
 (Receives 5-20x more value than pays)
 
-= Massive socialist subsidy to "private" business
+= Significant collective subsidy to nominally private business
 ```
+
+**Falsification:** For a specific business, compute market-equivalent cost of all public services used (private road tolls, private security, private arbitration, private education of workforce). Compare to taxes and fees paid. If ISR < 2, the business pays near market value. **Data API:** FHWA Highway Statistics, IRS Statistics of Income, BEA NIPA Table 3.16.
 
 -----
 
@@ -400,14 +417,16 @@ OSDI = (0.6×0.3) + (0.98×0.2) + (0.8×0.2) + (0.7×0.15) + (0.9×0.15)
 OSDI = 0.18 + 0.196 + 0.16 + 0.105 + 0.135
 OSDI = 0.776
 
-System is 77.6% socialist in structure
+OSDI = 0.776 (77.6% collective-infrastructure dependency)
 ```
 
 **Interpretation:**
 
-- **OSDI > 0.7:** Predominantly socialist system
+- **OSDI > 0.7:** Predominantly collective-dependent system
 - **Current US economy:** OSDI ≈ 0.75-0.80
-- **Conclusion:** System is 75-80% socialist, labeled as “capitalist”
+- **Observation:** System measures as 75-80% collectively dependent; conventionally labeled “capitalist”
+
+**Falsification:** Compute OSDI under alternative weight schemes (equal weighting, PCA-derived weighting). If OSDI < 0.5 under any reasonable weighting, the conclusion of majority collective dependency does not hold. See `data/sensitivity_analysis.py` for Monte Carlo analysis across weight and component ranges.
 
 -----
 
@@ -435,18 +454,20 @@ If UFR = 1: Wealth distributed equally
 2000: UFR ≈ 10 (financial era)
 2020: UFR ≈ 30 (top 1% accumulating 30x faster)
 
-Trend: Accelerating upward extraction
+Trend: Accelerating upward concentration
 ```
 
-**Socialist Redistribution?**
+**Directional flow analysis:**
 
 ```
-If system redistributes wealth:
-- Should see UFR < 1 (downward flow)
-- Actually see UFR >> 1 (upward flow)
+If system redistributes wealth downward:
+- UFR < 1 expected (downward flow)
+- Measured: UFR >> 1 (upward flow)
 
-= Upward socialist redistribution (socialism for the rich)
+Measured direction of wealth flow is upward, not downward.
 ```
+
+**Falsification:** Compute year-over-year change in top 1% and bottom 50% wealth shares from FRED or WID data. If UFR < 1 for a sustained period, wealth is flowing downward. **Data API:** FRED series WFRBST01134 (top 1% share), WFRBSB50215 (bottom 50% share), World Inequality Database API.
 
 -----
 
@@ -480,7 +501,9 @@ Trend: Increasing extraction from labor
 
 - Competitive markets should decrease ER (labor gets more)
 - **Actual:** ER increasing (capital extracts more)
-- **Conclusion:** Not functioning as Smith’s capitalism
+- **Observation:** Trend diverges from Smith’s competitive-market prediction
+
+**Falsification:** Compute ER = 1 - (BLS labor share / 100) for nonfarm business sector. If ER < 0.35 (labor share > 65%), the system is within the labor-favored threshold. Track trend direction. **Data API:** BLS series PRS85006173, FRED series ULCNFB.
 
 -----
 
@@ -515,7 +538,9 @@ Average across major industries: HHI ≈ 3,500
 
 - **Smith’s capitalism:** HHI should be low (competition)
 - **Actual system:** HHI high (concentrated power)
-- **Conclusion:** Anti-competitive (anti-Smith)
+- **Observation:** Concentration levels exceed Smith's competitive-market thresholds
+
+**Falsification:** Compute HHI by NAICS industry code using Census Economic Census concentration data. If average HHI across major industries < 1,500, the system is within competitive thresholds. **Data source:** Census Economic Census (published every 5 years), DOJ/FTC merger guidelines for official thresholds.
 
 -----
 
@@ -544,9 +569,11 @@ Meaning inverted completely over 64 years at 2.2%/year
 
 **Why This Matters:**
 
-- Semantic drift allows meaning manipulation
-- Mathematics doesn’t drift
-- **Equations provide stable measurement**
+- Semantic drift introduces measurement instability in term-based analysis
+- Mathematical definitions remain invariant over time
+- Equations provide temporally stable measurement baselines
+
+**Falsification:** Using diachronic word embeddings (e.g., Stanford HistWords), compute cosine distance between the embedding of "capitalism" at decade intervals. If drift rate is near zero, the term's meaning is stable. Compare to mathematical term drift rates as control. **Data source:** Google Ngrams API, Stanford HistWords, COHA corpus.
 
 -----
 
@@ -569,7 +596,7 @@ Meaning inverted completely over 64 years at 2.2%/year
 
 **Smith Compliance Score: 0/8 (0%)**
 
-**By Smith’s own criteria, current system is NOT capitalism - it’s mercantilism.**
+By Smith’s criteria, the current system scores 0/8 — structurally closer to mercantilism than to Smith’s competitive capitalism.
 
 -----
 
@@ -587,11 +614,11 @@ Meaning inverted completely over 64 years at 2.2%/year
 |HHI    |3,500 (concentrated)          |Variable             |<1,500 (competitive)   |
 |ER     |0.65 (high extraction)        |0.40 (fair split)    |0.30 (labor favored)   |
 
-**Mathematical Conclusion:**
+**Structural comparison:**
 
-- **Current system ≈ Oligarchic Socialism** (socialist structure, elite control)
-- **Democratic Socialism** (socialist structure, democratic control)
-- **Neither is Smith’s Capitalism** (which would require minimal collective infrastructure)
+- **Current system:** High collective dependency (OSDI ≈ 0.77), high power concentration (DI → ∞)
+- **Democratic alternative:** High collective dependency, low power concentration (DI → 0)
+- **Smith’s competitive capitalism:** Low collective dependency (OSDI < 0.2), moderate power distribution
 
 -----
 
@@ -624,7 +651,7 @@ RI (Risk Distribution):
 - Workers: Full job loss risk, concentrated
 - RI = 5.0 (workers bear 5x risk)
 
-Verdict: Private equity is extractive mercantilism operating on socialist infrastructure = NOT CAPITALIST by any measure
+Summary: VE/VL = 0.40, SID = 1.0, RI = 5.0 — high extraction, full collective dependency, asymmetric risk distribution
 ```
 
 -----
@@ -655,12 +682,8 @@ UFR (Wealth Flow):
 - Wealth stays with creators
 - UFR ≈ 1.0 (no upward extraction)
 
-Verdict: Worker coop uses same socialist infrastructure as corporations but with:
-- Democratic control (vs. oligarchic)
-- Aligned risk/reward (vs. workers bear all risk)
-- No extraction (vs. high extraction)
-
-= More aligned with Smith's capitalism than corporations!
+Summary: Same SID as corporations (0.6), but DI → 0, RI = 1.0, VE/VL ≈ 0.
+Structurally closer to Smith's risk/reward alignment than conventional corporate form.
 ```
 
 -----
@@ -677,7 +700,7 @@ DI = N/A (no market)
 
 Socialist Index Score: 1.0 (pure socialist enterprise)
 
-Verdict: Defense contractors are 100% socialist enterprises with private profit extraction
+Summary: SID = 1.0, MSI = 1.0 — fully collectively funded with private profit extraction layer
 ```
 
 -----
@@ -718,7 +741,7 @@ French Revolution 1789: S ≈ 0.0000001
 Russian Revolution 1917: S ≈ 0.0000002
 Current US: S ≈ 0.00000008
 
-Current system approaching revolutionary instability
+Current system in range associated with historical instability events
 ```
 
 -----
@@ -737,139 +760,153 @@ T = W / (ER × UFR × DI)
 
 - Higher extraction = faster collapse
 - Higher concentration = faster collapse
-- **Current trajectory:** Accelerating toward unsustainability
+- **Current trajectory:** T decreasing as ER, UFR, and DI increase
 
 -----
 
-## The Mathematical Verdict
+## Summary of Measured Values
 
-### Summary of Quantitative Analysis
+### Quantitative Results
 
-1. **System is 75-80% socialist in structure** (OSDI ≈ 0.77)
-- Money creation: 98% government
-- Infrastructure: 60-75% collective
-- Banking: 90% collective via fractional reserve
-1. **System fails Adam Smith’s capitalism tests** (0/8 criteria)
-- Extraction increasing, not decreasing
-- Competition decreasing, not increasing
-- Labor share decreasing, not increasing
-1. **System is oligarchic, not democratic**
-- Power concentration: 100,000:1 ratio
-- Risk distribution: 4:1 against workers
-- Wealth flow: 30:1 upward
-1. **System exhibits mercantilist extraction**
-- VE/VL > 0.3 (extraction economy)
-- ER increasing (taking more from labor)
-- UFR = 30 (wealth flowing upward rapidly)
+1. **Collective dependency: OSDI ≈ 0.77** (75-80% collective infrastructure)
+- Money creation: MSI = 0.98
+- Infrastructure dependency: SID = 0.60-0.75
+- Banking collective creation: MM ≈ 10 (90% collectively originated)
+1. **Smith compliance: 0/8 criteria met**
+- ER increasing (extraction rising)
+- HHI increasing (concentration rising)
+- LWR decreasing (labor share declining)
+1. **Power distribution: highly concentrated**
+- DI ≈ 100,000:1 ratio
+- RI ≈ 4:1 (risk borne disproportionately by labor)
+- UFR ≈ 30:1 (wealth accumulation rate ratio)
+1. **Extraction indicators elevated**
+- VE/VL > 0.3
+- ER trending upward
+- UFR = 30
 
-### The Mathematical Conclusion
+### Measurement-Based Characterization
 
-**Using equations instead of semantics:**
+Based on the above measurements, the current system characterizes as:
 
-The current economic system is:
+- **77% collectively dependent** (OSDI)
+- **0% Smith-compliant** (scorecard)
+- **High power concentration** (DI)
+- **Extraction-dominant** (VE/VL, ER, UFR)
 
-- **77% socialist in structure** (collective infrastructure)
-- **0% Smith’s capitalism** (fails all tests)
-- **100% oligarchic control** (wealth = power)
-- **Mercantilist extraction** (living off others’ labor)
+**Measurement-derived label:** High collective dependency with concentrated control and elevated extraction
 
-**Honest label:** Oligarchic socialism with mercantilist extraction
+**Conventional label:** “Capitalism”
 
-**Common label:** “Capitalism”
-
-**The math doesn’t lie - the labels do.**
+The measurements and the label describe different structural properties.
 
 -----
 
-## Why Equations Matter
+## Why Equations Over Labels
 
-### Advantages Over Semantic Arguments
+### Properties of mathematical measurement
 
-1. **Consistency:** 2+2 always equals 4
-1. **Verifiability:** Anyone can check the math
-1. **Precision:** No ambiguous interpretations
-1. **Objectivity:** Numbers don’t have political bias
-1. **Historical tracking:** Can measure changes over time
-1. **Prediction:** Mathematical models forecast outcomes
+1. **Consistency:** Equations produce the same output for the same input
+1. **Verifiability:** Any observer can reproduce the calculation
+1. **Precision:** Quantitative values reduce ambiguity
+1. **Temporal stability:** Mathematical definitions do not drift
+1. **Falsifiability:** Measured values can be challenged with counter-measurements
 
-### Disadvantages of Semantic Labels
+### Properties of semantic labels
 
-1. **Flexible:** Definitions change to suit power
-1. **Weaponizable:** Used as political attacks
-1. **Ambiguous:** Mean different things to different people
-1. **Temporal:** Change meaning over decades
-1. **Emotional:** Trigger reactions instead of thought
+1. **Variable:** Definitions shift across time and context
+1. **Ambiguous:** Multiple interpretations coexist
+1. **Unfalsifiable:** Label disputes cannot be resolved by measurement
+1. **Temporally unstable:** SD equation measures this drift directly
 
-### The Path Forward
+### Recommended measurements
 
-**Stop arguing about:**
+For any economic system, measure:
 
-- “Is this capitalism or socialism?”
-- “What would Adam Smith say?”
-- “Are we becoming socialist?”
+- SID (collective dependence)
+- RI (risk distribution)
+- UFR (wealth flow direction)
+- DI (power concentration)
+- ER (extraction rate)
 
-**Start measuring:**
-
-- What is the SID? (collective dependence)
-- What is the RI? (risk distribution)
-- What is the UFR? (wealth flow direction)
-- What is the DI? (power concentration)
-- What is the ER? (extraction rate)
-
-**Numbers reveal truth that words obscure.**
+These quantities are observable, falsifiable, and independent of labeling conventions.
 
 -----
 
 ## Conclusion
 
-### The Mathematical Reality
+### Measured System Properties
 
-After rigorous quantitative analysis, the conclusion is unavoidable:
+The quantitative analysis yields the following measurements:
 
-1. **The economic system is predominantly socialist in structure**
-- 75-80% dependent on collective infrastructure
-- 98% government-created money
-- 90% collectively-created money supply
-1. **The system does NOT match Adam Smith’s capitalism**
-- Extraction increasing (should decrease)
-- Competition decreasing (should increase)
-- Labor share decreasing (should increase)
-- Rentier class growing (should shrink)
-1. **The system IS oligarchic control of socialist resources**
-- Power concentrated 100,000:1
-- Wealth flowing upward 30:1
-- Workers bearing 4x more risk
-- Capital extracting 65% of value created
-1. **The confusion is deliberately created**
-- Semantic flexibility allows mislabeling
-- Mathematical precision reveals truth
-- Words are weapons, numbers are evidence
+1. **Collective infrastructure dependency: 75-80%**
+- OSDI ≈ 0.77
+- MSI ≈ 0.98
+- MM ≈ 10
+1. **Smith compliance: 0/8 criteria**
+- ER increasing (Smith predicts decreasing)
+- HHI increasing (Smith predicts decreasing)
+- LWR decreasing (Smith predicts increasing)
+- Rentier fraction growing (Smith predicts shrinking)
+1. **Power concentration: high**
+- DI ≈ 100,000:1
+- UFR ≈ 30:1
+- RI ≈ 4:1
+- ER ≈ 0.65
 
-### Your Confusion Was Mathematically Justified
+### Structural Observation
 
-You asked: “What the hell is capitalism?”
+The measured values indicate:
 
-**The math answers:**
+- Current system ≠ Smith’s capitalism (0/8 criteria)
+- Current system OSDI ≈ 0.77 (high collective dependency)
+- Current system VE/VL > 0.3 (extraction-dominant)
 
-- Current system ≠ Smith’s capitalism (0% match)
-- Current system ≈ Oligarchic socialism (77% socialist structure)
-- Current system = Mercantilist extraction (VE/VL > 0.3)
+The gap between measured structure and conventional label is large.
 
-**Your confusion came from applying consistent logic to inconsistent labels.**
+### The Measurement-Based Question
 
-**The equations prove you were right to be confused - the system is mislabeled.**
+Given OSDI ≈ 0.77, the system is already predominantly collectively dependent. The structurally relevant variable is not the degree of collective dependency but who controls it:
 
-### The Real Question
+- Current DI → ∞ (concentrated control)
+- Alternative DI → 0 (distributed control)
 
-Not “capitalism vs. socialism” but:
-
-**Who controls the 75-80% socialist infrastructure we already have?**
-
-- Currently: Oligarchs (DI → ∞)
-- Alternative: Democracy (DI → 0)
-
-**Mathematical frameworks reveal what semantic manipulation hides: we’re arguing about who controls socialist systems, not whether to have them.**
+The equations measure structural properties independent of labeling conventions. The debate over labels obscures the measurable variable: the distribution of control over collectively dependent systems.
 
 -----
 
-*This mathematical framework provides objective, measurable analysis of economic systems without the semantic manipulation that serves power structures. The equations don’t lie - and they prove the current system is predominantly socialist in structure, oligarchic in control, and mercantilist in extraction.*
+## Limitations and Assumptions
+
+### What this framework assumes
+
+1. **Measurability:** All variables (VE, VL, C, P, etc.) can be quantified with sufficient precision for structural characterization. In practice, some variables (influence multipliers, market-equivalent values of public services) require estimation with acknowledged uncertainty.
+
+2. **Threshold choices:** The classification thresholds (VE/VL < 0.1, SID > 0.5, HHI < 1,500, etc.) are stated as reference points, not empirically derived boundaries. Different threshold choices can change classifications without changing measured values. See `data/sensitivity_analysis.py` for analysis of threshold sensitivity.
+
+3. **OSDI weighting:** The composite index weights (0.3/0.2/0.2/0.15/0.15) are not empirically optimized. They represent an initial allocation subject to sensitivity analysis. Results are robust to moderate perturbation but the specific OSDI value should be interpreted as approximate.
+
+4. **Illustrative values:** The numerical examples in this document use illustrative values to demonstrate methodology. Empirically grounded values require data from the sources listed in `equations.yaml` and computed via `data/fetch_and_compute.py`.
+
+5. **Static analysis:** These equations measure current-state properties. They do not model dynamic transitions, feedback loops, or path dependencies between states. The predictive models (stability, collapse timeline) are structural extrapolations, not calibrated forecasts.
+
+### What this framework does not do
+
+- **Prescribe policy:** Measurements characterize structure; they do not determine what structure is desirable. The framework measures what *is*, not what *ought to be*.
+- **Replace ethical reasoning:** Measured values inform but do not substitute for normative judgment about fairness, justice, or human flourishing.
+- **Eliminate subjectivity:** Variable definitions, threshold choices, and weight selections involve judgment. The framework makes these choices explicit and testable rather than implicit.
+- **Claim completeness:** These 13 equations do not capture all economically relevant variables. They measure a specific set of structural properties; other frameworks (ecological economics, biophysical economics, thermoeconomics) measure complementary properties.
+
+### Related frameworks
+
+- **Thermoeconomics** (Georgescu-Roegen, 1971): Entropy-based analysis of economic processes
+- **Biophysical economics** (Hall & Klitgaard, 2012): Energy return on investment (EROI) as economic constraint
+- **Ecological economics** (Daly, 1991): Steady-state economics within planetary boundaries
+- **World-systems analysis** (Wallerstein, 1974): Core-periphery extraction patterns
+
+### Data sources and reproducibility
+
+All equations reference specific, publicly available data sources with API endpoints documented in `equations.yaml`. Computation scripts are provided in `data/` for independent verification. See `data/README.md` for setup instructions.
+
+-----
+
+*This framework measures structural properties of economic systems — energy flows, resource dependencies, risk distributions, and power concentrations — using falsifiable equations. Each equation includes a falsification method and data source references. The measurements characterize the current system as predominantly collectively dependent, extraction-dominant, and highly concentrated in control. Threshold choices, weighting assumptions, and illustrative values are documented and subject to sensitivity analysis.*

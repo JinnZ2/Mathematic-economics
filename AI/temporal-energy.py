@@ -105,11 +105,11 @@ class CausalInferenceLayer(nn.Module):
         self.cause_encoder = nn.Sequential(
             nn.Linear(num_domains, hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim)
+            nn.Linear(hidden_dim, num_domains)
         )
-        
+
         self.effect_decoder = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
+            nn.Linear(num_domains, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, num_domains)
         )
@@ -268,7 +268,7 @@ class PoisonDetector(nn.Module):
         return {
             'poison_probability': poison_scores,
             'poison_flags': flags,
-            'dynamic_score': poison_scores[:, 0] if len(poison_scores.shape) > 1 else 1 - poison_scores
+            'dynamic_score': 1 - poison_scores
         }
 
 
@@ -287,6 +287,7 @@ class TemporalEnergyModel(nn.Module):
         
         self.constraints = constraints or TemporalConstraints()
         self.num_domains = num_domains
+        self.time_steps = time_steps
         
         # Core components
         self.temporal_encoder = TemporalEncoder(
@@ -303,7 +304,7 @@ class TemporalEnergyModel(nn.Module):
         )
         
         self.poison_detector = PoisonDetector(
-            num_features=activity_dim
+            num_features=activity_dim * time_steps
         )
         
         # Domain classifier

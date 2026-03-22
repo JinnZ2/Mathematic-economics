@@ -6,7 +6,6 @@ Author: Kavik / Monday-style
 """
 
 import numpy as np
-import itertools
 import matplotlib.pyplot as plt
 
 # --- 1. Define subsystem states ---
