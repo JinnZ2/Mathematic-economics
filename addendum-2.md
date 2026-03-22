@@ -274,7 +274,7 @@ Conventional framing celebrates “entrepreneurship” and “self-made” busin
 
 - **Collective bank deposits**
 - **Collective investor pools**
-- **Government SBA loans** (direct socialism)
+- **Government SBA loans** (direct collective funding)
 - **Tax breaks** (collective subsidy)
 
 ### The “Self-Made” Billionaire
@@ -329,7 +329,7 @@ Every “self-made” billionaire used:
 1. **If company fails, collective loses** (depositors, workers)
 1. **If company succeeds, private parties win** (PE firm)
 
-### Who Bears the Risk?
+### Measured Risk Distribution
 
 **Collective bears risk:**
 
@@ -652,7 +652,7 @@ Current answer:
 
 **This constitutes a collective system for money creation.**
 
-### Who Profits?
+### Measured Profit Flows
 
 **Banks profit from:**
 
@@ -781,11 +781,11 @@ Individual risk exposure measured for:
 
 -----
 
-## What the Hell IS Going On?
+## Structural Analysis Summary
 
-### The Answer
+### Measured Structure
 
-**The entire economic system is socialist in structure:**
+**The entire economic system exhibits collective-dependency structure:**
 
 - **Collective pooling** (banking, insurance, investment)
 - **Central planning** (Fed, corporate boards)
@@ -793,11 +793,11 @@ Individual risk exposure measured for:
 - **Collective ownership** (corporations, funds)
 - **Risk socialization** (bailouts, insurance)
 
-### But the BENEFITS Flow Upward
+### Measured Benefit Flow Direction
 
-**Socialist mechanisms + upward redistribution = Current system**
+**Collective mechanisms + upward redistribution = Current system**
 
-**What we’re told is “capitalism”:**
+**Conventional label “capitalism” applied to:**
 
 - Banks lending collectively-pooled money
 - Investors living off workers’ labor
@@ -805,29 +805,29 @@ Individual risk exposure measured for:
 - Central planning by the Fed
 - Defense contractors on government payroll
 
-**What we’re told is “socialism”:**
+**Conventional label “socialism” applied to:**
 
 - Workers owning their workplaces
 - Healthcare funded collectively
 - Education funded collectively
 - Infrastructure funded collectively
 
-### The Real Distinction
+### The Measurable Distinction
 
 **Not capitalism vs. socialism**
 
-**But:**  
-**Who controls the collective resources?**  
-**Who benefits from collective structures?**  
+**But:**
+**Who controls the collective resources?**
+**Who benefits from collective structures?**
 **Who bears the collective risks?**
 
 -----
 
-## Conclusion: The Socialist Foundation of “Capitalism”
+## Conclusion: The Collective Foundation of “Capitalism”
 
-### The Undeniable Truth
+### Structural Dependency Measurement
 
-**Without socialist structures, modern capitalism cannot exist:**
+**Without collective structures, modern capitalism cannot exist:**
 
 - **No banking** (needs collective deposits)
 - **No stock market** (needs collective ownership)
@@ -837,21 +837,21 @@ Individual risk exposure measured for:
 - **No bailouts** (needs collective rescue)
 - **No money** (needs collective agreement and government creation)
 
-### The System Is Socialist
+### The System Is Collectively Structured
 
-**The question is not whether we have socialism.**
+**The question is not whether collective structures exist.**
 
-**We absolutely do.**
+**Measured collective dependency extends across all major subsystems.**
 
-**The question is: Who benefits from the socialist structures we have?**
+**The question is: Who benefits from the collective structures that exist?**
 
-**Current answer: The wealthy and powerful.**
+**Measured answer: Disproportionately those with existing capital.**
 
-### What the Hell Is Going On?
+### Gap Between Measured Structure and Conventional Labeling
 
-**Deliberate mislabeling to prevent clear thinking.**
+**Gap between measured structure and conventional labeling.**
 
-By calling **upward-redistributing socialism** “capitalism” and **downward-redistributing socialism** “socialism,” they:
+By applying the label “capitalism” to **upward-redistributing collective structures** and “socialism” to **downward-redistributing collective structures**, the labeling system:
 
 1. **Protect existing wealth concentration**
 1. **Prevent accurate analysis**
@@ -860,22 +860,22 @@ By calling **upward-redistributing socialism** “capitalism” and **downward-r
 
 ### The Path Forward
 
-**Stop using their labels.**
+**Measure structure rather than applying semantic labels.**
 
-Ask instead:
+Measurable variables:
 
 - **Who owns the collective resources?**
 - **Who controls allocation decisions?**
 - **Who benefits from the system?**
 - **Who bears the risks?**
-- **Does it serve human flourishing?**
+- **Does the energy flow serve human flourishing?**
 
-**The entire banking system is socialist.**  
-**The entire defense industry is socialist.**  
-**The entire financial system is socialist.**
+**The entire banking system exhibits collective-dependency structure.**
+**The entire defense industry exhibits collective-dependency structure.**
+**The entire financial system exhibits collective-dependency structure.**
 
-**They just call it capitalism when the rich benefit.**
+**Label assignment correlates with beneficiary identity rather than structural mechanism.**
 
 -----
 
-*This second addendum exposes the socialist foundations of the banking, financial, and defense systems that are falsely labeled as “capitalism.” The confusion
+*This second addendum measures the collective-dependency structures underlying the banking, financial, and defense systems conventionally labeled as “capitalism.” The gap between measured structure and applied labels
