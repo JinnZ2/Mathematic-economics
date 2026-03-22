@@ -14,7 +14,7 @@ Money is a proxy that conflates multiple independent physical systems:
 1. **System inefficiency** - waste built into extraction/processing
 1. **Information asymmetry** - who knows what value exchange actually is
 
-Money *masks* all these as a single number. When you remove it, you expose the underlying dynamics.
+Money collapses all these into a single scalar. Removing it decomposes the underlying dynamics into independently measurable variables.
 
 -----
 
@@ -37,7 +37,7 @@ Measure:
 **Why this matters:**
 
 - A factory paying low wages still consumes 4.2 MJ/hour thermodynamically
-- Money hides this—shows “profit” but not actual resource depletion
+- Money aggregates this—shows “profit” but not actual resource depletion
 - When you measure energy, you see true cost regardless of labor price
 
 ### 2. TEMPORAL ACCOUNTING (Substitutes for productivity metrics)
@@ -75,9 +75,9 @@ Measure:
   - System efficiency: (80 / 150) = 53% (true cost)
 ```
 
-**What money hides:**
+**What monetary aggregation obscures:**
 
-- 40% profit margin looks good until you see 50 MJ is dumped as pollution
+- 40% profit margin measures monetary return but not the 50 MJ dumped as waste heat
 - The “cost” includes workers with uncompensated recovery deficits
 - True efficiency = (useful output) / (all inputs including human)
 
@@ -116,7 +116,7 @@ Measure:
 Real negotiating position:
   - You: 5 days to crisis → FORCED to accept any wage
   - Employer: 90 days to crisis → can wait you out
-  - Wage appears "market determined" but is actually power ratio
+  - Wage appears "market determined" but reflects survival-pressure differential
 ```
 
 ### 6. INFORMATION ASYMMETRY MAPPING (Substitutes for pricing opacity)
@@ -290,12 +290,12 @@ class SustainabilityCheck:
 - Inefficiency: Shows up as “waste heat” or “recovery debt”
 - True cost: Shows up as “all inputs including depletion”
 
-### 3. Poisoned Assumptions Can’t Hide
+### 3. Assumptions Become Testable
 
-- “People choosing laziness” → Shows as “recovery requirement”
-- “Market determines price” → Shows as “actual resource cost”
-- “Efficiency” → Shows as “thermodynamic efficiency” not profit margin
-- “Growth is good” → Shows as “regeneration rate or extraction?”
+- “People choosing laziness” → Measurable as recovery requirement against workload
+- “Market determines price” → Decomposable into resource cost + pressure differential + information asymmetry
+- “Efficiency” → Measurable as thermodynamic efficiency, not profit margin
+- “Growth is good” → Testable: is the growth rate within regeneration capacity or extraction-dependent?
 
 ### 4. Causal Reality is Forced Visible
 
@@ -332,17 +332,17 @@ constraint_3: some_needs_not_substitutable = [attention, presence, meaning]
 
 ## What This Reveals
 
-1. **Slavery economics** become obvious
+1. **Coerced labor patterns** become measurable
 - Person forced to skip recovery → visible as “recovery debt accumulating”
 - System extracts unsustainably → visible as “regeneration deficit”
 1. **Genuine constraints** become negotiable
 - Can’t change “water must regenerate”
 - Can change “how much each person gets”
 - Can change “who does unpaid recovery work”
-1. **Poisoned assumptions** fail mechanically
-- “People should work harder” → but recovery is bounded
-- “More growth” → regeneration isn’t growing
-- “Market forces efficient” → thermodynamics doesn’t care about profit
+1. **Untested assumptions** become falsifiable
+- “People should work harder” → recovery is thermodynamically bounded
+- “More growth” → regeneration rate is a physical constraint
+- “Market forces efficient” → thermodynamic efficiency is measurable independent of profit
 1. **Real trade-offs** become visible
 - Time: Can’t have all care work AND paid work AND rest
 - Energy: Intensive work → needs more recovery
