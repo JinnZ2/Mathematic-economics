@@ -10,27 +10,27 @@ This is an academic research repository applying mathematical and thermodynamic 
 
 ```
 Mathematic-economics/
-├── AI/                             # Computational models (Python/PyTorch)
-│   ├── Money-free-model.py         # Economic accounting without monetary proxies
-│   ├── Semantic-decontamination.py # Intercept semantically-contaminated tokens for NLP
-│   ├── Temporal-energy.py          # Labor as time-energy flow with physics constraints
-│   ├── Atomic-thermodynamic-accounting.md
-│   ├── Hidden-critical-factors.md
-│   ├── Money.md
-│   └── Work.md
-├── Space-Kessler/                  # Orbital mechanics / risk analysis
-│   ├── Coupled_risk.py             # Subsystem coupling risk model
-│   └── Time-evolve-3d.py           # 3D temporal evolution simulation
-├── README.md                       # Core thesis with 13 equations and composite indices
-├── Navigation.md                   # Reading guide for different audiences
-├── Paradox.md                      # Contradictions in economic definitions
-├── Analysis.md                     # Economic analysis
-├── Addendum1.md - Addendum3.md     # Extended analysis documents
-├── Ideology-thermodynamics.md      # Thermodynamic lens on social systems
-├── Thermodynamic-governance.md     # Governance and labor analysis
-├── Signal-distortion.md            # Signal/distortion concepts
-├── LICENSE                         # CC0 1.0
-└── Trust.html                      # Placeholder
+├── AI/                                 # Computational models (Python/PyTorch)
+│   ├── money-free-model.py             # Economic accounting without monetary proxies
+│   ├── semantic-decontamination.py     # Intercept semantically-contaminated tokens for NLP
+│   ├── temporal-energy.py              # Labor as time-energy flow with physics constraints
+│   ├── atomic-thermodynamic-accounting.md
+│   ├── hidden-critical-factors.md
+│   ├── money.md
+│   └── work.md
+├── Space-Kessler/                      # Orbital mechanics / risk analysis
+│   ├── coupled-risk.py                 # Subsystem coupling risk model
+│   └── time-evolve-3d.py              # 3D temporal evolution simulation
+├── README.md                           # Core thesis with 13 equations and composite indices
+├── navigation.md                       # Reading guide for different audiences
+├── paradox.md                          # Contradictions in economic definitions
+├── analysis.md                         # Economic analysis
+├── addendum-1.md - addendum-3.md       # Extended analysis documents
+├── ideology-thermodynamics.md          # Thermodynamic lens on social systems
+├── thermodynamic-governance.md         # Governance and labor analysis
+├── signal-distortion.md                # Signal/distortion concepts
+├── LICENSE                             # CC0 1.0
+└── trust.html                          # Placeholder
 ```
 
 ## Languages and Dependencies
@@ -46,19 +46,19 @@ Mathematic-economics/
 
 ## Key Python Modules
 
-### AI/Money-free-model.py (622 lines)
+### AI/money-free-model.py
 Complete economic accounting without monetary proxies. Key classes: `PhysicalConstraints`, `ResourceDepletion`, `EnergyLedger`. Tracks energy flows and sustainability (regeneration minus extraction).
 
-### AI/Semantic-decontamination.py (723 lines)
+### AI/semantic-decontamination.py
 Intercepts and decomposes semantically-contaminated tokens. Uses `PowerPosition` and `CulturalFramework` enums for context-dependent token multiplexing. Designed to sit between NLP input and embedding layers.
 
-### AI/Temporal-energy.py (479 lines)
+### AI/temporal-energy.py
 Models labor as time-energy flow under physics constraints. Key classes: `TemporalConstraints`, `ActivityCost`, `EnergyBalanceLayer` (custom PyTorch loss). Enforces conservation laws in economic modeling.
 
-### Space-Kessler/Coupled_risk.py (63 lines)
+### Space-Kessler/coupled-risk.py
 Risk analysis for orbital debris scenarios. Models subsystem coupling across debris states, maneuver loads, and solar activity.
 
-### Space-Kessler/Time-evolve-3d.py (82 lines)
+### Space-Kessler/time-evolve-3d.py
 3D temporal evolution simulation for orbital mechanics.
 
 ## Code Conventions
@@ -68,8 +68,9 @@ Risk analysis for orbital debris scenarios. Models subsystem coupling across deb
 - **Dataclasses** (`@dataclass`) for configuration and data objects
 - **Enums** for state machines and categorical values
 - **PyTorch `nn.Module`** subclasses for custom layers and loss functions
-- **Snake_case** for variables and functions
+- **snake_case** for variables and functions
 - **PascalCase** for classes
+- **kebab-case** for file names
 - **Descriptive names** emphasizing physical/thermodynamic meaning
 - Comments explain **why** (thermodynamic limits, physical constraints), not just what
 
@@ -84,9 +85,9 @@ Risk analysis for orbital debris scenarios. Models subsystem coupling across deb
 **No formal build system, test suite, or CI/CD pipeline.** This is a research repository — scripts are meant to be run directly or imported for analysis:
 
 ```bash
-python AI/Money-free-model.py
-python AI/Temporal-energy.py
-python Space-Kessler/Coupled_risk.py
+python AI/money-free-model.py
+python AI/temporal-energy.py
+python Space-Kessler/coupled-risk.py
 ```
 
 There are no linting or formatting configurations. No `requirements.txt` or `pyproject.toml` exists — install dependencies manually if needed:
@@ -100,8 +101,8 @@ pip install torch numpy pandas matplotlib
 1. **Thermodynamic grounding:** All economic models are rooted in physical constraints (energy conservation, time limits, biological needs). Do not introduce abstractions that violate these.
 2. **Semantic decontamination:** A central thesis is that economic terminology carries ideological bias. When working with this codebase, preserve the distinction between physical measurement and semantic labeling.
 3. **13 core equations** are defined in README.md (VE/VL, SID, RI, DI, LWR, MSI, BSC, MM, ISR, UFR, ER, HHI, SD) with composite index OSDI.
-4. **No monetary proxies:** The Money-free-model explicitly avoids using money as a unit of account, instead tracking energy, time, and physical resources directly.
-5. **Reading entry points:** Start with README.md for the thesis, Navigation.md for guided reading paths, then explore specific topics.
+4. **No monetary proxies:** The money-free-model explicitly avoids using money as a unit of account, instead tracking energy, time, and physical resources directly.
+5. **Reading entry points:** Start with README.md for the thesis, navigation.md for guided reading paths, then explore specific topics.
 
 ## Working with This Repository
 
