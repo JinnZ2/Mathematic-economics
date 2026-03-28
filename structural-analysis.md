@@ -183,6 +183,45 @@ This document applies the 13 structural equations to specific economic sectors, 
 
 **Measurement-label gap:** The stated justification (RI < 1) is contradicted by measurement (RI ≈ 4.14). The compensation structure assumes the inverse of the measured risk distribution.
 
+### 3.4 The Shelter System: Why "Risk" Is Not Risk
+
+**Mechanism:** The word "risk" in investor compensation narratives refers to a managed position with downside protection — not unhedged exposure. Capital holders operate within a layered shelter system that transforms nominal risk into protected position:
+
+| Shelter Layer | Function |
+|---------------|----------|
+| Insurance | Transfers loss to a pool the insured controls or influences |
+| Tax structures | Hide gains, defer losses, deduct failures |
+| Legal teams | Rewrite contracts mid-game, restructure obligations |
+| Lobbyists | Write the regulations that protect the position |
+| Bankruptcy protection | Corporate shield absorbs losses; personal assets untouched |
+| Information asymmetry | Institutional investors see order flow, research, and structure that retail and workers do not |
+| Revolving door | Regulator today, industry tomorrow — the rules are written by participants |
+
+**Measured properties:**
+- Effective investor risk after shelter: substantially below nominal risk
+- RI (adjusted for shelter) >> 4.14 — the gap widens when shelter is accounted for
+- BSC asymmetry: the shelter system itself is the mechanism that produces BSC >> 1 for capital and BSC ≈ 0 for labor
+
+**Concrete comparison:** A truck driver carrying a load has more actual financial risk per mile than most hedge fund managers carry per year. One DOT violation, one accident, one medical event — total personal exposure. No insurance pool they control. No tax structure to defer the loss. No lobbyist rewriting the regulations. No bankruptcy shield protecting personal assets. No information advantage. No revolving door.
+
+That is not a metaphor. It is measurable: compare the probability-weighted personal financial exposure per unit of economic activity for an owner-operator truck driver vs. a hedge fund general partner, net of all shelter layers. The driver's exposure is unhedged and concentrated. The fund manager's exposure is hedged, diversified, limited, insured, and politically protected.
+
+**Conventional label:** "Investors take risk and deserve compensation for it"
+
+**Measurement-label gap:** The word "risk" is doing narrative work to justify the reward while the actual exposure has been hedged away. The label describes the pre-shelter nominal position. The measurement describes the post-shelter actual exposure. These are not the same quantity, and the compensation is calibrated to the label, not the measurement.
+
+### 3.5 Design Implications: Why CC0 and No-Permission-Needed
+
+The shelter system analysis reveals why the structural tools in this repository are licensed CC0 and designed to operate without institutional permission:
+
+- The phosphorus equations do not need a lobbyist
+- A geothermal transducer does not need a lawyer
+- The physics works regardless of who has access to the shelter system
+
+The cooperative framework this analysis supports is for people in exactly the position the truck driver occupies: carrying real risk with no shelter, needing tools that work without institutional permission. Knowledge that is free, traceable, but uncontrollable — because the populations who need it most are the populations with the least access to the shelter system.
+
+This is why the repository uses CC0 1.0 Universal. "No permission needed" is not a licensing preference — it is a structural requirement derived from the measurement of who bears risk and who controls the shelter.
+
 -----
 
 ## 4. Innovation and Education
