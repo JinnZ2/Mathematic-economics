@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-09",
+  "cpi_r_cumulative_since_dec2019": 32.4,
+  "cpi_r_monthly_annualized": 4.1,
+  "weights": {
+    "food": 0.152,
+    "energy": 0.082,
+    "rent": 0.341,
+    "core_goods": 0.194,
+    "core_services": 0.231
+  },
+  "constraint_scores": {
+    "energy": 1.8,
+    "rent": 0.4,
+    "food": 0.6
+  }
+}
