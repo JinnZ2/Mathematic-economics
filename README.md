@@ -10,6 +10,8 @@ Math and equations for different systems
 
 ## Introduction: Measurement Over Labeling
 
+**Repository note:** The corrected Dynamic CPI-R materials now live under `docs/economics/dynamic_cpi_r/`, where the working module, test script, archived drafts, and generated API example are grouped in one organized location.
+
 **The measurement problem:**
 
 - Terms like “capitalism” and “socialism” lack stable definitions across time and context
