@@ -23,19 +23,22 @@ dependency on another repository.
 
 ## Integration points
 
-The natural bridges into the rest of Math-Econ are:
+All three bridges are wired and covered by `tests/test_bridges.py`:
 
-- `audit/efficiency_report_audit.py` — route headline efficiency claims
-  (e.g., "300% gain") through `core.conservation_checker` before running them
-  through `field_system`.
-- `audit/ai_delusion_econ_checker.py` — replace or augment regex detection
-  with `core.premise_parser` + `core.constraint_mapper`.
-- `AI/equation_bridge.py` — `domains/organizational.py`'s 5 structural
-  constraints (resilience, enforcement ratio, adaptive slack, interdependency
-  load) are direct cousins of the OSDI sub-indices (HHI, SD, RI).
+- **`audit/efficiency_report_audit.py`** — routes each report's headline
+  claim through `main.check()` (full parse → constraint → conservation →
+  flag pipeline) before the Six Sigma audit. Verdict is attached to the
+  audit result as `physics_verdict`.
+- **`audit/ai_delusion_econ_checker.py`** — exposes
+  `analyze_dataset_with_physics()` which keeps the regex path and adds a
+  per-entry PhysicsGuard verdict list.
+- **`AI/equation_bridge.py`** —
+  `SystemMeasurement.check_organizational_physics()` builds an `OrgClaim`
+  from the measured equations (HHI → structure type, ER → enforcement
+  ratio, `1 - ER` → adaptive slack) and calls `check_organization()`.
 
-None of those bridges are wired up yet — this snapshot simply makes them
-possible.
+All three use a defensive `_HAS_PHYSICS_GUARD` flag and fall back to
+pre-bridge behavior if this directory is not importable.
 
 ## Running the tests
 

@@ -57,6 +57,8 @@ Mathematic-economics/
 │   ├── tests/                          # 76 pytest tests
 │   ├── main.py, ai_interface.py, monoculture_detector.py
 │   └── PROVENANCE.md                   # Snapshot metadata and integration points
+├── tests/                              # Integration tests across the three PhysicsGuard bridges
+│   └── test_bridges.py                 # 10 unittest tests (6 always, 4 require numpy)
 ├── schemas/                            # Versioned data contracts for inter-module shapes
 │   ├── __init__.py
 │   └── field_system_contract.py        # Stable shape for field_system state / report
@@ -152,6 +154,16 @@ Markdown specifications for the five compounding labor-measurement failure modes
 ### physics_guard/
 Vendored snapshot of [JinnZ2/PhysicsGuard](https://github.com/JinnZ2/PhysicsGuard) (CC0). Physics-grounded claim verification: `core/` pipeline parses a natural-language premise, maps it to a conservation equation, checks imbalance, and emits a scored `Verdict` with an audit trail. `domains/organizational.py` and `domains/information.py` apply the pipeline to structural-resilience and information-theoretic (Landauer, Shannon) constraints. `monoculture_detector.py` analyzes lexical/causal diversity — directly relevant to the HHI concentration metric in `README.md`. 76 pytest tests at snapshot. See `physics_guard/PROVENANCE.md` for snapshot version and integration points.
 
+### PhysicsGuard bridges
+Three wiring points connect PhysicsGuard into the existing Math-Econ modules. All three are defensive: they set `_HAS_PHYSICS_GUARD = False` and fall back to the pre-bridge behavior if `physics_guard/` is not importable.
+
+- **`audit/efficiency_report_audit.py`** — `audit_efficiency_report()` now routes each report's headline claim through `physics_guard.main.check()` and attaches the verdict to the return dict under `physics_verdict`. A `CORRUPTED` verdict means the headline is physically impossible regardless of the Six Sigma audit outcome.
+- **`audit/ai_delusion_econ_checker.py`** — `analyze_dataset_with_physics()` keeps the existing regex analysis and adds a per-entry PhysicsGuard verdict list. The original `analyze_dataset()` is untouched so downstream callers are unaffected.
+- **`AI/equation_bridge.py`** — `SystemMeasurement.check_organizational_physics(node_count, ...)` constructs a `domains.organizational.OrgClaim` from the measured equations (HHI → structure type, ER → enforcement ratio, `1 - ER` → adaptive slack) and returns the `check_organization()` verdict plus audit trail.
+
+### tests/test_bridges.py
+10 unittest tests verifying the three bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard is absent, and correct derivation of `OrgClaim` fields from measured equations. Run with `python tests/test_bridges.py`. The 4 tests covering `equation_bridge` skip automatically in environments without numpy.
+
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.
 
@@ -192,9 +204,12 @@ python calibration/self_audit.py         # repo audits itself
 
 # PhysicsGuard test suite (requires pytest)
 cd physics_guard && pytest tests/        # 76 tests
+
+# Integration tests for the three PhysicsGuard bridges
+python tests/test_bridges.py             # 10 tests (4 skip without numpy)
 ```
 
-CI runs both suites on push / PR via `.github/workflows/tests.yml`.
+CI runs all three suites on push / PR via `.github/workflows/tests.yml`.
 
 There are no linting or formatting configurations. No `requirements.txt` or `pyproject.toml` exists — install dependencies manually:
 

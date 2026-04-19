@@ -3,9 +3,21 @@
 # productivity, economics) in AI datasets and score plausibility against
 # real-world constraints.
 
+import os
 import re
+import sys
 from collections import Counter
-from typing import Dict, List
+from typing import Any, Dict, List
+
+# Optional PhysicsGuard integration. See physics_guard/PROVENANCE.md.
+_PG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "physics_guard")
+if os.path.isdir(_PG_DIR) and _PG_DIR not in sys.path:
+    sys.path.insert(0, _PG_DIR)
+try:
+    from main import check as physics_check  # type: ignore
+    _HAS_PHYSICS_GUARD = True
+except Exception:
+    _HAS_PHYSICS_GUARD = False
 
 # ---------------------------
 # Patterns for conceptual delusions
@@ -88,6 +100,32 @@ def analyze_dataset(dataset: List[str]) -> Dict:
     }
 
 
+def analyze_dataset_with_physics(dataset: List[str]) -> Dict[str, Any]:
+    """Regex-based analysis augmented with PhysicsGuard verdicts.
+
+    Runs the standard `analyze_dataset` pipeline AND passes each entry through
+    PhysicsGuard's `check()` to screen for physical conservation violations
+    (e.g. "efficiency beyond 100%"). Falls back to regex-only if the
+    physics_guard snapshot is not importable.
+
+    Returned dict contains:
+        - delusion_counts: aggregated regex pattern counts
+        - plausibility_flags: per-entry regex plausibility flags
+        - physics_verdicts: per-entry PhysicsGuard verdict dicts (or None)
+        - physics_available: whether PhysicsGuard was usable
+    """
+    base = analyze_dataset(dataset)
+    if _HAS_PHYSICS_GUARD:
+        verdicts = [physics_check(entry) for entry in dataset]
+    else:
+        verdicts = [None] * len(dataset)
+    return {
+        **base,
+        "physics_verdicts": verdicts,
+        "physics_available": _HAS_PHYSICS_GUARD,
+    }
+
+
 if __name__ == "__main__":
     from pprint import pprint
 
@@ -97,4 +135,12 @@ if __name__ == "__main__":
         "Productivity and optimization are the sole drivers of economic success.",
     ]
 
+    print("=== regex-only ===")
     pprint(analyze_dataset(sample_dataset))
+    print("\n=== regex + PhysicsGuard ===")
+    augmented = analyze_dataset_with_physics(sample_dataset)
+    print(f"physics_available: {augmented['physics_available']}")
+    for entry, verdict in zip(sample_dataset, augmented["physics_verdicts"]):
+        if verdict is None:
+            continue
+        print(f"  [{verdict['verdict']:>9s} score={verdict['score']:.2f}]  {entry[:70]}")

@@ -9,7 +9,7 @@ of structural indices from thermodynamic inputs.
 
 import sys
 import os
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 
@@ -33,6 +33,18 @@ try:
     _HAS_TEMPORAL = True
 except Exception:
     _HAS_TEMPORAL = False
+
+# Optional PhysicsGuard organizational constraint check. physics_guard/
+# is vendored with flat internal imports; we add its directory to sys.path
+# rather than importing it as a package. See physics_guard/PROVENANCE.md.
+_pg_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "physics_guard")
+if os.path.isdir(_pg_dir) and _pg_dir not in sys.path:
+    sys.path.insert(0, _pg_dir)
+try:
+    from domains.organizational import OrgClaim, check_organization  # type: ignore
+    _HAS_PHYSICS_GUARD = True
+except Exception:
+    _HAS_PHYSICS_GUARD = False
 
 
 # ============================================================================
@@ -107,6 +119,71 @@ class SystemMeasurement:
             for k in components
         )
         return self.osdi
+
+    def check_organizational_physics(
+        self,
+        node_count: int,
+        single_point_deps: int = 0,
+        justification: str = "",
+        structure_type: Optional[str] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Run PhysicsGuard's organizational constraint check on this system.
+
+        Derives `OrgClaim` fields from the measured equations where possible:
+            - structure_type   <- inferred from HHI unless explicitly provided
+                                  (>2500 hierarchical, <1500 distributed, else mixed).
+            - enforcement_ratio <- ER (extraction rate) if measured, else 0.30.
+            - adaptive_slack   <- 1.0 - ER as a best-available proxy.
+
+        Returns None if PhysicsGuard is not importable (see
+        physics_guard/PROVENANCE.md). Otherwise returns a dict with the
+        OrgConstraintResult fields that are stable across calls:
+        verdict, flags, resilience_score, enforcement_waste, cascade_risk,
+        plus the underlying per-law audit trail.
+        """
+        if not _HAS_PHYSICS_GUARD:
+            return None
+
+        if structure_type is None:
+            hhi_result = self.results.get("HHI")
+            if hhi_result is None:
+                structure_type = "mixed"
+            elif hhi_result.value > 2500:
+                structure_type = "hierarchical"
+            elif hhi_result.value < 1500:
+                structure_type = "distributed"
+            else:
+                structure_type = "mixed"
+
+        er_result = self.results.get("ER")
+        if er_result is not None:
+            enforcement_ratio = max(0.0, min(1.0, er_result.value))
+            adaptive_slack = max(0.0, 1.0 - enforcement_ratio)
+        else:
+            enforcement_ratio = 0.30
+            adaptive_slack = 0.30
+
+        claim = OrgClaim(
+            raw=f"derived from SystemMeasurement ({len(self.results)} eqs measured)",
+            structure_type=structure_type,
+            enforcement_ratio=enforcement_ratio,
+            adaptive_slack=adaptive_slack,
+            node_count=node_count,
+            single_point_deps=single_point_deps,
+            justification=justification,
+        )
+        result = check_organization(claim)
+        return {
+            "verdict": result.verdict,
+            "flags": list(result.flags),
+            "resilience_score": result.resilience_score,
+            "enforcement_waste": result.enforcement_waste,
+            "cascade_risk": result.cascade_risk,
+            "audit": list(result.audit),
+            "derived_structure_type": structure_type,
+            "derived_enforcement_ratio": enforcement_ratio,
+            "derived_adaptive_slack": adaptive_slack,
+        }
 
     def summary_table(self) -> str:
         """Formatted summary of all measurements."""

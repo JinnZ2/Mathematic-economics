@@ -4,11 +4,26 @@
 # representative archetypes through the Six Sigma auditor and field-system
 # rule engine, then comparing against a first-principles baseline.
 
+import os
+import sys
 from datetime import datetime
 from typing import Any, Dict
 
 from field_system import effective_yield, fill_state, report
 from system_audit import SixSigmaAudit
+
+# Optional PhysicsGuard integration. physics_guard/ is a vendored snapshot
+# (see physics_guard/PROVENANCE.md) with flat internal imports, so we add it
+# to sys.path rather than importing it as a package. If unavailable, the
+# audit runs without the physics-verdict step.
+_PG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "physics_guard")
+if os.path.isdir(_PG_DIR) and _PG_DIR not in sys.path:
+    sys.path.insert(0, _PG_DIR)
+try:
+    from main import check as physics_check  # type: ignore
+    _HAS_PHYSICS_GUARD = True
+except Exception:
+    _HAS_PHYSICS_GUARD = False
 
 
 # ---------------------------
@@ -123,14 +138,20 @@ REPORT_ARCHETYPES: Dict[str, Dict[str, Any]] = {
 
 
 def audit_efficiency_report(report_type: str, auditor: SixSigmaAudit) -> Dict[str, Any]:
-    """Run audit on one of the efficiency-report archetypes."""
+    """Run audit on one of the efficiency-report archetypes.
+
+    When PhysicsGuard is available, the report's headline claim is also
+    screened against physical conservation laws. A CORRUPTED physics
+    verdict means the claim is impossible regardless of what the Six Sigma
+    audit concludes downstream.
+    """
     report_data = REPORT_ARCHETYPES.get(report_type, REPORT_ARCHETYPES["precision_ag"])
     scenario = report_data["parameters"]
 
     audit = auditor.audit_claim(scenario, report_data["name"])
     yield_analysis = effective_yield(fill_state(scenario))
 
-    return {
+    result = {
         "report_type": report_data["name"],
         "claims": report_data["claims"],
         "audit": audit,
@@ -141,6 +162,14 @@ def audit_efficiency_report(report_type: str, auditor: SixSigmaAudit) -> Dict[st
         # Ratio of missing wild space relative to a 200-acre reference.
         "ecological_debt": 1.0 - (scenario["ecological_area"] / 200),
     }
+
+    if _HAS_PHYSICS_GUARD:
+        headline = report_data["claims"].get("headline", "")
+        result["physics_verdict"] = physics_check(headline) if headline else None
+    else:
+        result["physics_verdict"] = None
+
+    return result
 
 
 # ---------------------------
@@ -190,6 +219,17 @@ def run_audit_suite():
         print("\nClaims Made:")
         for claim, value in result["claims"].items():
             print(f"  - {claim}: {value}")
+
+        verdict = result.get("physics_verdict")
+        if verdict is not None:
+            print("\nPhysicsGuard Pre-Screen (headline claim):")
+            print(f"  Verdict:    {verdict['verdict']}")
+            print(f"  Score:      {verdict['score']:.3f}")
+            print(f"  Confidence: {verdict['confidence']:.0%}")
+            if verdict.get("reason"):
+                print(f"  Reason:     {verdict['reason']}")
+            for viol in verdict.get("violations", [])[:2]:
+                print(f"  ! {viol['law']}: {viol['description']}")
 
         audit = result["audit"]
         print("\nAudit Results:")
