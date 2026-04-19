@@ -1,0 +1,23 @@
+[project]
+name = "physicsguard"
+version = "1.0.0"
+description = "Physics-grounded logic verification — detects corrupted premises via conservation law checking"
+license = "CC0-1.0"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E701"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
