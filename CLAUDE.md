@@ -51,6 +51,12 @@ Mathematic-economics/
 │   ├── automation_assessment.py        # Interactive hidden-variable entropy probe
 │   └── integrations/
 │       └── biological_extraction_model.py  # Substrate-agnostic extraction physics
+├── physics_guard/                      # Vendored PhysicsGuard snapshot (see PROVENANCE.md)
+│   ├── core/                           # premise_parser -> constraint_mapper -> conservation_checker -> flag_engine
+│   ├── domains/                        # organizational, information (Landauer, Shannon bound, etc.)
+│   ├── tests/                          # 76 pytest tests
+│   ├── main.py, ai_interface.py, monoculture_detector.py
+│   └── PROVENANCE.md                   # Snapshot metadata and integration points
 ├── schemas/                            # Versioned data contracts for inter-module shapes
 │   ├── __init__.py
 │   └── field_system_contract.py        # Stable shape for field_system state / report
@@ -143,6 +149,9 @@ Substrate-agnostic extraction physics: the same energy-balance accounting applie
 ### labor_thermodynamics/
 Markdown specifications for the five compounding labor-measurement failure modes (L1-L5). Sits next to the essay-style analysis files at the repo root; ported from thermodynamic-accountability-framework.
 
+### physics_guard/
+Vendored snapshot of [JinnZ2/PhysicsGuard](https://github.com/JinnZ2/PhysicsGuard) (CC0). Physics-grounded claim verification: `core/` pipeline parses a natural-language premise, maps it to a conservation equation, checks imbalance, and emits a scored `Verdict` with an audit trail. `domains/organizational.py` and `domains/information.py` apply the pipeline to structural-resilience and information-theoretic (Landauer, Shannon) constraints. `monoculture_detector.py` analyzes lexical/causal diversity — directly relevant to the HHI concentration metric in `README.md`. 76 pytest tests at snapshot. See `physics_guard/PROVENANCE.md` for snapshot version and integration points.
+
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.
 
@@ -180,7 +189,12 @@ python audit/system_audit.py
 python audit/efficiency_report_audit.py
 python calibration/test_calibration.py   # 11 falsification tests
 python calibration/self_audit.py         # repo audits itself
+
+# PhysicsGuard test suite (requires pytest)
+cd physics_guard && pytest tests/        # 76 tests
 ```
+
+CI runs both suites on push / PR via `.github/workflows/tests.yml`.
 
 There are no linting or formatting configurations. No `requirements.txt` or `pyproject.toml` exists — install dependencies manually:
 
