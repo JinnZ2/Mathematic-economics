@@ -77,6 +77,7 @@ Mathematic-economics/
 │           ├── drafts/                 # Earlier prototype fragments
 │           └── examples/               # Generated API payload
 ├── README.md                           # Core thesis with 13 equations and composite indices
+├── SURFACE.md                          # Stable surface declaration for downstream pinning (tag: equations-v1)
 ├── navigation.md                       # Reading guide for different audiences
 ├── paradox.md                          # Contradictions in economic definitions
 ├── analysis.md                         # Economic analysis
@@ -239,6 +240,27 @@ Scripts that import sibling modules (e.g. `system_audit` importing `field_system
 - **Space / orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
 - **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) and [`JinnZ2/PhysicsGuard`](https://github.com/JinnZ2/PhysicsGuard) (both CC0). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
+
+## Stable surface tag
+
+The tag **`equations-v1`** is the canonical pinning point for downstream
+repositories (e.g. `JinnZ2/thermodynamic-accountability-framework`).  What the
+tag covers — and the rules for when to bump it — are declared in `SURFACE.md`
+at the repo root.
+
+**Key rules for contributors:**
+
+- **Do not delete or force-move `equations-v*` tags.** Moving a tag is a
+  breaking change for every downstream repo that has pinned to it.
+- When making a breaking change to any in-scope item (equation name/formula,
+  `equations.yaml` keys/units/ranges, `schemas/field_system_contract.py` field
+  names/types, HHI/ER conventions), create a new major tag (`equations-v2`,
+  …) and update the `surface_version` field in `equations.yaml` metadata.
+- When adding a backward-compatible item (new equation, new schema field with a
+  default), create a new minor tag (`equations-v1.1`, …) and update
+  `surface_version`.
+- Calibration knobs (OSDI weights, normalization constants, threshold choices)
+  do **not** require a tag bump.
 
 ## Invariant: vendored subtrees must not import Math-Econ
 
