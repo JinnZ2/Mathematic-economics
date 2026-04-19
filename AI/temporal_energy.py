@@ -315,7 +315,7 @@ class TemporalEnergyModel(nn.Module):
                 domain_states: Optional[torch.Tensor] = None,
                 return_diagnostics: bool = False) -> Dict[str, torch.Tensor]:
         """
-        Full forward pass through temporal-energy framework
+        Full forward pass through temporal_energy framework
         
         Args:
             activities: [batch, time_steps, activity_dim]

@@ -23,19 +23,13 @@ if _ai_dir not in sys.path:
     sys.path.insert(0, _ai_dir)
 
 try:
-    from importlib import import_module as _im
-    _mfm = _im("money-free-model")
-    PhysicalConstraints = _mfm.PhysicalConstraints
-    EnergyLedger = _mfm.EnergyLedger
-    ResourceDepletion = _mfm.ResourceDepletion
+    from money_free_model import EnergyLedger, PhysicalConstraints, ResourceDepletion
     _HAS_MONEY_FREE = True
 except Exception:
     _HAS_MONEY_FREE = False
 
 try:
-    _te = _im("temporal-energy")
-    TemporalConstraints = _te.TemporalConstraints
-    ActivityCost = _te.ActivityCost
+    from temporal_energy import ActivityCost, TemporalConstraints
     _HAS_TEMPORAL = True
 except Exception:
     _HAS_TEMPORAL = False
@@ -401,7 +395,7 @@ def from_energy_ledger(
         Keys should include 'useful_work', 'heat_loss', 'stored_energy',
         'extracted_by_capital'. Values in MJ.
     constraints : PhysicalConstraints, optional
-        Physical constraints from money-free-model.
+        Physical constraints from money_free_model.
 
     Returns
     -------
