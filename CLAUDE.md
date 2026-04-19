@@ -30,14 +30,38 @@ Mathematic-economics/
 │   ├── efficiency_report_audit.py      # Audits industry "efficiency" report archetypes
 │   ├── epistemic_cascade.py
 │   ├── field_system.py                 # Rule-field engine used by system_audit
+│   ├── heat_leak_case.py               # Institutional friction / energy-loss detector
 │   ├── implementation_layer.py
 │   ├── incentive_structure.py
 │   ├── incentives_audit.py
 │   └── system_audit.py                 # Six Sigma-style audit on field_system outputs
+├── calibration/                        # Falsifiable diagnostics + falsification test suite (stdlib only)
+│   ├── schema.py                       # Band / DimensionScore / CalibrationReport
+│   ├── calibration_audit.py            # Q1-Q5 bite/skin/witness/memorialization/friction
+│   ├── observation_dependence.py       # Witness-dependence coefficient
+│   ├── adaptation_debt.py              # Friction removal -> stored fragility
+│   ├── architecture_mismatch.py        # Language-primary vs substrate-primary cognition
+│   ├── pipeline.py                     # Unified audit across calibration modules
+│   ├── self_audit.py                   # Self-referential repo audit
+│   └── test_calibration.py             # 11 falsification tests
+├── core/                               # Physical sub-models (stdlib only, no PyTorch)
+│   ├── fatigue_model.py                # 0-10 fatigue from load vs. energy input
+│   ├── human_system_collapse_model.py  # Distance-to-collapse at 120/140/160% thresholds
+│   ├── data_logger.py                  # Parasitic energy-debt ledger
+│   ├── automation_assessment.py        # Interactive hidden-variable entropy probe
+│   └── integrations/
+│       └── biological_extraction_model.py  # Substrate-agnostic extraction physics
+├── schemas/                            # Versioned data contracts for inter-module shapes
+│   ├── __init__.py
+│   └── field_system_contract.py        # Stable shape for field_system state / report
 ├── data/                               # External data fetch + sensitivity analysis
 │   ├── fetch_and_compute.py
 │   ├── sensitivity_analysis.py
 │   └── plots/                          # Generated figures (PNG)
+├── labor_thermodynamics/               # Markdown specs for the five labor-measurement failure modes
+│   ├── README.md
+│   ├── failure_modes.md
+│   └── measurement_problem.md
 ├── docs/
 │   └── economics/
 │       └── dynamic_cpi_r/              # Dynamic CPI-R estimator (the "-R" suffix is the metric name)
@@ -101,6 +125,24 @@ Runs `SixSigmaAudit` against representative 2025-2026 "efficiency breakthrough" 
 ### audit/ai_delusion_econ_checker.py
 Regex-based detector for systemic assumptions (hierarchy, corporation, efficiency, optimization, productivity, economics) in text datasets, with plausibility flags.
 
+### audit/heat_leak_case.py
+Institutional-friction / energy-loss diagnostic (ported from thermodynamic-accountability-framework). Detects heat leaks and prediction-error patterns across shift-style data.
+
+### calibration/
+Falsifiable diagnostic suite (ported from thermodynamic-accountability-framework, CC0, stdlib only). Scores systems across five dimensions (bite source, skin-in-game, witness dependence, memorialization, friction removal) and aggregates into GREEN / YELLOW / RED / EXTINCT bands. `test_calibration.py` contains 11 falsification tests that must pass (`python calibration/test_calibration.py`). `self_audit.py` runs the framework against itself to detect propaganda-of-skill drift.
+
+### core/fatigue_model.py, core/human_system_collapse_model.py
+Physical sub-models for labor load vs. energy input. `fatigue_model.py` returns a 0-10 fatigue score with hidden-variable / automation / environment multipliers. `human_system_collapse_model.py` converts total load into a distance-to-collapse metric with thresholds at 120 / 140 / 160% of energy input. Both complement `AI/temporal_energy.py` but use stdlib only, so they run without PyTorch.
+
+### core/integrations/biological_extraction_model.py
+Substrate-agnostic extraction physics: the same energy-balance accounting applied whether the organism is human, machine, or AI. Supports `AI/semantic_decontamination.py`'s thesis that labels obscure structural realities.
+
+### schemas/field_system_contract.py
+`FieldSystemState` + `FieldSystemReport` + `YieldAnalysis` dataclasses mirroring the dict shape consumed and produced by `audit/field_system.py`. Consumers (`system_audit`, `efficiency_report_audit`) can adopt it incrementally for type-checked inputs. Versioned via `CONTRACT_VERSION`.
+
+### labor_thermodynamics/
+Markdown specifications for the five compounding labor-measurement failure modes (L1-L5). Sits next to the essay-style analysis files at the repo root; ported from thermodynamic-accountability-framework.
+
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.
 
@@ -136,6 +178,8 @@ python AI/temporal_energy.py
 python Space-Kessler/coupled_risk.py
 python audit/system_audit.py
 python audit/efficiency_report_audit.py
+python calibration/test_calibration.py   # 11 falsification tests
+python calibration/self_audit.py         # repo audits itself
 ```
 
 There are no linting or formatting configurations. No `requirements.txt` or `pyproject.toml` exists — install dependencies manually:
@@ -156,9 +200,13 @@ Scripts that import sibling modules (e.g. `system_audit` importing `field_system
 
 ## Working with This Repository
 
-- **Adding computational models:** Place in `AI/`. Follow existing patterns: dataclasses for config, type hints, PyTorch for computational graphs, comments explaining physical constraints.
-- **Adding audit / protocol scripts:** Place in `audit/`. These are standard-library Python modules that can import each other directly.
+- **Adding PyTorch computational models:** Place in `AI/`. Follow existing patterns: dataclasses for config, type hints, PyTorch for computational graphs, comments explaining physical constraints.
+- **Adding stdlib-only physical sub-models:** Place in `core/`. These complement `AI/` but run without PyTorch.
+- **Adding audit / protocol scripts:** Place in `audit/`. Standard-library modules that import each other directly.
+- **Adding falsifiable diagnostics:** Place in `calibration/`. Every dimension scorer must expose a `falsifier` string describing what input would flip its verdict, and should have a matching test in `test_calibration.py`.
+- **Adding inter-module data shapes:** Place a versioned dataclass contract in `schemas/` before the third consumer starts passing the dict around.
 - **Adding data ingestion or sensitivity analysis:** Place in `data/`.
-- **Adding analysis essays:** Place Markdown files in the root directory.
+- **Adding analysis essays:** Place Markdown files in the root directory (or `labor_thermodynamics/` for labor-specific specs).
 - **Space / orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
+- **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) (CC0). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
