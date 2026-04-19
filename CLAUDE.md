@@ -30,7 +30,6 @@ Mathematic-economics/
 │   ├── efficiency_report_audit.py      # Audits industry "efficiency" report archetypes
 │   ├── epistemic_cascade.py
 │   ├── field_system.py                 # Rule-field engine used by system_audit
-│   ├── heat_leak_case.py               # Institutional friction / energy-loss detector
 │   ├── implementation_layer.py
 │   ├── incentive_structure.py
 │   ├── incentives_audit.py
@@ -44,11 +43,12 @@ Mathematic-economics/
 │   ├── pipeline.py                     # Unified audit across calibration modules
 │   ├── self_audit.py                   # Self-referential repo audit
 │   └── test_calibration.py             # 11 falsification tests
-├── core/                               # Physical sub-models (stdlib only, no PyTorch)
+├── core/                               # Vendored TAF physical / diagnostic sub-models (stdlib only)
 │   ├── fatigue_model.py                # 0-10 fatigue from load vs. energy input
 │   ├── human_system_collapse_model.py  # Distance-to-collapse at 120/140/160% thresholds
 │   ├── data_logger.py                  # Parasitic energy-debt ledger
 │   ├── automation_assessment.py        # Interactive hidden-variable entropy probe
+│   ├── heat_leak_case.py               # Institutional friction / energy-loss detector
 │   └── integrations/
 │       └── biological_extraction_model.py  # Substrate-agnostic extraction physics
 ├── physics_guard/                      # Vendored PhysicsGuard snapshot (see PROVENANCE.md)
@@ -133,8 +133,8 @@ Runs `SixSigmaAudit` against representative 2025-2026 "efficiency breakthrough" 
 ### audit/ai_delusion_econ_checker.py
 Regex-based detector for systemic assumptions (hierarchy, corporation, efficiency, optimization, productivity, economics) in text datasets, with plausibility flags.
 
-### audit/heat_leak_case.py
-Institutional-friction / energy-loss diagnostic (ported from thermodynamic-accountability-framework). Detects heat leaks and prediction-error patterns across shift-style data.
+### core/heat_leak_case.py
+Institutional-friction / energy-loss diagnostic (vendored from thermodynamic-accountability-framework). Detects heat leaks and prediction-error patterns across shift-style data. Lives in `core/` alongside the other TAF-originated sub-models so the import-direction invariant test can scan it.
 
 ### calibration/
 Falsifiable diagnostic suite (ported from thermodynamic-accountability-framework, CC0, stdlib only). Scores systems across five dimensions (bite source, skin-in-game, witness dependence, memorialization, friction removal) and aggregates into GREEN / YELLOW / RED / EXTINCT bands. `test_calibration.py` contains 11 falsification tests that must pass (`python calibration/test_calibration.py`). `self_audit.py` runs the framework against itself to detect propaganda-of-skill drift.

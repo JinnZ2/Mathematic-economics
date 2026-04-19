@@ -170,7 +170,7 @@ class ImportDirectionInvariant(unittest.TestCase):
         "certification_protocol", "deflection_pattern_analyzer",
         "epistemic_cascade", "implementation_layer", "incentive_structure",
         "incentives_audit", "efficiency_report_audit",
-        "ai_delusion_econ_checker", "heat_leak_case",
+        "ai_delusion_econ_checker",
         # AI/
         "money_free_model", "semantic_decontamination", "temporal_energy",
         "equation_bridge",
