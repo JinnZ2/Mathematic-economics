@@ -4,6 +4,7 @@
 
 metadata:
   version: "1.0"
+  surface_version: "equations-v1"
   license: "CC0-1.0"
   repository: "Mathematic-economics"
   description: >
