@@ -150,5 +150,80 @@ class BridgeOrganizationalPhysics(unittest.TestCase):
         self.assertEqual(result["derived_structure_type"], "distributed")
 
 
+class ImportDirectionInvariant(unittest.TestCase):
+    """Vendored subtrees must not runtime-import Math-Econ.
+
+    Math-Econ has no requirements.txt and is not pip-installable; it is
+    intentionally research code. The vendored snapshots (physics_guard/,
+    calibration/, core/) must stay pure so they can be re-synced from
+    their upstream repos without accidentally pulling Math-Econ with them.
+
+    This test scans every .py file under each vendored subtree and asserts
+    that none of them import Math-Econ-specific modules.
+    """
+
+    # Module names that are unique to Math-Econ. If a vendored file imports
+    # any of these at the top level, it has crossed the boundary.
+    ME_MODULE_NAMES = frozenset({
+        # audit/
+        "field_system", "system_audit", "accountability_protocol",
+        "certification_protocol", "deflection_pattern_analyzer",
+        "epistemic_cascade", "implementation_layer", "incentive_structure",
+        "incentives_audit", "efficiency_report_audit",
+        "ai_delusion_econ_checker", "heat_leak_case",
+        # AI/
+        "money_free_model", "semantic_decontamination", "temporal_energy",
+        "equation_bridge",
+        # schemas/
+        "schemas", "field_system_contract",
+        # data/
+        "fetch_and_compute", "sensitivity_analysis",
+    })
+
+    VENDORED_SUBTREES = ("physics_guard", "calibration", "core")
+
+    def _collect_imports(self, path):
+        """Return the set of top-level module names imported by `path`."""
+        import ast
+        with open(path, "r", encoding="utf-8") as fh:
+            try:
+                tree = ast.parse(fh.read(), filename=path)
+            except SyntaxError:
+                return set()
+        names = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    names.add(alias.name.split(".")[0])
+            elif isinstance(node, ast.ImportFrom):
+                if node.level == 0 and node.module:
+                    names.add(node.module.split(".")[0])
+        return names
+
+    def test_vendored_subtrees_do_not_import_math_econ(self):
+        repo_root = REPO_ROOT
+        offenders = []
+        for subtree in self.VENDORED_SUBTREES:
+            subtree_path = os.path.join(repo_root, subtree)
+            if not os.path.isdir(subtree_path):
+                continue
+            for dirpath, _, filenames in os.walk(subtree_path):
+                for fn in filenames:
+                    if not fn.endswith(".py"):
+                        continue
+                    fp = os.path.join(dirpath, fn)
+                    leaked = self._collect_imports(fp) & self.ME_MODULE_NAMES
+                    if leaked:
+                        rel = os.path.relpath(fp, repo_root)
+                        offenders.append((rel, sorted(leaked)))
+
+        self.assertEqual(
+            offenders,
+            [],
+            "Vendored subtrees must not import Math-Econ modules. "
+            "Offenders: " + ", ".join(f"{f} imports {mods}" for f, mods in offenders),
+        )
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

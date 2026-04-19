@@ -238,4 +238,21 @@ Scripts that import sibling modules (e.g. `system_audit` importing `field_system
 - **Adding analysis essays:** Place Markdown files in the root directory (or `labor_thermodynamics/` for labor-specific specs).
 - **Space / orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
-- **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) (CC0). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
+- **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) and [`JinnZ2/PhysicsGuard`](https://github.com/JinnZ2/PhysicsGuard) (both CC0). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
+
+## Invariant: vendored subtrees must not import Math-Econ
+
+Math-Econ has no `requirements.txt` and is not pip-installable — it is
+intentionally research code. The vendored subtrees (`physics_guard/`,
+`calibration/`, `core/`, `labor_thermodynamics/`) must stay pure so they
+can be re-synced from their upstream repos without accidentally pulling
+Math-Econ with them.
+
+**Rule:** imports only flow **Math-Econ → vendored**, never **vendored →
+Math-Econ**. If you need the reverse direction (vendored code reacting to
+Math-Econ state), pass data into the vendored function from a Math-Econ
+module instead of importing back.
+
+`tests/test_bridges.py::ImportDirectionInvariant` enforces this via AST
+scan of every `.py` file under each vendored subtree, and fails CI if any
+of them import a Math-Econ module name.

@@ -65,3 +65,20 @@ pytest physics_guard/tests/
 ## Local adaptations
 
 None at this time. Files are verbatim from upstream.
+
+## Invariant: no runtime import of Math-Econ
+
+Nothing under this directory may import a Math-Econ module at runtime.
+Math-Econ has no `requirements.txt` and is not pip-installable; if this
+snapshot reached back into `audit/`, `AI/`, or `schemas/`, the upstream
+PhysicsGuard project (which has its own CI and test expectations) would
+inherit a dependency on a repo it cannot install.
+
+The invariant is enforced by
+`tests/test_bridges.py::ImportDirectionInvariant`, which AST-scans every
+`.py` file under `physics_guard/`, `calibration/`, and `core/` for
+imports of Math-Econ module names. CI runs it on every push.
+
+If a future upstream re-sync introduces such an import, the fix is to
+move the coupling into a Math-Econ-side bridge (as the three existing
+bridges do) rather than modify the vendored file.
