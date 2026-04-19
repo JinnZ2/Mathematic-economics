@@ -34,3 +34,18 @@ jobs:
       - name: Run PhysicsGuard tests
         working-directory: physics_guard
         run: pytest tests/ -v
+
+  bridges:
+    name: PhysicsGuard <-> Math-Econ bridge tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install bridge-test deps
+        # numpy is required for AI/equation_bridge.py; without it the
+        # organizational-physics bridge tests skip silently.
+        run: pip install numpy
+      - name: Run bridge tests
+        run: python tests/test_bridges.py
