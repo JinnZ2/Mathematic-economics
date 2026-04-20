@@ -150,6 +150,108 @@ class BridgeOrganizationalPhysics(unittest.TestCase):
         self.assertEqual(result["derived_structure_type"], "distributed")
 
 
+class BridgeMetabolicAccounting(unittest.TestCase):
+    """audit/metabolic_bridge.py is a defensive bridge to JinnZ2/metabolic-accounting.
+
+    Unlike physics_guard, metabolic-accounting is NOT vendored in this repo,
+    so the bridge gracefully reports _HAS_METABOLIC_ACCOUNTING=False on a
+    default checkout. These tests assert the bridge is always importable
+    and that its consumers degrade cleanly.
+    """
+
+    def test_bridge_module_always_importable(self):
+        import metabolic_bridge as mb
+        self.assertIsInstance(mb._HAS_METABOLIC_ACCOUNTING, bool)
+
+    def test_metabolic_check_returns_none_when_absent(self):
+        import metabolic_bridge as mb
+        original = mb._HAS_METABOLIC_ACCOUNTING
+        try:
+            mb._HAS_METABOLIC_ACCOUNTING = False
+            self.assertIsNone(mb.metabolic_check(revenue=1000.0,
+                                                direct_operating_cost=600.0))
+        finally:
+            mb._HAS_METABOLIC_ACCOUNTING = original
+
+    def test_stress_mapping_scales_field_scenario(self):
+        """stress_from_field_scenario does not require the upstream package."""
+        import metabolic_bridge as mb
+        scenario = {"soil_trend": -0.05, "water_retention": 0.45,
+                    "disturbance": 0.30, "nutrient_density": 0.40}
+        stress = mb.stress_from_field_scenario(scenario)
+        self.assertAlmostEqual(stress[("site_soil", "carbon_fraction")], 5.0)
+        self.assertAlmostEqual(stress[("site_air", "particulate_load")], 3.0)
+        self.assertAlmostEqual(stress[("site_water", "aquifer_level")], 5.5)
+        self.assertAlmostEqual(stress[("site_biology", "pollinator_index")], 6.0)
+        # Positive soil_trend should not register as stress.
+        s2 = mb.stress_from_field_scenario({"soil_trend": 0.1})
+        self.assertEqual(s2[("site_soil", "carbon_fraction")], 0.0)
+
+    def test_efficiency_audit_includes_metabolic_key(self):
+        """The audit result must always include a 'metabolic_verdict' key,
+        whether or not metabolic-accounting is importable."""
+        import efficiency_report_audit as era
+        from system_audit import SixSigmaAudit
+        result = era.audit_efficiency_report("precision_ag", SixSigmaAudit())
+        self.assertIn("metabolic_verdict", result)
+        verdict = result["metabolic_verdict"]
+        if verdict is None:
+            return  # bridge inactive on this checkout — graceful degrade
+        for key in ("sustainable_yield_signal", "basin_trajectory",
+                    "metabolic_profit", "regeneration_debt"):
+            self.assertIn(key, verdict)
+        self.assertIn(verdict["sustainable_yield_signal"],
+                      {"GREEN", "AMBER", "RED", "BLACK"})
+
+    def test_equation_bridge_metabolic_check_returns_none_when_absent(self):
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+        original = eb._HAS_METABOLIC_BRIDGE
+        try:
+            eb._HAS_METABOLIC_BRIDGE = False
+            self.assertIsNone(sm.check_metabolic_health())
+        finally:
+            eb._HAS_METABOLIC_BRIDGE = original
+
+    def test_equation_bridge_uses_er_for_operating_cost(self):
+        """When ER is measured, operating_cost should be revenue * (1-ER).
+        We verify the derivation by mocking metabolic_check to capture args."""
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+        sm.add(eb.compute_er(revenue=100.0, labor_costs=20.0))  # ER = 0.80
+
+        captured = {}
+
+        def fake_check(**kwargs):
+            captured.update(kwargs)
+            return {"sustainable_yield_signal": "RED", "basin_trajectory": "STABLE"}
+
+        original_has = eb._HAS_METABOLIC_BRIDGE
+        original_mb = eb._mb
+        try:
+            eb._HAS_METABOLIC_BRIDGE = True
+
+            class _StubBridge:
+                _HAS_METABOLIC_ACCOUNTING = True
+                metabolic_check = staticmethod(fake_check)
+
+            eb._mb = _StubBridge
+            result = sm.check_metabolic_health(revenue=100.0)
+            self.assertIsNotNone(result)
+            # ER = 0.80 -> operating_cost = 100 * (1 - 0.80) = 20.0
+            self.assertAlmostEqual(captured["direct_operating_cost"], 20.0)
+            self.assertAlmostEqual(captured["revenue"], 100.0)
+        finally:
+            eb._HAS_METABOLIC_BRIDGE = original_has
+            eb._mb = original_mb
+
+
 class ImportDirectionInvariant(unittest.TestCase):
     """Vendored subtrees must not runtime-import Math-Econ.
 
@@ -170,7 +272,7 @@ class ImportDirectionInvariant(unittest.TestCase):
         "certification_protocol", "deflection_pattern_analyzer",
         "epistemic_cascade", "implementation_layer", "incentive_structure",
         "incentives_audit", "efficiency_report_audit",
-        "ai_delusion_econ_checker",
+        "ai_delusion_econ_checker", "metabolic_bridge",
         # AI/
         "money_free_model", "semantic_decontamination", "temporal_energy",
         "equation_bridge",

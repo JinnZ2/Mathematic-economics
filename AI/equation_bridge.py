@@ -46,6 +46,18 @@ try:
 except Exception:
     _HAS_PHYSICS_GUARD = False
 
+# Optional metabolic-accounting bridge. Lives in audit/ (sibling to AI/),
+# so we add that to sys.path before importing. The bridge itself is always
+# importable; its `_HAS_METABOLIC_ACCOUNTING` flag gates the runtime call.
+_audit_dir = os.path.abspath(os.path.join(_ai_dir, "..", "audit"))
+if os.path.isdir(_audit_dir) and _audit_dir not in sys.path:
+    sys.path.insert(0, _audit_dir)
+try:
+    import metabolic_bridge as _mb  # type: ignore
+    _HAS_METABOLIC_BRIDGE = True
+except Exception:
+    _HAS_METABOLIC_BRIDGE = False
+
 
 # ============================================================================
 # EQUATION RESULTS
@@ -184,6 +196,37 @@ class SystemMeasurement:
             "derived_enforcement_ratio": enforcement_ratio,
             "derived_adaptive_slack": adaptive_slack,
         }
+
+    def check_metabolic_health(
+        self,
+        revenue: float = 100.0,
+        regeneration_paid: float = 0.0,
+        stress: Optional[Dict[Tuple[str, str], float]] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Run a metabolic-accounting verdict derived from this measurement.
+
+        Operating cost is derived from ER (extraction rate) when measured:
+        a higher ER means less of revenue is returned to producing agents,
+        so operating_cost = revenue * (1 - ER). Without ER, defaults to a
+        70% operating-cost ratio.
+
+        Returns None when the metabolic_bridge module or its upstream
+        package are not available. Otherwise returns the normalized
+        verdict dict from metabolic_bridge.metabolic_check.
+        """
+        if not _HAS_METABOLIC_BRIDGE or not _mb._HAS_METABOLIC_ACCOUNTING:
+            return None
+        er_result = self.results.get("ER")
+        if er_result is not None and 0.0 <= er_result.value <= 1.0:
+            operating_cost = revenue * (1.0 - er_result.value)
+        else:
+            operating_cost = revenue * 0.30
+        return _mb.metabolic_check(
+            revenue=revenue,
+            direct_operating_cost=operating_cost,
+            regeneration_paid=regeneration_paid,
+            stress=stress,
+        )
 
     def summary_table(self) -> str:
         """Formatted summary of all measurements."""
