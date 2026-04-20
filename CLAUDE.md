@@ -33,6 +33,7 @@ Mathematic-economics/
 │   ├── implementation_layer.py
 │   ├── incentive_structure.py
 │   ├── incentives_audit.py
+│   ├── metabolic_bridge.py             # Defensive bridge to JinnZ2/metabolic-accounting
 │   └── system_audit.py                 # Six Sigma-style audit on field_system outputs
 ├── calibration/                        # Falsifiable diagnostics + falsification test suite (stdlib only)
 │   ├── schema.py                       # Band / DimensionScore / CalibrationReport
@@ -162,8 +163,15 @@ Three wiring points connect PhysicsGuard into the existing Math-Econ modules. Al
 - **`audit/ai_delusion_econ_checker.py`** — `analyze_dataset_with_physics()` keeps the existing regex analysis and adds a per-entry PhysicsGuard verdict list. The original `analyze_dataset()` is untouched so downstream callers are unaffected.
 - **`AI/equation_bridge.py`** — `SystemMeasurement.check_organizational_physics(node_count, ...)` constructs a `domains.organizational.OrgClaim` from the measured equations (HHI → structure type, ER → enforcement ratio, `1 - ER` → adaptive slack) and returns the `check_organization()` verdict plus audit trail.
 
+### Metabolic-accounting bridge
+A fourth bridge wires Math-Econ into [JinnZ2/metabolic-accounting](https://github.com/JinnZ2/metabolic-accounting) (CC0, stdlib-only). Unlike PhysicsGuard, metabolic-accounting is **not vendored** — `audit/metabolic_bridge.py` probes a few conventional locations (`<repo_root>/metabolic_accounting/`, `<parent>/metabolic-accounting/`) and sets `_HAS_METABOLIC_ACCOUNTING = False` if none are found. To activate the bridge, place a checkout in either location.
+
+- **`audit/metabolic_bridge.py`** — exposes `metabolic_check(revenue, direct_operating_cost, regeneration_paid, stress)` which builds a four-basin `Site`, computes `GlucoseFlow`, and returns a normalized `Verdict` dict (GREEN/AMBER/RED/BLACK in `sustainable_yield_signal`; BLACK = irreversibility, not "very RED"). Also exposes `stress_from_field_scenario(scenario)` which derives a stress vector from a Math-Econ `field_system` scenario.
+- **`audit/efficiency_report_audit.py`** — `audit_efficiency_report()` now also attaches `metabolic_verdict` to the result dict, alongside `physics_verdict`. Revenue/operating-cost are scaled from the scenario's energy ratio, so absolute profit numbers are not meaningful — but the band signal and basin trajectory are.
+- **`AI/equation_bridge.py`** — `SystemMeasurement.check_metabolic_health(revenue, regeneration_paid, stress)` derives operating cost from the measured ER (`operating_cost = revenue * (1 - ER)`) and runs the bridge.
+
 ### tests/test_bridges.py
-10 unittest tests verifying the three bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard is absent, and correct derivation of `OrgClaim` fields from measured equations. Run with `python tests/test_bridges.py`. The 4 tests covering `equation_bridge` skip automatically in environments without numpy.
+17 unittest tests verifying all four bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard or metabolic-accounting is absent, and correct derivation of `OrgClaim` fields and ER-scaled operating cost from measured equations. Run with `python tests/test_bridges.py`. The 6 tests covering `equation_bridge` skip automatically in environments without numpy.
 
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.
@@ -239,7 +247,7 @@ Scripts that import sibling modules (e.g. `system_audit` importing `field_system
 - **Adding analysis essays:** Place Markdown files in the root directory (or `labor_thermodynamics/` for labor-specific specs).
 - **Space / orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
-- **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) and [`JinnZ2/PhysicsGuard`](https://github.com/JinnZ2/PhysicsGuard) (both CC0). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
+- **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) and [`JinnZ2/PhysicsGuard`](https://github.com/JinnZ2/PhysicsGuard) (both CC0). [`JinnZ2/metabolic-accounting`](https://github.com/JinnZ2/metabolic-accounting) is fieldlinked via `audit/metabolic_bridge.py` (defensive, not vendored). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
 
 ## Stable surface tag
 

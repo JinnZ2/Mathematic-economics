@@ -25,6 +25,11 @@ try:
 except Exception:
     _HAS_PHYSICS_GUARD = False
 
+# Optional metabolic-accounting bridge. See audit/metabolic_bridge.py for
+# the discovery logic. The import always succeeds; whether it does anything
+# at runtime is gated on metabolic_bridge._HAS_METABOLIC_ACCOUNTING.
+from metabolic_bridge import metabolic_check, stress_from_field_scenario
+
 
 # ---------------------------
 # Representative "New Efficiency" Industry Report
@@ -168,6 +173,19 @@ def audit_efficiency_report(report_type: str, auditor: SixSigmaAudit) -> Dict[st
         result["physics_verdict"] = physics_check(headline) if headline else None
     else:
         result["physics_verdict"] = None
+
+    # Metabolic-accounting verdict. Revenue / operating-cost are scaled
+    # from the scenario's energy ratio (no real currency in the input),
+    # so the absolute profit numbers are not meaningful — but the
+    # GREEN/AMBER/RED/BLACK signal and basin trajectory are.
+    revenue_proxy = scenario.get("output_yield", 0.0) * 100.0
+    cost_proxy = scenario.get("input_energy", 0.0) * 100.0
+    result["metabolic_verdict"] = metabolic_check(
+        revenue=revenue_proxy,
+        direct_operating_cost=cost_proxy,
+        regeneration_paid=0.0,
+        stress=stress_from_field_scenario(scenario),
+    )
 
     return result
 
