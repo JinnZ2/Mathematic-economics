@@ -15,10 +15,20 @@
 # The upstream uses flat package imports (`from basin_states import ...`),
 # matching the physics_guard pattern, so we add the package directory to
 # sys.path rather than importing it as a subpackage.
+#
+# Pinned upstream version (the API surface this bridge was written against):
+#   repo:   https://github.com/JinnZ2/metabolic-accounting
+#   commit: 677b9294d5b441c32594b4cfae88748b88b6fef6
+#   date:   2026-04-20
+# To upgrade, fetch the new HEAD, re-run `python tests/test_bridges.py`
+# with that checkout in place, and bump UPSTREAM_PINNED_COMMIT below.
 
 import os
 import sys
 from typing import Any, Dict, Optional, Tuple
+
+UPSTREAM_PINNED_COMMIT = "677b9294d5b441c32594b4cfae88748b88b6fef6"
+UPSTREAM_PINNED_DATE = "2026-04-20"
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _CANDIDATES = (
