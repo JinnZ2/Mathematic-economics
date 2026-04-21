@@ -28,7 +28,11 @@ except Exception:
 # Optional metabolic-accounting bridge. See audit/metabolic_bridge.py for
 # the discovery logic. The import always succeeds; whether it does anything
 # at runtime is gated on metabolic_bridge._HAS_METABOLIC_ACCOUNTING.
-from metabolic_bridge import metabolic_check, stress_from_field_scenario
+from metabolic_bridge import (
+    basins_from_field_scenario,
+    metabolic_check,
+    stress_from_field_scenario,
+)
 from money_signal_bridge import money_signal_metrics
 
 
@@ -186,6 +190,7 @@ def audit_efficiency_report(report_type: str, auditor: SixSigmaAudit) -> Dict[st
         direct_operating_cost=cost_proxy,
         regeneration_paid=0.0,
         stress=stress_from_field_scenario(scenario),
+        basin_overrides=basins_from_field_scenario(scenario),
     )
 
     # Money-signal metrics (minsky / magnitude / sign-flips). Uses the

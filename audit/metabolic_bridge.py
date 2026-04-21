@@ -92,29 +92,57 @@ def metabolic_check(
     direct_operating_cost: float,
     regeneration_paid: float = 0.0,
     stress: Optional[StressVector] = None,
+    basin_overrides: Optional[Dict[str, Dict[str, float]]] = None,
 ) -> Optional[Dict[str, Any]]:
     """Run a single-step metabolic-accounting verdict.
 
-    Constructs a fresh four-basin Site (soil/air/water/biology), applies
-    `stress` (or DEFAULT_STRESS), computes glucose flow, and returns the
-    Verdict normalized to a plain dict. The dict's
-    `sustainable_yield_signal` field carries the GREEN/AMBER/RED/BLACK
-    band; BLACK is reserved for irreversibility, not "very RED".
+    Constructs a fresh four-basin Site (soil/air/water/biology), optionally
+    overrides individual basin `state[metric]` values from `basin_overrides`
+    to reflect steady-state degradation, applies `stress` (or DEFAULT_STRESS)
+    as a single-step shock, computes glucose flow, and returns the Verdict
+    normalized to a plain dict.
+
+    `basin_overrides` keys are basin names ("site_soil", "site_air",
+    "site_water", "site_biology") and values are partial state dicts:
+
+        {"site_soil": {"carbon_fraction": 0.02}}
+
+    Metrics not listed retain their upstream defaults. Use
+    `basins_from_field_scenario(...)` to derive these from a Math-Econ
+    `field_system` scenario (sets steady-state damage that moves
+    regeneration_debt and the sustainable_yield_signal). Use `stress` for
+    single-step shock events (hits reserves first — see
+    `stress_from_field_scenario` docstring for why steady-state scenarios
+    should prefer `basin_overrides`).
+
+    The dict's `sustainable_yield_signal` field carries the
+    GREEN/AMBER/RED/BLACK band; BLACK is reserved for irreversibility,
+    not "very RED".
 
     Returns None when metabolic-accounting is not importable.
     """
     if not _HAS_METABOLIC_ACCOUNTING:
         return None
 
-    site = Site(
-        name="math_econ_bridge",
-        basins={
-            "site_soil": new_soil_basin(),
-            "site_air": new_air_basin(),
-            "site_water": new_water_basin(),
-            "site_biology": new_biology_basin(),
-        },
-    )
+    basins = {
+        "site_soil": new_soil_basin(),
+        "site_air": new_air_basin(),
+        "site_water": new_water_basin(),
+        "site_biology": new_biology_basin(),
+    }
+    if basin_overrides:
+        for basin_name, metric_overrides in basin_overrides.items():
+            basin = basins.get(basin_name)
+            if basin is None or not metric_overrides:
+                continue
+            # BasinState.state is a plain Dict[str, float]; mutating
+            # contents is allowed even on a frozen dataclass, since the
+            # dict reference itself is unchanged.
+            for metric_key, new_value in metric_overrides.items():
+                if metric_key in basin.state:
+                    basin.state[metric_key] = new_value
+
+    site = Site(name="math_econ_bridge", basins=basins)
     site.attach_defaults()
     step_result = site.step(stress or DEFAULT_STRESS, regenerate=False)
     flow = compute_flow(
@@ -181,4 +209,54 @@ def stress_from_field_scenario(scenario: Dict[str, float]) -> StressVector:
             max(0.0, 1.0 - scenario.get("water_retention", 1.0)) * 10.0,
         ("site_biology", "pollinator_index"):
             max(0.0, 1.0 - scenario.get("nutrient_density", 1.0)) * 10.0,
+    }
+
+
+def basins_from_field_scenario(
+    scenario: Dict[str, float],
+) -> Dict[str, Dict[str, float]]:
+    """Derive per-basin `state[metric]` overrides from a Math-Econ
+    `field_system` scenario — the steady-state degradation companion to
+    `stress_from_field_scenario`.
+
+    Unlike stress (absorbed by reserves before reaching basins), these
+    overrides set the basin state directly so upstream's
+    `required_regeneration_cost` sees real scenario-dependent damage. At
+    the pinned upstream commit, a single step of stress in the 3-6 range
+    leaves `regeneration_debt` pinned at the fresh-basin baseline (13.30);
+    applying these overrides instead makes that field discriminate.
+
+    Mapping (baseline -> healthy -> degraded state values):
+
+        soil_trend: scenario + 0.05, clamped to [0, 0.08]
+            positive trend -> carbon_fraction above 0.05 baseline
+            strongly negative trend -> near 0 (cliff at 0.02)
+        disturbance (0..1): particulate_load = disturbance (high_is_bad)
+            0.0 -> clean, 1.0 -> saturated
+        water_retention (0..1): aquifer_level = water_retention
+            1.0 -> full, 0.0 -> empty (cliff at 0.5)
+        nutrient_density (0..1): pollinator_index = nutrient_density
+            1.0 -> rich, 0.0 -> depleted (cliff at 0.4)
+
+    Metrics the scenario doesn't describe (microbial_load, permeability,
+    chemical_load, surface_flow, etc.) retain their upstream defaults.
+    """
+    soil_trend = scenario.get("soil_trend", 0.0)
+    disturbance = scenario.get("disturbance", 0.0)
+    water_retention = scenario.get("water_retention", 1.0)
+    nutrient_density = scenario.get("nutrient_density", 1.0)
+
+    return {
+        "site_soil": {
+            "carbon_fraction": max(0.0, min(0.08, 0.05 + soil_trend)),
+        },
+        "site_air": {
+            "particulate_load": max(0.0, min(1.0, disturbance)),
+        },
+        "site_water": {
+            "aquifer_level": max(0.0, min(1.0, water_retention)),
+        },
+        "site_biology": {
+            "pollinator_index": max(0.0, min(1.0, nutrient_density)),
+        },
     }

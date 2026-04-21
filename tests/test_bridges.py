@@ -187,6 +187,55 @@ class BridgeMetabolicAccounting(unittest.TestCase):
         s2 = mb.stress_from_field_scenario({"soil_trend": 0.1})
         self.assertEqual(s2[("site_soil", "carbon_fraction")], 0.0)
 
+    def test_basins_from_field_scenario_maps_all_four(self):
+        """basins_from_field_scenario returns per-basin state overrides
+        in the ranges upstream basins expect, and does not require the
+        upstream package to be importable."""
+        import metabolic_bridge as mb
+        scenario = {"soil_trend": -0.05, "water_retention": 0.45,
+                    "disturbance": 0.30, "nutrient_density": 0.40}
+        overrides = mb.basins_from_field_scenario(scenario)
+        # Degraded scenario: carbon_fraction near zero, particulate high,
+        # aquifer below healthy, pollinator below healthy.
+        self.assertAlmostEqual(overrides["site_soil"]["carbon_fraction"], 0.0)
+        self.assertAlmostEqual(overrides["site_air"]["particulate_load"], 0.3)
+        self.assertAlmostEqual(overrides["site_water"]["aquifer_level"], 0.45)
+        self.assertAlmostEqual(overrides["site_biology"]["pollinator_index"], 0.4)
+
+        # Healthy / regenerative scenario stays within caps.
+        healthy = mb.basins_from_field_scenario({
+            "soil_trend": 0.1, "water_retention": 1.0,
+            "disturbance": 0.0, "nutrient_density": 1.0,
+        })
+        # Soil carbon caps at 0.08 (upstream `capacity`), not 0.15.
+        self.assertAlmostEqual(healthy["site_soil"]["carbon_fraction"], 0.08)
+        self.assertEqual(healthy["site_air"]["particulate_load"], 0.0)
+
+    def test_basin_overrides_shift_regeneration_debt(self):
+        """When the upstream package is present, passing basin_overrides
+        must move regeneration_debt off its fresh-basin baseline. Skips
+        when the package isn't importable on this checkout."""
+        import metabolic_bridge as mb
+        if not mb._HAS_METABOLIC_ACCOUNTING:
+            self.skipTest("metabolic-accounting package not available")
+
+        # Baseline: no overrides, default basins.
+        baseline = mb.metabolic_check(revenue=1000.0,
+                                      direct_operating_cost=600.0)
+        # Degraded: override several metrics to zero / max.
+        degraded = mb.metabolic_check(
+            revenue=1000.0,
+            direct_operating_cost=600.0,
+            basin_overrides={
+                "site_soil": {"carbon_fraction": 0.0},
+                "site_water": {"aquifer_level": 0.1},
+                "site_biology": {"pollinator_index": 0.1},
+            },
+        )
+        self.assertGreater(degraded["regeneration_debt"],
+                           baseline["regeneration_debt"],
+                           "basin_overrides must increase regen_debt above baseline")
+
     def test_efficiency_audit_includes_metabolic_key(self):
         """The audit result must always include a 'metabolic_verdict' key,
         whether or not metabolic-accounting is importable."""
