@@ -36,6 +36,7 @@ Mathematic-economics/
 │   ├── metabolic_bridge.py             # Defensive bridge to JinnZ2/metabolic-accounting
 │   ├── money_signal_bridge.py          # Defensive bridge to money_signal/ subsystem
 │   ├── investment_signal_bridge.py     # Defensive bridge to investment_signal/ subsystem
+│   ├── study_scope_audit.py            # Treat study claims as scope-bounded measurements
 │   └── system_audit.py                 # Six Sigma-style audit on field_system outputs
 ├── calibration/                        # Falsifiable diagnostics + falsification test suite (stdlib only)
 │   ├── schema.py                       # Band / DimensionScore / CalibrationReport
