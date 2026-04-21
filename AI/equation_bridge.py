@@ -64,6 +64,12 @@ try:
 except Exception:
     _HAS_MONEY_SIGNAL_BRIDGE = False
 
+try:
+    import investment_signal_bridge as _isb  # type: ignore
+    _HAS_INVESTMENT_SIGNAL_BRIDGE = True
+except Exception:
+    _HAS_INVESTMENT_SIGNAL_BRIDGE = False
+
 
 # ============================================================================
 # EQUATION RESULTS
@@ -233,6 +239,25 @@ class SystemMeasurement:
             regeneration_paid=regeneration_paid,
             stress=stress,
         )
+
+    def check_investment_signal(
+        self,
+        input_money: float,
+        expected_output_money: float,
+        ctx: Optional[Any] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Run investment-signal assembly for a money-only investment and
+        return the key substrate / derivative / money metrics.
+
+        `ctx` is an `investment_signal.dimensions.InvestmentContext`; when
+        None, uses the bridge's neutral default (direct productive-capacity
+        investment at seasonal time-binding). Returns None when the
+        investment_signal_bridge module or its upstream package are not
+        available.
+        """
+        if not _HAS_INVESTMENT_SIGNAL_BRIDGE or not _isb._HAS_INVESTMENT_SIGNAL:
+            return None
+        return _isb.investment_signal_metrics(input_money, expected_output_money, ctx)
 
     def check_money_signal(
         self,

@@ -334,6 +334,91 @@ class BridgeMoneySignal(unittest.TestCase):
             eb._msb = original_msb
 
 
+class BridgeInvestmentSignal(unittest.TestCase):
+    """audit/investment_signal_bridge.py links Math-Econ to the
+    investment_signal subsystem of metabolic-accounting. Upstream is NOT
+    vendored, so default-checkout behavior is _HAS_INVESTMENT_SIGNAL=False.
+    """
+
+    def test_bridge_module_always_importable(self):
+        import investment_signal_bridge as isb
+        self.assertIsInstance(isb._HAS_INVESTMENT_SIGNAL, bool)
+        self.assertTrue(isb.UPSTREAM_PINNED_COMMIT)
+
+    def test_returns_none_when_absent(self):
+        import investment_signal_bridge as isb
+        original = isb._HAS_INVESTMENT_SIGNAL
+        try:
+            isb._HAS_INVESTMENT_SIGNAL = False
+            self.assertIsNone(isb.default_money_context())
+            self.assertIsNone(isb.default_investment_context())
+            self.assertIsNone(isb.investment_signal_metrics(1000.0, 1100.0))
+        finally:
+            isb._HAS_INVESTMENT_SIGNAL = original
+
+    def test_metrics_shape_when_present(self):
+        """If the upstream package is present, investment_signal_metrics
+        must return the expected field set. Skips otherwise."""
+        import investment_signal_bridge as isb
+        if not isb._HAS_INVESTMENT_SIGNAL:
+            self.skipTest("investment_signal not importable on this checkout")
+        m = isb.investment_signal_metrics(1000.0, 1100.0)
+        self.assertIsNotNone(m)
+        for key in ("time_binding_integrity", "derivative_signal_reliability",
+                    "money_minsky", "is_financialized", "failure_count",
+                    "failure_reasons", "dependency_broken"):
+            self.assertIn(key, m)
+        self.assertIsInstance(m["is_financialized"], bool)
+        self.assertIsInstance(m["failure_count"], int)
+        self.assertIsInstance(m["failure_reasons"], list)
+
+    def test_equation_bridge_returns_none_when_absent(self):
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+        original = eb._HAS_INVESTMENT_SIGNAL_BRIDGE
+        try:
+            eb._HAS_INVESTMENT_SIGNAL_BRIDGE = False
+            self.assertIsNone(sm.check_investment_signal(1000.0, 1100.0))
+        finally:
+            eb._HAS_INVESTMENT_SIGNAL_BRIDGE = original
+
+    def test_equation_bridge_delegates_amounts(self):
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+        captured = {}
+
+        def fake_metrics(input_money, expected_output_money, ctx=None):
+            captured.update(input_money=input_money,
+                            expected_output_money=expected_output_money,
+                            ctx=ctx)
+            return {"money_minsky": 0.5, "is_financialized": False,
+                    "failure_count": 0, "failure_reasons": []}
+
+        original_has = eb._HAS_INVESTMENT_SIGNAL_BRIDGE
+        original_isb = eb._isb
+        try:
+            eb._HAS_INVESTMENT_SIGNAL_BRIDGE = True
+
+            class _Stub:
+                _HAS_INVESTMENT_SIGNAL = True
+                investment_signal_metrics = staticmethod(fake_metrics)
+
+            eb._isb = _Stub
+            result = sm.check_investment_signal(250.0, 300.0)
+            self.assertEqual(result["money_minsky"], 0.5)
+            self.assertEqual(captured["input_money"], 250.0)
+            self.assertEqual(captured["expected_output_money"], 300.0)
+        finally:
+            eb._HAS_INVESTMENT_SIGNAL_BRIDGE = original_has
+            eb._isb = original_isb
+
+
 class ImportDirectionInvariant(unittest.TestCase):
     """Vendored subtrees must not runtime-import Math-Econ.
 
@@ -355,7 +440,7 @@ class ImportDirectionInvariant(unittest.TestCase):
         "epistemic_cascade", "implementation_layer", "incentive_structure",
         "incentives_audit", "efficiency_report_audit",
         "ai_delusion_econ_checker", "metabolic_bridge",
-        "money_signal_bridge",
+        "money_signal_bridge", "investment_signal_bridge",
         # AI/
         "money_free_model", "semantic_decontamination", "temporal_energy",
         "equation_bridge",

@@ -35,6 +35,7 @@ Mathematic-economics/
 │   ├── incentives_audit.py
 │   ├── metabolic_bridge.py             # Defensive bridge to JinnZ2/metabolic-accounting
 │   ├── money_signal_bridge.py          # Defensive bridge to money_signal/ subsystem
+│   ├── investment_signal_bridge.py     # Defensive bridge to investment_signal/ subsystem
 │   └── system_audit.py                 # Six Sigma-style audit on field_system outputs
 ├── calibration/                        # Falsifiable diagnostics + falsification test suite (stdlib only)
 │   ├── schema.py                       # Band / DimensionScore / CalibrationReport
@@ -178,10 +179,14 @@ A fifth bridge fieldlinks Math-Econ into the `money_signal/` subsystem of [JinnZ
 - **`audit/efficiency_report_audit.py`** — `audit_efficiency_report()` attaches `money_signal_metrics` to the result dict, alongside `physics_verdict` and `metabolic_verdict`.
 - **`AI/equation_bridge.py`** — `SystemMeasurement.check_money_signal(ctx=None)` forwards to the bridge.
 
-`investment_signal/` is deliberately NOT fieldlinked yet. At upstream commit `09382a6` the subsystem lacks an `__init__.py` and its modules use relative imports (`from ..money_signal import ...`) that require a shared parent package not present in the repo structure. Re-evaluate once upstream resolves that.
+### Investment-signal bridge
+A sixth bridge fieldlinks Math-Econ into the `investment_signal/` subsystem of metabolic-accounting. Same discovery logic as `metabolic_bridge.py`; sets `_HAS_INVESTMENT_SIGNAL = False` on failure. At the pinned commit upstream uses absolute imports (`from money_signal.coupling import ...`) and ships an `__init__.py`, so no shim is needed — flat imports work. Earlier upstream commits lacked these, which is why the bridge landed separately from money_signal.
+
+- **`audit/investment_signal_bridge.py`** — exposes `default_money_context()` / `default_investment_context()` (neutral `DimensionalContext` + `InvestmentContext` baselines) and `investment_signal_metrics(input_money, expected_output_money, ctx=None)` which builds two money-only `SubstrateVector`s (zeros across the other six substrates), calls `assemble_investment_signal`, and returns a plain dict with the 17 fields most useful for judgment (`time_binding_integrity`, `derivative_signal_reliability`, `money_minsky`, `is_financialized`, `substrate_invisible`, `dependency_broken`, `failure_count`, `failure_reasons`, etc.). For non-money substrate mixes, callers should invoke upstream's `assemble_investment_signal` directly.
+- **`AI/equation_bridge.py`** — `SystemMeasurement.check_investment_signal(input_money, expected_output_money, ctx=None)` forwards to the bridge.
 
 ### tests/test_bridges.py
-22 unittest tests verifying all five bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard / metabolic-accounting / money_signal is absent, and correct delegation through `SystemMeasurement` methods. Run with `python tests/test_bridges.py`. The 8 tests covering `equation_bridge` skip automatically in environments without numpy.
+27 unittest tests verifying all six bridges end-to-end: import wiring, output shape, graceful fallback when any upstream is absent, and correct delegation through `SystemMeasurement` methods. Run with `python tests/test_bridges.py`. The 10 tests covering `equation_bridge` skip automatically in environments without numpy.
 
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.
