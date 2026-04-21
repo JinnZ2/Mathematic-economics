@@ -138,8 +138,39 @@ def stress_from_field_scenario(scenario: Dict[str, float]) -> StressVector:
     1 - water_retention                -> site_water/aquifer_level
     1 - nutrient_density               -> site_biology/pollinator_index
 
-    Multipliers chosen so a typical degraded scenario yields stress in the
-    O(3-6) range used by metabolic-accounting's integration test.
+    Multipliers (100 / 10 / 10 / 10) calibrated so a typical degraded
+    scenario (e.g. precision_ag: soil_trend=-0.05, water_retention=0.48,
+    disturbance=0.30, nutrient_density=0.40) yields stress values of
+    5.0 / 3.0 / 5.2 / 6.0 — matching the O(3-6) range used by
+    metabolic-accounting's own integration test fixture.
+
+    ----
+    Calibration note: what this mapping discriminates and what it does not.
+
+    Upstream's `Site.step(stress, regenerate=False)` partitions stress
+    through primary/secondary/tertiary reserves before any excess reaches
+    basin state. In a fresh Site, a single step of stress in the 3-6 range
+    (and even 100x that) is almost entirely absorbed by reserves. Verified
+    behavior at `UPSTREAM_PINNED_COMMIT`:
+
+        zero stress     -> metabolic_profit=386.7, regen_debt=13.30, AMBER
+        precision_ag    -> metabolic_profit=371.4, regen_debt=13.30, AMBER
+        100x stress     -> metabolic_profit= 55.9, regen_debt=13.30, AMBER
+
+    So `metabolic_profit` DOES discriminate scenarios (via reserve
+    drawdown cost), but `regeneration_debt` and `sustainable_yield_signal`
+    reflect the basin baseline and do not vary with stress at these
+    magnitudes. The constant 13.30 is the regeneration cost of a fresh
+    default Site's baseline degradation (soil carbon_fraction=0.05/0.08,
+    air particulates=0.04, etc.), not something our stress is touching.
+
+    To drive scenario-dependent `regeneration_debt` or signal transitions,
+    a caller would need to modify basin `state[metric]` values directly
+    rather than routing through `stress`. That is a deliberate
+    follow-up — this helper covers the shock / stress-event path only.
+    Scenarios describing steady-state degradation (which is what the
+    field_system scenarios are) should treat `metabolic_profit` as the
+    primary discriminator from this bridge.
     """
     return {
         ("site_soil", "carbon_fraction"):
