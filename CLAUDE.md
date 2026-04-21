@@ -33,6 +33,7 @@ Mathematic-economics/
 │   ├── implementation_layer.py
 │   ├── incentive_structure.py
 │   ├── incentives_audit.py
+│   ├── informational_cost_audit.py     # Information-cost counterweight to study_scope_audit
 │   ├── metabolic_bridge.py             # Defensive bridge to JinnZ2/metabolic-accounting
 │   ├── money_signal_bridge.py          # Defensive bridge to money_signal/ subsystem
 │   ├── investment_signal_bridge.py     # Defensive bridge to investment_signal/ subsystem
