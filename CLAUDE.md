@@ -34,6 +34,7 @@ Mathematic-economics/
 │   ├── incentive_structure.py
 │   ├── incentives_audit.py
 │   ├── metabolic_bridge.py             # Defensive bridge to JinnZ2/metabolic-accounting
+│   ├── money_signal_bridge.py          # Defensive bridge to money_signal/ subsystem
 │   └── system_audit.py                 # Six Sigma-style audit on field_system outputs
 ├── calibration/                        # Falsifiable diagnostics + falsification test suite (stdlib only)
 │   ├── schema.py                       # Band / DimensionScore / CalibrationReport
@@ -170,8 +171,17 @@ A fourth bridge wires Math-Econ into [JinnZ2/metabolic-accounting](https://githu
 - **`audit/efficiency_report_audit.py`** — `audit_efficiency_report()` now also attaches `metabolic_verdict` to the result dict, alongside `physics_verdict`. Revenue/operating-cost are scaled from the scenario's energy ratio, so absolute profit numbers are not meaningful — but the band signal and basin trajectory are.
 - **`AI/equation_bridge.py`** — `SystemMeasurement.check_metabolic_health(revenue, regeneration_paid, stress)` derives operating cost from the measured ER (`operating_cost = revenue * (1 - ER)`) and runs the bridge.
 
+### Money-signal bridge
+A fifth bridge fieldlinks Math-Econ into the `money_signal/` subsystem of [JinnZ2/metabolic-accounting](https://github.com/JinnZ2/metabolic-accounting). Same discovery logic as `metabolic_bridge.py` — probes the same conventional locations and sets `_HAS_MONEY_SIGNAL = False` on failure. Deliberately imports only `money_signal.dimensions` and `money_signal.coupling` (leaf modules, zero side effects); skips `money_signal.accounting_bridge` because it mutates `sys.path` at import time and hard-depends on `term_audit/`.
+
+- **`audit/money_signal_bridge.py`** — exposes `default_context()` (neutral `DimensionalContext` baseline) and `money_signal_metrics(ctx=None)` which returns `{"minsky", "magnitude", "has_sign_flips"}` — the three raw primitives that feed upstream's `signal_quality`. Exposing them raw rather than collapsed avoids the `term_audit` dependency and gives callers more information than a single float.
+- **`audit/efficiency_report_audit.py`** — `audit_efficiency_report()` attaches `money_signal_metrics` to the result dict, alongside `physics_verdict` and `metabolic_verdict`.
+- **`AI/equation_bridge.py`** — `SystemMeasurement.check_money_signal(ctx=None)` forwards to the bridge.
+
+`investment_signal/` is deliberately NOT fieldlinked yet. At upstream commit `09382a6` the subsystem lacks an `__init__.py` and its modules use relative imports (`from ..money_signal import ...`) that require a shared parent package not present in the repo structure. Re-evaluate once upstream resolves that.
+
 ### tests/test_bridges.py
-17 unittest tests verifying all four bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard or metabolic-accounting is absent, and correct derivation of `OrgClaim` fields and ER-scaled operating cost from measured equations. Run with `python tests/test_bridges.py`. The 6 tests covering `equation_bridge` skip automatically in environments without numpy.
+22 unittest tests verifying all five bridges end-to-end: import wiring, output shape, graceful fallback when PhysicsGuard / metabolic-accounting / money_signal is absent, and correct delegation through `SystemMeasurement` methods. Run with `python tests/test_bridges.py`. The 8 tests covering `equation_bridge` skip automatically in environments without numpy.
 
 ### data/fetch_and_compute.py, data/sensitivity_analysis.py
 External data ingestion and Monte Carlo sensitivity analysis across weight and threshold ranges for the composite indices defined in `README.md`.

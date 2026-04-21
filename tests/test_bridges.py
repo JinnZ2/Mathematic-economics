@@ -252,6 +252,88 @@ class BridgeMetabolicAccounting(unittest.TestCase):
             eb._mb = original_mb
 
 
+class BridgeMoneySignal(unittest.TestCase):
+    """audit/money_signal_bridge.py links Math-Econ to the money_signal
+    subsystem of metabolic-accounting. Like metabolic_bridge, the upstream
+    is NOT vendored, so the default-checkout behavior is _HAS_MONEY_SIGNAL=False.
+    """
+
+    def test_bridge_module_always_importable(self):
+        import money_signal_bridge as msb
+        self.assertIsInstance(msb._HAS_MONEY_SIGNAL, bool)
+        self.assertTrue(msb.UPSTREAM_PINNED_COMMIT)
+
+    def test_metrics_returns_none_when_absent(self):
+        import money_signal_bridge as msb
+        original = msb._HAS_MONEY_SIGNAL
+        try:
+            msb._HAS_MONEY_SIGNAL = False
+            self.assertIsNone(msb.money_signal_metrics())
+            self.assertIsNone(msb.default_context())
+        finally:
+            msb._HAS_MONEY_SIGNAL = original
+
+    def test_efficiency_audit_includes_money_signal_key(self):
+        """The audit result must always include a 'money_signal_metrics' key,
+        whether or not money_signal is importable."""
+        import efficiency_report_audit as era
+        from system_audit import SixSigmaAudit
+        result = era.audit_efficiency_report("precision_ag", SixSigmaAudit())
+        self.assertIn("money_signal_metrics", result)
+        metrics = result["money_signal_metrics"]
+        if metrics is None:
+            return  # bridge inactive — graceful degrade
+        for key in ("minsky", "magnitude", "has_sign_flips"):
+            self.assertIn(key, metrics)
+        self.assertIsInstance(metrics["has_sign_flips"], bool)
+
+    def test_equation_bridge_money_signal_returns_none_when_absent(self):
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+        original = eb._HAS_MONEY_SIGNAL_BRIDGE
+        try:
+            eb._HAS_MONEY_SIGNAL_BRIDGE = False
+            self.assertIsNone(sm.check_money_signal())
+        finally:
+            eb._HAS_MONEY_SIGNAL_BRIDGE = original
+
+    def test_equation_bridge_money_signal_delegates(self):
+        """When the bridge is active, check_money_signal forwards ctx to
+        money_signal_bridge.money_signal_metrics."""
+        try:
+            import equation_bridge as eb
+        except ModuleNotFoundError as e:
+            self.skipTest(f"equation_bridge import requires numpy: {e}")
+        sm = eb.SystemMeasurement()
+
+        captured = {}
+
+        def fake_metrics(ctx=None):
+            captured["ctx"] = ctx
+            return {"minsky": 1.0, "magnitude": 0.5, "has_sign_flips": False}
+
+        original_has = eb._HAS_MONEY_SIGNAL_BRIDGE
+        original_msb = eb._msb
+        try:
+            eb._HAS_MONEY_SIGNAL_BRIDGE = True
+
+            class _StubBridge:
+                _HAS_MONEY_SIGNAL = True
+                money_signal_metrics = staticmethod(fake_metrics)
+
+            eb._msb = _StubBridge
+            sentinel = object()
+            result = sm.check_money_signal(ctx=sentinel)
+            self.assertEqual(result["minsky"], 1.0)
+            self.assertIs(captured["ctx"], sentinel)
+        finally:
+            eb._HAS_MONEY_SIGNAL_BRIDGE = original_has
+            eb._msb = original_msb
+
+
 class ImportDirectionInvariant(unittest.TestCase):
     """Vendored subtrees must not runtime-import Math-Econ.
 
@@ -273,6 +355,7 @@ class ImportDirectionInvariant(unittest.TestCase):
         "epistemic_cascade", "implementation_layer", "incentive_structure",
         "incentives_audit", "efficiency_report_audit",
         "ai_delusion_econ_checker", "metabolic_bridge",
+        "money_signal_bridge",
         # AI/
         "money_free_model", "semantic_decontamination", "temporal_energy",
         "equation_bridge",
