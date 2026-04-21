@@ -18,8 +18,8 @@
 #
 # Pinned upstream version (the API surface this bridge was written against):
 #   repo:   https://github.com/JinnZ2/metabolic-accounting
-#   commit: 677b9294d5b441c32594b4cfae88748b88b6fef6
-#   date:   2026-04-20
+#   commit: 09382a66ce6ee63d84038c8ee35a1fbc28cda58d
+#   date:   2026-04-21
 # To upgrade, fetch the new HEAD, re-run `python tests/test_bridges.py`
 # with that checkout in place, and bump UPSTREAM_PINNED_COMMIT below.
 
@@ -27,8 +27,8 @@ import os
 import sys
 from typing import Any, Dict, Optional, Tuple
 
-UPSTREAM_PINNED_COMMIT = "677b9294d5b441c32594b4cfae88748b88b6fef6"
-UPSTREAM_PINNED_DATE = "2026-04-20"
+UPSTREAM_PINNED_COMMIT = "09382a66ce6ee63d84038c8ee35a1fbc28cda58d"
+UPSTREAM_PINNED_DATE = "2026-04-21"
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _CANDIDATES = (
