@@ -29,6 +29,7 @@ except Exception:
 # the discovery logic. The import always succeeds; whether it does anything
 # at runtime is gated on metabolic_bridge._HAS_METABOLIC_ACCOUNTING.
 from metabolic_bridge import metabolic_check, stress_from_field_scenario
+from money_signal_bridge import money_signal_metrics
 
 
 # ---------------------------
@@ -186,6 +187,12 @@ def audit_efficiency_report(report_type: str, auditor: SixSigmaAudit) -> Dict[st
         regeneration_paid=0.0,
         stress=stress_from_field_scenario(scenario),
     )
+
+    # Money-signal metrics (minsky / magnitude / sign-flips). Uses the
+    # bridge's neutral default context; scenarios that want to vary the
+    # six dimensions should call money_signal_bridge.money_signal_metrics
+    # directly. None when the upstream package is not importable.
+    result["money_signal_metrics"] = money_signal_metrics()
 
     return result
 

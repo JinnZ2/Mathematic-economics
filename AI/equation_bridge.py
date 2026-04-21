@@ -58,6 +58,12 @@ try:
 except Exception:
     _HAS_METABOLIC_BRIDGE = False
 
+try:
+    import money_signal_bridge as _msb  # type: ignore
+    _HAS_MONEY_SIGNAL_BRIDGE = True
+except Exception:
+    _HAS_MONEY_SIGNAL_BRIDGE = False
+
 
 # ============================================================================
 # EQUATION RESULTS
@@ -227,6 +233,22 @@ class SystemMeasurement:
             regeneration_paid=regeneration_paid,
             stress=stress,
         )
+
+    def check_money_signal(
+        self,
+        ctx: Optional[Any] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Return money-signal primitives (minsky, magnitude, has_sign_flips)
+        for the given dimensional context.
+
+        `ctx` is a `money_signal.dimensions.DimensionalContext`; when None,
+        the bridge's neutral default context is used. Returns None when
+        the money_signal_bridge module or its upstream package are not
+        available.
+        """
+        if not _HAS_MONEY_SIGNAL_BRIDGE or not _msb._HAS_MONEY_SIGNAL:
+            return None
+        return _msb.money_signal_metrics(ctx)
 
     def summary_table(self) -> str:
         """Formatted summary of all measurements."""
