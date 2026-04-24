@@ -26,6 +26,7 @@ Mathematic-economics/
 │   ├── accountability_protocol.py
 │   ├── ai_delusion_econ_checker.py     # Detect systemic assumptions in AI datasets
 │   ├── certification_protocol.py
+│   ├── compute_paradigm.py             # Ternary encoding + compute-paradigm registry
 │   ├── deflection_pattern_analyzer.py
 │   ├── efficiency_report_audit.py      # Audits industry "efficiency" report archetypes
 │   ├── epistemic_cascade.py
@@ -153,6 +154,9 @@ Substrate-agnostic extraction physics: the same energy-balance accounting applie
 
 ### schemas/field_system_contract.py
 `FieldSystemState` + `FieldSystemReport` + `YieldAnalysis` dataclasses mirroring the dict shape consumed and produced by `audit/field_system.py`. Consumers (`system_audit`, `efficiency_report_audit`) can adopt it incrementally for type-checked inputs. Versioned via `CONTRACT_VERSION`.
+
+### audit/compute_paradigm.py
+Alternative-computing scaffolding. Two tiers: (1) `encode_ternary(value)` encodes Math-Econ's naturally 3-valued enums — `ThresholdStatus`, `Coupling`, `Regime`, `ScopeStatus`, calibration `Band`, metabolic verdict strings — to balanced ternary `{-1, 0, +1}` (the fourth absorbing/unknown state in each returns `None`). `weighted_ternary_score(entries)` aggregates them with weights, skipping `None` and renormalizing. (2) `ComputeParadigmRegistry.instance()` is a bidirectional index of Math-Econ primitives to supported compute paradigms (`BINARY`, `TERNARY`, `STOCHASTIC`, `APPROXIMATE`, `OCTAHEDRAL`, `ANNEALING`, `RESERVOIR`, `QUANTUM`). Defaults declare what's computable today; `OCTAHEDRAL` / `ANNEALING` / `RESERVOIR` / `QUANTUM` are reserved for future fieldlinks to SOMS / Mandala-Computing / GtBCB. Tests: `python tests/test_compute_paradigm.py` (19 tests, stdlib-only).
 
 ### labor_thermodynamics/
 Markdown specifications for the five compounding labor-measurement failure modes (L1-L5). Sits next to the essay-style analysis files at the repo root; ported from thermodynamic-accountability-framework.
