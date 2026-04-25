@@ -163,19 +163,62 @@ def cascade_disruption(
 # BRITTLENESS METRICS
 # -----------------------------------------------------------------------------
 
-def brittleness_score(graph: Dict[str, DependencyNode]) -> Dict[str, float]:
+def cascade_impact(graph: Dict[str, DependencyNode], node_name: str) -> int:
     """
-    Per-node brittleness:
-      = import_fraction * log(1 + replacement_time_days) * (2 if spof else 1)
-    Higher = more fragile.
+    Count of nodes whose throughput drops to zero when `node_name` is at
+    100% loss. Measures physical reach of a single-node failure through
+    the dependency graph -- the topological 'blast radius'.
     """
-    scores = {}
+    t = cascade_disruption(graph, {node_name: 1.0})
+    return sum(1 for v in t.values() if v <= 0.0)
+
+
+def brittleness_score(graph: Dict[str, DependencyNode]) -> Dict[str, dict]:
+    """
+    Per-node brittleness with independent physical fragility axes.
+
+    Components (each kept in interpretable units, summed for ranking):
+
+      supply_risk        = import_fraction * log1p(replacement_time_days)
+                           -- supply-chain / geopolitical fragility
+
+      topological_risk   = log1p(replacement_time_days) if spof else 0
+                           -- single-point-of-failure criticality
+                              (no longer gated on import_fraction, so
+                              domestic SPOFs register at full weight)
+
+      thermodynamic_load = log1p(energy_cost_MJ_per_unit)
+                           -- energy flux carried by the node; high-flux
+                              nodes disrupt more state when they fail
+
+      cascade_term       = log1p(cascade_impact)
+                           -- measured blast radius: how many downstream
+                              nodes drop to zero throughput if this node
+                              fails completely
+
+      total              = sum of all four
+
+    Returns dict keyed by node name -> {component: value, ..., total: value},
+    sorted by total descending.
+    """
+    scores: Dict[str, dict] = {}
     for name, n in graph.items():
-        s = n.import_fraction * math.log1p(n.replacement_time_days)
-        if n.spof:
-            s *= 2.0
-        scores[name] = round(s, 3)
-    return dict(sorted(scores.items(), key=lambda kv: kv[1], reverse=True))
+        time_term = math.log1p(n.replacement_time_days)
+        supply_risk = n.import_fraction * time_term
+        topological_risk = time_term if n.spof else 0.0
+        thermodynamic_load = math.log1p(n.energy_cost_MJ_per_unit)
+        impact = cascade_impact(graph, name)
+        cascade_term = math.log1p(impact)
+        total = supply_risk + topological_risk + thermodynamic_load + cascade_term
+        scores[name] = {
+            "supply_risk": round(supply_risk, 3),
+            "topological_risk": round(topological_risk, 3),
+            "thermodynamic_load": round(thermodynamic_load, 3),
+            "cascade_impact": impact,
+            "cascade_term": round(cascade_term, 3),
+            "total": round(total, 3),
+        }
+    return dict(sorted(scores.items(), key=lambda kv: kv[1]["total"], reverse=True))
 
 
 def independence_hypothesis_test(graph: Dict[str, DependencyNode]) -> dict:
@@ -220,8 +263,11 @@ if __name__ == "__main__":
     g = build_us_refinery_graph()
 
     print("\n=== BRITTLENESS RANKING ===")
-    for name, score in brittleness_score(g).items():
-        print(f"  {score:6.3f}  {name}")
+    print(f"  {'total':>7}  {'supply':>7}  {'topo':>6}  {'therm':>6}  {'casc':>5}  node")
+    for name, s in brittleness_score(g).items():
+        print(f"  {s['total']:7.3f}  {s['supply_risk']:7.3f}  "
+              f"{s['topological_risk']:6.3f}  {s['thermodynamic_load']:6.3f}  "
+              f"{s['cascade_impact']:5d}  {name}")
 
     print("\n=== HYPOTHESIS TEST ===")
     result = independence_hypothesis_test(g)
