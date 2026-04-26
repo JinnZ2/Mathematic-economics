@@ -22,7 +22,19 @@ License: CC0 1.0 Universal
 """
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Any, Dict, List, Optional, Tuple
+
+# Optional metabolic-accounting bridge. metabolic_bridge always imports;
+# whether it does anything at runtime is gated on
+# metabolic_bridge._HAS_METABOLIC_ACCOUNTING. The metabolic side filters
+# its verdict through its own money_signal/audit, so calling this gives
+# us a band signal (GREEN/AMBER/RED/BLACK irreversibility) and
+# regeneration_debt that the existing diagnostics don't surface.
+try:
+    from metabolic_bridge import metabolic_check
+    _HAS_METABOLIC_BRIDGE = True
+except Exception:
+    _HAS_METABOLIC_BRIDGE = False
 
 
 # -----------------------------------------------------------------------------
@@ -321,11 +333,63 @@ def transition_pathway(b: BusinessState) -> dict:
 
 
 # -----------------------------------------------------------------------------
+# OPTIONAL: METABOLIC VERDICT (defensive bridge to metabolic-accounting)
+# -----------------------------------------------------------------------------
+
+def check_metabolic_health(
+    b: BusinessState,
+    revenue: float = 100.0,
+    stress: Optional[Dict[Tuple[str, str], float]] = None,
+) -> Optional[Dict[str, Any]]:
+    """
+    Optional metabolic-accounting verdict for the business.
+
+    Mirrors the equation_bridge mapping, with operating cost and
+    regeneration_paid derived from BusinessState observables:
+
+      extraction_index from extraction_ratio_measurement(b)
+        higher extraction -> less paid downward to substrate
+      operating_cost = revenue * (1 - extraction_index)
+      regeneration_paid = operating_cost
+                          * capex_reinvestment_pct
+                          * (1 - deferred_maintenance_pct)
+        what's actually deployed for substrate regeneration after
+        the deferred-maintenance shortfall
+
+    The metabolic side filters this through its own money_signal/audit
+    before issuing a verdict, so the returned band (GREEN/AMBER/RED/BLACK)
+    reflects both physical-substrate state AND money-signal coherence.
+    BLACK is reserved for IRREVERSIBILITY -- distinct from "very RED" --
+    which the existing cascade_vulnerability_scan does not capture.
+
+    Returns None when metabolic-accounting is not importable at the
+    bridge level. Absolute revenue is not meaningful (the band signal and
+    basin trajectory are); revenue=100.0 is the conventional default.
+    """
+    if not _HAS_METABOLIC_BRIDGE:
+        return None
+    ext = extraction_ratio_measurement(b)
+    extraction_index = ext["extraction_index"]
+    operating_cost = revenue * (1.0 - min(1.0, max(0.0, extraction_index)))
+    regeneration_paid = (
+        operating_cost
+        * b.capex_reinvestment_pct
+        * (1.0 - b.deferred_maintenance_pct)
+    )
+    return metabolic_check(
+        revenue=revenue,
+        direct_operating_cost=operating_cost,
+        regeneration_paid=regeneration_paid,
+        stress=stress,
+    )
+
+
+# -----------------------------------------------------------------------------
 # UNIFIED REPORT
 # -----------------------------------------------------------------------------
 
 def full_audit(b: BusinessState) -> dict:
-    return {
+    report = {
         "name": b.name,
         "substrate_health": substrate_health_audit(b),
         "extraction_ratio": extraction_ratio_measurement(b),
@@ -333,6 +397,10 @@ def full_audit(b: BusinessState) -> dict:
         "discretionary_effort": discretionary_effort_signal(b),
         "transition_pathway": transition_pathway(b),
     }
+    metabolic = check_metabolic_health(b)
+    if metabolic is not None:
+        report["metabolic_verdict"] = metabolic
+    return report
 
 
 # -----------------------------------------------------------------------------
@@ -424,3 +492,17 @@ if __name__ == "__main__":
         print(f"  FALSIFIABLE TARGETS:")
         for k, v in t["falsifiable_targets"].items():
             print(f"    {k}: {v}")
+
+        m = r.get("metabolic_verdict")
+        if m is not None:
+            print(f"  METABOLIC VERDICT (via metabolic-accounting bridge):")
+            print(f"    sustainable_yield_signal: {m['sustainable_yield_signal']}  "
+                  f"(BLACK = irreversibility, distinct from very RED)")
+            print(f"    regeneration_debt:        {m['regeneration_debt']}")
+            print(f"    metabolic_profit:         {m['metabolic_profit']}")
+            print(f"    profit_gap:               {m['profit_gap']}")
+            if m.get("irreversible_metrics"):
+                print(f"    irreversible_metrics:     {m['irreversible_metrics']}")
+        else:
+            print(f"  METABOLIC VERDICT: not available "
+                  f"(metabolic-accounting checkout not found; bridge inactive)")
