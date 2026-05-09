@@ -8,15 +8,21 @@ License: CC0
 Stdlib only. Falsifiable. Regionally forkable.
 
 Architecture:
-    Layer 0: Energy/thermodynamic base (power, GPS, sensor grid)
-    Layer 1: Infrastructure substrate (concrete, lane markers, sensors)
-    Layer 2: Data layer (map data, routing, GPS coordinates)
-    Layer 3: Supply chain (parts, materials, replacement cycles)
-    Layer 4: Labor thermodynamics (skill encoding, wage inversion)
-    Layer 5: Climate/regional boundary conditions
-    Layer 6: Vehicle-geometry-to-route matching
-    Layer 7: Cascade detection (single-point failures)
-    Layer 8: Skill-debt timer (atrophy under automation)
+    Layer 0:  Energy/thermodynamic base (power, GPS, sensor grid)
+    Layer 1:  Infrastructure substrate (concrete, lane markers, sensors)
+    Layer 2:  Data layer (map data, routing, GPS coordinates)
+    Layer 3:  Vehicle geometry vs route recovery
+    Layer 4:  Labor thermodynamics (skill encoding, wage inversion)
+    Layer 5:  Skill-debt timer (atrophy under automation)
+    Layer 6:  Edge-case environment (ash, mud, -30F, sensor drift)
+    Layer 7:  Hidden cost ledger (what accounting refuses to measure)
+    Layer 8:  Traffic thermodynamics (load-balancing vs shock-wave)
+    Layer 9:  Vehicle wear thermodynamics (driving-style cost)
+    Layer 10: Social backlash coefficient (induced-conflict accidents)
+    Layer 11: Infrastructure long-duration integrator (5-10yr cascades)
+    Layer 12: False-accounting detector (apples-to-oranges flagging)
+    Layer 13: Cascade detection (couples all layers)
+    Layer 14: Differential cascade step (time-evolution)
 
 All layers couple. Failure in one propagates.
 """
@@ -257,7 +263,228 @@ class HiddenCostLedger:
 
 
 # ============================================================
-# LAYER 7: CASCADE DETECTION
+# LAYER 8: TRAFFIC THERMODYNAMICS (load-balancing vs shock-wave)
+# ============================================================
+
+@dataclass
+class TrafficThermodynamics:
+    """
+    Skilled drivers act as load-balancing nodes: they manage gap-as-function-
+    of-speed, absorb merges, position to enable fair flow. Aggressive drivers
+    and naive automation generate shock waves that propagate backward.
+
+    A skilled driver's actual throughput is HIGHER over 1000 miles because
+    they don't sit in chaos they generated. The 3% individual gain is fiction.
+    """
+    corridor_id: str
+    fairness_encoded_drivers_pct: float         # % who absorb merges, share lanes
+    aggressive_driver_pct: float                # cut merges, exploit gaps
+    automation_following_distance_ft: float     # rigid following = shock wave
+    automation_optimizes_individual_only: bool  # vs corridor throughput
+    avg_merge_density_per_mile: float           # how many merges per mile
+    bottleneck_zones_per_corridor: int
+
+    def shock_wave_amplification(self) -> float:
+        """0 = pure load-balancing, 1 = maximum oscillation."""
+        # Tight following + aggressive culture + individual-only optimization
+        rigid = max(0.0, 1.0 - (self.automation_following_distance_ft / 60))
+        aggressive = self.aggressive_driver_pct / 100
+        individual = 0.4 if self.automation_optimizes_individual_only else 0.0
+        return min(1.0, rigid * 0.5 + aggressive * 0.3 + individual)
+
+    def corridor_throughput_loss_pct(self) -> float:
+        """How much actual throughput is lost to shock waves."""
+        sw = self.shock_wave_amplification()
+        # More merges = more amplification opportunity
+        merge_factor = min(1.0, self.avg_merge_density_per_mile / 3.0)
+        return sw * merge_factor * 100
+
+    def fairness_capacity_collapsed(self) -> bool:
+        """Has skilled-driver exodus already broken load-balancing?"""
+        return self.fairness_encoded_drivers_pct < 15.0
+
+
+# ============================================================
+# LAYER 9: VEHICLE WEAR THERMODYNAMICS (driving-style cost)
+# ============================================================
+
+@dataclass
+class VehicleWearThermodynamics:
+    """
+    Aggressive driving style burns brakes, warps rotors, stresses suspension,
+    drifts sensors, decreases fuel economy. Smooth-flow driving extends
+    vehicle lifespan dramatically. Over 6M miles, the difference is huge.
+
+    Current accounting measures "trip time saved" but not "$40K bearing
+    replacement at year 4 because driving style amplified stress cycles."
+    """
+    annual_brake_replacements_aggressive: float
+    annual_brake_replacements_smooth: float
+    suspension_stress_cycles_aggressive: int
+    suspension_stress_cycles_smooth: int
+    sensor_recalibration_freq_aggressive_per_mo: float
+    sensor_recalibration_freq_smooth_per_mo: float
+    fuel_economy_mpg_aggressive: float
+    fuel_economy_mpg_smooth: float
+    annual_miles: int
+
+    def maintenance_cost_differential(
+        self,
+        brake_cost: float = 1800,
+        suspension_cost_per_cycle: float = 0.18,
+        sensor_recal_cost: float = 240,
+        fuel_cost_per_gal: float = 4.10,
+    ) -> float:
+        """Annual cost penalty of aggressive driving style."""
+        brake_diff = (self.annual_brake_replacements_aggressive
+                      - self.annual_brake_replacements_smooth) * brake_cost
+        susp_diff = (self.suspension_stress_cycles_aggressive
+                     - self.suspension_stress_cycles_smooth) * suspension_cost_per_cycle
+        sensor_diff = ((self.sensor_recalibration_freq_aggressive_per_mo
+                        - self.sensor_recalibration_freq_smooth_per_mo)
+                       * 12 * sensor_recal_cost)
+        # Fuel: gallons used = miles / mpg, diff in gallons * cost
+        if self.fuel_economy_mpg_aggressive > 0 and self.fuel_economy_mpg_smooth > 0:
+            fuel_diff = (
+                (self.annual_miles / self.fuel_economy_mpg_aggressive
+                 - self.annual_miles / self.fuel_economy_mpg_smooth)
+                * fuel_cost_per_gal
+            )
+        else:
+            fuel_diff = 0.0
+        return brake_diff + susp_diff + sensor_diff + fuel_diff
+
+    def lifespan_reduction_pct(self) -> float:
+        """How much shorter vehicle service life under aggressive style."""
+        # Heuristic: stress cycles dominate
+        if self.suspension_stress_cycles_smooth == 0:
+            return 0.0
+        ratio = (self.suspension_stress_cycles_aggressive
+                 / self.suspension_stress_cycles_smooth)
+        return min(60.0, max(0.0, (ratio - 1.0) * 100))
+
+
+# ============================================================
+# LAYER 10: SOCIAL BACKLASH COEFFICIENT (induced-conflict accidents)
+# ============================================================
+
+@dataclass
+class SocialBacklash:
+    """
+    Aggressive trucks/automation create hostility. Smaller vehicles will
+    bait, brake-check, set up induced-collision scenarios, especially when
+    they perceive the offender as automation. Skilled drivers carrying
+    fairness norms get cooperation. Aggressive ones get baited.
+
+    Insurance/liability cost gets buried in different line items so it
+    looks unrelated to driving-style choice.
+    """
+    corridor_id: str
+    induced_collision_attempts_per_yr_aggressive: float
+    induced_collision_attempts_per_yr_smooth: float
+    avg_claim_per_incident: float
+    automation_perceived_as_aggressive: bool
+    public_anti_automation_sentiment: float    # 0-1
+
+    def annual_backlash_cost(self) -> float:
+        diff = (self.induced_collision_attempts_per_yr_aggressive
+                - self.induced_collision_attempts_per_yr_smooth)
+        multiplier = 1.0
+        if self.automation_perceived_as_aggressive:
+            multiplier += 0.5
+        multiplier += self.public_anti_automation_sentiment * 0.4
+        return diff * self.avg_claim_per_incident * multiplier
+
+    def backlash_amplifies_with_automation(self) -> bool:
+        return (self.automation_perceived_as_aggressive
+                and self.public_anti_automation_sentiment > 0.4)
+
+
+# ============================================================
+# LAYER 11: INFRASTRUCTURE LONG-DURATION INTEGRATOR
+# ============================================================
+
+@dataclass
+class InfrastructureLongDuration:
+    """
+    Quarterly metrics ignore 5-10yr concrete fatigue, pavement thermal
+    stress, bearing wear from sustained shock-wave loading. Each year of
+    aggressive-style traffic accelerates next year's construction load,
+    which compounds the volatility that breaks routing data.
+
+    Externalizing infrastructure cost is accounting fiction.
+    """
+    corridor_id: str
+    concrete_fatigue_baseline_yrs: float       # design life, no shock loading
+    shock_wave_acceleration_factor: float      # 1.0 = none, 2.0 = doubles wear
+    pavement_thermal_stress_amplifier: float   # stop-go heat cycling
+    annual_repair_budget_baseline: float
+    construction_zone_growth_rate_yoy: float   # % more zones each year
+
+    def effective_concrete_life_yrs(self) -> float:
+        if self.shock_wave_acceleration_factor <= 0:
+            return self.concrete_fatigue_baseline_yrs
+        return (self.concrete_fatigue_baseline_yrs
+                / self.shock_wave_acceleration_factor)
+
+    def cumulative_repair_cost(self, years: int = 10) -> float:
+        """Compounding construction cost over deployment lifetime."""
+        total = 0.0
+        budget = self.annual_repair_budget_baseline
+        for _ in range(years):
+            total += budget
+            budget *= (1 + self.construction_zone_growth_rate_yoy)
+        return total
+
+    def cascade_detonation_year(self) -> float:
+        """Year when repair cost exceeds 2x baseline (rough tipping point)."""
+        if self.construction_zone_growth_rate_yoy <= 0:
+            return float('inf')
+        return math.log(2) / math.log(1 + self.construction_zone_growth_rate_yoy)
+
+
+# ============================================================
+# LAYER 12: FALSE-ACCOUNTING DETECTOR
+# ============================================================
+
+@dataclass
+class FalseAccountingFlags:
+    """
+    The 3% efficiency narrative is built on false comparisons:
+      - Automation runs nonstop; human required to take 30-min break
+        (regulation, not biology). Comparing them isn't apples-to-apples.
+      - Time-to-destination measured; infrastructure wear externalized.
+      - Aggressive style measured for individual gain; corridor throughput
+        ignored.
+      - Maintenance, claims, fuel buried in separate ledgers.
+
+    Module flags these comparisons as not valid for deployment decisions.
+    """
+    automation_break_constraint_imposed: bool         # is auto held to driver rules?
+    infrastructure_cost_externalized: bool
+    accident_claims_in_separate_ledger: bool
+    maintenance_cost_in_separate_ledger: bool
+    fuel_cost_normalized_per_unit: bool
+    measures_corridor_throughput_not_just_individual: bool
+
+    def false_comparison_count(self) -> int:
+        """How many ledger inversions are present."""
+        return sum([
+            not self.automation_break_constraint_imposed,
+            self.infrastructure_cost_externalized,
+            self.accident_claims_in_separate_ledger,
+            self.maintenance_cost_in_separate_ledger,
+            not self.fuel_cost_normalized_per_unit,
+            not self.measures_corridor_throughput_not_just_individual,
+        ])
+
+    def is_efficiency_claim_credible(self) -> bool:
+        """If 3+ inversions present, the claimed gains are accounting fiction."""
+        return self.false_comparison_count() < 3
+
+
+# ============================================================
+# LAYER 13: CASCADE DETECTION
 # ============================================================
 
 @dataclass
@@ -278,6 +505,11 @@ def cascade_audit(
     skill_debt: SkillDebtTimer,
     edge: EdgeCaseEnvironment,
     cost: HiddenCostLedger,
+    traffic: TrafficThermodynamics,
+    wear: VehicleWearThermodynamics,
+    backlash: SocialBacklash,
+    longdur: InfrastructureLongDuration,
+    accounting: FalseAccountingFlags,
 ) -> CascadeAuditResult:
     """
     Run all coupled constraint checks. Any single critical failure
@@ -347,11 +579,67 @@ def cascade_audit(
             "not thermodynamic output. Pattern matches manufacturing cascade-failure precedent."
         )
 
-    # True cost multiplier for deployment
+    # ---- Traffic thermodynamics ----
+    sw = traffic.shock_wave_amplification()
+    if sw > 0.5:
+        r.failure_modes.append(
+            f"Shock-wave amplification {sw:.2f}: automation generates traffic "
+            f"oscillations that REDUCE corridor throughput by "
+            f"{traffic.corridor_throughput_loss_pct():.1f}%. "
+            "Individual-vehicle optimization is systemically destructive."
+        )
+    if traffic.fairness_capacity_collapsed():
+        r.failure_modes.append(
+            f"Fairness-encoding collapsed: only {traffic.fairness_encoded_drivers_pct:.1f}% "
+            "of drivers do load-balancing. Automation cannot replace what's already gone."
+        )
+
+    # ---- Vehicle wear thermodynamics ----
+    annual_wear_penalty = wear.maintenance_cost_differential()
+    if annual_wear_penalty > 5000:
+        r.notes.append(
+            f"Aggressive driving style adds ${annual_wear_penalty:,.0f}/yr in "
+            f"maintenance + fuel cost per vehicle. Lifespan reduction "
+            f"{wear.lifespan_reduction_pct():.1f}%. Erases claimed time savings."
+        )
+
+    # ---- Social backlash ----
+    backlash_cost = backlash.annual_backlash_cost()
+    if backlash_cost > 0:
+        r.notes.append(
+            f"Social backlash cost ${backlash_cost:,.0f}/yr from induced-collision "
+            f"attempts. Amplified by automation perception="
+            f"{backlash.backlash_amplifies_with_automation()}."
+        )
+
+    # ---- Infrastructure long-duration ----
+    detonation = longdur.cascade_detonation_year()
+    eff_life = longdur.effective_concrete_life_yrs()
+    cumulative_10yr = longdur.cumulative_repair_cost(10)
+    if detonation < 7:
+        r.failure_modes.append(
+            f"Infrastructure cascade detonation in year {detonation:.1f}. "
+            f"Concrete effective life reduced to {eff_life:.1f} yrs. "
+            f"10-yr cumulative repair cost: ${cumulative_10yr:,.0f}."
+        )
+
+    # ---- False accounting ----
+    if not accounting.is_efficiency_claim_credible():
+        r.deployable = False
+        r.failure_modes.append(
+            f"Efficiency claims rest on {accounting.false_comparison_count()} "
+            "false comparisons (regulation-imposed constraints, externalized "
+            "infrastructure cost, hidden maintenance/claims/fuel). "
+            "Deployment justification is accounting fiction."
+        )
+
+    # True cost multiplier including new layers
     base_failure_cost = cost.true_cost_per_failure() * cost.failure_events_per_month * 12
-    # Skill atrophy compounds this over time
     r.estimated_true_cost_multiplier = 1.0 + (
         (1 - skill_debt.current_competence()) * 2.5
+        + sw * 0.6
+        + (annual_wear_penalty / 50000)
+        + (backlash_cost / 100000)
     )
 
     if r.deployable:
@@ -464,8 +752,55 @@ if __name__ == "__main__":
         certified_mechanic_wage=67.0,
         cascading_production_loss_per_hr=850.0,
     )
+    traffic = TrafficThermodynamics(
+        corridor_id="tomah_superior",
+        fairness_encoded_drivers_pct=8.0,           # old-timers gone
+        aggressive_driver_pct=42.0,
+        automation_following_distance_ft=15.0,      # rigid following
+        automation_optimizes_individual_only=True,
+        avg_merge_density_per_mile=1.8,
+        bottleneck_zones_per_corridor=12,
+    )
+    wear = VehicleWearThermodynamics(
+        annual_brake_replacements_aggressive=3.5,
+        annual_brake_replacements_smooth=1.0,
+        suspension_stress_cycles_aggressive=180000,
+        suspension_stress_cycles_smooth=70000,
+        sensor_recalibration_freq_aggressive_per_mo=4.0,
+        sensor_recalibration_freq_smooth_per_mo=1.0,
+        fuel_economy_mpg_aggressive=5.6,
+        fuel_economy_mpg_smooth=7.2,
+        annual_miles=130000,
+    )
+    backlash = SocialBacklash(
+        corridor_id="tomah_superior",
+        induced_collision_attempts_per_yr_aggressive=4.5,
+        induced_collision_attempts_per_yr_smooth=0.4,
+        avg_claim_per_incident=38000.0,
+        automation_perceived_as_aggressive=True,
+        public_anti_automation_sentiment=0.55,
+    )
+    longdur = InfrastructureLongDuration(
+        corridor_id="tomah_superior",
+        concrete_fatigue_baseline_yrs=25.0,
+        shock_wave_acceleration_factor=1.7,         # tight following amplifies wear
+        pavement_thermal_stress_amplifier=1.3,
+        annual_repair_budget_baseline=2_400_000.0,
+        construction_zone_growth_rate_yoy=0.12,     # 12%/yr more zones
+    )
+    accounting = FalseAccountingFlags(
+        automation_break_constraint_imposed=False,  # auto runs nonstop, driver doesn't
+        infrastructure_cost_externalized=True,
+        accident_claims_in_separate_ledger=True,
+        maintenance_cost_in_separate_ledger=True,
+        fuel_cost_normalized_per_unit=False,
+        measures_corridor_throughput_not_just_individual=False,
+    )
 
-    result = cascade_audit(gps, infra, vehicle, labor, skill_debt, edge, cost)
+    result = cascade_audit(
+        gps, infra, vehicle, labor, skill_debt, edge, cost,
+        traffic, wear, backlash, longdur, accounting,
+    )
     print(f"DEPLOYABLE: {result.deployable}")
     print(f"Skill-debt horizon: {result.skill_debt_horizon_years:.1f} yrs")
     print(f"True cost multiplier: {result.estimated_true_cost_multiplier:.2f}x")
