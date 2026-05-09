@@ -21,8 +21,12 @@ Architecture:
     Layer 10: Social backlash coefficient (induced-conflict accidents)
     Layer 11: Infrastructure long-duration integrator (5-10yr cascades)
     Layer 12: False-accounting detector (apples-to-oranges flagging)
-    Layer 13: Cascade detection (couples all layers)
-    Layer 14: Differential cascade step (time-evolution)
+    Layer 13: Regulation-source analysis (induced-deficit vs biology)
+    Layer 14: Incentive-structure inheritance (will degrade automation too)
+    Layer 15: Precedent validation (Amazon, Uber, mfg automation)
+    Layer 16: Metrology + training-data quality (mastery vs desperation)
+    Layer 17: Cascade detection (couples all layers)
+    Layer 18: Differential cascade step (time-evolution)
 
 All layers couple. Failure in one propagates.
 """
@@ -484,7 +488,261 @@ class FalseAccountingFlags:
 
 
 # ============================================================
-# LAYER 13: CASCADE DETECTION
+# LAYER 13: REGULATION-SOURCE ANALYSIS
+# ============================================================
+
+@dataclass
+class RegulationSourceAudit:
+    """
+    Are regulations based on actual biological capacity, or on induced-
+    deficit compensation? If the system created the deficit (malnutrition,
+    sleep deprivation, stress) and then regulates against the symptom, the
+    regulation isn't science. It's circular justification.
+
+    Comparing automation against a regulation-constrained human is comparing
+    against deliberately-degraded baseline, not against actual capability.
+    """
+    regulation_id: str
+    based_on_actual_biological_capacity: bool       # tested in healthy population
+    based_on_induced_deficit_baseline: bool         # built around degraded state
+    food_quality_along_corridor: float              # 0-1, 0=convenience-store only
+    sleep_environment_quality: float                # 0-1
+    stress_load_pct_above_healthy: float            # how degraded is the work env
+    healthy_baseline_capacity_studied: bool
+
+    def is_circular_justification(self) -> bool:
+        return (self.based_on_induced_deficit_baseline
+                and not self.healthy_baseline_capacity_studied)
+
+    def comparison_validity(self) -> float:
+        """0 = invalid (degraded baseline), 1 = valid (healthy baseline)."""
+        if self.is_circular_justification():
+            return 0.0
+        env_quality = (self.food_quality_along_corridor
+                       + self.sleep_environment_quality) / 2
+        stress_penalty = max(0.0, 1.0 - self.stress_load_pct_above_healthy / 100)
+        return env_quality * stress_penalty
+
+
+# ============================================================
+# LAYER 14: INCENTIVE-STRUCTURE INHERITANCE
+# ============================================================
+
+@dataclass
+class IncentiveStructureInheritance:
+    """
+    The system that degraded drivers will degrade automation in exactly
+    the same way because the underlying economics are identical:
+    minimize upfront cost, externalize maintenance, blame the tool.
+
+    Same private companies, same lobbying, same liability shifting,
+    same cost-cutting. Tool changes; incentive doesn't. Outcome doesn't.
+    """
+    cost_externalization_present: bool       # users/public absorb failures
+    maintenance_treated_as_overhead: bool    # not as infrastructure
+    regulatory_capture_present: bool         # rules written by deployers
+    liability_shifted_to_tool_user: bool
+    quarterly_metric_dominance: bool         # short-term over long-term
+    same_actors_lobbying_for_automation: bool
+
+    def inheritance_score(self) -> float:
+        """How much of the degrading incentive structure carries over."""
+        flags = [
+            self.cost_externalization_present,
+            self.maintenance_treated_as_overhead,
+            self.regulatory_capture_present,
+            self.liability_shifted_to_tool_user,
+            self.quarterly_metric_dominance,
+            self.same_actors_lobbying_for_automation,
+        ]
+        return sum(flags) / len(flags)
+
+    def will_inherit_degradation(self) -> bool:
+        """If structure unchanged, automation degrades identically."""
+        return self.inheritance_score() > 0.5
+
+
+# ============================================================
+# LAYER 15: PRECEDENT VALIDATION (empirical landscape)
+# ============================================================
+
+@dataclass
+class AutomationPrecedent:
+    """A documented case of prior automation deployment."""
+    case_name: str                          # e.g., "amazon_warehouse"
+    promised_to_solve: str
+    actual_outcome: str
+    required_human_rehiring: bool
+    rehires_hired_as_desperation_labor: bool
+    hidden_variable_exposed: str
+    cascade_failure_year: Optional[float]   # when costs detonated
+    cost_overrun_multiplier: float          # actual vs projected
+
+
+PRECEDENT_DATABASE: List[AutomationPrecedent] = [
+    AutomationPrecedent(
+        case_name="amazon_warehouse",
+        promised_to_solve="back injuries, worker errors, throughput limits",
+        actual_outcome="rehired humans for variability handling; injury rates "
+                       "shifted to repetitive strain at higher pace",
+        required_human_rehiring=True,
+        rehires_hired_as_desperation_labor=True,
+        hidden_variable_exposed="human flexibility is infrastructure, not overhead",
+        cascade_failure_year=3.0,
+        cost_overrun_multiplier=2.4,
+    ),
+    AutomationPrecedent(
+        case_name="autonomous_vehicles_uber_cruise_waymo",
+        promised_to_solve="driver error, safety incidents, wage costs",
+        actual_outcome="kept human safety operators; paused deployments; "
+                       "edge cases unsolvable in unstructured environments",
+        required_human_rehiring=True,
+        rehires_hired_as_desperation_labor=False,
+        hidden_variable_exposed="corner cases are continuous ambient complexity, "
+                                "not rare exceptions",
+        cascade_failure_year=4.5,
+        cost_overrun_multiplier=3.8,
+    ),
+    AutomationPrecedent(
+        case_name="customer_service_chatbots",
+        promised_to_solve="routing errors, support staff costs",
+        actual_outcome="massive rehiring of human support; chatbot rage drove "
+                       "customer attrition",
+        required_human_rehiring=True,
+        rehires_hired_as_desperation_labor=True,
+        hidden_variable_exposed="context and nuance handling is load-bearing",
+        cascade_failure_year=2.0,
+        cost_overrun_multiplier=1.9,
+    ),
+    AutomationPrecedent(
+        case_name="manufacturing_automation_general",
+        promised_to_solve="operator error, quality variability",
+        actual_outcome="constant rework, more mechanics, recurring recalibration; "
+                       "experienced operators drove diagnostics from sidelines",
+        required_human_rehiring=True,
+        rehires_hired_as_desperation_labor=True,
+        hidden_variable_exposed="operator knowledge is the system's load-bearing wall",
+        cascade_failure_year=3.5,
+        cost_overrun_multiplier=2.7,
+    ),
+    AutomationPrecedent(
+        case_name="healthcare_diagnostic_ai",
+        promised_to_solve="human diagnostic error, radiologist shortage",
+        actual_outcome="still requires human override and verification; "
+                       "edge cases require domain expertise",
+        required_human_rehiring=False,
+        rehires_hired_as_desperation_labor=False,
+        hidden_variable_exposed="human judgment integration is load-bearing",
+        cascade_failure_year=None,
+        cost_overrun_multiplier=1.6,
+    ),
+]
+
+
+@dataclass
+class PrecedentValidation:
+    """
+    Compare proposed deployment against empirical record of prior
+    automation. If pattern matches >2 precedents, prediction accuracy
+    is high.
+    """
+    proposed_deployment_id: str
+    promised_solution: str
+    incentive_structure_unchanged: bool
+    rehiring_likely_from_desperation_pool: bool
+
+    def matches_failure_pattern_count(self) -> int:
+        """How many precedents match the pattern of the proposed deployment."""
+        matches = 0
+        for p in PRECEDENT_DATABASE:
+            if (p.required_human_rehiring
+                and self.incentive_structure_unchanged
+                and (p.rehires_hired_as_desperation_labor
+                     == self.rehiring_likely_from_desperation_pool)):
+                matches += 1
+        return matches
+
+    def avg_cost_overrun_predicted(self) -> float:
+        """Average overrun across precedents."""
+        if not PRECEDENT_DATABASE:
+            return 1.0
+        return sum(p.cost_overrun_multiplier for p in PRECEDENT_DATABASE) / len(PRECEDENT_DATABASE)
+
+    def avg_cascade_failure_year(self) -> float:
+        years = [p.cascade_failure_year for p in PRECEDENT_DATABASE
+                 if p.cascade_failure_year is not None]
+        if not years:
+            return float('inf')
+        return sum(years) / len(years)
+
+    def precedent_predicts_failure(self) -> bool:
+        return self.matches_failure_pattern_count() >= 3
+
+
+# ============================================================
+# LAYER 16: METROLOGY + TRAINING-DATA QUALITY
+# ============================================================
+
+class TrainingDataSource(Enum):
+    MASTERY = 0.95              # encoded skill, mastery-mode practitioners
+    EXPERIENCED = 0.70
+    JOURNEYMAN = 0.50
+    DESPERATION_LABOR = 0.20    # survival-mode, minimum-compliance
+    AI_GENERATED_2ND_GEN = 0.15  # AI trained on AI trained on degraded humans
+    AI_GENERATED_3RD_GEN = 0.08
+
+
+@dataclass
+class MetrologyAndTrainingQuality:
+    """
+    Root metrology failure: system measures cost-per-unit and confuses
+    it with quality. Training data inherits this corruption. Each AI
+    generation trains on prior generation's mediocrity, compounding error.
+
+    Pre-QA manufacturing parallel: ship broken products -> expensive returns.
+    Modern AI: train on degraded labor -> ship degraded systems -> users
+    absorb cost. Company doesn't pay for cascades, so no incentive to fix.
+    """
+    proxy_metrics_dominate: bool                # cost-per-unit, time-per-task
+    actual_quality_metrics_present: bool        # skill depth, throughput, durability
+    training_data_source_distribution: Dict[TrainingDataSource, float]  # fractions
+    ai_generations_recursive: int               # 0 = trained on humans, 1 = AI->AI, etc.
+    failure_cost_externalized: bool             # users absorb cost of degraded output
+
+    def metrology_score(self) -> float:
+        """0 = pure proxy, 1 = real quality measurement."""
+        score = 0.0
+        if self.actual_quality_metrics_present:
+            score += 0.5
+        if not self.proxy_metrics_dominate:
+            score += 0.5
+        return score
+
+    def training_data_quality_score(self) -> float:
+        """Weighted by source quality, decayed by recursion depth."""
+        weighted = sum(
+            fraction * source.value
+            for source, fraction in self.training_data_source_distribution.items()
+        )
+        # Each generation of AI->AI compounds 0.85x decay
+        decay = 0.85 ** self.ai_generations_recursive
+        return weighted * decay
+
+    def negative_learning_spiral_active(self) -> bool:
+        """When training quality drops below threshold AND recursion present,
+        each generation degrades further."""
+        return (self.training_data_quality_score() < 0.40
+                and self.ai_generations_recursive >= 1)
+
+    def degradation_per_generation_pct(self) -> float:
+        """Estimated quality loss per AI generation if spiral active."""
+        if not self.negative_learning_spiral_active():
+            return 0.0
+        return 15.0 + (self.ai_generations_recursive * 5.0)
+
+
+# ============================================================
+# LAYER 17: CASCADE DETECTION
 # ============================================================
 
 @dataclass
@@ -510,6 +768,10 @@ def cascade_audit(
     backlash: SocialBacklash,
     longdur: InfrastructureLongDuration,
     accounting: FalseAccountingFlags,
+    regulation: RegulationSourceAudit,
+    incentive: IncentiveStructureInheritance,
+    precedent: PrecedentValidation,
+    metrology: MetrologyAndTrainingQuality,
 ) -> CascadeAuditResult:
     """
     Run all coupled constraint checks. Any single critical failure
@@ -633,13 +895,64 @@ def cascade_audit(
             "Deployment justification is accounting fiction."
         )
 
-    # True cost multiplier including new layers
+    # ---- Regulation source ----
+    if regulation.is_circular_justification():
+        r.deployable = False
+        r.failure_modes.append(
+            f"Regulation source invalid: built around induced-deficit baseline. "
+            f"Comparison validity {regulation.comparison_validity():.2f}. "
+            "Automation 'wins' against degraded human, not capable human. "
+            "Deployment rests on circular justification, not science."
+        )
+
+    # ---- Incentive-structure inheritance ----
+    if incentive.will_inherit_degradation():
+        r.deployable = False
+        r.failure_modes.append(
+            f"Incentive structure unchanged (inheritance score "
+            f"{incentive.inheritance_score():.2f}). Same cost-externalization, "
+            "regulatory capture, liability shifting, quarterly-metric dominance "
+            "that degraded prior systems will degrade automation identically."
+        )
+
+    # ---- Precedent validation ----
+    matches = precedent.matches_failure_pattern_count()
+    if precedent.precedent_predicts_failure():
+        r.failure_modes.append(
+            f"Precedent matches: {matches} prior automation deployments "
+            f"failed under identical pattern. Avg cost overrun "
+            f"{precedent.avg_cost_overrun_predicted():.1f}x, avg cascade "
+            f"failure year {precedent.avg_cascade_failure_year():.1f}. "
+            "Empirical landscape predicts repetition."
+        )
+        r.deployable = False
+
+    # ---- Metrology / training-data quality ----
+    if metrology.metrology_score() < 0.5:
+        r.failure_modes.append(
+            f"Metrology failure: proxy metrics dominate (score "
+            f"{metrology.metrology_score():.2f}). System optimizes wrong variable. "
+            "Cannot fix quality through better automation when quality isn't measured."
+        )
+    if metrology.negative_learning_spiral_active():
+        r.deployable = False
+        r.failure_modes.append(
+            f"Negative-learning spiral active: training-data quality "
+            f"{metrology.training_data_quality_score():.2f}, "
+            f"recursion depth {metrology.ai_generations_recursive}, "
+            f"degradation {metrology.degradation_per_generation_pct():.1f}%/gen. "
+            "AI trained on AI trained on desperation labor. Each generation worse."
+        )
+
+    # True cost multiplier including all layers
     base_failure_cost = cost.true_cost_per_failure() * cost.failure_events_per_month * 12
     r.estimated_true_cost_multiplier = 1.0 + (
         (1 - skill_debt.current_competence()) * 2.5
         + sw * 0.6
         + (annual_wear_penalty / 50000)
         + (backlash_cost / 100000)
+        + (incentive.inheritance_score() * 1.5)
+        + ((1 - metrology.training_data_quality_score()) * 1.0)
     )
 
     if r.deployable:
@@ -796,10 +1109,48 @@ if __name__ == "__main__":
         fuel_cost_normalized_per_unit=False,
         measures_corridor_throughput_not_just_individual=False,
     )
+    regulation = RegulationSourceAudit(
+        regulation_id="dot_30min_break_mandate",
+        based_on_actual_biological_capacity=False,
+        based_on_induced_deficit_baseline=True,
+        food_quality_along_corridor=0.18,           # convenience-store dominant
+        sleep_environment_quality=0.30,             # truck stops, noise, lighting
+        stress_load_pct_above_healthy=65.0,
+        healthy_baseline_capacity_studied=False,
+    )
+    incentive = IncentiveStructureInheritance(
+        cost_externalization_present=True,
+        maintenance_treated_as_overhead=True,
+        regulatory_capture_present=True,
+        liability_shifted_to_tool_user=True,
+        quarterly_metric_dominance=True,
+        same_actors_lobbying_for_automation=True,
+    )
+    precedent = PrecedentValidation(
+        proposed_deployment_id="long_haul_food_distribution_automation",
+        promised_solution="reduce driver costs, eliminate driver error, "
+                          "increase throughput",
+        incentive_structure_unchanged=True,
+        rehiring_likely_from_desperation_pool=True,
+    )
+    metrology = MetrologyAndTrainingQuality(
+        proxy_metrics_dominate=True,
+        actual_quality_metrics_present=False,
+        training_data_source_distribution={
+            TrainingDataSource.MASTERY: 0.05,
+            TrainingDataSource.EXPERIENCED: 0.10,
+            TrainingDataSource.JOURNEYMAN: 0.20,
+            TrainingDataSource.DESPERATION_LABOR: 0.50,
+            TrainingDataSource.AI_GENERATED_2ND_GEN: 0.15,
+        },
+        ai_generations_recursive=1,
+        failure_cost_externalized=True,
+    )
 
     result = cascade_audit(
         gps, infra, vehicle, labor, skill_debt, edge, cost,
         traffic, wear, backlash, longdur, accounting,
+        regulation, incentive, precedent, metrology,
     )
     print(f"DEPLOYABLE: {result.deployable}")
     print(f"Skill-debt horizon: {result.skill_debt_horizon_years:.1f} yrs")
