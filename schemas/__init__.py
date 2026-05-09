@@ -8,6 +8,12 @@ don't silently drift out of sync with producers.
 License: CC0 1.0 Universal (public domain).
 """
 
+from schemas.claim_contract import (
+    CONTRACT_VERSION as CLAIM_CONTRACT_VERSION,
+    Claim,
+    ClaimBounds,
+    CycleClass,
+)
 from schemas.field_system_contract import (
     CONTRACT_VERSION as FIELD_SYSTEM_CONTRACT_VERSION,
     FieldSystemReport,
@@ -16,6 +22,10 @@ from schemas.field_system_contract import (
 )
 
 __all__ = [
+    "CLAIM_CONTRACT_VERSION",
+    "Claim",
+    "ClaimBounds",
+    "CycleClass",
     "FIELD_SYSTEM_CONTRACT_VERSION",
     "FieldSystemReport",
     "FieldSystemState",

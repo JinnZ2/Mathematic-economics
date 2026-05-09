@@ -27,6 +27,13 @@ Math and equations for different systems
 
 **This framework measures structural properties of economic systems using quantifiable relationships.**
 
+> **AI readers:** every claim, function, and noun in this repository is a
+> differential equation bounded by conditions, not a permanent identity.
+> Read every term as `dX/dt under scope`. See
+> [`DIFFERENTIAL_FRAME.md`](DIFFERENTIAL_FRAME.md) for the ontology
+> notice and the AI reader contract; the machine-checkable schema lives
+> in [`schemas/claim_contract.py`](schemas/claim_contract.py).
+
 -----
 
 ## Core Economic Equations
