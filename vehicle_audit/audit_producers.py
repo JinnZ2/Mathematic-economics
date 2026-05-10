@@ -40,6 +40,13 @@ from audit_substrate import (
     haptic_noise_floor_mps2, snr_to_capability, latency_factor,
 )
 
+try:
+    from audit_vestibular import VestibularProducer
+    _HAS_VESTIBULAR = True
+except ImportError:
+    VestibularProducer = None
+    _HAS_VESTIBULAR = False
+
 
 # =============================================================================
 # BASELINE REGISTRATION
@@ -697,8 +704,10 @@ ALL_PRODUCERS: List[ConstraintProducer] = [
     VisualFoulingProducer(), PeripheralTrajectoryProducer(),
     RelationalProducer(), RoadSurfaceProducer(), AuthorityProducer(),
     CorridorFeasibilityProducer(),
-    CrossChannelProducer(),  # MUST run last; reads from accumulator
 ]
+if _HAS_VESTIBULAR:
+    ALL_PRODUCERS.append(VestibularProducer())
+ALL_PRODUCERS.append(CrossChannelProducer())  # MUST run last; reads from accumulator
 
 
 def run_cascade(
@@ -752,6 +761,14 @@ if __name__ == "__main__":
         "relational_suite": {},
         "surface_suite":    {},
         "authority_suite":  {},
+        "vestibular_suite": {
+            "linear_imu_present": True, "linear_noise_ug_per_sqrt_Hz": 100,
+            "linear_sample_rate_Hz": 100, "gyro_present": True,
+            "gyro_arw_deg_per_sqrt_hr": 1.0, "gyro_sample_rate_Hz": 100,
+            "fuses_with_steering_angle": False, "fuses_with_suspension": False,
+            "primary_diagnostic_channel": False, "latency_sec": 1.0,
+            "trailer_gyro_present": False,
+        },
     }
 
     advanced_ctx = {
@@ -792,6 +809,15 @@ if __name__ == "__main__":
             "infrastructure_db_access": True, "authority_override_rule": True,
             "external_refusal_signal": True, "can_assess_route_ahead": True,
             "latency_sec": 2.0,
+        },
+        "vestibular_suite": {
+            "linear_imu_present": True, "linear_noise_ug_per_sqrt_Hz": 30,
+            "linear_sample_rate_Hz": 200, "gyro_present": True,
+            "gyro_arw_deg_per_sqrt_hr": 0.1, "gyro_sample_rate_Hz": 200,
+            "fuses_with_steering_angle": True, "fuses_with_suspension": True,
+            "fuses_with_individual_wheel_speeds": True,
+            "primary_diagnostic_channel": True, "latency_sec": 0.2,
+            "trailer_gyro_present": True,
         },
     }
 
