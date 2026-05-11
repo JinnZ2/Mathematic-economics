@@ -15,6 +15,15 @@ provide a falsifiable, updateable harness so anyone running an EROI
 claim can be asked: which version of these inputs did you use?
 
 CC0. Standard library only.
+
+See also (substrate-aware-accounting corpus):
+  - substrate_damage_audit.py - population-level institutional damage
+  - oil_extraction_thermodynamic_cascade_audit.py - ten cost vectors omitted from EROI
+  - refinery_stress_cascade_module.py - 2025-2026 refinery incident data; cascade-failure cost vectors
+  - shale_well_thermodynamic_reality_module.py - Arps decline curves; per-well EROI recalculation
+  - eroi_real_time_audit.py - re-run published EROI against current-period prices and supply flags  (this module)
+  - banking_thermodynamic_audit.py - capital-layer overhead; growth-constraint check
+Corpus index: substrate_accounting/README.md  |  claims: substrate_accounting/CLAIMS_UNIFIED.json
 """
 
 from dataclasses import dataclass, field
