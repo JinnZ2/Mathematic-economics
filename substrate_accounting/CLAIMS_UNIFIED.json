@@ -60,6 +60,13 @@
       "current_location": "audit/banking_thermodynamic_audit.py",
       "domain": "capital_layer_overhead",
       "summary": "Five-layer model of the energy cost of the banking and capital infrastructure that funds industrial extraction. Loan-level attribution, systemic growth-constraint check, comparison across industrial / voluntary-labor / kinship-network capital regimes. Five claims."
+    },
+    {
+      "id": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "summary": "May 2026 snapshot audit across seven constraint layers: price signal integrity, EROI substrate, refining capacity, demand destruction, infrastructure funding, renewable displacement, and institutional trust. Detects cross-layer couplings and emits five falsifiable predictions about diesel divergence, sectoral demand destruction, infrastructure decay, trust erosion, and the liquid-fuel substitution gap."
     }
   ],
   "claims": [
@@ -403,6 +410,67 @@
       "falsifier": "Demonstrate that current extraction continues because it is the most energy-efficient pathway, not because the banking system requires the cash flows.",
       "confirmer": "Documentation that extraction projects with negative or near-zero EROI continue to receive financing because they service existing debt structures.",
       "confidence": "UNSPECIFIED"
+    },
+
+    {
+      "id": "EC1_diesel_diverges_from_crude",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Diesel prices will diverge upward from crude prices through 2026-2027.",
+      "mechanism": "Refinery utilization ceiling combined with middle-distillate demand from trucking and agriculture means refinery output cannot expand to track crude moves; diesel cracks widen even when crude is flat or falling.",
+      "falsifier": "Diesel-crude spread narrows below $15/bbl for 6+ consecutive months.",
+      "confirmer": "Diesel-crude spread widens beyond historical bands and persists through a full demand cycle.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC2_demand_destruction_in_trucking_and_ag",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Demand destruction will appear first in long-haul trucking and small agriculture, ahead of broader consumer demand.",
+      "mechanism": "These sectors have the lowest delivered EROI per dollar of operating margin. They fail before any aggregate demand signal shows up, because their thin margins cannot absorb sustained fuel-price shocks.",
+      "falsifier": "Trucking fleet hours-of-service and small-farm fuel-purchase metrics unchanged through Q4 2026.",
+      "confirmer": "Trucking bankruptcies and small-farm fuel-purchase metrics decline materially before broader consumer fuel demand softens.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC3_infrastructure_failures_post_tax_suspension",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Infrastructure failures (bridges, roads) will visibly accelerate 12-24 months after federal fuel-tax suspension.",
+      "mechanism": "Tax suspension during a price spike defers maintenance funding. Deferred maintenance compounds non-linearly into accelerated decay; failures cluster on the 12-24 month lag of the maintenance cycle.",
+      "falsifier": "Federal Highway Administration condition metrics improve over 2026-2028 despite the suspension.",
+      "confirmer": "FHWA condition metrics degrade over the 12-24 month window after the suspension takes effect; failure incident rate rises.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC4_public_distrust_in_crude_price_signal",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Public will increasingly distrust crude price as a scarcity signal.",
+      "mechanism": "Repeated narrative-reversal cycles (ceasefire announcements proven false, supply scares followed by demand-destruction price drops) train pattern recognition. Trust in the price channel as an information conduit erodes faster than trust in the underlying institutions.",
+      "falsifier": "Consumer sentiment surveys show rising trust in oil market data through 2026-2027.",
+      "confirmer": "Survey data show declining trust in oil market data alongside rising use of alternative information channels.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC5_renewable_electricity_does_not_close_liquid_fuel_gap",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Renewable electricity additions will accelerate but NOT close the liquid-fuel gap.",
+      "mechanism": "Electricity and liquid hydrocarbons are different energy carriers with different infrastructure and different physical constraints. Solar and wind growth displaces gas and coal generation; it does not displace diesel for trucks, ships, planes, or agricultural equipment.",
+      "falsifier": "Diesel demand drops faster than electricity demand grows over 2026-2028.",
+      "confirmer": "Renewable capacity growth continues alongside persistent liquid-fuel cascade signals (trucking, ag, shipping) — the two trends remain decoupled.",
+      "confidence": "HIGH"
     }
   ]
 }

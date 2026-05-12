@@ -25,6 +25,7 @@ See also (substrate-aware-accounting corpus):
   - shale_well_thermodynamic_reality_module.py - Arps decline curves; per-well EROI recalculation
   - eroi_real_time_audit.py - re-run published EROI against current-period prices and supply flags
   - banking_thermodynamic_audit.py - capital-layer overhead; growth-constraint check  (this module)
+  - energy_cascade_audit.py - May 2026 cross-layer cascade detection (price, EROI, refining, demand, trust)
 Corpus index: substrate_accounting/README.md  |  claims: substrate_accounting/CLAIMS_UNIFIED.json
 """
 
