@@ -67,6 +67,13 @@
       "current_location": "audit/energy_cascade_audit.py",
       "domain": "cross_layer_cascade",
       "summary": "May 2026 snapshot audit across seven constraint layers: price signal integrity, EROI substrate, refining capacity, demand destruction, infrastructure funding, renewable displacement, and institutional trust. Detects cross-layer couplings and emits five falsifiable predictions about diesel divergence, sectoral demand destruction, infrastructure decay, trust erosion, and the liquid-fuel substitution gap."
+    },
+    {
+      "id": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "summary": "Audit of Strategic Petroleum Reserve infrastructure use against its salt-cavern design envelope. Records the design spec (large sustained drawdown, ~2 cycles/decade), the observed 2022-2026 use pattern (one large drawdown plus continuous small exchange releases, no sustained refill), and the resulting cycling-stress degradation factor. Verdict combines volume status, days of import protection, and operational degradation; flags when the reserve has crossed operational thresholds even when volume nominally remains. Five claims."
     }
   ],
   "claims": [
@@ -469,7 +476,63 @@
       "statement": "Renewable electricity additions will accelerate but NOT close the liquid-fuel gap.",
       "mechanism": "Electricity and liquid hydrocarbons are different energy carriers with different infrastructure and different physical constraints. Solar and wind growth displaces gas and coal generation; it does not displace diesel for trucks, ships, planes, or agricultural equipment.",
       "falsifier": "Diesel demand drops faster than electricity demand grows over 2026-2028.",
-      "confirmer": "Renewable capacity growth continues alongside persistent liquid-fuel cascade signals (trucking, ag, shipping) — the two trends remain decoupled.",
+      "confirmer": "Renewable capacity growth continues alongside persistent liquid-fuel cascade signals (trucking, ag, shipping) - the two trends remain decoupled.",
+      "confidence": "HIGH"
+    },
+
+    {
+      "id": "SPR1_designed_for_large_sustained_releases",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "SPR salt-cavern infrastructure is designed for large, sustained drawdown events (~90 days, 4+ million bpd throughput), not for continuous small releases via exchange agreements.",
+      "falsifier": "DOE / SPR technical documentation showing infrastructure optimized for sustained low-rate exchange operations.",
+      "confirmer": "Public SPR design specifications consistently emphasize major-disruption response, not continuous market management.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "SPR2_biden_drawdown_closer_to_design_use",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "The 2022-2023 large drawdown, while politically controversial, was thermodynamically closer to the infrastructure's design use than the subsequent continuous exchange-based releases.",
+      "falsifier": "Engineering analysis showing that continuous low-rate exchange operations are within design envelope and large sustained releases are not.",
+      "confirmer": "Salt-cavern engineering literature supports infrequent large cycling over frequent small cycling.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR3_current_pattern_degrades_infrastructure",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Continuous exchange-based releases produce more cumulative cavern cycling stress per barrel released than designed large drawdown patterns. Infrastructure degrades faster than volume depletion alone implies.",
+      "falsifier": "Engineering monitoring data showing cavern integrity improving or stable under current use pattern.",
+      "confirmer": "Non-linear stress-frequency relationship in salt-cavern literature predicts compounding degradation.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR4_current_volume_at_or_below_stability_threshold",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Current SPR volume (~200 MMbbl) is at or near the minimum volume threshold below which cavern stability and brine-migration risk rise.",
+      "falsifier": "DOE assessment confirming current volume is within comfortable operational envelope.",
+      "confirmer": "Public discussion of SPR minimum operational levels places concern threshold near current volume.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR5_buffer_function_effectively_lost",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Current SPR volume provides fewer than 30-60 days of import-protection buffer. The reserve no longer fulfills its design role as a major-disruption buffer.",
+      "falsifier": "Current volume divided by net US imports yields more than 90 days of protection.",
+      "confirmer": "Approximately 200 MMbbl against ~1.6 mbpd net imports yields ~125 days; adjusted for stability minimum and drawdown rate limits, usable buffer is shorter.",
       "confidence": "HIGH"
     }
   ]

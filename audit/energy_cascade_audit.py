@@ -21,6 +21,7 @@ See also (substrate-aware-accounting corpus):
   - eroi_real_time_audit.py - re-run published EROI against current-period prices and supply flags
   - banking_thermodynamic_audit.py - capital-layer overhead; growth-constraint check
   - energy_cascade_audit.py - May 2026 cross-layer cascade detection (price, EROI, refining, demand, trust)  (this module)
+  - spr_operational_degradation_audit.py - SPR salt-cavern use vs design envelope; volume + cycling-stress audit
 Corpus index: substrate_accounting/README.md  |  claims: substrate_accounting/CLAIMS_UNIFIED.json
 """
 

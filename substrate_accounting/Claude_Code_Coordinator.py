@@ -105,6 +105,8 @@ REPOS = [
             "production", "pipeline", "tariff",
             "diesel", "demand destruction", "renewable",
             "infrastructure funding", "trust", "price signal",
+            "spr", "strategic petroleum reserve", "salt cavern",
+            "drawdown", "buffer", "reserve",
         ],
         modules=[
             "oil_extraction_thermodynamic_cascade_audit",
@@ -112,6 +114,7 @@ REPOS = [
             "shale_well_thermodynamic_reality_module",
             "eroi_real_time_audit",
             "energy_cascade_audit",
+            "spr_operational_degradation_audit",
             "gravity_battery_metamaterial_sim",
             "full_cost_energy_comparison",
         ],
