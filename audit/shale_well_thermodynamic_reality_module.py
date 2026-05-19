@@ -16,6 +16,17 @@ order-of-magnitude, not precise. The point is to show direction
 of error, not to publish authoritative figures.
 
 CC0. Standard library only.
+
+See also (substrate-aware-accounting corpus):
+  - substrate_damage_audit.py - population-level institutional damage
+  - oil_extraction_thermodynamic_cascade_audit.py - ten cost vectors omitted from EROI
+  - refinery_stress_cascade_module.py - 2025-2026 refinery incident data; cascade-failure cost vectors
+  - shale_well_thermodynamic_reality_module.py - Arps decline curves; per-well EROI recalculation  (this module)
+  - eroi_real_time_audit.py - re-run published EROI against current-period prices and supply flags
+  - banking_thermodynamic_audit.py - capital-layer overhead; growth-constraint check
+  - energy_cascade_audit.py - May 2026 cross-layer cascade detection (price, EROI, refining, demand, trust)
+  - spr_operational_degradation_audit.py - SPR salt-cavern use vs design envelope; volume + cycling-stress audit
+Corpus index: substrate_accounting/README.md  |  claims: substrate_accounting/CLAIMS_UNIFIED.json
 """
 
 from dataclasses import dataclass

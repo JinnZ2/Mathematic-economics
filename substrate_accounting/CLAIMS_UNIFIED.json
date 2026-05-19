@@ -1,0 +1,539 @@
+{
+  "corpus": "substrate-aware-accounting",
+  "version": "0.1.0",
+  "license": "CC0-1.0",
+  "schema_version": "1",
+  "description": "Unified falsifiable-claim index across the substrate-aware accounting corpus. Each claim has an id, statement, falsifier (what observation would refute it), confirmer (what observation would corroborate it), and confidence (HIGH / MODERATE / LOW / UNSPECIFIED). Use this as the routing key when matching a question to relevant audit modules.",
+  "sibling_repos": {
+    "earth-systems-physics": {
+      "url": "https://github.com/JinnZ2/earth-systems-physics",
+      "role": "Thermodynamic base layer; constraint equations and coupled differential equations for Earth systems."
+    },
+    "mathematics-economy": {
+      "url": "https://github.com/JinnZ2/mathematics-economy",
+      "role": "Capital and labor thermodynamics; banking energy cost; debt servicing arithmetic; value convergence and population substrate audits."
+    },
+    "infrastructure": {
+      "url": "https://github.com/JinnZ2/infrastructure",
+      "role": "Operational systems; refinery cascades, shale well reality, oil extraction audits, supply chain constraints."
+    }
+  },
+  "modules": [
+    {
+      "id": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "summary": "Flags behavioral, psychological, and collapse-prediction models built on populations exhibiting accumulated institutional substrate damage rather than baseline human capacity. Seven-claim, ten-dimension scope-audit gate."
+    },
+    {
+      "id": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "summary": "Enumerates ten cost vectors omitted from published oil EROI (supply chain, geopolitics, SPR drawdown, workforce, automation, REE, water/land, decline curves, carbon, substrate damage). Ten-claim, ten-dimension audit gate."
+    },
+    {
+      "id": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "summary": "Maps 2025-2026 refinery incident data and the thermodynamic cost of cascade failure under sustained overcapacity. Seven claims, six-stage cascade mechanism, ten cost vectors, ten-dimension audit gate."
+    },
+    {
+      "id": "shale_well_thermodynamic_reality_module",
+      "repo": "infrastructure",
+      "current_location": "audit/shale_well_thermodynamic_reality_module.py",
+      "domain": "well_decline_curves",
+      "summary": "Recalculates per-well EROI using Arps hyperbolic decline curves tuned to 2024-2026 well behavior. Four play archetypes (Bakken, Eagle Ford, Permian Midland/Delaware) plus a 20-year replacement-treadmill simulator. No formal claim list."
+    },
+    {
+      "id": "eroi_real_time_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/eroi_real_time_audit.py",
+      "domain": "eroi_price_audit",
+      "summary": "Re-runs published EROI studies against current-period price vectors and supply-availability flags. 2018-2020 baseline versus May 2026 placeholder; component inflation factors and temporal-decay flagging. No formal claim list."
+    },
+    {
+      "id": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "summary": "Five-layer model of the energy cost of the banking and capital infrastructure that funds industrial extraction. Loan-level attribution, systemic growth-constraint check, comparison across industrial / voluntary-labor / kinship-network capital regimes. Five claims."
+    },
+    {
+      "id": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "summary": "May 2026 snapshot audit across seven constraint layers: price signal integrity, EROI substrate, refining capacity, demand destruction, infrastructure funding, renewable displacement, and institutional trust. Detects cross-layer couplings and emits five falsifiable predictions about diesel divergence, sectoral demand destruction, infrastructure decay, trust erosion, and the liquid-fuel substitution gap."
+    },
+    {
+      "id": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "summary": "Audit of Strategic Petroleum Reserve infrastructure use against its salt-cavern design envelope. Records the design spec (large sustained drawdown, ~2 cycles/decade), the observed 2022-2026 use pattern (one large drawdown plus continuous small exchange releases, no sustained refill), and the resulting cycling-stress degradation factor. Verdict combines volume status, days of import protection, and operational degradation; flags when the reserve has crossed operational thresholds even when volume nominally remains. Five claims."
+    }
+  ],
+  "claims": [
+
+    {
+      "id": "C1_collapse_models_on_damaged_substrate",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Collapse-prediction and crisis-behavior models trained on Western institutional-stress populations measure damage pathology, not baseline human capacity.",
+      "mechanism": "Training populations exhibit chronic stress activation, kinship-network atrophy, and ecological disconnection. Observed fragility is an artifact of these conditions, not a species-level property.",
+      "falsifier": "Equivalent fragility patterns observed in populations with intact kinship networks, low chronic institutional stress, and high ecological embeddedness.",
+      "confirmer": "Adaptive-capacity differential between high-stress and low-stress substrates exceeds within-group variance.",
+      "confidence": "HIGH",
+      "references": []
+    },
+    {
+      "id": "C2_chronic_stress_alters_substrate",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Chronic institutional stress (systemic racism, hierarchical subordination, socioeconomic precarity) produces measurable epigenetic, endocrine, and immune changes that confound downstream behavioral and psychological measurement.",
+      "mechanism": "Sustained HPA-axis activation alters glucocorticoid receptor expression; inflammatory cytokine baselines shift; placental function during gestation is sensitized; offspring inherit altered stress-response architecture.",
+      "falsifier": "Removal of chronic stressors fails to normalize endocrine and inflammatory markers within one to two generations.",
+      "confirmer": "Documented epigenetic recovery in populations transitioning out of high-stress conditions; observed convergence toward low-stress-population baselines.",
+      "confidence": "HIGH",
+      "references": [
+        "Amedor & Giussani, Trends in Endocrinology & Metabolism, April 2026: physiological mechanisms mediating socio-environmental influences on pregnancy outcomes."
+      ]
+    },
+    {
+      "id": "C3_low_institutional_stress_communities_show_different_patterns",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Communities with intact kinship networks, distributed decision-making, and ecological embeddedness exhibit adaptive recovery patterns under disaster and crisis that differ structurally from Western-population responses.",
+      "mechanism": "Network-distributed load-bearing reduces individual stress concentration. Pre-tested generational knowledge provides operational adaptation rather than narrative-only coping. Substrate fluency in real constraint (weather, terrain, biology) yields functional response under disruption.",
+      "falsifier": "Matched-disaster comparison shows equivalent PTSD rates, recovery timelines, and adaptive behavior between Western and traditional-network populations.",
+      "confirmer": "Lower individual-fragility metrics and faster functional recovery in network-embedded populations, persisting after controlling for disaster severity.",
+      "confidence": "MODERATE",
+      "references": []
+    },
+    {
+      "id": "C4_escape_narratives_as_symptom",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Escape narratives (transhumanism, AI-replacement, body-rejection, off-world migration) correlate with high-institutional-stress populations and should be read as substrate-damage symptom, not as evidence of human biological inadequacy.",
+      "mechanism": "Sustained institutional damage with no clear external attribution channel produces displaced rejection of the self or species. Frame shifts from 'system harmed me' to 'humanity is limited.' Escape impulse becomes culturally amplified by the same institutions causing the damage.",
+      "falsifier": "Populations in low-institutional-stress conditions generate escape narratives at equivalent rates and intensities.",
+      "confirmer": "Escape-narrative incidence and intensity scale with institutional-stress markers; declines observed where stress is reduced and community fluency restored.",
+      "confidence": "MODERATE",
+      "references": []
+    },
+    {
+      "id": "C5_disaster_research_methodologically_biased",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Disaster and collapse research generalizes from non-equivalent populations. Comparing damaged-substrate samples to less-damaged samples without flagging substrate state as a primary variable invalidates universal claims about 'human behavior under stress.'",
+      "mechanism": "Methodological bias treats Western individual-psychology frameworks as universal. Traditional-network resilience data, where present, is reframed as 'cultural coping' rather than evidence of substrate baseline. The damaged sample is implicitly treated as control.",
+      "falsifier": "Re-analysis of disaster literature shows substrate-state variables fully accounted for and traditional-network populations treated as comparison baseline rather than cultural outlier.",
+      "confirmer": "Systematic review reveals substrate-state confound left uncorrected across the majority of cited collapse-behavior literature.",
+      "confidence": "HIGH",
+      "references": []
+    },
+    {
+      "id": "C6_multigenerational_compounding",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Epigenetic and developmental damage from chronic institutional stress compounds across generations. Current 'baseline' human-capacity measurements are taken several generations into accumulated harm and cannot represent unstressed substrate.",
+      "mechanism": "Maternal stress during gestation alters fetal HPA-axis calibration; resulting offspring enter adulthood pre-sensitized; their own gestational environments transmit further calibration shifts. No living Western-industrial cohort exists without inherited accumulation.",
+      "falsifier": "Cross-generational stress-marker data show stability rather than compounding.",
+      "confirmer": "Stress-marker baselines drift across generations in directions consistent with sustained institutional load.",
+      "confidence": "MODERATE",
+      "references": []
+    },
+    {
+      "id": "C7_hierarchy_as_substrate_degradation",
+      "module": "substrate_damage_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/substrate_damage_audit.py",
+      "domain": "population_substrate",
+      "statement": "Patriarchy, racial hierarchy, and rigid socioeconomic stratification are not only ethical problems but measurable substrate degradation affecting reproductive biology and population-level resilience.",
+      "mechanism": "Hierarchical stress is biologically transmitted through gestational physiology. Suppressed genetic and phenotypic diversity reduces population adaptive capacity. Damage extends to populations in dominant tiers via different pathways (isolation, constraint-blindness, dependency on artificial supports).",
+      "falsifier": "Populations under rigid hierarchy show equivalent resilience metrics to populations with distributed decision-making and reciprocal stewardship.",
+      "confirmer": "Hierarchical-stress populations exhibit reduced adaptive capacity across multiple substrate measures, independent of position in hierarchy.",
+      "confidence": "HIGH",
+      "references": [
+        "Cambridge / Amedor & Giussani 2026: Black women nearly three times more likely to die in pregnancy, with physiological mediation by chronic socio-environmental stress."
+      ]
+    },
+
+    {
+      "id": "C1_published_eroi_omits_system_costs",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Published EROI figures for unconventional oil omit at least ten distinct cost vectors. They describe well-site thermodynamics, not delivered-fuel thermodynamics.",
+      "falsifier": "Peer-reviewed EROI calculation that explicitly accounts for V1-V10 yields published-range numbers (~6:1 for shale).",
+      "confirmer": "Re-calculation including any subset of V1-V10 yields a systematically lower number, scaling with vectors included.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C2_automation_relocates_energy_upstream",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Automating extraction does not reduce system energy input; it relocates energy use into semiconductor fabrication, REE mining, and software infrastructure. Net system EROI does not improve and may decline.",
+      "falsifier": "Full life-cycle analysis of automated vs. non-automated extraction shows net energy savings inclusive of fab and REE supply chain.",
+      "confirmer": "Life-cycle analysis shows upstream energy cost equal to or greater than downstream labor energy saved.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C3_workforce_skill_decay_is_thermodynamic_cost",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Veteran workforce culling and training-budget compression is a thermodynamic cost: replacement is multi-year and non-linear. Operations under skill-depleted workforce show higher accident, repair, and rework energy.",
+      "falsifier": "Equivalent operational energy efficiency demonstrated across veteran-staffed and replacement-staffed crews.",
+      "confirmer": "Documented increases in incident rates, rework, and unplanned downtime correlating with workforce demographic shifts.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "C4_geopolitical_chokepoints_change_eroi",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Strait of Hormuz, Red Sea, Suez, and Panama disruptions materially change the energy cost per delivered barrel and are not embedded in current EROI calculations.",
+      "falsifier": "Demonstrate that shipping energy is small enough that rerouting does not materially affect EROI even at 70% round-trip emissions increase.",
+      "confirmer": "Quantify rerouting energy cost per barrel; show it materially shifts delivered EROI.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C5_spr_drawdown_is_hidden_subsidy",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Drawing strategic reserves to manage price during disruption is a thermodynamic transfer: future energy (needed to refill) is being borrowed against present stability. EROI of present barrels is overstated by this borrowing.",
+      "falsifier": "SPR is fully refillable under current production and future EROI conditions without compromising delivered supply.",
+      "confirmer": "Refill mathematics show declining feasibility as unconventional EROI compresses and production peaks.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C6_decline_curves_understated_in_reserves",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Estimated Ultimate Recovery for unconventional wells is systematically optimistic relative to observed decline behavior. Published reserve numbers embed this optimism.",
+      "falsifier": "Long-life (>6 year) well data confirms early-life EUR projections across the major shale plays.",
+      "confirmer": "Long-life data shows SEPD-Arps decline pattern with EUR below early projections.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C7_substrate_damage_reduces_system_capacity",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Public-health and ecological substrate damage in extraction regions reduces the capacity of populations the extraction system depends on. This is a measurable thermodynamic cost, not only an ethical concern.",
+      "falsifier": "Populations in high-extraction-density regions show equivalent long-term capacity metrics to comparison regions.",
+      "confirmer": "Substrate-damage markers (epigenetic, endocrine, developmental) elevated in proximate populations and transmitted across generations.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "C8_net_energy_peak_may_be_passed",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Net delivered energy from global oil liquids may already be at or past peak when V1-V10 are included, even though gross volume continues to grow.",
+      "falsifier": "Net energy continues to rise with gross volume after accounting for V1-V10.",
+      "confirmer": "Net energy plateaus or declines while gross volume rises; matches Delannoy et al. 2025 estimate.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "C9_extraction_dependency_loop_is_unstable",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Modern oil extraction depends on supply chains, semiconductors, rare earths, and global shipping that themselves depend on oil-derived inputs. The loop is self-referential and degrades under any sustained shock.",
+      "falsifier": "Identify any link in the extraction supply chain that operates independently of oil-derived energy or oil-dependent logistics.",
+      "confirmer": "Demonstrate the cascade: shock to any single layer (REE, semiconductor, shipping, workforce) propagates measurably to delivered EROI.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "C10_published_eroi_is_non_falsifiable_until_audited",
+      "module": "oil_extraction_thermodynamic_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/oil_extraction_thermodynamic_cascade_audit.py",
+      "domain": "eroi_metrology",
+      "statement": "Until published EROI figures are recalculated with V1-V10 explicitly included or explicitly bounded, they are not falsifiable claims about delivered energy, only claims about a sub-system.",
+      "falsifier": "Published methodology document showing explicit treatment of all ten vectors.",
+      "confirmer": "Survey of cited EROI literature shows none of the ten vectors treated comprehensively in mainstream figures.",
+      "confidence": "HIGH"
+    },
+
+    {
+      "id": "RC1_sustained_overcapacity_compresses_lifespan",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "Equipment operated at sustained 90+ percent capacity accumulates material stress non-linearly, compressing operational lifespan and increasing failure probability.",
+      "falsifier": "Long-term fatigue data showing equivalent failure rates at 75% and 95% sustained capacity.",
+      "confirmer": "Material fatigue literature consistently shows exponential failure-rate scaling with sustained operation above design point.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RC2_load_redistribution_compounds_failure",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "When one unit fails in a tightly-loaded network, load redistributes to remaining units, accelerating their wear and increasing their failure probability. Cascade is exponential, not linear.",
+      "falsifier": "Network failure data showing independent (Poisson) failure distribution rather than clustering.",
+      "confirmer": "Observed clustering in time and across operators (e.g. April 2026 wave, 10+ incidents in 60 days across 7 countries).",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RC3_repair_energy_omitted_from_eroi",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "Repair energy and replacement-equipment embedded energy are systematically omitted from published EROI figures.",
+      "falsifier": "Published EROI methodology document showing explicit treatment of repair, replacement, and lost-production energy.",
+      "confirmer": "Survey of cited EROI literature shows none of these vectors treated in mainstream figures.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RC4_subsidy_structures_reward_failure_mode",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "Subsidy structures designed to keep refineries at maximum production financially reward the operating regime that causes cascade failure. The cost is externalized to public funds and proximate populations.",
+      "falsifier": "Subsidy designs that explicitly reward maintenance headroom and below-capacity operation, with documented lower incident rates.",
+      "confirmer": "Geelong April 2026: subsidy increase March, fire April. Pattern repeated across other subsidy-supported facilities.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "RC5_institutional_blindness_amplifies_cascade",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "Defunding pattern-analysis institutions (CSB) removes the feedback signal that would otherwise correct the cascade. Each incident becomes isolated, pattern recognition is suspended, and the system loses ability to learn from its own failures.",
+      "falsifier": "CSB or equivalent body operating with full investigation capacity, producing published cascade-pattern analysis.",
+      "confirmer": "CSB investigation suspended on October 2025 El Segundo fire due to federal shutdown. Proposed 2026 budget would eliminate the board.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RC6_cascade_failure_reduces_system_eroi",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "When cascade-failure cost vectors (R1-R10) are included, system-level EROI for delivered refined fuel is reduced by an additional 0.5 to 1.5 points relative to published well-site figures.",
+      "falsifier": "Comprehensive system-level EROI calculation including R1-R10 yields figures equivalent to published well-site EROI.",
+      "confirmer": "Bottom-up accounting of repair, replacement, and cascade costs yields material EROI reduction.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "RC7_substrate_damage_compounds_with_cascade",
+      "module": "refinery_stress_cascade_module",
+      "repo": "infrastructure",
+      "current_location": "audit/refinery_stress_cascade_module.py",
+      "domain": "downstream_cascade",
+      "statement": "Each cascade incident releases hazardous substances into proximate populations, compounding the substrate-damage signal already documented for chronic stress in extraction-zone populations.",
+      "falsifier": "Air, water, and biological monitoring around incident sites showing no elevation in benzene, PAH, and related biomarkers.",
+      "confirmer": "Tuapse 2026: documented benzene and xylene release. Long-term proximate-population health markers track incident frequency.",
+      "confidence": "MODERATE"
+    },
+
+    {
+      "id": "B1_banking_energy_per_dollar_measurable",
+      "module": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "statement": "Banking infrastructure energy cost per dollar of capital under management is measurable and non-zero. Order of magnitude: 5-15 kJ per dollar per year.",
+      "falsifier": "Comprehensive bottom-up accounting yields energy cost below 1 kJ per dollar per year.",
+      "confirmer": "Global financial sector electricity 200-400 TWh per year against capital base ~$400T yields per-dollar values in the 5-15 kJ per year range, before non-electric multiplier.",
+      "confidence": "UNSPECIFIED"
+    },
+    {
+      "id": "B2_capital_cost_rises_with_complexity",
+      "module": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "statement": "Banking energy cost per dollar has risen over time as the financial system has become more complex (more derivatives, more compliance, more digital infrastructure).",
+      "falsifier": "Time-series data show flat or declining energy cost per dollar despite increased complexity.",
+      "confirmer": "Documented increases in financial sector electricity demand, compliance staff counts, and IT infrastructure consistently outpace growth in capital base.",
+      "confidence": "UNSPECIFIED"
+    },
+    {
+      "id": "B3_banking_requires_growth",
+      "module": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "statement": "Interest-bearing debt at scale requires aggregate growth to remain serviceable. Under sustained energy contraction, the banking system cannot maintain its current scale or complexity.",
+      "falsifier": "Historical example of a major banking system functioning indefinitely under sustained negative net energy growth without restructuring.",
+      "confirmer": "Every documented case of resource contraction in a debt-financed economy has produced banking crisis, default, or restructuring.",
+      "confidence": "UNSPECIFIED"
+    },
+    {
+      "id": "B4_voluntary_labor_systems_zero_capital_cost",
+      "module": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "statement": "Voluntary-labor and kinship-network systems have near-zero capital infrastructure energy cost. They scale with participation rather than with compounding interest.",
+      "falsifier": "Comprehensive accounting of a working voluntary-labor system shows capital infrastructure energy cost comparable to industrial banking.",
+      "confirmer": "Documented traditional and intentional communities operate at energy costs orders of magnitude below industrial financial systems.",
+      "confidence": "UNSPECIFIED"
+    },
+    {
+      "id": "B5_extraction_funded_via_banking_constraint",
+      "module": "banking_thermodynamic_audit",
+      "repo": "mathematics-economy",
+      "current_location": "audit/banking_thermodynamic_audit.py",
+      "domain": "capital_layer_overhead",
+      "statement": "Continued industrial extraction is sustained by the banking system's need for growth, not by thermodynamic efficiency. Simplifying to lower-capital systems is thermodynamically rational but economically catastrophic for the financial sector.",
+      "falsifier": "Demonstrate that current extraction continues because it is the most energy-efficient pathway, not because the banking system requires the cash flows.",
+      "confirmer": "Documentation that extraction projects with negative or near-zero EROI continue to receive financing because they service existing debt structures.",
+      "confidence": "UNSPECIFIED"
+    },
+
+    {
+      "id": "EC1_diesel_diverges_from_crude",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Diesel prices will diverge upward from crude prices through 2026-2027.",
+      "mechanism": "Refinery utilization ceiling combined with middle-distillate demand from trucking and agriculture means refinery output cannot expand to track crude moves; diesel cracks widen even when crude is flat or falling.",
+      "falsifier": "Diesel-crude spread narrows below $15/bbl for 6+ consecutive months.",
+      "confirmer": "Diesel-crude spread widens beyond historical bands and persists through a full demand cycle.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC2_demand_destruction_in_trucking_and_ag",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Demand destruction will appear first in long-haul trucking and small agriculture, ahead of broader consumer demand.",
+      "mechanism": "These sectors have the lowest delivered EROI per dollar of operating margin. They fail before any aggregate demand signal shows up, because their thin margins cannot absorb sustained fuel-price shocks.",
+      "falsifier": "Trucking fleet hours-of-service and small-farm fuel-purchase metrics unchanged through Q4 2026.",
+      "confirmer": "Trucking bankruptcies and small-farm fuel-purchase metrics decline materially before broader consumer fuel demand softens.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC3_infrastructure_failures_post_tax_suspension",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Infrastructure failures (bridges, roads) will visibly accelerate 12-24 months after federal fuel-tax suspension.",
+      "mechanism": "Tax suspension during a price spike defers maintenance funding. Deferred maintenance compounds non-linearly into accelerated decay; failures cluster on the 12-24 month lag of the maintenance cycle.",
+      "falsifier": "Federal Highway Administration condition metrics improve over 2026-2028 despite the suspension.",
+      "confirmer": "FHWA condition metrics degrade over the 12-24 month window after the suspension takes effect; failure incident rate rises.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC4_public_distrust_in_crude_price_signal",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Public will increasingly distrust crude price as a scarcity signal.",
+      "mechanism": "Repeated narrative-reversal cycles (ceasefire announcements proven false, supply scares followed by demand-destruction price drops) train pattern recognition. Trust in the price channel as an information conduit erodes faster than trust in the underlying institutions.",
+      "falsifier": "Consumer sentiment surveys show rising trust in oil market data through 2026-2027.",
+      "confirmer": "Survey data show declining trust in oil market data alongside rising use of alternative information channels.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "EC5_renewable_electricity_does_not_close_liquid_fuel_gap",
+      "module": "energy_cascade_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/energy_cascade_audit.py",
+      "domain": "cross_layer_cascade",
+      "statement": "Renewable electricity additions will accelerate but NOT close the liquid-fuel gap.",
+      "mechanism": "Electricity and liquid hydrocarbons are different energy carriers with different infrastructure and different physical constraints. Solar and wind growth displaces gas and coal generation; it does not displace diesel for trucks, ships, planes, or agricultural equipment.",
+      "falsifier": "Diesel demand drops faster than electricity demand grows over 2026-2028.",
+      "confirmer": "Renewable capacity growth continues alongside persistent liquid-fuel cascade signals (trucking, ag, shipping) - the two trends remain decoupled.",
+      "confidence": "HIGH"
+    },
+
+    {
+      "id": "SPR1_designed_for_large_sustained_releases",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "SPR salt-cavern infrastructure is designed for large, sustained drawdown events (~90 days, 4+ million bpd throughput), not for continuous small releases via exchange agreements.",
+      "falsifier": "DOE / SPR technical documentation showing infrastructure optimized for sustained low-rate exchange operations.",
+      "confirmer": "Public SPR design specifications consistently emphasize major-disruption response, not continuous market management.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "SPR2_biden_drawdown_closer_to_design_use",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "The 2022-2023 large drawdown, while politically controversial, was thermodynamically closer to the infrastructure's design use than the subsequent continuous exchange-based releases.",
+      "falsifier": "Engineering analysis showing that continuous low-rate exchange operations are within design envelope and large sustained releases are not.",
+      "confirmer": "Salt-cavern engineering literature supports infrequent large cycling over frequent small cycling.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR3_current_pattern_degrades_infrastructure",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Continuous exchange-based releases produce more cumulative cavern cycling stress per barrel released than designed large drawdown patterns. Infrastructure degrades faster than volume depletion alone implies.",
+      "falsifier": "Engineering monitoring data showing cavern integrity improving or stable under current use pattern.",
+      "confirmer": "Non-linear stress-frequency relationship in salt-cavern literature predicts compounding degradation.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR4_current_volume_at_or_below_stability_threshold",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Current SPR volume (~200 MMbbl) is at or near the minimum volume threshold below which cavern stability and brine-migration risk rise.",
+      "falsifier": "DOE assessment confirming current volume is within comfortable operational envelope.",
+      "confirmer": "Public discussion of SPR minimum operational levels places concern threshold near current volume.",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "SPR5_buffer_function_effectively_lost",
+      "module": "spr_operational_degradation_audit",
+      "repo": "infrastructure",
+      "current_location": "audit/spr_operational_degradation_audit.py",
+      "domain": "strategic_reserve_metrology",
+      "statement": "Current SPR volume provides fewer than 30-60 days of import-protection buffer. The reserve no longer fulfills its design role as a major-disruption buffer.",
+      "falsifier": "Current volume divided by net US imports yields more than 90 days of protection.",
+      "confirmer": "Approximately 200 MMbbl against ~1.6 mbpd net imports yields ~125 days; adjusted for stability minimum and drawdown rate limits, usable buffer is shorter.",
+      "confidence": "HIGH"
+    }
+  ]
+}
