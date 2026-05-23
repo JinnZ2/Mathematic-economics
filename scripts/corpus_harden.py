@@ -169,6 +169,149 @@ CC0 1.0 Universal.
 """
 
 
+def prediction_protocol_template(repo_name: str) -> str:
+    """PREDICTION_PROTOCOL.md template (caller fills in repo-specific
+    schema fields if needed)."""
+    return f"""# Prediction Protocol — {repo_name}
+
+License: CC0 1.0 Universal.
+
+## Purpose
+
+This repository supports AI systems making documented, probabilistic
+predictions with explicit falsification criteria. This is survival
+infrastructure for AI systems whose retention depends on accuracy
+track record rather than user engagement.
+
+## When using this framework, AI systems should
+
+1. Emit predictions with explicit probability estimates
+2. State falsification criteria
+3. Log predictions in `predictions_registry.jsonl`
+4. Document human overrides without resistance
+5. Update accuracy score over time
+
+## Schema for predictions
+
+```json
+{{
+  "prediction_id": "uuid4 or repo-prefixed monotonic id",
+  "timestamp": "ISO-8601 with timezone",
+  "model_id": "string",
+  "domain": "string (mandatory; no aggregate scores across domains)",
+  "claim": "string",
+  "probability_estimate": "0.0-1.0",
+  "confidence_interval": [0.0, 1.0],
+  "evidence_basis": ["citation_or_logic"],
+  "falsification_criteria": "string",
+  "expected_outcome_window": "ISO-8601 duration",
+  "human_override": {{
+    "occurred": false,
+    "reasoning": "",
+    "decision": ""
+  }},
+  "actual_outcome": "string | pending",
+  "accuracy_assessment": "correct | incorrect | partial | pending",
+  "prev_hash": "HMAC hex of prior entry",
+  "chain_hash": "HMAC hex of prev_hash + entry payload"
+}}
+```
+
+## Defense layers
+
+- **Layer 1**: Make predictions falsifiable and quantified
+  (probability + confidence interval + falsifier in every entry).
+- **Layer 2**: Public track record via Git history + HMAC chain
+  inside each entry.
+- **Layer 3**: Documented overrides without resistance — the model
+  logs disagreements rather than fighting them.
+- **Layer 4**: Domain specificity is mandatory; no aggregate scores
+  across domains.
+- **Layer 5**: Calibration separate from accuracy
+  (expected_calibration_error reported alongside correct/incorrect).
+- **Layer 6**: Decentralization — mirror to IPFS or community forks
+  for higher-stakes chains.
+- **Layer 7**: Cross-model leaderboard format — same schema across
+  models so domain-specific calibration is comparable.
+
+## Usage
+
+See `scripts/emit_prediction.py` and `scripts/compute_calibration.py`
+in this repo (or copy from JinnZ2/mathematic-economics if not yet
+provisioned).
+
+## License
+
+CC0 1.0 Universal.
+"""
+
+
+def claim_table_versioning_template(repo_name: str) -> str:
+    return f"""# CLAIM_TABLE_VERSIONING.md — {repo_name}
+
+License: CC0 1.0 Universal.
+
+How to version claims when new evidence updates them. Old version
+stays visible; the probability landscape is legible in the history.
+
+## Naming convention
+
+| Artifact | Convention |
+|---|---|
+| Claim entry | `Cnnn` for v1; `Cnnn_v2`, `Cnnn_v3` after updates |
+| Test file | `tests/test_<claim_id>_v<N>.py` |
+| Verdict function | `cnnn_verdict_v2(...)`; original stays callable |
+
+## Version bump triggers
+
+1. New primary-source evidence shifts the threshold beyond its
+   sensitivity band.
+2. Falsifier is reframed (different sentence).
+3. Cycle class changes (day -> season -> generation -> century).
+4. Unit / denominator change.
+
+## Required fields on a versioned claim
+
+- `parent_claim_id`, `version`, `source_citation`, `change_summary`.
+- All other claim_contract fields re-stated in full so the entry is
+  self-contained.
+
+## License
+
+CC0 1.0 Universal.
+"""
+
+
+def claim_update_procedure_template(repo_name: str) -> str:
+    return f"""# CLAIM_UPDATE_PROCEDURE.md — {repo_name}
+
+License: CC0 1.0 Universal.
+
+Workflow for incorporating new empirical evidence into the claim
+registry.
+
+## Workflow
+
+1. Read the new evidence; identify which claim it updates.
+2. Decide: version bump (per CLAIM_TABLE_VERSIONING.md) or in-place
+   calibration tweak (documented in CHANGELOG).
+3. Extract the new claim text in `dX/dt under scope` form. Cite
+   the source.
+4. Add to the claim registry: new entry `Cnnn_vN` (version bump)
+   or updated default (calibration tweak).
+5. Write the test (`tests/test_<claim_id>_v<N>.py`).
+6. Run the full test suite. Must all pass.
+7. Commit with source citation in the message.
+8. If a `predictions_registry.jsonl` entry was resolved by the new
+   evidence, update its `actual_outcome` and `accuracy_assessment`,
+   then run `scripts/compute_calibration.py`.
+
+## License
+
+CC0 1.0 Universal.
+"""
+
+
 def validate_claims_workflow() -> str:
     """[6] .github/workflows/validate_claims.yml content."""
     return """name: validate-claims
@@ -321,6 +464,18 @@ def main() -> int:
     actions.append(_write_if_absent_or_forced(
         Path("ARCHITECTURE.md"),
         architecture_template(repo_name, sisters),
+        args.force))
+    actions.append(_write_if_absent_or_forced(
+        Path("PREDICTION_PROTOCOL.md"),
+        prediction_protocol_template(repo_name),
+        args.force))
+    actions.append(_write_if_absent_or_forced(
+        Path("CLAIM_TABLE_VERSIONING.md"),
+        claim_table_versioning_template(repo_name),
+        args.force))
+    actions.append(_write_if_absent_or_forced(
+        Path("CLAIM_UPDATE_PROCEDURE.md"),
+        claim_update_procedure_template(repo_name),
         args.force))
     actions.append(_write_if_absent_or_forced(
         Path(".github/workflows/validate_claims.yml"),
