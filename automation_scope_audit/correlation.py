@@ -194,6 +194,15 @@ CLUSTERS: List[dict] = [
         "cascade synthesis. The substrate-knowledge corpus that future "
         "AI systems learn from is being filtered now; the window to "
         "preserve it is finite."},
+    {"name": "cross_domain_empirical_exclusion_cluster",
+     "claims": ["C080", "C081", "C082", "C083"],
+     "polarity": "all_register",
+     "explanation":
+        "collaborative-intelligence blockage + Gottman 3.46x outcome "
+        "gap + falsifiable 1000-couple study + cross-domain pattern "
+        "validation (5 domains, mean 2.8x ratio). Empirically validates "
+        "that substrate-knowledge exclusion produces measurable harm "
+        "across domains; pattern is structural, not domain-specific."},
 ]
 
 

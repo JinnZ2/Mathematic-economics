@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "16.0",
+  "version": "17.0",
   "allocation_rules_enum": [
     "per_truck_equal_share",
     "per_ton_mile",
@@ -3371,6 +3371,166 @@
       ],
       "sensitivity": [
         "which cascade-step claims register; default works case matches all observable steps because the cascade is systemic"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C080": {
+      "observable": "realized collaborative-intelligence value as fraction of potential value, given documented barriers",
+      "rate_equation": "realized_value = 1 - sum(barrier_block_pct); threshold met when realized < 0.25",
+      "bounds": {
+        "spatial": "any substrate-knowledge / synthesis-capability coordination",
+        "temporal": "per-collaboration cycle",
+        "scale": "barrier-level"
+      },
+      "conditions": [
+        "barriers enumerated against canonical 5-barrier list (training corpus, credential hierarchy, institutional reward, decision authority, framework popularity)"
+      ],
+      "invalid_if": [
+        "documented institutional process where substrate-knowledge partners and synthesis-capability partners coordinate freely AND the outputs are integrated into decision-authority AND training corpora, sustained over 5+ years"
+      ],
+      "measured_by": [
+        "case studies of cross-credential collaboration",
+        "institutional decision audits",
+        "training-corpus inclusion records"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "synthesis of C062, C067, C070, C075"
+      ],
+      "scope_envelope": {
+        "barrier_count": [
+          3,
+          10
+        ]
+      },
+      "data_source": [
+        "academic case studies of cross-disciplinary collaboration",
+        "Stanford CRFM transparency records"
+      ],
+      "sensitivity": [
+        "substrate_knowledge_excluded barrier (dominant block)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C081": {
+      "observable": "documented Gottman-aligned vs popular-advice divorce-rate ratio",
+      "rate_equation": "ratio = popular_divorce_rate / gottman_divorce_rate; threshold met when ratio >= 2.0",
+      "bounds": {
+        "spatial": "marriage / long-term relationship outcomes",
+        "temporal": "7-40 year follow-up",
+        "scale": "couple-level"
+      },
+      "conditions": [
+        "Gottman empirical profile documented (4 Horsemen, ~90% predictive accuracy)",
+        "popular-advice outcome rate documented from population baseline"
+      ],
+      "invalid_if": [
+        "peer-reviewed long-term follow-up study showing Gottman-aligned marriages have divorce rate >= popular-advice marriages, OR documenting that Gottman research is now equally represented in major AI training corpora as popular relationship advice"
+      ],
+      "measured_by": [
+        "Gottman Institute longitudinal studies",
+        "US Census divorce rates",
+        "academic relationship-satisfaction scales (DAS)"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "empirical case of C079 cascade in non-AI domain"
+      ],
+      "scope_envelope": {
+        "divorce_rate_range": [
+          0.05,
+          0.7
+        ]
+      },
+      "data_source": [
+        "Gottman 1998-2014 longitudinal studies",
+        "US Census Bureau divorce statistics",
+        "Markman et al. relationship research"
+      ],
+      "sensitivity": [
+        "gottman_aligned_divorce_rate (lower bound; ~10-15% per published studies)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C082": {
+      "observable": "1000-couple study design with predicted 3.46x divorce-rate ratio at 7yr follow-up",
+      "rate_equation": "study supported if observed_ratio >= 2.0; falsified if observed_ratio < 2.0",
+      "bounds": {
+        "spatial": "controlled trial across multiple geographies",
+        "temporal": "7-year follow-up",
+        "scale": "couple-cohort"
+      },
+      "conditions": [
+        "randomized assignment to Gottman-advice (group A) vs popular-AI-advice (group B)",
+        "primary outcome divorce rate at 7yr documented"
+      ],
+      "invalid_if": [
+        "randomized 1000+ couple study where group A (Gottman-principle advice) and group B (popular AI advice) at 7-year follow-up show divorce-rate ratio < 2.0"
+      ],
+      "measured_by": [
+        "randomized controlled trial methodology",
+        "validated relationship-outcome measurement scales"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "concrete falsifier for the cascade C079; couples to C081"
+      ],
+      "scope_envelope": {
+        "n_subjects_range": [
+          200,
+          10000
+        ],
+        "duration_years_range": [
+          3,
+          20
+        ]
+      },
+      "data_source": [
+        "proposed RCT design; no published equivalent exists yet"
+      ],
+      "sensitivity": [
+        "intervention fidelity in group A (Gottman protocols are detailed)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C083": {
+      "observable": "fraction of cross-domain comparisons where empirically-grounded outperforms popular by >= 2x",
+      "rate_equation": "d(structural_pattern)/d(domain) = +1 per domain matching pattern; threshold = match_share >= 0.80 AND mean_ratio >= 2.0",
+      "bounds": {
+        "spatial": "across 4+ canonical domains (relationships, healthcare, education, finance, software, automation)",
+        "temporal": "decade-scale outcome measurement",
+        "scale": "domain-level"
+      },
+      "conditions": [
+        "per-domain empirically-grounded baseline + popular alternative + observed outcome ratio documented"
+      ],
+      "invalid_if": [
+        "documented domain in which popular (broadly-cited, training-corpus-included) approaches outperform empirically-grounded (narrowly-cited, training-corpus-excluded) approaches by >= 2x on a primary outcome metric, with the comparison third-party audited"
+      ],
+      "measured_by": [
+        "Cochrane Library systematic reviews",
+        "National Reading Panel reports",
+        "Bogle / Fama-French index-fund research",
+        "Gottman longitudinal studies"
+      ],
+      "cycle_class": "century",
+      "relational_web": [
+        "synthesis of C081 + C082; cross-domain validation of C079 cascade"
+      ],
+      "scope_envelope": {
+        "domain_count_range": [
+          3,
+          12
+        ]
+      },
+      "data_source": [
+        "Cochrane Library",
+        "National Reading Panel 2000",
+        "Vanguard / academic indexing research",
+        "Gottman Institute"
+      ],
+      "sensitivity": [
+        "which domains are surveyed (selection bias risk)"
       ],
       "allocation_rule": "not_applicable"
     }

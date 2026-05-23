@@ -65,6 +65,7 @@ from automation_scope_audit.modules import (
     lifecycle_design_audit,
     framework_reflexivity_audit,
     training_corpus_dynamics_audit,
+    cross_domain_exclusion_audit,
 )
 
 
@@ -394,6 +395,12 @@ def run() -> dict:
     c078 = training_corpus_dynamics_audit.c078_verdict(year=2030)
     c079 = training_corpus_dynamics_audit.c079_verdict()
 
+    # C080-C083 — cross-domain empirical validation.
+    c080 = cross_domain_exclusion_audit.c080_verdict()
+    c081 = cross_domain_exclusion_audit.c081_verdict()
+    c082 = cross_domain_exclusion_audit.c082_verdict()
+    c083 = cross_domain_exclusion_audit.c083_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -417,6 +424,7 @@ def run() -> dict:
         "C068": c068, "C069": c069, "C070": c070, "C071": c071,
         "C072": c072, "C073": c073, "C074": c074, "C075": c075,
         "C076": c076, "C077": c077, "C078": c078, "C079": c079,
+        "C080": c080, "C081": c081, "C082": c082, "C083": c083,
     }
 
 

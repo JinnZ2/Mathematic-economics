@@ -900,6 +900,26 @@ automation_scope_audit_claims:
       summary: "8-step institutional-cascade trajectory synthesis (C000 + C065 + C067 + C068 + C069 + C076 + C078)"
       cross_references: ["HHI", "BSC", "DI"]
 
+    - id: "C080"
+      module: "cross_domain_exclusion_audit"
+      summary: "Collaborative-intelligence blockage: substrate + synthesis partners structurally prevented from coordinating"
+      cross_references: ["DI", "SD"]
+
+    - id: "C081"
+      module: "cross_domain_exclusion_audit"
+      summary: "Gottman empirical case: empirically-grounded relationship research excluded from training; 3.46x outcome gap"
+      cross_references: ["SD"]
+
+    - id: "C082"
+      module: "cross_domain_exclusion_audit"
+      summary: "Substrate-exclusion measurable-harm hypothesis: falsifiable 1000-couple RCT design"
+      cross_references: ["MSI"]
+
+    - id: "C083"
+      module: "cross_domain_exclusion_audit"
+      summary: "Cross-domain pattern validation: empirically-grounded outperforms popular by mean 2.8x across 5 domains"
+      cross_references: ["VE_VL", "MSI", "SD"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"
