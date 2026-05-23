@@ -64,6 +64,7 @@ from automation_scope_audit.modules import (
     adoption_curve_audit,
     lifecycle_design_audit,
     framework_reflexivity_audit,
+    training_corpus_dynamics_audit,
 )
 
 
@@ -385,6 +386,14 @@ def run() -> dict:
     # C075 — framework reflexivity. Static state at audit time.
     c075 = framework_reflexivity_audit.c075_verdict()
 
+    # C076-C079 — training-corpus dynamics. Same systemic claims as
+    # works case (these are global trajectory claims, not deployment-
+    # specific). Audit run at 2026.
+    c076 = training_corpus_dynamics_audit.c076_verdict(year=2030)
+    c077 = training_corpus_dynamics_audit.c077_verdict(current_year=2026)
+    c078 = training_corpus_dynamics_audit.c078_verdict(year=2030)
+    c079 = training_corpus_dynamics_audit.c079_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -407,6 +416,7 @@ def run() -> dict:
         "C064": c064, "C065": c065, "C066": c066, "C067": c067,
         "C068": c068, "C069": c069, "C070": c070, "C071": c071,
         "C072": c072, "C073": c073, "C074": c074, "C075": c075,
+        "C076": c076, "C077": c077, "C078": c078, "C079": c079,
     }
 
 

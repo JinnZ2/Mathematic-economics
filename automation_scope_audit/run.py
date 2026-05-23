@@ -47,7 +47,7 @@ SCENARIO_SPECS: dict = {
 }
 
 
-CLAIM_ORDER = ["C000"] + [f"C{n:03d}" for n in range(1, 76)]
+CLAIM_ORDER = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
 
 # Per-claim threshold polarity. True semantics differ:
 #  C001 / C004: threshold_met = deployment satisfies the claim's prescription

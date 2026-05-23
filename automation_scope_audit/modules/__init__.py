@@ -42,6 +42,7 @@ from . import (
     adoption_curve_audit,
     lifecycle_design_audit,
     framework_reflexivity_audit,
+    training_corpus_dynamics_audit,
 )
 
 __all__ = [
@@ -78,4 +79,5 @@ __all__ = [
     "adoption_curve_audit",
     "lifecycle_design_audit",
     "framework_reflexivity_audit",
+    "training_corpus_dynamics_audit",
 ]

@@ -57,12 +57,15 @@ LAYERS: List[dict] = [
                 "C051", "C052",
                 "C060", "C061", "C062", "C063", "C064",
                 "C065", "C066", "C067", "C068", "C069",
-                "C070", "C071", "C072"],
+                "C070", "C071", "C072",
+                "C076", "C077", "C078"],
      "description":
         "What governance the behavioral layer demands. Institutional "
         "lock-in, regulatory capture, knowledge exclusion, substrate "
         "care + authority, credential inversion, adoption-curve "
-        "thermodynamics, institutional cycle blindness."},
+        "thermodynamics, institutional cycle blindness, training-corpus "
+        "dynamics (token-economics pruning, archival window, recursive "
+        "homogenization)."},
     {"layer": 5, "name": "energy",
      "claims": ["C020", "C021", "C025", "C026",
                 "C043", "C044", "C045", "C046", "C047", "C048"],
@@ -94,6 +97,7 @@ CROSS_CUTTING: dict = {
         "C049", "C050", "C053",  # regulatory dynamics (cross-cut: institutional + operational)
         "C056", "C057", "C059",  # ROI/operational (cross-cut: economic + operational)
         "C075",                  # framework reflexivity (meta, pre-cycle)
+        "C079",                  # 8-step cascade synthesis (meta-claim across layers)
     ],
     "description":
         "Claims that span multiple layers or sit outside the cycle "
@@ -124,7 +128,7 @@ CONCERN_INVERTED = {"C001", "C004"}
 
 def coverage_check() -> dict:
     """Verify every claim C000..C064 is in exactly one layer (or cross-cutting)."""
-    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 76)]
+    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
     in_layers = []
     for L in LAYERS:
         in_layers.extend(L["claims"])

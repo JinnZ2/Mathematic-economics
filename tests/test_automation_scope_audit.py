@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 76)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -225,7 +225,7 @@ class ArchitectureTests(unittest.TestCase):
         cov = self.architecture.coverage_check()
         self.assertTrue(cov["complete"],
                          msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
-        self.assertEqual(cov["total_claims"], 76)
+        self.assertEqual(cov["total_claims"], 80)
 
     def test_six_load_bearing_layers(self):
         self.assertEqual(len(self.architecture.LAYERS), 6)

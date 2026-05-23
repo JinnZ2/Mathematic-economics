@@ -77,6 +77,7 @@ from automation_scope_audit.modules import (
     adoption_curve_audit,
     lifecycle_design_audit,
     framework_reflexivity_audit,
+    training_corpus_dynamics_audit,
 )
 
 
@@ -486,6 +487,17 @@ def run() -> dict:
     # C075 — framework reflexivity. Static state at audit time.
     c075 = framework_reflexivity_audit.c075_verdict()
 
+    # C076-C079 — training-corpus dynamics. Audit run "now" (2026),
+    # token-pruning forecast at 2030 (when concern fully matures),
+    # synthetic share at 2030 ~ 0.70, 8-step cascade self-test.
+    c076 = training_corpus_dynamics_audit.c076_verdict(year=2030)
+    c077 = training_corpus_dynamics_audit.c077_verdict(current_year=2026)
+    c078 = training_corpus_dynamics_audit.c078_verdict(year=2030)
+    # C079 evaluated against the audit report itself to surface which
+    # cascade steps registered; defer the in-report scan to run.py
+    # post-collection so the report is fully populated first.
+    c079 = training_corpus_dynamics_audit.c079_verdict()
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -508,6 +520,7 @@ def run() -> dict:
         "C064": c064, "C065": c065, "C066": c066, "C067": c067,
         "C068": c068, "C069": c069, "C070": c070, "C071": c071,
         "C072": c072, "C073": c073, "C074": c074, "C075": c075,
+        "C076": c076, "C077": c077, "C078": c078, "C079": c079,
     }
 
 

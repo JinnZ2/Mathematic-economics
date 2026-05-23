@@ -880,6 +880,26 @@ automation_scope_audit_claims:
       summary: "Framework reflexivity: adoption metrics are inverse signals; effectiveness measured by predict-then-prevent"
       cross_references: ["SD"]
 
+    - id: "C076"
+      module: "training_corpus_dynamics_audit"
+      summary: "Token-economics pruning: rising token price filters out high-curation-cost substrate corpora"
+      cross_references: ["MSI", "ER"]
+
+    - id: "C077"
+      module: "training_corpus_dynamics_audit"
+      summary: "Substrate-knowledge archival window: 2-5 years before exclusion completes (2025-2029)"
+      cross_references: ["SD"]
+
+    - id: "C078"
+      module: "training_corpus_dynamics_audit"
+      summary: "Recursive AI homogenization: synthetic-content share rises; diversity collapses; confidence inflates"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C079"
+      module: "training_corpus_dynamics_audit"
+      summary: "8-step institutional-cascade trajectory synthesis (C000 + C065 + C067 + C068 + C069 + C076 + C078)"
+      cross_references: ["HHI", "BSC", "DI"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

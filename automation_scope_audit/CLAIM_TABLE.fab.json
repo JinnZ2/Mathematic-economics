@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "15.0",
+  "version": "16.0",
   "allocation_rules_enum": [
     "per_truck_equal_share",
     "per_ton_mile",
@@ -3205,6 +3205,172 @@
       ],
       "sensitivity": [
         "predicted_failures_that_occurred count (lags by years)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C076": {
+      "observable": "share of substrate-knowledge corpus classes pruned at projected token price",
+      "rate_equation": "d(pruning_share)/d(token_price) = count(curation_cost > threshold(price)) / total_classes",
+      "bounds": {
+        "spatial": "AI training corpus assembly",
+        "temporal": "2024-2032 token-price trajectory",
+        "scale": "corpus-class"
+      },
+      "conditions": [
+        "token price trajectory documented",
+        "per-class curation cost per useful token measurable"
+      ],
+      "invalid_if": [
+        "AI training corpus at >= $10/MTok token price that retains >= 70% of high-curation-cost substrate-knowledge corpus classes, third-party audited"
+      ],
+      "measured_by": [
+        "Anthropic / OpenAI public pricing",
+        "Stanford CRFM corpus composition reports",
+        "LBNL data-center cost trajectories"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C020, C067, C077, C078"
+      ],
+      "scope_envelope": {
+        "token_price_range_usd_per_mtok": [
+          0.5,
+          200
+        ],
+        "year_range": [
+          2022,
+          2040
+        ]
+      },
+      "data_source": [
+        "Anthropic Claude pricing history",
+        "OpenAI API pricing history",
+        "Crunchbase AI cost-curve reports"
+      ],
+      "sensitivity": [
+        "inclusion_threshold heuristic (inverse-price scaling)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C077": {
+      "observable": "years remaining in archival window before exclusion completion",
+      "rate_equation": "d(window)/dt = -1; window = max(0, exclusion_completion_year - current_year)",
+      "bounds": {
+        "spatial": "global AI training corpus inclusion process",
+        "temporal": "filtering-onset to exclusion-completion",
+        "scale": "year-level"
+      },
+      "conditions": [
+        "filtering_onset_year and exclusion_completion_year documented"
+      ],
+      "invalid_if": [
+        "documented archival of substrate-knowledge corpora into major training datasets (Common Crawl, The Pile, academic domain corpora) before exclusion completion, with audit trail showing inclusion in subsequent model training runs"
+      ],
+      "measured_by": [
+        "model card data-cutoff dates",
+        "Common Crawl release timestamps",
+        "academic corpus inclusion documentation"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C067, C076, C078"
+      ],
+      "scope_envelope": {
+        "filtering_onset_year_range": [
+          2020,
+          2030
+        ],
+        "exclusion_completion_year_range": [
+          2025,
+          2040
+        ]
+      },
+      "data_source": [
+        "Common Crawl release history",
+        "The Pile dataset documentation",
+        "Stanford CRFM transparency index"
+      ],
+      "sensitivity": [
+        "filtering_onset_year (most commonly already past)",
+        "exclusion_completion_year"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C078": {
+      "observable": "synthetic-content share of AI training corpus + substrate-content share",
+      "rate_equation": "d(homogenization)/d(year) = synthetic_share(year); diversity_index = 1 - synthetic_share",
+      "bounds": {
+        "spatial": "AI training corpus across model generations",
+        "temporal": "2022-2032 synthetic-share trajectory",
+        "scale": "corpus-composition"
+      },
+      "conditions": [
+        "synthetic-share trajectory documented per year",
+        "substrate-share measurable for current corpus"
+      ],
+      "invalid_if": [
+        "model trained at >= 50% synthetic content share AND retaining >= 5% substrate-knowledge content, with audited diversity / accuracy comparable to pre-synthetic-dominance baselines"
+      ],
+      "measured_by": [
+        "model card synthetic-content disclosure",
+        "academic studies of model-collapse / homogenization",
+        "diversity-index measurements on output distributions"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C067, C076, C077"
+      ],
+      "scope_envelope": {
+        "synthetic_share_range": [
+          0.0,
+          1.0
+        ],
+        "year_range": [
+          2022,
+          2040
+        ]
+      },
+      "data_source": [
+        "Shumailov et al. 2024 model-collapse papers",
+        "Stanford CRFM model evaluations",
+        "publicly-disclosed training-data sheets"
+      ],
+      "sensitivity": [
+        "synthetic-share trajectory shape",
+        "substrate-share floor"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C079": {
+      "observable": "fraction of 8-step institutional-cascade markers matched in an audit report",
+      "rate_equation": "d(cascade_match)/d(step) = +1 per step whose claim-level marker registers; threshold = 5/7 observable steps",
+      "bounds": {
+        "spatial": "AI deployment cohort + institutional context",
+        "temporal": "obsolescence-transition cycle (5-15 yr)",
+        "scale": "cascade-step"
+      },
+      "conditions": [
+        "audit report covers the 7 claim-level steps (C000, C065, C067, C068, C069, C076, C078)"
+      ],
+      "invalid_if": [
+        "deployment cohort traversing the 4-phase adoption curve without matching 5+ of the 8-step cascade markers, audited over a full obsolescence-transition cycle"
+      ],
+      "measured_by": [
+        "the audit report itself; this is a synthesis claim that scans existing per-claim verdicts"
+      ],
+      "cycle_class": "century",
+      "relational_web": [
+        "synthesis of C000 + C065 + C067 + C068 + C069 + C076 + C078"
+      ],
+      "scope_envelope": {
+        "cascade_step_count": 8,
+        "observable_step_count": 7
+      },
+      "data_source": [
+        "aggregate of per-step claim data sources"
+      ],
+      "sensitivity": [
+        "which cascade-step claims register; default works case matches all observable steps because the cascade is systemic"
       ],
       "allocation_rule": "not_applicable"
     }

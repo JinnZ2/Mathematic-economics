@@ -185,6 +185,15 @@ CLUSTERS: List[dict] = [
         "accountability externalized. The total true cost is not what "
         "the ROI calculation says it is; the difference is the waste "
         "stream and stranded-asset risk pushed onto society / future."},
+    {"name": "training_corpus_exclusion_cascade_cluster",
+     "claims": ["C067", "C076", "C077", "C078", "C079"],
+     "polarity": "all_register",
+     "explanation":
+        "AI training corpus credential bias + token-economics pruning "
+        "+ archival window closing + recursive homogenization + 8-step "
+        "cascade synthesis. The substrate-knowledge corpus that future "
+        "AI systems learn from is being filtered now; the window to "
+        "preserve it is finite."},
 ]
 
 
