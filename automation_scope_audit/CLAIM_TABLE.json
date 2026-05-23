@@ -1,7 +1,7 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "4.0",
+  "version": "5.0",
   "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict. C000 is a meta-claim: a scope-admissibility gate every other claim must pass.",
   "claims": [
     {
@@ -227,6 +227,30 @@
       "historical_pattern": ["Roman Empire", "Soviet Union", "Blockbuster", "Kodak", "ICE automotive majors", "Financial sector 2008", "Mega-tech ad-revenue monoculture"],
       "threshold": "adaptive_capacity_score <= 0.3 AND ratio_to_optimum > 1.5",
       "falsifier": "large institution successfully adapts to fundamental market / resource constraint without collapse"
+    },
+    {
+      "id": "C025",
+      "module": "systemic_precondition_audit",
+      "metric": "10-year probability of any one of 7 preconditions failing, scaled by per-deployment-type degraded-mode capability",
+      "statement": "Automation monoculture creates systemic fragility against Earth-system variation. Every large autonomous fleet silently assumes: stable climate, stable supply chains, stable geopolitics, stable power grid, stable satellite coverage, stable regulatory environment, stable currency. Any single precondition failure can render thousands of vehicles simultaneously inoperable; degraded-mode capability is zero for autonomous-no-driver deployments.",
+      "preconditions": ["climate_stability", "supply_chain_stability", "geopolitics_stability", "power_grid_stability", "satellite_signal_stability", "regulatory_stability", "currency_finance_stability"],
+      "threshold": "deployment with NO_DEGRADED_MODE and p(any precondition fails in 10yr) >= 0.5, OR deployment with PARTIAL_DEGRADED_MODE and expected cumulative fleet impact > 1.0",
+      "falsifier": "autonomous deployment that remains operational through a 24-hour regional power outage AND satellite signal loss AND 72-hour regional internet disruption AND 6-month critical-parts supply break AND geopolitical rare-earth embargo"
+    },
+    {
+      "id": "C026",
+      "module": "systemic_precondition_audit",
+      "metric": "destabilization-mechanism count across 5 economic-model coupling effects",
+      "statement": "Economic-model stability is itself a precondition for automation, but automation undercuts it. Labor displacement reduces purchasing power and demand; backend capex requires sustained capital markets; rare-earth concentration scales with fleet; backend electricity competes with grid stability; growth thesis is broken by the deployment that depends on growth. Double-bind: cannot go back (skills atrophied, lock-in), cannot go forward (preconditions deteriorating).",
+      "mechanisms": [
+        "labor_displacement_reduces_demand",
+        "capex_intensity_dependence_on_capital_markets",
+        "rare_earth_concentration",
+        "backend_electricity_vs_grid",
+        "circular_growth_dependency"
+      ],
+      "threshold": ">= 3 of 5 destabilization mechanisms structurally present",
+      "falsifier": "automation deployment that does not depend on continuous growth, has supply-chain diversification adequate to absorb any single jurisdiction's restriction, and demonstrates resilience to economic shock without external bailout"
     }
   ]
 }

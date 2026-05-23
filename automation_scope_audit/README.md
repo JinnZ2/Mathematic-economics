@@ -52,6 +52,17 @@ operates by:
     that blocks optimization, exclude knowledge that threatens their
     scale, and enter an accelerated collapse cycle when external
     variation finally arrives.
+13. **Earth-system fragility** — every large autonomous fleet silently
+    assumes seven preconditions (climate, supply chain, geopolitics,
+    grid, satellite, regulatory, currency). Autonomous-no-driver
+    deployments have zero degraded-mode capability; any one of these
+    failing in the next decade renders thousands of vehicles
+    simultaneously inoperable.
+14. **Economic-model double-bind** — the stability automation needs
+    (continuous growth, capital access, demand, resource availability)
+    is undercut by the deployment itself, and the institution cannot
+    go backwards (skills atrophied) or forwards (preconditions
+    deteriorating).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -90,6 +101,8 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C022  | institutional_dynamics_audit      | Institutional scale creates lock-in / gatekeeping |
 | C023  | institutional_dynamics_audit      | Institutional monoculture creates knowledge exclusion |
 | C024  | institutional_dynamics_audit      | Institutional lock-in -> accelerated collapse cycle |
+| C025  | systemic_precondition_audit       | Earth-system precondition failure cascades automation monoculture |
+| C026  | systemic_precondition_audit       | Automation undercuts its own economic-stability precondition |
 
 ## Layout
 
@@ -114,6 +127,7 @@ automation_scope_audit/
 │   ├── thermodynamic_accounting_audit.py # C020
 │   ├── scaling_audit.py                  # C021
 │   ├── institutional_dynamics_audit.py   # C022, C023, C024
+│   ├── systemic_precondition_audit.py    # C025, C026
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

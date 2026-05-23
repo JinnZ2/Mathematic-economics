@@ -41,6 +41,7 @@ from automation_scope_audit.modules import (
     thermodynamic_accounting_audit,
     scaling_audit,
     institutional_dynamics_audit,
+    systemic_precondition_audit,
 )
 
 
@@ -219,6 +220,16 @@ def run() -> dict:
     c024 = institutional_dynamics_audit.c024_verdict(6_000,
         adaptive_response="partial")
 
+    # C025 / C026 — systemic preconditions. Works case uses
+    # hybrid-with-safety-driver to model the realistic Permian pilot
+    # configuration: an on-board safety operator backs up the autonomy
+    # stack. Earth-system trends use defaults.
+    c025 = systemic_precondition_audit.c025_verdict(
+        deployment_scale=60,
+        deployment_type="hybrid_with_safety_driver",
+        claim_text=permian_pitch)
+    c026 = systemic_precondition_audit.c026_verdict(claim_text=permian_pitch)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -228,6 +239,7 @@ def run() -> dict:
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
+        "C025": c025, "C026": c026,
     }
 
 

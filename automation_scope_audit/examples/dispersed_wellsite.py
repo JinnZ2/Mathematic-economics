@@ -34,6 +34,7 @@ from automation_scope_audit.modules import (
     thermodynamic_accounting_audit,
     scaling_audit,
     institutional_dynamics_audit,
+    systemic_precondition_audit,
 )
 
 
@@ -181,6 +182,16 @@ def run() -> dict:
     c024 = institutional_dynamics_audit.c024_verdict(50_000,
         adaptive_response="doubled_down")
 
+    # C025 / C026 — fails case is the autonomous-no-driver hypothesis
+    # being marketed at dispersed wellsites: zero degraded-mode capability,
+    # so even a small fleet (12) registers the structural concern because
+    # any single precondition failure is sufficient.
+    c025 = systemic_precondition_audit.c025_verdict(
+        deployment_scale=12,
+        deployment_type="autonomous_no_driver",
+        claim_text=pitch)
+    c026 = systemic_precondition_audit.c026_verdict(claim_text=pitch)
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -190,6 +201,7 @@ def run() -> dict:
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
+        "C025": c025, "C026": c026,
     }
 
 

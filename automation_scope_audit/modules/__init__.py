@@ -24,6 +24,7 @@ from . import (
     thermodynamic_accounting_audit,
     scaling_audit,
     institutional_dynamics_audit,
+    systemic_precondition_audit,
 )
 
 __all__ = [
@@ -42,4 +43,5 @@ __all__ = [
     "thermodynamic_accounting_audit",
     "scaling_audit",
     "institutional_dynamics_audit",
+    "systemic_precondition_audit",
 ]
