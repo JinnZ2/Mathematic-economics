@@ -26,6 +26,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
 from automation_scope_audit.modules import (
+    meta_scope_guard,
     scope_geometry,
     infrastructure_precondition,
     embedded_labor_audit,
@@ -38,6 +39,8 @@ from automation_scope_audit.modules import (
     legal_liability_audit,
     cognitive_monoculture_audit,
     thermodynamic_accounting_audit,
+    scaling_audit,
+    institutional_dynamics_audit,
 )
 
 
@@ -194,13 +197,37 @@ def run() -> dict:
         fuel_saved_kwh=7_500.0,           # consolidated corridor: bigger savings
         truck_operations_kwh=32_000.0)
 
+    # C000 — meta-claim: works case pitch is the marketing language
+    permian_pitch = (
+        "Our autonomous trucks now run revenue freight on the Atlas "
+        "dedicated lane, replacing the driver and addressing the driver "
+        "shortage."
+    )
+    c000 = meta_scope_guard.c000_verdict(permian_pitch)
+
+    # C021 — scaling: works case is a 60-truck fleet, well below the
+    # default optimum (~970), so the structural concern about over-scaling
+    # does not register here but amortization-gymnastics still does
+    # because the pitch language uses generic "scale" framing.
+    c021 = scaling_audit.c021_verdict(60, claim_text=permian_pitch)
+
+    # C022 / C024 — institutional dynamics: Atlas Energy is a major
+    # operator, so the consolidated-corridor deployment sits inside a
+    # large-institution context. Use 6,000 as the relevant unit count.
+    c022 = institutional_dynamics_audit.c022_verdict(6_000)
+    c023 = institutional_dynamics_audit.c023_verdict()
+    c024 = institutional_dynamics_audit.c024_verdict(6_000,
+        adaptive_response="partial")
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
+        "C000": c000,
         "C001": c001, "C002": c002, "C003": c003, "C004": c004,
         "C005": c005, "C006": c006, "C007": c007, "C008": c008,
         "C009": c009, "C010": c010, "C011": c011, "C012": c012,
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
+        "C021": c021, "C022": c022, "C023": c023, "C024": c024,
     }
 
 

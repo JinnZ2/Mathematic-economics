@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
 from automation_scope_audit.modules import (
+    meta_scope_guard,
     scope_geometry,
     infrastructure_precondition,
     embedded_labor_audit,
@@ -31,6 +32,8 @@ from automation_scope_audit.modules import (
     legal_liability_audit,
     cognitive_monoculture_audit,
     thermodynamic_accounting_audit,
+    scaling_audit,
+    institutional_dynamics_audit,
 )
 
 
@@ -158,13 +161,35 @@ def run() -> dict:
         fuel_saved_kwh=2_500.0,
         truck_operations_kwh=38_000.0)
 
+    # C000 — meta-claim: dispersed-case marketing pitch
+    c000 = meta_scope_guard.c000_verdict(pitch)
+
+    # C021 — scaling: fails case is small (12 trucks); structural concern
+    # about over-scaling does not register but amortization-gymnastics
+    # framing in the pitch does. To exercise the over-scale path, the
+    # downstream caller can rerun with a megafleet hypothesis; the
+    # default here represents the actual deployment.
+    c021 = scaling_audit.c021_verdict(12, claim_text=pitch)
+
+    # C022 / C023 / C024 — institutional dynamics: dispersed deployments
+    # are typically run by small operators, but the *narrative* about
+    # autonomous trucking is set by very-large institutions. Score the
+    # narrative-setting institutions (50,000-unit equivalent), not the
+    # operator.
+    c022 = institutional_dynamics_audit.c022_verdict(50_000)
+    c023 = institutional_dynamics_audit.c023_verdict()
+    c024 = institutional_dynamics_audit.c024_verdict(50_000,
+        adaptive_response="doubled_down")
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
+        "C000": c000,
         "C001": c001, "C002": c002, "C003": c003, "C004": c004,
         "C005": c005, "C006": c006, "C007": c007, "C008": c008,
         "C009": c009, "C010": c010, "C011": c011, "C012": c012,
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
+        "C021": c021, "C022": c022, "C023": c023, "C024": c024,
     }
 
 

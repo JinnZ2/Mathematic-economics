@@ -1,9 +1,17 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "3.0",
-  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict.",
+  "version": "4.0",
+  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict. C000 is a meta-claim: a scope-admissibility gate every other claim must pass.",
   "claims": [
+    {
+      "id": "C000",
+      "module": "meta_scope_guard",
+      "metric": "presence/absence of 7 scope dimensions (beneficiary, conditions, time_period, resource, externalization, profit_distribution, falsifier) in a claim text",
+      "statement": "All scaling / efficiency / automation claims must specify scope or are unfalsifiable.",
+      "threshold": "any of the 7 scope dimensions absent from the claim text",
+      "falsifier": "a primary-source claim that explicitly answers all seven scope questions AND publishes a measurable falsifier"
+    },
     {
       "id": "C001",
       "module": "scope_geometry",
@@ -175,6 +183,50 @@
       ],
       "threshold": "honest eROI < 1.5",
       "falsifier": "audited end-to-end energy accounting showing autonomous eROI > 1.5 across server, manufacturing, extraction, and network energy stacks"
+    },
+    {
+      "id": "C021",
+      "module": "scaling_audit",
+      "metric": "five-term cost-vs-fleet-size curve: backend/n + coordination*n + infrastructure*sqrt(n) + regulatory*n + cascade*n; optimum + amortization-gymnastics detection",
+      "statement": "Scaling creates hidden energy costs masked by amortization accounting. The true cost-vs-fleet-size curve has an interior optimum; above it, total energy cost rises again due to coordination overhead, infrastructure sprawl, regulatory complexity, and cascade risk.",
+      "biology_analogy": "Small organisms have high per-kg metabolic rate but resilience and dispersability; large organisms have lower per-kg rate but higher absolute consumption, infrastructure dependence, and catastrophic-failure mode.",
+      "threshold": "fleet_size above optimum OR amortization-gymnastics markers detected without per-system cost acknowledgment",
+      "falsifier": "audited multi-scale deployment data showing total energy cost per ton-mile monotonically decreasing across at least three orders of magnitude of fleet size"
+    },
+    {
+      "id": "C022",
+      "module": "institutional_dynamics_audit",
+      "metric": "ratio of institution size to optimal scale",
+      "statement": "Institutional scale creates self-reinforcing lock-in that blocks optimization. An institution at scale N has invested capital in specific infrastructure / processes; changing them = admitting past investment was suboptimal. Institution defends existing scale rather than optimize.",
+      "gatekeeping_mechanism": "Institution controls funding / regulatory approval; projects reinforcing its scale get funded, projects showing smaller scale is more efficient do not.",
+      "threshold": "institution size > optimal_scale * 1.2",
+      "falsifier": "institution-backed research showing smaller scale is more efficient (rare because the institution funding research is invested in scale)"
+    },
+    {
+      "id": "C023",
+      "module": "institutional_dynamics_audit",
+      "metric": "fraction of documented substrates that are excluded from institutional funding / publication / policy channels",
+      "statement": "Institutional monoculture creates knowledge exclusion. Knowledge threatening institutional scale is labeled 'not scalable'; holders without affiliation can't get funding; no funding -> no studies -> 'no evidence' -> excluded from policy -> regulatory approval goes to scale-dependent solutions. Cycle reinforces.",
+      "excluded_substrates_examples": [
+        "distributed system efficiency",
+        "human-AI symbiosis",
+        "degraded-mode operation",
+        "edge-case resilience",
+        "small-scale optimization",
+        "owner-operator economics",
+        "physical redundancy over software redundancy"
+      ],
+      "threshold": "substrate-exclusion ratio >= 0.5",
+      "falsifier": "substantive funded program studying decentralized / symbiotic / degraded-mode alternatives at parity with institution-scaled programs"
+    },
+    {
+      "id": "C024",
+      "module": "institutional_dynamics_audit",
+      "metric": "5-phase collapse cycle (growth -> maturity -> lock-in -> brittleness -> collapse-pending) with adaptive_capacity_score modulated by observed response pattern",
+      "statement": "Institutional lock-in creates accelerated collapse cycle. As institution grows past optimum, internal coordination cost rises and adaptive capacity falls. Institution doubles down on existing model when external variation hits; becomes MORE brittle as it grows. Collapse cascades fast.",
+      "historical_pattern": ["Roman Empire", "Soviet Union", "Blockbuster", "Kodak", "ICE automotive majors", "Financial sector 2008", "Mega-tech ad-revenue monoculture"],
+      "threshold": "adaptive_capacity_score <= 0.3 AND ratio_to_optimum > 1.5",
+      "falsifier": "large institution successfully adapts to fundamental market / resource constraint without collapse"
     }
   ]
 }

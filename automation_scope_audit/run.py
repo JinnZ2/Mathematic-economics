@@ -25,7 +25,7 @@ from automation_scope_audit.examples import (
 )
 
 
-CLAIM_ORDER = [f"C{n:03d}" for n in range(1, 21)]
+CLAIM_ORDER = ["C000"] + [f"C{n:03d}" for n in range(1, 25)]
 
 # Per-claim threshold polarity. True semantics differ:
 #  C001 / C004: threshold_met = deployment satisfies the claim's prescription

@@ -9,6 +9,7 @@ License: CC0-1.0
 """
 
 from . import (
+    meta_scope_guard,
     scope_geometry,
     infrastructure_precondition,
     embedded_labor_audit,
@@ -21,9 +22,12 @@ from . import (
     legal_liability_audit,
     cognitive_monoculture_audit,
     thermodynamic_accounting_audit,
+    scaling_audit,
+    institutional_dynamics_audit,
 )
 
 __all__ = [
+    "meta_scope_guard",
     "scope_geometry",
     "infrastructure_precondition",
     "embedded_labor_audit",
@@ -36,4 +40,6 @@ __all__ = [
     "legal_liability_audit",
     "cognitive_monoculture_audit",
     "thermodynamic_accounting_audit",
+    "scaling_audit",
+    "institutional_dynamics_audit",
 ]

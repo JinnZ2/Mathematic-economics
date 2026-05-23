@@ -43,9 +43,21 @@ operates by:
     savings against truck operations; honest eROI must include server
     farm electricity, sensor manufacturing, rare-earth extraction,
     network transmission, and software / CI-CD energy.
+11. **Scaling masks per-system costs** — backend amortizes (descending
+    1/n term) but coordination overhead, infrastructure sprawl,
+    regulatory complexity, and cascade risk are per-system (ascending).
+    The true cost curve has an interior optimum, and current accounting
+    counts only the descending term.
+12. **Institutional dynamics** — at scale, institutions develop lock-in
+    that blocks optimization, exclude knowledge that threatens their
+    scale, and enter an accelerated collapse cycle when external
+    variation finally arrives.
 
-Each is encoded as a numbered claim (C001-C020) with a measurable threshold
-and a single-sentence falsifier sufficient to refute it.
+C000 is a *meta-claim*: a scope-admissibility gate that every other claim
+(C001-C024) must pass. An "automation is more efficient" claim that does
+not specify beneficiary, conditions, time period, resource, externalized
+costs, profit distribution, and falsifier is structurally unfalsifiable
+and inadmissible to physics-grounded analysis.
 
 ## Claims at a glance
 
@@ -53,6 +65,7 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 
 | ID    | Module                            | Statement (short)                                |
 |-------|-----------------------------------|--------------------------------------------------|
+| C000  | meta_scope_guard                  | Meta-claim: all claims must specify 7 scope dimensions |
 | C001  | scope_geometry                    | ROI requires fixed geometry (Jaccard distance)   |
 | C002  | embedded_labor_audit              | Wellsite labor not automated; 20-task automation_status |
 | C003  | infrastructure_precondition       | Infra capex > vehicle capex with existing-state discounts |
@@ -73,6 +86,10 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C018  | cognitive_monoculture_audit       | Human domain expertise atrophies during AI transition |
 | C019  | cognitive_monoculture_audit       | Edge-case recovery cost > apparent monoculture savings |
 | C020  | thermodynamic_accounting_audit    | Honest eROI < 1.5 with full energy stack accounted |
+| C021  | scaling_audit                     | Scaling has interior optimum; per-system costs hidden |
+| C022  | institutional_dynamics_audit      | Institutional scale creates lock-in / gatekeeping |
+| C023  | institutional_dynamics_audit      | Institutional monoculture creates knowledge exclusion |
+| C024  | institutional_dynamics_audit      | Institutional lock-in -> accelerated collapse cycle |
 
 ## Layout
 
@@ -94,7 +111,10 @@ automation_scope_audit/
 │   ├── constraint_validation_audit.py    # C014, C015, C016
 │   ├── legal_liability_audit.py          # C017
 │   ├── cognitive_monoculture_audit.py    # C018, C019
-│   └── thermodynamic_accounting_audit.py # C020
+│   ├── thermodynamic_accounting_audit.py # C020
+│   ├── scaling_audit.py                  # C021
+│   ├── institutional_dynamics_audit.py   # C022, C023, C024
+│   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case
     └── dispersed_wellsite.py             # fails case
