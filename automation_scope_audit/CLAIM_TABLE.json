@@ -1,0 +1,313 @@
+{
+  "license": "CC0-1.0",
+  "scope": "autonomous_trucking_roi_audit",
+  "version": "7.0",
+  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict. C000 is a meta-claim: a scope-admissibility gate every other claim must pass.",
+  "claims": [
+    {
+      "id": "C000",
+      "module": "meta_scope_guard",
+      "metric": "presence/absence of 7 scope dimensions (beneficiary, conditions, time_period, resource, externalization, profit_distribution, falsifier) in a claim text",
+      "statement": "All scaling / efficiency / automation claims must specify scope or are unfalsifiable.",
+      "threshold": "any of the 7 scope dimensions absent from the claim text",
+      "falsifier": "a primary-source claim that explicitly answers all seven scope questions AND publishes a measurable falsifier"
+    },
+    {
+      "id": "C001",
+      "module": "scope_geometry",
+      "metric": "Jaccard distance between same-OD trip waypoint sets",
+      "statement": "Autonomous trucking ROI requires fixed depot-to-destination geometry.",
+      "threshold": "trip-weighted mean Jaccard distance < 0.05",
+      "falsifier": "working autonomous deployment with mean Jaccard distance > 0.20"
+    },
+    {
+      "id": "C002",
+      "module": "embedded_labor_audit",
+      "metric": "fully_automated time-share across 20 task categories",
+      "statement": "Wellsite labor (pump ops, terrain navigation, equipment maintenance) is not automated by haul automation.",
+      "threshold": "driver hours per delivery unchanged or increased post-automation",
+      "falsifier": "documented end-to-end automation including pump operation at variable sites"
+    },
+    {
+      "id": "C003",
+      "module": "infrastructure_precondition",
+      "metric": "per-route-mile capex with existing-state discounts on 7 line items",
+      "statement": "Infrastructure precondition capex exceeds vehicle capex for dispersed small wells.",
+      "threshold": "per-route-mile capex > $500k or total capex > vehicle fleet cost",
+      "falsifier": "cost data showing dispersed-well infrastructure < vehicle fleet cost"
+    },
+    {
+      "id": "C004",
+      "module": "lifecycle_eroi",
+      "statement": "ROI window must exceed well productivity decline curve.",
+      "threshold": "lease productive life > equipment depreciation period (typ. 7yr)",
+      "falsifier": "profitable autonomous deployment on <3yr wells"
+    },
+    {
+      "id": "C005",
+      "module": "stranded_asset_risk",
+      "statement": "Equipment resale value to non-consolidated operators approaches zero.",
+      "threshold": "secondary market price < 20% original within 5yr",
+      "falsifier": "active secondary market at >40% retention"
+    },
+    {
+      "id": "C006",
+      "module": "scope_collapse_detector",
+      "statement": "'Automation' framing collapses distinct labor categories.",
+      "threshold": "marketing claims do not distinguish haul / navigation / site-work",
+      "falsifier": "scope-honest deployment language in primary sources"
+    },
+    {
+      "id": "C007",
+      "module": "scope_collapse_detector",
+      "statement": "Threat-narrative deployment correlates with wage suppression, not efficiency gain.",
+      "threshold": "wages decline >10% in automated regions without productivity match",
+      "falsifier": "wage data showing parity or increase post-automation"
+    },
+    {
+      "id": "C008",
+      "module": "condition_monitoring_audit",
+      "statement": "Driver-performed condition monitoring is unpriced infrastructure.",
+      "threshold": "replacement cost = sensor array + diagnostic AI + intervention dispatch",
+      "falsifier": "deployed system showing <2x cost of driver-performed monitoring"
+    },
+    {
+      "id": "C009",
+      "module": "condition_monitoring_audit",
+      "statement": "Sensor replacement of human monitoring introduces new failure modes.",
+      "threshold": "mean-time-to-detection for non-instrumented failures",
+      "falsifier": "documented parity in catch rates for subtle / precursor failures"
+    },
+    {
+      "id": "C010",
+      "module": "condition_monitoring_audit",
+      "statement": "Roadside breakdown cost scales nonlinearly without operator present.",
+      "threshold": "per-incident cost ratio autonomous:human > 3x",
+      "falsifier": "insurance / operational data showing parity"
+    },
+    {
+      "id": "C011",
+      "module": "interface_externalization_audit",
+      "metric": "middleware lifecycle cost",
+      "statement": "Driver-mediated interfaces are externalized onto middleware that costs more in aggregate than the driver-mediated version.",
+      "threshold": "middleware lifecycle cost > 2x driver-mediated lifecycle cost",
+      "falsifier": "audited middleware lifecycle cost at <2x driver-mediated cost"
+    },
+    {
+      "id": "C012",
+      "module": "interface_externalization_audit",
+      "metric": "heterogeneity risk: variant_count * miss_rate * escalation cost",
+      "statement": "Heterogeneity across customer sites, fuel chains, jurisdictions, and roadside ecosystems is absorbed for free by drivers; autonomous stacks need explicit handlers and pay escalation cost for every uncovered variant.",
+      "threshold": "annual heterogeneity escalation cost > 5x driver baseline",
+      "falsifier": "autonomous deployment with documented handler coverage for >95% of field variants"
+    },
+    {
+      "id": "C013",
+      "module": "interface_externalization_audit",
+      "metric": "distributed labor cost (remote operators + mobile techs + customer service + diagnostic specialists + compliance officers + ML-ops + data labeling) per truck supported",
+      "statement": "Distributed off-vehicle labor doing the work the driver used to do is billed at higher fully-loaded rates than the driver, often through 24/7 retainers.",
+      "threshold": "distributed labor annual cost >= 50% of replaced driver fully-loaded cost",
+      "falsifier": "audited distributed-labor cost below 25% of replaced driver fully-loaded cost"
+    },
+    {
+      "id": "C014",
+      "module": "constraint_validation_audit",
+      "metric": "annual value of driver-exercised refusals under FMCSA / OSHA / STAA",
+      "statement": "Driver refusal authority — unsafe load, fatigue, vehicle defect, weather, overweight, unsafe site, unsafe dispatch, whistleblower — is legally recognized and exercised at scale. Autonomous stacks have no equivalent recognized authority.",
+      "threshold": "annual refusal value > $10k per truck",
+      "falsifier": "documented autonomous deployment with legally recognized refusal authority at parity with a CDL driver"
+    },
+    {
+      "id": "C015",
+      "module": "constraint_validation_audit",
+      "metric": "residual unrecovered share across 7-participant liability stack",
+      "statement": "The autonomous liability chain is unresolved; OEM, software vendor, sensor vendor, HD-map provider, fleet operator, remote operator employer, and excess insurer can each disclaim. The residual unrecovered share is a liability void.",
+      "threshold": "void probability > 10%",
+      "falsifier": "settled liability chain with insurance markets pricing autonomous-specific coverage at less than 2x conventional rates"
+    },
+    {
+      "id": "C016",
+      "module": "constraint_validation_audit",
+      "metric": "weighted override-resolution coverage across 7 historical override categories",
+      "statement": "Drivers exercise on-the-spot override authority across heterogeneous decision points; autonomous override hierarchies have to be designed in advance and miss novel conflicts.",
+      "threshold": "weighted coverage < 90% of historical driver overrides",
+      "falsifier": "documented autonomous override-resolution coverage of >90% of historical driver override events"
+    },
+    {
+      "id": "C017",
+      "module": "legal_liability_audit",
+      "metric": "annual framework + litigation premium over conventional baseline",
+      "statement": "Litigation defense, regulatory engagement, lobbying, insurance navigation, and incident-investigation specialists are a structural operating expense for autonomous deployments, not a one-time startup cost.",
+      "threshold": "autonomous : conventional annual cost ratio > 1.5",
+      "falsifier": "deployed autonomous trucking operation showing legal and regulatory framework cost at <1.5x conventional, sustained over 3 consecutive years"
+    },
+    {
+      "id": "C018",
+      "module": "cognitive_monoculture_audit",
+      "metric": "weighted human domain expertise retention across 6 skill atrophy curves",
+      "statement": "System resilience degrades when human domain expertise atrophies during transition to AI dominance; neuroplasticity optimizes away unused skills, institutional memory fades, degraded-mode operation disappears. When the AI hits a scenario outside its envelope, the humans who would normally recover have lost the ability to do so.",
+      "failure_modes": [
+        "human skill loss: domain knowledge fades due to disuse",
+        "neuroplasticity optimization: brain optimizes away skills marked AI-handled",
+        "edge-case blindness: AI encounters scenario outside training, humans cannot recover",
+        "degraded-mode failure: no analog-mode operation when AI fails",
+        "institutional memory loss: nobody remembers why the old process existed"
+      ],
+      "threshold": "weighted domain expertise retention < 60% during transition",
+      "falsifier": "deployment where AI-dominant system experiences edge-case failure AND humans successfully recover without catastrophic cost"
+    },
+    {
+      "id": "C019",
+      "module": "cognitive_monoculture_audit",
+      "metric": "edge-case recovery cost (scaled by deskilling) vs apparent monoculture savings",
+      "statement": "True eROI of the symbiosis-to-monoculture transition must include skill recovery overhead; monoculture appears cheaper at steady state but pays recovery cost when edge cases occur (humans must re-skill, AI must retrain, system offline during both, cascade costs downstream).",
+      "threshold": "edge_case_recovery_cost x frequency > routine_cost_savings",
+      "falsifier": "operational deployment where monoculture edge-case recovery cost is less than hybrid-redundancy steady-state cost"
+    },
+    {
+      "id": "C020",
+      "module": "thermodynamic_accounting_audit",
+      "metric": "honest eROI = useful energy out / total energy in across truck + server + network + manufacturing + extraction stacks",
+      "statement": "Automation energy efficiency claims require full thermodynamic accounting. Server farm electricity, network transmission, data center construction, sensor manufacturing, rare earth extraction, software development, cloud overhead, redundancy systems, and compliance compute are not in the apparent-eROI denominator.",
+      "what_is_not_counted": [
+        "server farm electricity (24/7 + PUE)",
+        "network infrastructure (cellular / satellite / fiber)",
+        "data center construction (embodied carbon)",
+        "remote diagnostic compute per vehicle",
+        "sensor manufacturing (LiDAR, GPU, camera, RADAR, thermal)",
+        "rare earth extraction for electronics",
+        "software development + CI/CD compute",
+        "cloud overhead (20-40% hyperscaler utilization)",
+        "redundancy / failover infrastructure",
+        "regulatory compliance compute (audit logs, encryption, monitoring)"
+      ],
+      "threshold": "honest eROI < 1.5",
+      "falsifier": "audited end-to-end energy accounting showing autonomous eROI > 1.5 across server, manufacturing, extraction, and network energy stacks"
+    },
+    {
+      "id": "C021",
+      "module": "scaling_audit",
+      "metric": "five-term cost-vs-fleet-size curve: backend/n + coordination*n + infrastructure*sqrt(n) + regulatory*n + cascade*n; optimum + amortization-gymnastics detection",
+      "statement": "Scaling creates hidden energy costs masked by amortization accounting. The true cost-vs-fleet-size curve has an interior optimum; above it, total energy cost rises again due to coordination overhead, infrastructure sprawl, regulatory complexity, and cascade risk.",
+      "biology_analogy": "Small organisms have high per-kg metabolic rate but resilience and dispersability; large organisms have lower per-kg rate but higher absolute consumption, infrastructure dependence, and catastrophic-failure mode.",
+      "threshold": "fleet_size above optimum OR amortization-gymnastics markers detected without per-system cost acknowledgment",
+      "falsifier": "audited multi-scale deployment data showing total energy cost per ton-mile monotonically decreasing across at least three orders of magnitude of fleet size"
+    },
+    {
+      "id": "C022",
+      "module": "institutional_dynamics_audit",
+      "metric": "ratio of institution size to optimal scale",
+      "statement": "Institutional scale creates self-reinforcing lock-in that blocks optimization. An institution at scale N has invested capital in specific infrastructure / processes; changing them = admitting past investment was suboptimal. Institution defends existing scale rather than optimize.",
+      "gatekeeping_mechanism": "Institution controls funding / regulatory approval; projects reinforcing its scale get funded, projects showing smaller scale is more efficient do not.",
+      "threshold": "institution size > optimal_scale * 1.2",
+      "falsifier": "institution-backed research showing smaller scale is more efficient (rare because the institution funding research is invested in scale)"
+    },
+    {
+      "id": "C023",
+      "module": "institutional_dynamics_audit",
+      "metric": "fraction of documented substrates that are excluded from institutional funding / publication / policy channels",
+      "statement": "Institutional monoculture creates knowledge exclusion. Knowledge threatening institutional scale is labeled 'not scalable'; holders without affiliation can't get funding; no funding -> no studies -> 'no evidence' -> excluded from policy -> regulatory approval goes to scale-dependent solutions. Cycle reinforces.",
+      "excluded_substrates_examples": [
+        "distributed system efficiency",
+        "human-AI symbiosis",
+        "degraded-mode operation",
+        "edge-case resilience",
+        "small-scale optimization",
+        "owner-operator economics",
+        "physical redundancy over software redundancy"
+      ],
+      "threshold": "substrate-exclusion ratio >= 0.5",
+      "falsifier": "substantive funded program studying decentralized / symbiotic / degraded-mode alternatives at parity with institution-scaled programs"
+    },
+    {
+      "id": "C024",
+      "module": "institutional_dynamics_audit",
+      "metric": "5-phase collapse cycle (growth -> maturity -> lock-in -> brittleness -> collapse-pending) with adaptive_capacity_score modulated by observed response pattern",
+      "statement": "Institutional lock-in creates accelerated collapse cycle. As institution grows past optimum, internal coordination cost rises and adaptive capacity falls. Institution doubles down on existing model when external variation hits; becomes MORE brittle as it grows. Collapse cascades fast.",
+      "historical_pattern": ["Roman Empire", "Soviet Union", "Blockbuster", "Kodak", "ICE automotive majors", "Financial sector 2008", "Mega-tech ad-revenue monoculture"],
+      "threshold": "adaptive_capacity_score <= 0.3 AND ratio_to_optimum > 1.5",
+      "falsifier": "large institution successfully adapts to fundamental market / resource constraint without collapse"
+    },
+    {
+      "id": "C025",
+      "module": "systemic_precondition_audit",
+      "metric": "10-year probability of any one of 7 preconditions failing, scaled by per-deployment-type degraded-mode capability",
+      "statement": "Automation monoculture creates systemic fragility against Earth-system variation. Every large autonomous fleet silently assumes: stable climate, stable supply chains, stable geopolitics, stable power grid, stable satellite coverage, stable regulatory environment, stable currency. Any single precondition failure can render thousands of vehicles simultaneously inoperable; degraded-mode capability is zero for autonomous-no-driver deployments.",
+      "preconditions": ["climate_stability", "supply_chain_stability", "geopolitics_stability", "power_grid_stability", "satellite_signal_stability", "regulatory_stability", "currency_finance_stability"],
+      "threshold": "deployment with NO_DEGRADED_MODE and p(any precondition fails in 10yr) >= 0.5, OR deployment with PARTIAL_DEGRADED_MODE and expected cumulative fleet impact > 1.0",
+      "falsifier": "autonomous deployment that remains operational through a 24-hour regional power outage AND satellite signal loss AND 72-hour regional internet disruption AND 6-month critical-parts supply break AND geopolitical rare-earth embargo"
+    },
+    {
+      "id": "C026",
+      "module": "systemic_precondition_audit",
+      "metric": "destabilization-mechanism count across 5 economic-model coupling effects",
+      "statement": "Economic-model stability is itself a precondition for automation, but automation undercuts it. Labor displacement reduces purchasing power and demand; backend capex requires sustained capital markets; rare-earth concentration scales with fleet; backend electricity competes with grid stability; growth thesis is broken by the deployment that depends on growth. Double-bind: cannot go back (skills atrophied, lock-in), cannot go forward (preconditions deteriorating).",
+      "mechanisms": [
+        "labor_displacement_reduces_demand",
+        "capex_intensity_dependence_on_capital_markets",
+        "rare_earth_concentration",
+        "backend_electricity_vs_grid",
+        "circular_growth_dependency"
+      ],
+      "threshold": ">= 3 of 5 destabilization mechanisms structurally present",
+      "falsifier": "automation deployment that does not depend on continuous growth, has supply-chain diversification adequate to absorb any single jurisdiction's restriction, and demonstrates resilience to economic shock without external bailout"
+    },
+    {
+      "id": "C027",
+      "module": "economic_energy_grounding_audit",
+      "metric": "5-test validity battery: energy_grounding, optimization_reduces_energy, causal_explanation, scarcity_robust, failure_modes_modeled",
+      "statement": "Economic models must be grounded in energy / resource accounting or they are unfalsifiable. Internal coherence is not validity. A model that optimizes within itself (cheaper capital, lower lending rate) is blind to whether the underlying deployment makes energetic sense.",
+      "threshold": "claim fails any of 5 validity tests OR fails resource-scarcity stress test (rare-earth or energy scarcity at 0.8 / 0.6 intensity)",
+      "falsifier": "economic model that predicts outcomes accurately during conditions of resource scarcity (where money != energy)"
+    },
+    {
+      "id": "C028",
+      "module": "economic_energy_grounding_audit",
+      "metric": "blindness count + institutional pivot capacity (organization_type + model_dependence + alternative_models_available)",
+      "statement": "Internal economic coherence creates institutional blindness to external constraints. Alternative models get defunded as inefficient during abundance; when the primary model fails, the institution doubles down because it has no Plan B. Cascade follows.",
+      "historical_example": "US auto industry vs OPEC embargo, 1973-2013: 40-year refusal to pivot to efficiency",
+      "threshold": ">= 2 constraints invisible to the model OR pivot capacity < 0.3",
+      "falsifier": "economic model that successfully adapts to fundamental resource scarcity without institutional collapse or reversal"
+    },
+    {
+      "id": "C029",
+      "module": "unified_capital_accounting_audit",
+      "metric": "fraction of 9 capital forms accounted for in deployment statements (financial, labor, environmental, biological, thermodynamic, social, temporal, health, regulatory)",
+      "statement": "Financial models use selective capital accounting, counting only financial + labor capital and ignoring the other seven forms. The omitted forms are externalized rather than accounted for; the model's profit claim cannot be reconciled with the substrate cost of producing that profit.",
+      "threshold": "fewer than half of the 9 capital forms have nonzero entries in the deployment's reported accounting",
+      "falsifier": "financial deployment publishing audited per-period accounting that includes nonzero entries against all nine capital forms with comparable denominators"
+    },
+    {
+      "id": "C030",
+      "module": "unified_capital_accounting_audit",
+      "metric": "joules-equivalent deficit (sum of non-financial capital losses minus financial capital gain) over a 30-year horizon",
+      "statement": "Under unified capital accounting with joules-equivalent denominators, large-scale automation deployments routinely exhibit financial_capital_gained << sum(all_other_capital_losses). Scaling is then capital reallocation from environmental / biological / temporal reserves into financial accounts, not capital creation.",
+      "threshold": "total_non_financial_loss_joules > total_financial_gain_joules over the time horizon",
+      "falsifier": "large-scale automation deployment where financial_capital_gained > sum(all_other_capital_losses) when all capitals are denominated in comparable units (joules-equivalent or years-to-recovery)"
+    },
+    {
+      "id": "C031",
+      "module": "engineering_grade_validation_audit",
+      "metric": "4-part engineering-grade test (explicitly stated, validated across regimes, design margin + failure modes, falsifiability) plus definition-stability and input-volatility scorecards",
+      "statement": "Economics lacks the falsifiability criteria required for engineering decisions. Key terms (liquidity, capital, margin, reserves, profit, efficiency) are defined differently across institutions; inputs (interest rates, energy, labor, rare earth) are explicitly volatile while being treated as stable. Aerospace, offshore, and nuclear deployments require design margin, failure-modes, and falsifiability tests before launch; AI on economic models routinely skips all four.",
+      "required_criteria": [
+        "explicitly stated assumptions",
+        "validated across multiple market regimes",
+        "design margin and enumerated failure modes",
+        "published falsifiability criteria"
+      ],
+      "threshold": "fails engineering-grade test OR mean definition stability < 0.6 OR mean input stability < 0.6",
+      "falsifier": "published economic model that satisfies all four engineering-grade criteria explicitly and has been third-party-audited under stress"
+    },
+    {
+      "id": "C032",
+      "module": "engineering_grade_validation_audit",
+      "metric": "regime validation coverage + training-vs-deployment regime drift severity + combined cascade probability",
+      "statement": "Deploying AI on unstable economic models creates cascading institutional failure. AI trained on stable-period data inherits stable-period patterns; when deployment conditions shift to a volatile / supply-constrained / demand-shocked regime, the AI continues operating on falsified patterns because it has no mechanism to detect its own falsification.",
+      "regimes": ["stable", "volatile", "supply_constrained", "demand_shocked"],
+      "historical_patterns": ["2010 flash crash", "2008 quant collapse", "March 2020 treasury dislocation", "LTCM 1998"],
+      "threshold": "model missing >= 2 of 4 regime validations OR regime drift severity >= 0.5 OR combined cascade probability >= 0.5",
+      "falsifier": "AI economic model that successfully predicts outcomes during a fundamental market regime shift (supply shock, geopolitical disruption, currency devaluation, regulatory overhaul)"
+    }
+  ]
+}
