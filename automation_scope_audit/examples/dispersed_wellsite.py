@@ -59,6 +59,7 @@ from automation_scope_audit.modules import (
     regulatory_dynamics_audit,
     roi_baseline_integrity_audit,
     system_integration_audit,
+    substrate_care_audit,
 )
 
 
@@ -340,6 +341,14 @@ def run() -> dict:
     # only transport integrated, near-zero degraded-mode capacity).
     c059 = system_integration_audit.c059_verdict()
 
+    # C060-C064 — substrate care. Fails case uses module defaults
+    # (MBA-heavy management coalition, all 5 preconditions failing).
+    c060 = substrate_care_audit.c060_verdict()
+    c061 = substrate_care_audit.c061_verdict()
+    c062 = substrate_care_audit.c062_verdict()
+    c063 = substrate_care_audit.c063_verdict()
+    c064 = substrate_care_audit.c064_verdict()    # all preconditions False
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -358,6 +367,8 @@ def run() -> dict:
         "C049": c049, "C050": c050, "C051": c051, "C052": c052,
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
         "C057": c057, "C058": c058, "C059": c059,
+        "C060": c060, "C061": c061, "C062": c062, "C063": c063,
+        "C064": c064,
     }
 
 

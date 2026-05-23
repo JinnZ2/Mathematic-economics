@@ -148,6 +148,15 @@ CLUSTERS: List[dict] = [
         "accounting — the autonomous deployment uses ~2x the energy of "
         "the integrated human baseline to do the same work (bee-vs-hand "
         "pollination structural analogy)"},
+    {"name": "substrate_care_collapse_cluster",
+     "claims": ["C060", "C061", "C062", "C063", "C064"],
+     "polarity": "all_register",
+     "explanation":
+        "elite overproduction + care-work invisibility + knowledge-authority "
+        "inversion + blame externalization + missing care/authority "
+        "preconditions — the institutional substrate the deployment "
+        "operates inside cannot sustain itself; failure is structural, "
+        "not technical"},
 ]
 
 

@@ -37,6 +37,23 @@ silently.
 
 ---
 
+## Substrate-care renumbering (C060-C064 batch)
+
+| User label                                       | Repo claim ID | Module                  |
+|--------------------------------------------------|---------------|-------------------------|
+| C050 elite overproduction -> abstraction         | **C060**      | substrate_care_audit    |
+| C051 care-work invisibility                      | **C061**      | substrate_care_audit    |
+| C053 knowledge-authority inversion               | **C062**      | substrate_care_audit    |
+| C052 accountability misdirection                 | **C063**      | substrate_care_audit    |
+| C050/C053/C054 care + authority preconditions    | **C064**      | substrate_care_audit    |
+
+The user requested `substrate_care_audit.py` explicitly. The user used
+C050-C054 with multiple definitions per number in the same submission;
+the repo-stable IDs above preserve every distinct claim under the next
+available numbers (C050-C059 already taken by prior batches). C064 is
+the synthesis-precondition claim that couples to C000 (the scope gate
+itself).
+
 ## System-integration synthesis renumbering (C059 batch)
 
 | User label                                        | Repo claim ID | Module                       |

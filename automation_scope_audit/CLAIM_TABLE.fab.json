@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "11.0",
+  "version": "12.0",
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -1152,6 +1152,71 @@
       "scope_envelope": {"daily_MJ_range": [100.0, 10000.0], "integration_score_range": [0.0, 1.0]},
       "data_source": ["WHO metabolic energy expenditure tables", "EIA diesel energy density references", "LBNL US data center energy reports", "operator function-inventory studies (FMCSA / DOL apprenticeship)"],
       "sensitivity": ["cloud_backend_share (dominant autonomous term)", "truck_fuel (shared baseline)", "integration_score (synthesis)"]
+    },
+    "C060": {
+      "observable": "weighted mean abstraction distance of management coalition + elite overproduction share",
+      "rate_equation": "d(abstraction)/d(elite_overproduction_share) = sum(role_weight * role_abstraction) / sum(role_weight)",
+      "bounds": {"spatial": "single firm / institution management coalition", "temporal": "decade-scale recruitment cycle", "scale": "role-level abstraction distance"},
+      "conditions": ["role mix enumerated", "abstraction distance scored per role (0 = substrate, 1 = fully abstract)"],
+      "invalid_if": ["automation deployment with management coalition dominated by substrate-experienced operators AND elite-overproduction share below 0.3, sustained for 5+ years"],
+      "measured_by": ["BLS executive education survey", "Turchin elite-overproduction cliometric series", "10-K executive biography corpora"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C022, C023, C051, C062"],
+      "scope_envelope": {"role_mix_role_count_range": [3, 15], "elite_overproduction_share_range": [0.0, 1.0]},
+      "data_source": ["Peter Turchin cliometric series", "BLS occupational education attainment data", "10-K executive biography parses"],
+      "sensitivity": ["MBA + consultant + financial_analyst weight share (dominant)"]
+    },
+    "C061": {
+      "observable": "fully-invisible care-work fraction (no visible cost line item AND no prevented-failure benefit counting)",
+      "rate_equation": "d(invisibility_score)/d(category) = count(invisible_cost AND uncounted_benefit) / count(total)",
+      "bounds": {"spatial": "any firm / institution cost-accounting framework", "temporal": "current-state inventory", "scale": "care-work category"},
+      "conditions": ["care-work inventory enumerated", "per-category visibility status documented"],
+      "invalid_if": ["cost-accounting framework that line-items each care-work category AND counts prevented failures as benefit; sustained in published reports over 3+ years"],
+      "measured_by": ["IFRS / FASB disclosure standards", "GRI / SASB sustainability reporting", "occupational ethnographies of care-work invisibility"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C002, C008, C047, C062"],
+      "scope_envelope": {"care_work_inventory_size": [5, 25]},
+      "data_source": ["IFRS / FASB disclosure standards", "GRI Standards", "care-work ethnography literature"],
+      "sensitivity": ["fraction of categories with both invisible_cost AND uncounted_benefit"]
+    },
+    "C062": {
+      "observable": "per-role inversion = abs(knowledge - authority); mean across roles",
+      "rate_equation": "d(inversion)/d(role_distribution) = mean(abs(knowledge_i - authority_i))",
+      "bounds": {"spatial": "single organization's role distribution", "temporal": "current-state snapshot", "scale": "role-level"},
+      "conditions": ["roles enumerated with substrate knowledge and decision authority scored on [0, 1]"],
+      "invalid_if": ["organization where role-level knowledge and authority are co-distributed (correlation > 0.7 across roles) AND substrate decisions are made by substrate-knowledgeable roles"],
+      "measured_by": ["organizational role surveys", "decision-authority documentation", "substrate-knowledge competency assessments"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C060, C063, C064"],
+      "scope_envelope": {"role_count_range": [4, 20]},
+      "data_source": ["organizational role/authority audits", "competency assessment frameworks (DACUM, etc.)"],
+      "sensitivity": ["C-suite + board knowledge score (low)", "experienced operator authority score (low)"]
+    },
+    "C063": {
+      "observable": "total misdirection = sum(abs(narrative_blame_share - actual_culpability_share)) / 2",
+      "rate_equation": "d(misdirection)/d(blame_cascade) = sum_i(|narrative_i - actual_i|) / 2",
+      "bounds": {"spatial": "post-failure post-mortem document set", "temporal": "per-incident", "scale": "blame-cascade step"},
+      "conditions": ["blame cascade enumerated by step / target role", "actual culpability share estimable from cause-effect chain"],
+      "invalid_if": ["published post-mortem of an automation-substrate failure where the MBA decision-maker who eliminated the care-work line item receives the largest narrative blame share, with the cause-effect chain documented"],
+      "measured_by": ["NTSB incident reports", "industry post-mortems", "academic accident analyses"],
+      "cycle_class": "season",
+      "relational_web": ["couples to C015, C060, C062"],
+      "scope_envelope": {"blame_cascade_step_count_range": [3, 12]},
+      "data_source": ["NTSB accident reports", "industry post-mortems", "Charles Perrow Normal Accidents references"],
+      "sensitivity": ["delta on engineers + operators + AI (over-blamed)", "delta on MBA decision-maker (under-blamed)"]
+    },
+    "C064": {
+      "observable": "count of 5 substrate-care preconditions satisfied at deployment time",
+      "rate_equation": "d(admissibility)/d(precondition) = +1 per precondition satisfied; threshold = all 5",
+      "bounds": {"spatial": "single automation deployment", "temporal": "pre-deployment + sustained operation", "scale": "deployment-level"},
+      "conditions": ["care_work_continued, care_work_costed_visibly, failure_cost_known, decision_authority_holder_has_substrate_knowledge, approval_required_from_substrate_experienced_operator all assessable"],
+      "invalid_if": ["automation deployment in any domain that was approved by someone with substrate operational experience AND maintains care work as a costed line item AND has documented failure-cost-if-care-skipped numbers; sustained without substrate failure for 5+ years"],
+      "measured_by": ["deployment approval documentation", "cost-accounting line items for care work", "failure-cost analysis published pre-deployment"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C000 (scope gate)", "synthesis of C060-C063"],
+      "scope_envelope": {"preconditions_required": 5},
+      "data_source": ["deployment approval records", "carrier 10-K / sustainability reports", "DOT regulatory filings"],
+      "sensitivity": ["any precondition failing triggers concern; care_work_continued and substrate_experienced_operator_approval are most commonly absent"]
     }
   }
 }

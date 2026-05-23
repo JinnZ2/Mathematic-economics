@@ -135,6 +135,17 @@ operates by:
     integrated baseline is ~1,155 MJ/truck/day; the autonomous
     deployment is ~2,224 MJ/truck/day — ~2x more energy for the same
     work (C059). Synthesis of C020 / C039 / C056-C058.
+27. **Substrate care + authority** — elite overproduction recruits
+    management from abstraction-trained pools that have never been on
+    the operation floor (C060); care work (driver pretrip, quality
+    inspector walks, preventive maintenance, teacher attention, nurse
+    observation, farmer soil management) is structurally invisible
+    because it prevents problems that never show up in reports, so
+    it's the first thing cut (C061); knowledge and authority decouple
+    (C062); when the system fails on substrate grounds, blame
+    externalizes to engineers / operators / AI (C063). Substrate care
+    + substrate authority are non-negotiable preconditions for any
+    automation deployment (C064).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -208,6 +219,11 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C057  | roi_baseline_integrity_audit      | Coordination overhead redistributed, not eliminated |
 | C058  | roi_baseline_integrity_audit      | Maintenance / inspection externalization -> deferred catastrophic liability |
 | C059  | system_integration_audit          | Integrated multi-function energy synthesis: autonomous ~2x human baseline (bee analogy) |
+| C060  | substrate_care_audit              | Elite overproduction shifts management incentive toward abstraction |
+| C061  | substrate_care_audit              | Care work is structurally invisible; first cut in efficiency exercises |
+| C062  | substrate_care_audit              | Knowledge-authority inversion (substrate-knowing roles lack authority) |
+| C063  | substrate_care_audit              | Accountability misdirection: blame flows to executors, not designers |
+| C064  | substrate_care_audit              | Substrate care + substrate authority are non-negotiable preconditions |
 
 ## Layout
 
@@ -242,6 +258,7 @@ automation_scope_audit/
 │   ├── regulatory_dynamics_audit.py      # C049-C053
 │   ├── roi_baseline_integrity_audit.py   # C054-C058
 │   ├── system_integration_audit.py       # C059
+│   ├── substrate_care_audit.py           # C060-C064
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

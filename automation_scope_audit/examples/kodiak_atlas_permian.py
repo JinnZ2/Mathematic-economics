@@ -72,6 +72,7 @@ from automation_scope_audit.modules import (
     regulatory_dynamics_audit,
     roi_baseline_integrity_audit,
     system_integration_audit,
+    substrate_care_audit,
 )
 
 
@@ -407,6 +408,34 @@ def run() -> dict:
         },
         autonomous_degraded_mode_capacity=0.30)
 
+    # C060-C064 — substrate care. Works case has slightly more
+    # substrate experience in the management coalition (Kodiak founders
+    # are engineers) but still fails the precondition gate because the
+    # broader institutional context defunds care work.
+    c060 = substrate_care_audit.c060_verdict(
+        role_mix={
+            "MBA_trained_executive":   0.25,
+            "consultant_external":     0.05,
+            "domain_engineer":         0.30,
+            "operations_engineer":     0.15,
+            "site_supervisor":         0.10,
+            "factory_floor_operator":  0.10,
+            "experienced_driver":      0.05,
+        },
+        elite_overproduction_share=0.35)
+    c061 = substrate_care_audit.c061_verdict()
+    c062 = substrate_care_audit.c062_verdict()
+    c063 = substrate_care_audit.c063_verdict()
+    # Works case: safety driver in cab maintains some care work; failure
+    # cost is partially modeled; substrate-experienced engineer signed
+    # off on the deployment. But care work isn't separately costed.
+    c064 = substrate_care_audit.c064_verdict(
+        care_work_continued=True,
+        care_work_costed_visibly=False,
+        failure_cost_known=True,
+        decision_authority_holder_has_substrate_knowledge=True,
+        approval_required_from_substrate_experienced_operator=False)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -425,6 +454,8 @@ def run() -> dict:
         "C049": c049, "C050": c050, "C051": c051, "C052": c052,
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
         "C057": c057, "C058": c058, "C059": c059,
+        "C060": c060, "C061": c061, "C062": c062, "C063": c063,
+        "C064": c064,
     }
 
 
