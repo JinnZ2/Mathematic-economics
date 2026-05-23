@@ -1,7 +1,7 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "6.0",
+  "version": "7.0",
   "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict. C000 is a meta-claim: a scope-admissibility gate every other claim must pass.",
   "claims": [
     {
@@ -284,6 +284,30 @@
       "statement": "Under unified capital accounting with joules-equivalent denominators, large-scale automation deployments routinely exhibit financial_capital_gained << sum(all_other_capital_losses). Scaling is then capital reallocation from environmental / biological / temporal reserves into financial accounts, not capital creation.",
       "threshold": "total_non_financial_loss_joules > total_financial_gain_joules over the time horizon",
       "falsifier": "large-scale automation deployment where financial_capital_gained > sum(all_other_capital_losses) when all capitals are denominated in comparable units (joules-equivalent or years-to-recovery)"
+    },
+    {
+      "id": "C031",
+      "module": "engineering_grade_validation_audit",
+      "metric": "4-part engineering-grade test (explicitly stated, validated across regimes, design margin + failure modes, falsifiability) plus definition-stability and input-volatility scorecards",
+      "statement": "Economics lacks the falsifiability criteria required for engineering decisions. Key terms (liquidity, capital, margin, reserves, profit, efficiency) are defined differently across institutions; inputs (interest rates, energy, labor, rare earth) are explicitly volatile while being treated as stable. Aerospace, offshore, and nuclear deployments require design margin, failure-modes, and falsifiability tests before launch; AI on economic models routinely skips all four.",
+      "required_criteria": [
+        "explicitly stated assumptions",
+        "validated across multiple market regimes",
+        "design margin and enumerated failure modes",
+        "published falsifiability criteria"
+      ],
+      "threshold": "fails engineering-grade test OR mean definition stability < 0.6 OR mean input stability < 0.6",
+      "falsifier": "published economic model that satisfies all four engineering-grade criteria explicitly and has been third-party-audited under stress"
+    },
+    {
+      "id": "C032",
+      "module": "engineering_grade_validation_audit",
+      "metric": "regime validation coverage + training-vs-deployment regime drift severity + combined cascade probability",
+      "statement": "Deploying AI on unstable economic models creates cascading institutional failure. AI trained on stable-period data inherits stable-period patterns; when deployment conditions shift to a volatile / supply-constrained / demand-shocked regime, the AI continues operating on falsified patterns because it has no mechanism to detect its own falsification.",
+      "regimes": ["stable", "volatile", "supply_constrained", "demand_shocked"],
+      "historical_patterns": ["2010 flash crash", "2008 quant collapse", "March 2020 treasury dislocation", "LTCM 1998"],
+      "threshold": "model missing >= 2 of 4 regime validations OR regime drift severity >= 0.5 OR combined cascade probability >= 0.5",
+      "falsifier": "AI economic model that successfully predicts outcomes during a fundamental market regime shift (supply shock, geopolitical disruption, currency devaluation, regulatory overhaul)"
     }
   ]
 }

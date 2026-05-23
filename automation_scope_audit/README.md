@@ -80,6 +80,18 @@ operates by:
     show non-financial-loss > financial-gain. Scaling is then transfer
     of capital from substrate reserves into financial accounts, not
     creation of capital.
+19. **Engineering-grade falsifiability gap** — aerospace, offshore, and
+    nuclear require design margin, enumerated failure modes, and
+    falsifiability tests before launch. AI on economic models routinely
+    skips all four. Definition stability (liquidity, capital, profit)
+    and input stability (interest rates, energy, rare earth) are
+    themselves below the engineering-grade threshold.
+20. **AI-on-unstable-models cascade** — AI trained on stable-period
+    data cannot detect its own falsification when deployment regime
+    shifts to volatile / supply-constrained / demand-shocked. The
+    institution has no mechanism to see the failure because the
+    failure is outside the model. Historical pattern: 1998 LTCM, 2008
+    quant collapse, 2010 flash crash, March 2020 treasury dislocation.
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -124,6 +136,8 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C028  | economic_energy_grounding_audit   | Internal coherence creates institutional blindness; pivot capacity |
 | C029  | unified_capital_accounting_audit  | Financial models count only 2 of 9 capital forms; rest externalized |
 | C030  | unified_capital_accounting_audit  | "Scaling" is capital reallocation, not creation, under unified accounting |
+| C031  | engineering_grade_validation_audit | Economics lacks engineering-grade falsifiability (4-criterion test) |
+| C032  | engineering_grade_validation_audit | AI on unstable economic models cascades; regime drift severity |
 
 ## Layout
 
@@ -151,6 +165,7 @@ automation_scope_audit/
 │   ├── systemic_precondition_audit.py    # C025, C026
 │   ├── economic_energy_grounding_audit.py # C027, C028
 │   ├── unified_capital_accounting_audit.py # C029, C030
+│   ├── engineering_grade_validation_audit.py # C031, C032
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

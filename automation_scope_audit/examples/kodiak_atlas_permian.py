@@ -44,6 +44,7 @@ from automation_scope_audit.modules import (
     systemic_precondition_audit,
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
+    engineering_grade_validation_audit,
 )
 
 
@@ -282,6 +283,19 @@ def run() -> dict:
         permian_deployment, time_horizon=30,
         model_claims=[permian_pitch])
 
+    # C031 / C032 — engineering-grade validation. Works case: the Kodiak/
+    # Atlas pilot models corridor economics on 5 years of Permian sand-haul
+    # data, all drawn from a single regime (stable / mild-volatile). No
+    # documented stress test against supply-constrained or demand-shocked
+    # regimes.
+    c031 = engineering_grade_validation_audit.c031_verdict(
+        permian_pitch)
+    c032 = engineering_grade_validation_audit.c032_verdict(
+        model={"regimes_validated": ["stable"]},
+        training_regime="stable",
+        deployment_regime="volatile",
+        claim=permian_pitch)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -292,7 +306,7 @@ def run() -> dict:
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
-        "C029": c029, "C030": c030,
+        "C029": c029, "C030": c030, "C031": c031, "C032": c032,
     }
 
 

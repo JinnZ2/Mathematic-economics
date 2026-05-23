@@ -37,6 +37,7 @@ from automation_scope_audit.modules import (
     systemic_precondition_audit,
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
+    engineering_grade_validation_audit,
 )
 
 
@@ -245,6 +246,20 @@ def run() -> dict:
         dispersed_deployment, time_horizon=30,
         model_claims=[pitch])
 
+    # C031 / C032 — engineering-grade validation. Fails case: the
+    # dispersed-wellsite economic model is calibrated against 10-yr
+    # carrier economics drawn entirely from a stable / mild-volatile
+    # regime. Deployment conditions in 2026+ are simultaneously
+    # supply-constrained (rare-earth, semiconductor) AND demand-shocked
+    # (well decline acceleration); the model has been validated against
+    # neither.
+    c031 = engineering_grade_validation_audit.c031_verdict(pitch)
+    c032 = engineering_grade_validation_audit.c032_verdict(
+        model={"regimes_validated": ["stable"]},
+        training_regime="stable",
+        deployment_regime="supply_constrained",
+        claim=pitch)
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -255,7 +270,7 @@ def run() -> dict:
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
-        "C029": c029, "C030": c030,
+        "C029": c029, "C030": c030, "C031": c031, "C032": c032,
     }
 
 
