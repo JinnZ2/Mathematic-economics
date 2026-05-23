@@ -168,6 +168,23 @@ CLUSTERS: List[dict] = [
         "Amazon hiring, welfare fraud, predictive policing, Zillow, "
         "Facebook moderation, Target pregnancy, MS Tay, Knight Capital "
         "(partial), Uber autonomy, IBM drug discovery"},
+    {"name": "adoption_curve_collapse_signal_cluster",
+     "claims": ["C070", "C071", "C072"],
+     "polarity": "all_register",
+     "explanation":
+        "popularity-substrate divergence + saturation-phase curve "
+        "classification + decision-maker tenure shorter than cycle "
+        "timescale. The institutional cohort is on the canonical "
+        "adoption curve at phase 2-3, and the people running it "
+        "cannot see it from where they sit."},
+    {"name": "lifecycle_externalization_cluster",
+     "claims": ["C073", "C074"],
+     "polarity": "all_register",
+     "explanation":
+        "lifecycle design invisible in financial models + end-of-life "
+        "accountability externalized. The total true cost is not what "
+        "the ROI calculation says it is; the difference is the waste "
+        "stream and stranded-asset risk pushed onto society / future."},
 ]
 
 

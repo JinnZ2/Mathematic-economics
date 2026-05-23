@@ -39,6 +39,9 @@ from . import (
     semantic_coherence_check,
     spatial_resolution_parity,
     timescale_phenomenon_match,
+    adoption_curve_audit,
+    lifecycle_design_audit,
+    framework_reflexivity_audit,
 )
 
 __all__ = [
@@ -72,4 +75,7 @@ __all__ = [
     "semantic_coherence_check",
     "spatial_resolution_parity",
     "timescale_phenomenon_match",
+    "adoption_curve_audit",
+    "lifecycle_design_audit",
+    "framework_reflexivity_audit",
 ]

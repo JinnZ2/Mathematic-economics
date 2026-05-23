@@ -61,6 +61,9 @@ from automation_scope_audit.modules import (
     system_integration_audit,
     substrate_care_audit,
     credential_inversion_audit,
+    adoption_curve_audit,
+    lifecycle_design_audit,
+    framework_reflexivity_audit,
 )
 
 
@@ -367,6 +370,21 @@ def run() -> dict:
     })
     c069 = credential_inversion_audit.c069_verdict()
 
+    # C070-C072 — adoption-curve. Fails case uses module defaults
+    # (steep popularity-substrate divergence, saturation-phase
+    # classification, fortune_500_ceo / 30yr cycle blindness).
+    c070 = adoption_curve_audit.c070_verdict()
+    c071 = adoption_curve_audit.c071_verdict()
+    c072 = adoption_curve_audit.c072_verdict()
+
+    # C073 / C074 — lifecycle design. Fails case: small operator, all
+    # accountability preconditions failing.
+    c073 = lifecycle_design_audit.c073_verdict(fleet_size=12)
+    c074 = lifecycle_design_audit.c074_verdict()
+
+    # C075 — framework reflexivity. Static state at audit time.
+    c075 = framework_reflexivity_audit.c075_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -387,7 +405,8 @@ def run() -> dict:
         "C057": c057, "C058": c058, "C059": c059,
         "C060": c060, "C061": c061, "C062": c062, "C063": c063,
         "C064": c064, "C065": c065, "C066": c066, "C067": c067,
-        "C068": c068, "C069": c069,
+        "C068": c068, "C069": c069, "C070": c070, "C071": c071,
+        "C072": c072, "C073": c073, "C074": c074, "C075": c075,
     }
 
 

@@ -850,6 +850,36 @@ automation_scope_audit_claims:
       summary: "Blame attribution to AI / data / compute prevents institutional learning; cycle perpetuates"
       cross_references: ["DI", "BSC"]
 
+    - id: "C070"
+      module: "adoption_curve_audit"
+      summary: "Popularity-substrate divergence: popularity rises while substrate health drops"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C071"
+      module: "adoption_curve_audit"
+      summary: "4-phase adoption curve is timescale-invariant from fashion to 80-year institutional cycles"
+      cross_references: ["HHI", "MM"]
+
+    - id: "C072"
+      module: "adoption_curve_audit"
+      summary: "Institutional cycle blindness: decision-maker tenure < cycle timescale"
+      cross_references: ["DI", "HHI"]
+
+    - id: "C073"
+      module: "lifecycle_design_audit"
+      summary: "Lifecycle design is invisible in conventional financial models; end-of-life cost externalized"
+      cross_references: ["VE_VL", "ER"]
+
+    - id: "C074"
+      module: "lifecycle_design_audit"
+      summary: "End-of-life accountability requirement: designer must own second-life + materials recovery + EoL liability"
+      cross_references: ["SID", "ISR"]
+
+    - id: "C075"
+      module: "framework_reflexivity_audit"
+      summary: "Framework reflexivity: adoption metrics are inverse signals; effectiveness measured by predict-then-prevent"
+      cross_references: ["SD"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

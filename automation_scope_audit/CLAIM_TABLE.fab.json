@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "14.0",
+  "version": "15.0",
   "allocation_rules_enum": [
     "per_truck_equal_share",
     "per_ton_mile",
@@ -2957,6 +2957,254 @@
       ],
       "sensitivity": [
         "AI_not_ready / training_data / algorithm_bias categories (dominant; do not produce learning)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C070": {
+      "observable": "weighted-mean popularity trend minus weighted-mean substrate-health trend across panels",
+      "rate_equation": "d(divergence)/dt = d(popularity)/dt - d(substrate_health)/dt",
+      "bounds": {
+        "spatial": "any deployment / institution / framework cohort",
+        "temporal": "5-year rolling window",
+        "scale": "panel-metric"
+      },
+      "conditions": [
+        "popularity_trend signed rates per metric measured",
+        "substrate_trend signed rates per metric measured (positive = healthy)"
+      ],
+      "invalid_if": [
+        "popular framework / deployment achieving > 10%/year popularity growth AND > 5%/year substrate-health improvement over a 5-year window, third-party audited"
+      ],
+      "measured_by": [
+        "GitHub stars trend",
+        "VC funding rounds",
+        "media-mention counts",
+        "energy-per-unit telemetry",
+        "failure rate post-mortems",
+        "resilience drills"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C027, C028, C047, C071"
+      ],
+      "scope_envelope": {
+        "trend_rate_per_year_range": [
+          -1.0,
+          5.0
+        ]
+      },
+      "data_source": [
+        "GitHub API",
+        "PitchBook / Crunchbase",
+        "EIA energy reports",
+        "NTSB / industry post-mortems"
+      ],
+      "sensitivity": [
+        "weighting of substrate metrics (resilience vs energy vs skill)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C071": {
+      "observable": "4-phase adoption-curve classification + cross-domain curve-shape correlation",
+      "rate_equation": "d(metric)/dt sign + d2(metric)/dt2 sign -> phase ID; corr(normalized series A, B) -> shape match",
+      "bounds": {
+        "spatial": "any adoption-metric time series",
+        "temporal": "timescale-normalized [0, 1]",
+        "scale": "metric time-step"
+      },
+      "conditions": [
+        "metric_time_series of at least 5 points",
+        "for shape-match, two normalized series of >= 3 points each"
+      ],
+      "invalid_if": [
+        "adoption-metric time series across 3+ domains at different timescales whose normalized curves do NOT match the canonical discovery -> adoption -> saturation -> collapse shape (curve_shape_match correlation < 0.85)"
+      ],
+      "measured_by": [
+        "GitHub stars time series",
+        "VC funding rounds time series",
+        "industry production data",
+        "cliometric series"
+      ],
+      "cycle_class": "century",
+      "relational_web": [
+        "couples to C022, C024, C072"
+      ],
+      "scope_envelope": {
+        "time_series_length_range": [
+          5,
+          1000
+        ]
+      },
+      "data_source": [
+        "GitHub API",
+        "Crunchbase funding rounds",
+        "Federal Reserve historical series",
+        "cliometric databases"
+      ],
+      "sensitivity": [
+        "window size for slope / acceleration estimate",
+        "normalization method"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C072": {
+      "observable": "ratio of decision-maker tenure to cycle timescale",
+      "rate_equation": "visibility = min(1.0, tenure_years / cycle_timescale_years); blind when visibility < 0.5",
+      "bounds": {
+        "spatial": "decision-maker class within institution",
+        "temporal": "career-length",
+        "scale": "individual-tenure"
+      },
+      "conditions": [
+        "decision-maker tenure documented",
+        "cycle timescale measurable from historical examples"
+      ],
+      "invalid_if": [
+        "decision-maker class with documented track record of anticipating own institution's cycle collapse AND pivoting in advance, sustained over multiple cohorts"
+      ],
+      "measured_by": [
+        "BLS occupational tenure",
+        "executive search firm tenure databases",
+        "historical cliometric cycle analysis"
+      ],
+      "cycle_class": "century",
+      "relational_web": [
+        "couples to C022, C024, C053, C071"
+      ],
+      "scope_envelope": {
+        "tenure_years_range": [
+          1,
+          50
+        ],
+        "cycle_timescale_years_range": [
+          3,
+          300
+        ]
+      },
+      "data_source": [
+        "BLS Occupational Employment & Wages",
+        "Spencer Stuart CEO tenure reports",
+        "Turchin cliometric series"
+      ],
+      "sensitivity": [
+        "tenure for decision-maker class (fortune_500_ceo dominant)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C073": {
+      "observable": "externalized end-of-life cost as share of true lifecycle total",
+      "rate_equation": "d(externalization_share)/d(eol_cost) = externalized_eol_usd / (visible_total + externalized_eol)",
+      "bounds": {
+        "spatial": "fleet operational scope",
+        "temporal": "lifecycle (7+ years)",
+        "scale": "fleet-level USD"
+      },
+      "conditions": [
+        "capex, opex, lifecycle_years, salvage_value, eol_externalized_cost all assessable"
+      ],
+      "invalid_if": [
+        "published financial model where end-of-life disposal, materials recovery, waste-stream liability, and obsolescence-transition cost are each itemized AND the total lifecycle cost matches the visible total within 10%"
+      ],
+      "measured_by": [
+        "EPA Superfund cost averages",
+        "BLS waste-management industry cost reports",
+        "10-K stranded-asset write-downs"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C005, C047, C074"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          1,
+          50000
+        ],
+        "lifecycle_years_range": [
+          3,
+          25
+        ]
+      },
+      "data_source": [
+        "EPA Superfund cost data",
+        "BLS waste-management industry data",
+        "10-K stranded-asset disclosures"
+      ],
+      "sensitivity": [
+        "eol_externalized_cost_usd (dominant; default captures stranded-asset reality from C005)"
+      ],
+      "allocation_rule": "per_truck_equal_share"
+    },
+    "C074": {
+      "observable": "count of 3 end-of-life accountability preconditions satisfied (second_life_designed, materials_recovery_designed, designer_accountable_for_eol)",
+      "rate_equation": "d(accountability)/d(precondition) = +1 per precondition; threshold = all 3",
+      "bounds": {
+        "spatial": "single product / deployment design phase",
+        "temporal": "design + lifecycle",
+        "scale": "deployment-level"
+      },
+      "conditions": [
+        "3 preconditions assessable at design phase"
+      ],
+      "invalid_if": [
+        "automation deployment with declared second-life pathway, third-life materials recovery, AND designer contractually accountable for end-of-life cost, sustained over a full obsolescence-transition cycle"
+      ],
+      "measured_by": [
+        "design documentation",
+        "contract liability clauses",
+        "regulatory EoL plan filings"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "couples to C064, C073"
+      ],
+      "scope_envelope": {
+        "preconditions_required": 3
+      },
+      "data_source": [
+        "EU Right-to-Repair regulatory filings",
+        "EPRA / e-waste recovery plan documentation",
+        "industry design-for-end-of-life standards"
+      ],
+      "sensitivity": [
+        "designer_accountable_for_eol (most commonly absent)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C075": {
+      "observable": "framework health_score = (effectiveness_sum - adoption_sum) / (effectiveness_sum + adoption_sum)",
+      "rate_equation": "d(health)/d(metric) = +1 per effectiveness signal, -1 per adoption signal",
+      "bounds": {
+        "spatial": "framework instance under audit",
+        "temporal": "5-year window",
+        "scale": "metric-panel"
+      },
+      "conditions": [
+        "adoption metrics enumerated (stars, VC funding, viral spread, etc.)",
+        "effectiveness metrics enumerated (post-mortem refs, risk-manager adoption, predicted-then-prevented count)"
+      ],
+      "invalid_if": [
+        "framework that achieves widespread VC / executive adoption AND demonstrably prevents the failures it predicts, audited over 5+ years with verifiable predict-then-prevent record"
+      ],
+      "measured_by": [
+        "GitHub stars + Crunchbase funding (adoption)",
+        "post-mortem citation counts + risk-manager adoption records (effectiveness)"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "self-reflexive meta-claim; couples to C000, C070"
+      ],
+      "scope_envelope": {
+        "adoption_metric_count": 5,
+        "effectiveness_metric_count": 6
+      },
+      "data_source": [
+        "GitHub API",
+        "Crunchbase",
+        "industry post-mortem citation databases",
+        "regulatory hearing transcripts"
+      ],
+      "sensitivity": [
+        "predicted_failures_that_occurred count (lags by years)"
       ],
       "allocation_rule": "not_applicable"
     }
