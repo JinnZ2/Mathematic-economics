@@ -36,6 +36,9 @@ from . import (
     system_integration_audit,
     substrate_care_audit,
     credential_inversion_audit,
+    semantic_coherence_check,
+    spatial_resolution_parity,
+    timescale_phenomenon_match,
 )
 
 __all__ = [
@@ -66,4 +69,7 @@ __all__ = [
     "system_integration_audit",
     "substrate_care_audit",
     "credential_inversion_audit",
+    "semantic_coherence_check",
+    "spatial_resolution_parity",
+    "timescale_phenomenon_match",
 ]

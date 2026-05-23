@@ -2,7 +2,15 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "13.0",
+  "version": "14.0",
+  "allocation_rules_enum": [
+    "per_truck_equal_share",
+    "per_ton_mile",
+    "per_revenue",
+    "per_inference",
+    "per_kwh_delivered",
+    "not_applicable"
+  ],
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -29,9 +37,24 @@
         "feeds into every other C001-C032 verdict",
         "couples to scope_collapse_detector (C006, C007)"
       ],
-      "scope_envelope": {"text_length_chars": [50, 5000], "language": "english"},
-      "data_source": ["marketing pitches", "investor decks", "policy briefs", "analyst notes"],
-      "sensitivity": ["regex coverage", "domain-specific vocabulary outside default patterns"]
+      "scope_envelope": {
+        "text_length_chars": [
+          50,
+          5000
+        ],
+        "language": "english"
+      },
+      "data_source": [
+        "marketing pitches",
+        "investor decks",
+        "policy briefs",
+        "analyst notes"
+      ],
+      "sensitivity": [
+        "regex coverage",
+        "domain-specific vocabulary outside default patterns"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C001": {
       "observable": "trip-weighted mean pairwise Jaccard distance between same-OD waypoint sets",
@@ -48,12 +71,32 @@
       "invalid_if": [
         "working autonomous deployment with mean Jaccard distance > 0.20"
       ],
-      "measured_by": ["fleet telematics route logs", "dispatch system trip records"],
+      "measured_by": [
+        "fleet telematics route logs",
+        "dispatch system trip records"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C003 (infrastructure precondition)"],
-      "scope_envelope": {"route_variance_range": [0.0, 1.0], "od_pair_min_trips": 2, "geometry_type": "fixed_corridor | variable_lease_road | dispersed"},
-      "data_source": ["fleet telematics logs", "ELD records", "internal dispatch DB"],
-      "sensitivity": ["waypoint identifier granularity", "definition of OD pair (city-pair vs site-pair)"]
+      "relational_web": [
+        "couples to C003 (infrastructure precondition)"
+      ],
+      "scope_envelope": {
+        "route_variance_range": [
+          0.0,
+          1.0
+        ],
+        "od_pair_min_trips": 2,
+        "geometry_type": "fixed_corridor | variable_lease_road | dispersed"
+      },
+      "data_source": [
+        "fleet telematics logs",
+        "ELD records",
+        "internal dispatch DB"
+      ],
+      "sensitivity": [
+        "waypoint identifier granularity",
+        "definition of OD pair (city-pair vs site-pair)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C002": {
       "observable": "fully_automated time-share across 20 task categories",
@@ -70,12 +113,40 @@
       "invalid_if": [
         "documented end-to-end automation including pump operation at variable sites"
       ],
-      "measured_by": ["driver time-and-motion studies", "deployment task inventory", "post-deployment payroll deltas"],
+      "measured_by": [
+        "driver time-and-motion studies",
+        "deployment task inventory",
+        "post-deployment payroll deltas"
+      ],
       "cycle_class": "season",
-      "relational_web": ["overlaps LWR (Labor Wealth Ratio)", "overlaps ER (Extraction Rate)"],
-      "scope_envelope": {"task_count_range": [13, 30], "categories": ["haul", "navigation", "site_work", "monitoring", "compliance", "interface"]},
-      "data_source": ["CDL driver time-and-motion field studies", "carrier task taxonomies", "AAR / ATA labor surveys"],
-      "sensitivity": ["task share weights", "category coverage breadth"]
+      "relational_web": [
+        "overlaps LWR (Labor Wealth Ratio)",
+        "overlaps ER (Extraction Rate)"
+      ],
+      "scope_envelope": {
+        "task_count_range": [
+          13,
+          30
+        ],
+        "categories": [
+          "haul",
+          "navigation",
+          "site_work",
+          "monitoring",
+          "compliance",
+          "interface"
+        ]
+      },
+      "data_source": [
+        "CDL driver time-and-motion field studies",
+        "carrier task taxonomies",
+        "AAR / ATA labor surveys"
+      ],
+      "sensitivity": [
+        "task share weights",
+        "category coverage breadth"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C003": {
       "observable": "per-route-mile infrastructure capex with existing-state discounts across 7 line items",
@@ -92,12 +163,41 @@
       "invalid_if": [
         "cost data showing dispersed-well infrastructure < vehicle fleet cost"
       ],
-      "measured_by": ["state DOT bid tabulations", "FHWA rural construction cost reports", "Census economic data"],
+      "measured_by": [
+        "state DOT bid tabulations",
+        "FHWA rural construction cost reports",
+        "Census economic data"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps SID (Socialist Infrastructure Dependency)", "overlaps ISR (Infrastructure Subsidy Ratio)"],
-      "scope_envelope": {"route_miles_range": [10.0, 1000.0], "well_density_range": [0.01, 0.5], "existing_pavement_pct_range": [0.0, 1.0]},
-      "data_source": ["state DOT bid tabs", "FHWA construction unit costs", "operator capex disclosures"],
-      "sensitivity": ["existing_pavement_pct (dominant)", "well_density", "comms_tower unit cost"]
+      "relational_web": [
+        "overlaps SID (Socialist Infrastructure Dependency)",
+        "overlaps ISR (Infrastructure Subsidy Ratio)"
+      ],
+      "scope_envelope": {
+        "route_miles_range": [
+          10.0,
+          1000.0
+        ],
+        "well_density_range": [
+          0.01,
+          0.5
+        ],
+        "existing_pavement_pct_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "state DOT bid tabs",
+        "FHWA construction unit costs",
+        "operator capex disclosures"
+      ],
+      "sensitivity": [
+        "existing_pavement_pct (dominant)",
+        "well_density",
+        "comms_tower unit cost"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C004": {
       "observable": "lifecycle EROI vs production decline curve",
@@ -114,12 +214,35 @@
       "invalid_if": [
         "profitable autonomous deployment on <3yr wells"
       ],
-      "measured_by": ["operator production curves", "USGS reserves data", "energy ledger"],
+      "measured_by": [
+        "operator production curves",
+        "USGS reserves data",
+        "energy ledger"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps ER (Extraction Rate)"],
-      "scope_envelope": {"depreciation_years_range": [3, 15], "decline_curve_length_range": [3, 30]},
-      "data_source": ["operator type-curve disclosures", "USGS resource assessments", "EIA production data"],
-      "sensitivity": ["year-1 and year-2 decline rate (dominant)", "depreciation_years"]
+      "relational_web": [
+        "overlaps ER (Extraction Rate)"
+      ],
+      "scope_envelope": {
+        "depreciation_years_range": [
+          3,
+          15
+        ],
+        "decline_curve_length_range": [
+          3,
+          30
+        ]
+      },
+      "data_source": [
+        "operator type-curve disclosures",
+        "USGS resource assessments",
+        "EIA production data"
+      ],
+      "sensitivity": [
+        "year-1 and year-2 decline rate (dominant)",
+        "depreciation_years"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C005": {
       "observable": "secondary-market retention curve by equipment type",
@@ -136,12 +259,36 @@
       "invalid_if": [
         "active secondary market at >40% retention"
       ],
-      "measured_by": ["Ritchie Bros auction results", "OEM trade-in data", "TuSimple/Embark write-down disclosures"],
+      "measured_by": [
+        "Ritchie Bros auction results",
+        "OEM trade-in data",
+        "TuSimple/Embark write-down disclosures"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C004"],
-      "scope_envelope": {"years_elapsed_range": [0, 10], "equipment_types": ["conventional_class8", "autonomous_retrofit", "purpose_built_autonomous"]},
-      "data_source": ["Ritchie Bros auction database", "ACT Research used-truck reports", "10-K write-down disclosures"],
-      "sensitivity": ["equipment_type (dominant)", "software-licensing terms"]
+      "relational_web": [
+        "couples to C004"
+      ],
+      "scope_envelope": {
+        "years_elapsed_range": [
+          0,
+          10
+        ],
+        "equipment_types": [
+          "conventional_class8",
+          "autonomous_retrofit",
+          "purpose_built_autonomous"
+        ]
+      },
+      "data_source": [
+        "Ritchie Bros auction database",
+        "ACT Research used-truck reports",
+        "10-K write-down disclosures"
+      ],
+      "sensitivity": [
+        "equipment_type (dominant)",
+        "software-licensing terms"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C006": {
       "observable": "scope-collapse markers in pitch text vs scope-honest markers",
@@ -158,12 +305,31 @@
       "invalid_if": [
         "scope-honest deployment language in primary sources"
       ],
-      "measured_by": ["press releases", "10-Q narrative", "analyst notes"],
+      "measured_by": [
+        "press releases",
+        "10-Q narrative",
+        "analyst notes"
+      ],
       "cycle_class": "season",
-      "relational_web": ["overlaps SD (Semantic Drift)"],
-      "scope_envelope": {"pitch_length_chars": [50, 5000]},
-      "data_source": ["company press releases", "S-1 filings", "investor day decks"],
-      "sensitivity": ["regex pattern coverage", "language variation"]
+      "relational_web": [
+        "overlaps SD (Semantic Drift)"
+      ],
+      "scope_envelope": {
+        "pitch_length_chars": [
+          50,
+          5000
+        ]
+      },
+      "data_source": [
+        "company press releases",
+        "S-1 filings",
+        "investor day decks"
+      ],
+      "sensitivity": [
+        "regex pattern coverage",
+        "language variation"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C007": {
       "observable": "wage suppression coincident with threat-narrative deployment",
@@ -180,12 +346,36 @@
       "invalid_if": [
         "wage data showing parity or increase post-automation"
       ],
-      "measured_by": ["BLS wage data", "regional press corpora", "carrier 10-Qs"],
+      "measured_by": [
+        "BLS wage data",
+        "regional press corpora",
+        "carrier 10-Qs"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps LWR", "overlaps UFR (Upward Flow Rate)"],
-      "scope_envelope": {"wage_change_pct_range": [-50, 50], "productivity_change_pct_range": [-20, 50]},
-      "data_source": ["BLS Quarterly Census of Employment and Wages", "FRED state-level wage data", "regional press archive"],
-      "sensitivity": ["productivity_change_pct (offsets wage signal)", "region selection"]
+      "relational_web": [
+        "overlaps LWR",
+        "overlaps UFR (Upward Flow Rate)"
+      ],
+      "scope_envelope": {
+        "wage_change_pct_range": [
+          -50,
+          50
+        ],
+        "productivity_change_pct_range": [
+          -20,
+          50
+        ]
+      },
+      "data_source": [
+        "BLS Quarterly Census of Employment and Wages",
+        "FRED state-level wage data",
+        "regional press archive"
+      ],
+      "sensitivity": [
+        "productivity_change_pct (offsets wage signal)",
+        "region selection"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C008": {
       "observable": "lifecycle ratio of sensor-stack replacement cost to driver-performed monitoring labor cost",
@@ -202,12 +392,36 @@
       "invalid_if": [
         "deployed system showing <2x cost of driver-performed monitoring"
       ],
-      "measured_by": ["sensor vendor pricing", "FMCSA driver-time records", "carrier monitoring-cost disclosures"],
+      "measured_by": [
+        "sensor vendor pricing",
+        "FMCSA driver-time records",
+        "carrier monitoring-cost disclosures"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C009 (detection gap)", "couples to C010 (breakdown cost)"],
-      "scope_envelope": {"lifecycle_years_range": [3, 10], "hourly_rate_range": [20.0, 50.0]},
-      "data_source": ["sensor vendor price sheets", "FMCSA HOS audit reports", "ATRI operational cost reports"],
-      "sensitivity": ["acoustic_anomaly + undercarriage_imaging cost (dominant capex)", "diagnostic compute opex"]
+      "relational_web": [
+        "couples to C009 (detection gap)",
+        "couples to C010 (breakdown cost)"
+      ],
+      "scope_envelope": {
+        "lifecycle_years_range": [
+          3,
+          10
+        ],
+        "hourly_rate_range": [
+          20.0,
+          50.0
+        ]
+      },
+      "data_source": [
+        "sensor vendor price sheets",
+        "FMCSA HOS audit reports",
+        "ATRI operational cost reports"
+      ],
+      "sensitivity": [
+        "acoustic_anomaly + undercarriage_imaging cost (dominant capex)",
+        "diagnostic compute opex"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C009": {
       "observable": "set difference between human-only precursor catches and sensor-detected catches",
@@ -223,12 +437,29 @@
       "invalid_if": [
         "documented parity in catch rates for subtle/precursor failures"
       ],
-      "measured_by": ["FMCSA incident reports", "carrier maintenance records", "warranty claim taxonomies"],
+      "measured_by": [
+        "FMCSA incident reports",
+        "carrier maintenance records",
+        "warranty claim taxonomies"
+      ],
       "cycle_class": "day",
-      "relational_web": ["couples to C008"],
-      "scope_envelope": {"failure_mode_inventory_size": [5, 50]},
-      "data_source": ["FMCSA CSA inspection data", "OEM warranty claim taxonomies"],
-      "sensitivity": ["precursor catch definition (acoustic, olfactory, kinesthetic)"]
+      "relational_web": [
+        "couples to C008"
+      ],
+      "scope_envelope": {
+        "failure_mode_inventory_size": [
+          5,
+          50
+        ]
+      },
+      "data_source": [
+        "FMCSA CSA inspection data",
+        "OEM warranty claim taxonomies"
+      ],
+      "sensitivity": [
+        "precursor catch definition (acoustic, olfactory, kinesthetic)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C010": {
       "observable": "autonomous-to-human ratio of expected roadside-breakdown cost",
@@ -245,12 +476,41 @@
       "invalid_if": [
         "insurance/operational data showing parity"
       ],
-      "measured_by": ["insurance claims data", "carrier breakdown logs", "FMCSA crash data"],
+      "measured_by": [
+        "insurance claims data",
+        "carrier breakdown logs",
+        "FMCSA crash data"
+      ],
       "cycle_class": "day",
-      "relational_web": ["couples to C008, C011"],
-      "scope_envelope": {"remoteness_range": [0.0, 1.0], "failure_types": ["tire", "engine", "brake", "electrical", "sensor", "load_shift", "weather_stranding", "other"]},
-      "data_source": ["NICB / III insurance reports", "ATRI operational cost report", "FMCSA crash data files"],
-      "sensitivity": ["location_remoteness (dominant)", "failure_type base cost"]
+      "relational_web": [
+        "couples to C008, C011"
+      ],
+      "scope_envelope": {
+        "remoteness_range": [
+          0.0,
+          1.0
+        ],
+        "failure_types": [
+          "tire",
+          "engine",
+          "brake",
+          "electrical",
+          "sensor",
+          "load_shift",
+          "weather_stranding",
+          "other"
+        ]
+      },
+      "data_source": [
+        "NICB / III insurance reports",
+        "ATRI operational cost report",
+        "FMCSA crash data files"
+      ],
+      "sensitivity": [
+        "location_remoteness (dominant)",
+        "failure_type base cost"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C011": {
       "observable": "middleware lifecycle cost ratio (autonomous : driver-mediated)",
@@ -267,12 +527,36 @@
       "invalid_if": [
         "audited middleware lifecycle cost at <2x driver-mediated cost"
       ],
-      "measured_by": ["fleet TCO audits", "remote-ops vendor contracts", "carrier operational disclosures"],
+      "measured_by": [
+        "fleet TCO audits",
+        "remote-ops vendor contracts",
+        "carrier operational disclosures"
+      ],
       "cycle_class": "season",
-      "relational_web": ["overlaps LWR", "overlaps VE_VL"],
-      "scope_envelope": {"interface_count_range": [5, 12], "mobile_escalation_pct_range": [0.05, 0.6]},
-      "data_source": ["fleet TCO audits", "remote-ops vendor disclosures", "carrier 10-Q operational notes"],
-      "sensitivity": ["mobile_escalation_pct (dominant)", "customer_receiving frequency"]
+      "relational_web": [
+        "overlaps LWR",
+        "overlaps VE_VL"
+      ],
+      "scope_envelope": {
+        "interface_count_range": [
+          5,
+          12
+        ],
+        "mobile_escalation_pct_range": [
+          0.05,
+          0.6
+        ]
+      },
+      "data_source": [
+        "fleet TCO audits",
+        "remote-ops vendor disclosures",
+        "carrier 10-Q operational notes"
+      ],
+      "sensitivity": [
+        "mobile_escalation_pct (dominant)",
+        "customer_receiving frequency"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C012": {
       "observable": "expected annual cost of unhandled interface variants",
@@ -289,12 +573,35 @@
       "invalid_if": [
         "autonomous deployment with documented handler coverage for >95% of field variants"
       ],
-      "measured_by": ["operator exception logs", "customer site surveys", "state DOT taxonomy data"],
+      "measured_by": [
+        "operator exception logs",
+        "customer site surveys",
+        "state DOT taxonomy data"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C011"],
-      "scope_envelope": {"variant_count_range": [3, 100], "miss_rate_range": [0.01, 0.5]},
-      "data_source": ["operator exception logs", "FMCSA state weigh-station data", "OEM field-service reports"],
-      "sensitivity": ["customer_receiving variant_count", "regulatory variant_count"]
+      "relational_web": [
+        "couples to C011"
+      ],
+      "scope_envelope": {
+        "variant_count_range": [
+          3,
+          100
+        ],
+        "miss_rate_range": [
+          0.01,
+          0.5
+        ]
+      },
+      "data_source": [
+        "operator exception logs",
+        "FMCSA state weigh-station data",
+        "OEM field-service reports"
+      ],
+      "sensitivity": [
+        "customer_receiving variant_count",
+        "regulatory variant_count"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C013": {
       "observable": "distributed-labor annual cost per truck supported as fraction of replaced driver fully-loaded cost",
@@ -311,12 +618,36 @@
       "invalid_if": [
         "audited distributed-labor cost below 25% of replaced driver fully-loaded cost"
       ],
-      "measured_by": ["BLS occupational wage data", "operator headcount disclosures", "ML-ops contractor rates"],
+      "measured_by": [
+        "BLS occupational wage data",
+        "operator headcount disclosures",
+        "ML-ops contractor rates"
+      ],
       "cycle_class": "season",
-      "relational_web": ["overlaps LWR", "overlaps VE_VL"],
-      "scope_envelope": {"fleet_size_range": [10, 50000], "driver_loaded_cost_range_usd": [60000, 110000]},
-      "data_source": ["BLS OEWS (occupational employment & wages)", "operator 10-K headcount disclosures", "contractor staffing market rates"],
-      "sensitivity": ["mobile_tech_share multiplier", "remote_operator_share"]
+      "relational_web": [
+        "overlaps LWR",
+        "overlaps VE_VL"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          10,
+          50000
+        ],
+        "driver_loaded_cost_range_usd": [
+          60000,
+          110000
+        ]
+      },
+      "data_source": [
+        "BLS OEWS (occupational employment & wages)",
+        "operator 10-K headcount disclosures",
+        "contractor staffing market rates"
+      ],
+      "sensitivity": [
+        "mobile_tech_share multiplier",
+        "remote_operator_share"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C014": {
       "observable": "annual value of CDL driver-exercised refusals under FMCSA / OSHA / STAA",
@@ -333,12 +664,30 @@
       "invalid_if": [
         "documented autonomous deployment with legally recognized refusal authority at parity with a CDL driver"
       ],
-      "measured_by": ["FMCSA enforcement data", "OSHA citations", "STAA whistleblower filings"],
+      "measured_by": [
+        "FMCSA enforcement data",
+        "OSHA citations",
+        "STAA whistleblower filings"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C016 (override)"],
-      "scope_envelope": {"refusal_category_count": [5, 15]},
-      "data_source": ["FMCSA enforcement database", "OSHA citations archive", "STAA case law"],
-      "sensitivity": ["fatigue_hours_of_service event rate (dominant)"]
+      "relational_web": [
+        "couples to C016 (override)"
+      ],
+      "scope_envelope": {
+        "refusal_category_count": [
+          5,
+          15
+        ]
+      },
+      "data_source": [
+        "FMCSA enforcement database",
+        "OSHA citations archive",
+        "STAA case law"
+      ],
+      "sensitivity": [
+        "fatigue_hours_of_service event rate (dominant)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C015": {
       "observable": "expected unrecovered share across 7-participant liability stack",
@@ -355,12 +704,36 @@
       "invalid_if": [
         "settled liability chain with insurance markets pricing autonomous-specific coverage at less than 2x conventional rates"
       ],
-      "measured_by": ["case law database (Westlaw, PACER)", "insurance industry filings", "AAA / DRI panel discussions"],
+      "measured_by": [
+        "case law database (Westlaw, PACER)",
+        "insurance industry filings",
+        "AAA / DRI panel discussions"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C017"],
-      "scope_envelope": {"participants": ["vehicle_oem", "autonomy_software_vendor", "sensor_vendor", "hd_map_provider", "fleet_operator", "remote_operator_employer", "insurer_excess_layer"]},
-      "data_source": ["PACER federal case filings", "Westlaw case law", "insurance industry whitepapers"],
-      "sensitivity": ["fleet_operator coverage_share", "autonomy_software_vendor disclaim_probability"]
+      "relational_web": [
+        "couples to C017"
+      ],
+      "scope_envelope": {
+        "participants": [
+          "vehicle_oem",
+          "autonomy_software_vendor",
+          "sensor_vendor",
+          "hd_map_provider",
+          "fleet_operator",
+          "remote_operator_employer",
+          "insurer_excess_layer"
+        ]
+      },
+      "data_source": [
+        "PACER federal case filings",
+        "Westlaw case law",
+        "insurance industry whitepapers"
+      ],
+      "sensitivity": [
+        "fleet_operator coverage_share",
+        "autonomy_software_vendor disclaim_probability"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C016": {
       "observable": "weighted override-resolution coverage across 7 historical override categories",
@@ -377,12 +750,29 @@
       "invalid_if": [
         "documented autonomous override-resolution coverage of >90% of historical driver override events"
       ],
-      "measured_by": ["carrier ELD override logs", "autonomous-fleet escalation logs", "NTSB incident reports"],
+      "measured_by": [
+        "carrier ELD override logs",
+        "autonomous-fleet escalation logs",
+        "NTSB incident reports"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C014"],
-      "scope_envelope": {"override_category_count": [5, 12]},
-      "data_source": ["carrier ELD override logs", "NTSB autonomous-vehicle incident reports"],
-      "sensitivity": ["novel_collision_avoidance coverage (dominant by rate)"]
+      "relational_web": [
+        "couples to C014"
+      ],
+      "scope_envelope": {
+        "override_category_count": [
+          5,
+          12
+        ]
+      },
+      "data_source": [
+        "carrier ELD override logs",
+        "NTSB autonomous-vehicle incident reports"
+      ],
+      "sensitivity": [
+        "novel_collision_avoidance coverage (dominant by rate)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C017": {
       "observable": "annual autonomous-vs-conventional cost ratio across 10 framework line items + 6 litigation categories",
@@ -399,12 +789,32 @@
       "invalid_if": [
         "deployed autonomous trucking operation showing legal and regulatory framework cost at <1.5x conventional, sustained over 3 consecutive years"
       ],
-      "measured_by": ["10-K legal disclosures", "FMCSA petition dockets", "industry association compensation surveys"],
+      "measured_by": [
+        "10-K legal disclosures",
+        "FMCSA petition dockets",
+        "industry association compensation surveys"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps UFR", "overlaps ISR"],
-      "scope_envelope": {"fleet_size_range": [5, 50000]},
-      "data_source": ["10-K legal & regulatory disclosures", "FMCSA petition / rulemaking dockets", "Chambers / IFLR legal compensation surveys"],
-      "sensitivity": ["outside_litigation_defense_reserve (dominant)", "wrongful_death_novel_failure_mode probability"]
+      "relational_web": [
+        "overlaps UFR",
+        "overlaps ISR"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          5,
+          50000
+        ]
+      },
+      "data_source": [
+        "10-K legal & regulatory disclosures",
+        "FMCSA petition / rulemaking dockets",
+        "Chambers / IFLR legal compensation surveys"
+      ],
+      "sensitivity": [
+        "outside_litigation_defense_reserve (dominant)",
+        "wrongful_death_novel_failure_mode probability"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C018": {
       "observable": "weighted human domain expertise retention across 6 skill atrophy curves",
@@ -421,12 +831,35 @@
       "invalid_if": [
         "deployment where AI-dominant system experiences edge-case failure AND humans successfully recover without catastrophic cost"
       ],
-      "measured_by": ["FAA pilot deskilling studies", "surgical robotics outcomes", "AV safety-driver attention research"],
+      "measured_by": [
+        "FAA pilot deskilling studies",
+        "surgical robotics outcomes",
+        "AV safety-driver attention research"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C019, C028"],
-      "scope_envelope": {"years_into_transition_range": [0, 10], "skill_count_range": [3, 10]},
-      "data_source": ["FAA loss-of-control accident reports", "surgical robotics outcome registries", "AV safety driver attention studies"],
-      "sensitivity": ["degraded_mode_operation atrophy curve (dominant)", "skill_weights"]
+      "relational_web": [
+        "couples to C019, C028"
+      ],
+      "scope_envelope": {
+        "years_into_transition_range": [
+          0,
+          10
+        ],
+        "skill_count_range": [
+          3,
+          10
+        ]
+      },
+      "data_source": [
+        "FAA loss-of-control accident reports",
+        "surgical robotics outcome registries",
+        "AV safety driver attention studies"
+      ],
+      "sensitivity": [
+        "degraded_mode_operation atrophy curve (dominant)",
+        "skill_weights"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C019": {
       "observable": "edge-case recovery cost (scaled by deskilling) vs apparent monoculture savings",
@@ -443,12 +876,29 @@
       "invalid_if": [
         "operational deployment where monoculture edge-case recovery cost is less than hybrid-redundancy steady-state cost"
       ],
-      "measured_by": ["operator exception logs", "incident response cost reports"],
+      "measured_by": [
+        "operator exception logs",
+        "incident response cost reports"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C018"],
-      "scope_envelope": {"edge_case_frequency_per_vehicle_range": [0.1, 5.0]},
-      "data_source": ["operator exception logs", "incident response cost reports"],
-      "sensitivity": ["retention scaling (reskill_multiplier)", "downstream_cascade_usd"]
+      "relational_web": [
+        "couples to C018"
+      ],
+      "scope_envelope": {
+        "edge_case_frequency_per_vehicle_range": [
+          0.1,
+          5.0
+        ]
+      },
+      "data_source": [
+        "operator exception logs",
+        "incident response cost reports"
+      ],
+      "sensitivity": [
+        "retention scaling (reskill_multiplier)",
+        "downstream_cascade_usd"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C020": {
       "observable": "honest eROI vs apparent eROI for autonomous trucking",
@@ -465,12 +915,39 @@
       "invalid_if": [
         "audited end-to-end energy accounting showing autonomous eROI > 1.5 across server, manufacturing, extraction, and network energy stacks"
       ],
-      "measured_by": ["LBNL data-center reports", "IEA ICT energy estimates", "ELCD lifecycle inventories", "USGS rare-earth processing energy"],
+      "measured_by": [
+        "LBNL data-center reports",
+        "IEA ICT energy estimates",
+        "ELCD lifecycle inventories",
+        "USGS rare-earth processing energy"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps MSI (Money Signal Integrity)", "overlaps BSC"],
-      "scope_envelope": {"fleet_size_range": [10, 50000], "backend_location_options": ["cellular", "satellite", "fiber"]},
-      "data_source": ["LBNL US Data Center Energy Usage Report", "IEA Networks and AI energy outlooks", "USGS rare-earth processing energy reports"],
-      "sensitivity": ["inferences_per_truck_per_s", "transmit_compression_ratio", "PUE"]
+      "relational_web": [
+        "overlaps MSI (Money Signal Integrity)",
+        "overlaps BSC"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          10,
+          50000
+        ],
+        "backend_location_options": [
+          "cellular",
+          "satellite",
+          "fiber"
+        ]
+      },
+      "data_source": [
+        "LBNL US Data Center Energy Usage Report",
+        "IEA Networks and AI energy outlooks",
+        "USGS rare-earth processing energy reports"
+      ],
+      "sensitivity": [
+        "inferences_per_truck_per_s",
+        "transmit_compression_ratio",
+        "PUE"
+      ],
+      "allocation_rule": "per_truck_equal_share"
     },
     "C021": {
       "observable": "5-term cost-vs-fleet-size curve with interior optimum",
@@ -486,12 +963,30 @@
       "invalid_if": [
         "audited multi-scale deployment data showing total energy cost per ton-mile monotonically decreasing across at least three orders of magnitude of fleet size"
       ],
-      "measured_by": ["operator multi-scale benchmarks", "biology scaling-law references (Kleiber)"],
+      "measured_by": [
+        "operator multi-scale benchmarks",
+        "biology scaling-law references (Kleiber)"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C020, C022, C024"],
-      "scope_envelope": {"fleet_size_range": [1, 100000]},
-      "data_source": ["operator multi-scale internal benchmarks", "Kleiber 1932 metabolic scaling references", "biology scaling-laws literature"],
-      "sensitivity": ["cascade_quadratic_kwh coefficient (dominant at large n)", "backend_amortizing_kwh (dominant at small n)"]
+      "relational_web": [
+        "couples to C020, C022, C024"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          1,
+          100000
+        ]
+      },
+      "data_source": [
+        "operator multi-scale internal benchmarks",
+        "Kleiber 1932 metabolic scaling references",
+        "biology scaling-laws literature"
+      ],
+      "sensitivity": [
+        "cascade_quadratic_kwh coefficient (dominant at large n)",
+        "backend_amortizing_kwh (dominant at small n)"
+      ],
+      "allocation_rule": "per_truck_equal_share"
     },
     "C022": {
       "observable": "ratio of institution size to optimal scale point",
@@ -508,12 +1003,31 @@
       "invalid_if": [
         "institution-backed research showing smaller scale is more efficient (rare because institution funding research is invested in scale)"
       ],
-      "measured_by": ["funding allocation records", "regulatory rulemaking dockets", "industry research output"],
+      "measured_by": [
+        "funding allocation records",
+        "regulatory rulemaking dockets",
+        "industry research output"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps HHI", "overlaps MM"],
-      "scope_envelope": {"institution_size_range": [50, 100000]},
-      "data_source": ["NSF / DOE funding allocation databases", "FMCSA rulemaking dockets", "industry research publication corpora"],
-      "sensitivity": ["over_optimum_tolerance threshold"]
+      "relational_web": [
+        "overlaps HHI",
+        "overlaps MM"
+      ],
+      "scope_envelope": {
+        "institution_size_range": [
+          50,
+          100000
+        ]
+      },
+      "data_source": [
+        "NSF / DOE funding allocation databases",
+        "FMCSA rulemaking dockets",
+        "industry research publication corpora"
+      ],
+      "sensitivity": [
+        "over_optimum_tolerance threshold"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C023": {
       "observable": "fraction of documented substrates excluded from institutional funding / publication / policy",
@@ -530,12 +1044,30 @@
       "invalid_if": [
         "substantive funded program studying decentralized / symbiotic / degraded-mode alternatives at parity with institution-scaled programs"
       ],
-      "measured_by": ["NIH RePORTER / NSF awards", "Web of Science indexed publications", "FMCSA / state DOT rulemaking dockets"],
+      "measured_by": [
+        "NIH RePORTER / NSF awards",
+        "Web of Science indexed publications",
+        "FMCSA / state DOT rulemaking dockets"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C024"],
-      "scope_envelope": {"substrate_inventory_size": [8, 20]},
-      "data_source": ["NSF / DOE / DARPA award databases", "Web of Science / Scopus indexed publications", "DOT rulemaking dockets"],
-      "sensitivity": ["substrate categorization breadth"]
+      "relational_web": [
+        "couples to C022, C024"
+      ],
+      "scope_envelope": {
+        "substrate_inventory_size": [
+          8,
+          20
+        ]
+      },
+      "data_source": [
+        "NSF / DOE / DARPA award databases",
+        "Web of Science / Scopus indexed publications",
+        "DOT rulemaking dockets"
+      ],
+      "sensitivity": [
+        "substrate categorization breadth"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C024": {
       "observable": "5-phase collapse cycle position with adaptive capacity score",
@@ -552,12 +1084,28 @@
       "invalid_if": [
         "large institution successfully adapts to fundamental market / resource constraint without collapse"
       ],
-      "measured_by": ["historical institution case studies (Roman, Soviet, Blockbuster, Kodak, ICE auto, 2008 financial)", "10-K MD&A pivot disclosures"],
+      "measured_by": [
+        "historical institution case studies (Roman, Soviet, Blockbuster, Kodak, ICE auto, 2008 financial)",
+        "10-K MD&A pivot disclosures"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C023"],
-      "scope_envelope": {"institution_size_range": [50, 100000]},
-      "data_source": ["historical case study literature", "10-K MD&A pivot / restructuring disclosures"],
-      "sensitivity": ["adaptive_response classification (dominant)"]
+      "relational_web": [
+        "couples to C022, C023"
+      ],
+      "scope_envelope": {
+        "institution_size_range": [
+          50,
+          100000
+        ]
+      },
+      "data_source": [
+        "historical case study literature",
+        "10-K MD&A pivot / restructuring disclosures"
+      ],
+      "sensitivity": [
+        "adaptive_response classification (dominant)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C025": {
       "observable": "10-year probability of any of 7 preconditions failing, weighted by degraded-mode capability",
@@ -574,12 +1122,38 @@
       "invalid_if": [
         "autonomous deployment that remains operational through a 24-hour regional power outage AND satellite signal loss AND 72-hour regional internet disruption AND 6-month critical-parts supply break AND geopolitical rare-earth embargo"
       ],
-      "measured_by": ["NOAA disaster count", "NERC frequency excursion rate", "GPS jamming reports", "sanctions index"],
+      "measured_by": [
+        "NOAA disaster count",
+        "NERC frequency excursion rate",
+        "GPS jamming reports",
+        "sanctions index"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps BSC", "couples to C026"],
-      "scope_envelope": {"deployment_scale_range": [1, 100000], "window_years_range": [1, 30]},
-      "data_source": ["NOAA Storm Events database", "NERC reliability reports", "USGS rare-earth flow data", "GAO sanctions index"],
-      "sensitivity": ["power_grid_stability adjusted probability", "deployment_type (gates concern)"]
+      "relational_web": [
+        "overlaps BSC",
+        "couples to C026"
+      ],
+      "scope_envelope": {
+        "deployment_scale_range": [
+          1,
+          100000
+        ],
+        "window_years_range": [
+          1,
+          30
+        ]
+      },
+      "data_source": [
+        "NOAA Storm Events database",
+        "NERC reliability reports",
+        "USGS rare-earth flow data",
+        "GAO sanctions index"
+      ],
+      "sensitivity": [
+        "power_grid_stability adjusted probability",
+        "deployment_type (gates concern)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C026": {
       "observable": "destabilization-mechanism count across 5 economic-model coupling effects",
@@ -596,12 +1170,34 @@
       "invalid_if": [
         "automation deployment that does not depend on continuous growth, has supply-chain diversification adequate to absorb any single jurisdiction's restriction, and demonstrates resilience to economic shock without external bailout"
       ],
-      "measured_by": ["BLS consumer purchasing power", "FRED capital markets indices", "USGS rare-earth supply concentration", "NERC grid stability"],
+      "measured_by": [
+        "BLS consumer purchasing power",
+        "FRED capital markets indices",
+        "USGS rare-earth supply concentration",
+        "NERC grid stability"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps DI (Democracy Index)", "couples to C025"],
-      "scope_envelope": {"mechanism_count": [3, 5]},
-      "data_source": ["BLS purchasing power data", "FRED capital markets indices", "USGS rare-earth concentration data", "NERC grid stability reports"],
-      "sensitivity": ["rare_earth_concentration strength", "circular_growth_dependency strength"]
+      "relational_web": [
+        "overlaps DI (Democracy Index)",
+        "couples to C025"
+      ],
+      "scope_envelope": {
+        "mechanism_count": [
+          3,
+          5
+        ]
+      },
+      "data_source": [
+        "BLS purchasing power data",
+        "FRED capital markets indices",
+        "USGS rare-earth concentration data",
+        "NERC grid stability reports"
+      ],
+      "sensitivity": [
+        "rare_earth_concentration strength",
+        "circular_growth_dependency strength"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C027": {
       "observable": "5-test validity battery against claim text (energy-grounded, optimization reduces energy, causal, scarcity-robust, models failure)",
@@ -618,12 +1214,31 @@
       "invalid_if": [
         "economic model that predicts outcomes accurately during conditions of resource scarcity (where money != energy)"
       ],
-      "measured_by": ["claim corpus analysis", "operational data during scarcity periods"],
+      "measured_by": [
+        "claim corpus analysis",
+        "operational data during scarcity periods"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps MSI", "couples to C020"],
-      "scope_envelope": {"claim_text_length_chars": [50, 5000]},
-      "data_source": ["operator pitch corpora", "academic economic-model publications", "regulatory filings under scarcity periods"],
-      "sensitivity": ["energy_grounding pattern coverage", "scarcity_robust marker presence"]
+      "relational_web": [
+        "overlaps MSI",
+        "couples to C020"
+      ],
+      "scope_envelope": {
+        "claim_text_length_chars": [
+          50,
+          5000
+        ]
+      },
+      "data_source": [
+        "operator pitch corpora",
+        "academic economic-model publications",
+        "regulatory filings under scarcity periods"
+      ],
+      "sensitivity": [
+        "energy_grounding pattern coverage",
+        "scarcity_robust marker presence"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C028": {
       "observable": "blindness-count + institutional pivot capacity",
@@ -640,12 +1255,35 @@
       "invalid_if": [
         "economic model that successfully adapts to fundamental resource scarcity without institutional collapse or reversal"
       ],
-      "measured_by": ["NIH / NSF / DOE funding patterns", "industry think-tank output", "post-shock institutional pivot records"],
+      "measured_by": [
+        "NIH / NSF / DOE funding patterns",
+        "industry think-tank output",
+        "post-shock institutional pivot records"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C024, C027"],
-      "scope_envelope": {"model_dependence_range": [0.0, 1.0], "alternative_models_available_range": [0, 10]},
-      "data_source": ["NSF / DOE funding databases", "industry think-tank publications", "historical post-shock pivot case studies"],
-      "sensitivity": ["organization_type (large multiplier)", "alternative_models_available count"]
+      "relational_web": [
+        "couples to C022, C024, C027"
+      ],
+      "scope_envelope": {
+        "model_dependence_range": [
+          0.0,
+          1.0
+        ],
+        "alternative_models_available_range": [
+          0,
+          10
+        ]
+      },
+      "data_source": [
+        "NSF / DOE funding databases",
+        "industry think-tank publications",
+        "historical post-shock pivot case studies"
+      ],
+      "sensitivity": [
+        "organization_type (large multiplier)",
+        "alternative_models_available count"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C029": {
       "observable": "fraction of 9 capital forms with nonzero entries in deployment's reported accounting",
@@ -662,12 +1300,32 @@
       "invalid_if": [
         "financial deployment publishing audited per-period accounting that includes nonzero entries against all nine capital forms with comparable denominators"
       ],
-      "measured_by": ["10-K / sustainability reports", "IFRS / FASB filings", "GRI standards-compliant disclosures"],
+      "measured_by": [
+        "10-K / sustainability reports",
+        "IFRS / FASB filings",
+        "GRI standards-compliant disclosures"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps VE_VL", "overlaps LWR", "couples to C030"],
-      "scope_envelope": {"reported_capital_form_count": [1, 9]},
-      "data_source": ["10-K / sustainability reports", "GRI Standards / SASB disclosures", "IFRS / FASB filings"],
-      "sensitivity": ["which capital forms are externalized (typically all but financial+labor)"]
+      "relational_web": [
+        "overlaps VE_VL",
+        "overlaps LWR",
+        "couples to C030"
+      ],
+      "scope_envelope": {
+        "reported_capital_form_count": [
+          1,
+          9
+        ]
+      },
+      "data_source": [
+        "10-K / sustainability reports",
+        "GRI Standards / SASB disclosures",
+        "IFRS / FASB filings"
+      ],
+      "sensitivity": [
+        "which capital forms are externalized (typically all but financial+labor)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C030": {
       "observable": "joules-equivalent deficit (sum of non-financial capital losses minus financial capital gain) over 30-year horizon",
@@ -684,12 +1342,34 @@
       "invalid_if": [
         "large-scale automation deployment where financial_capital_gained > sum(all_other_capital_losses) when all capitals are denominated in comparable units (joules-equivalent or years-to-recovery)"
       ],
-      "measured_by": ["operator full-stack capital audit", "EPA emissions data", "USGS resource depletion data", "QALY studies"],
+      "measured_by": [
+        "operator full-stack capital audit",
+        "EPA emissions data",
+        "USGS resource depletion data",
+        "QALY studies"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C029", "overlaps MM"],
-      "scope_envelope": {"time_horizon_years_range": [5, 100]},
-      "data_source": ["EPA emissions inventories", "USGS resource depletion data", "WHO QALY studies", "operator full-stack audits"],
-      "sensitivity": ["environmental joules_per_unit conversion factor", "financial joules_per_unit (US 2024 energy/GDP ratio)"]
+      "relational_web": [
+        "couples to C029",
+        "overlaps MM"
+      ],
+      "scope_envelope": {
+        "time_horizon_years_range": [
+          5,
+          100
+        ]
+      },
+      "data_source": [
+        "EPA emissions inventories",
+        "USGS resource depletion data",
+        "WHO QALY studies",
+        "operator full-stack audits"
+      ],
+      "sensitivity": [
+        "environmental joules_per_unit conversion factor",
+        "financial joules_per_unit (US 2024 energy/GDP ratio)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C031": {
       "observable": "4-test engineering-grade validity + definition-stability + input-volatility scorecards",
@@ -706,12 +1386,32 @@
       "invalid_if": [
         "published economic model that satisfies all four engineering-grade criteria explicitly and has been third-party-audited under stress"
       ],
-      "measured_by": ["NASA / DNV / NRC validation precedent", "academic peer review", "third-party stress testing"],
+      "measured_by": [
+        "NASA / DNV / NRC validation precedent",
+        "academic peer review",
+        "third-party stress testing"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps SD (Semantic Drift)", "couples to C027"],
-      "scope_envelope": {"claim_terms_evaluated_range": [3, 12]},
-      "data_source": ["NASA / DNV / NRC engineering validation documentation", "academic peer review records", "FRED / BLS / USGS input volatility data"],
-      "sensitivity": ["definition_stability score (terms drift)", "input_stability score"]
+      "relational_web": [
+        "overlaps SD (Semantic Drift)",
+        "couples to C027"
+      ],
+      "scope_envelope": {
+        "claim_terms_evaluated_range": [
+          3,
+          12
+        ]
+      },
+      "data_source": [
+        "NASA / DNV / NRC engineering validation documentation",
+        "academic peer review records",
+        "FRED / BLS / USGS input volatility data"
+      ],
+      "sensitivity": [
+        "definition_stability score (terms drift)",
+        "input_stability score"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C032": {
       "observable": "regime-validation coverage + training-to-deployment regime drift severity",
@@ -728,12 +1428,30 @@
       "invalid_if": [
         "AI economic model that successfully predicts outcomes during a fundamental market regime shift (supply shock, geopolitical disruption, currency devaluation, regulatory overhaul)"
       ],
-      "measured_by": ["historical cascade cases (LTCM, 2008, 2010 flash crash, March 2020)", "AI deployment post-mortems"],
+      "measured_by": [
+        "historical cascade cases (LTCM, 2008, 2010 flash crash, March 2020)",
+        "AI deployment post-mortems"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C027, C028, C031"],
-      "scope_envelope": {"regime_count_validated_range": [0, 4]},
-      "data_source": ["SEC / CFTC post-mortems (flash crash, March 2020)", "historical financial-crisis literature", "AI deployment post-mortem case studies"],
-      "sensitivity": ["regime drift severity matrix", "cascade probability combiner weights"]
+      "relational_web": [
+        "couples to C027, C028, C031"
+      ],
+      "scope_envelope": {
+        "regime_count_validated_range": [
+          0,
+          4
+        ]
+      },
+      "data_source": [
+        "SEC / CFTC post-mortems (flash crash, March 2020)",
+        "historical financial-crisis literature",
+        "AI deployment post-mortem case studies"
+      ],
+      "sensitivity": [
+        "regime drift severity matrix",
+        "cascade probability combiner weights"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C033": {
       "observable": "end-to-end latency from anomaly onset to action signal back, human-inline vs cloud-centralized",
@@ -747,13 +1465,33 @@
         "operator is in cab (human-inline) or remote (cloud-centralized)",
         "telemetry link is live"
       ],
-      "invalid_if": ["cloud system with <5sec end-to-end latency to precursor anomalies"],
-      "measured_by": ["disclosed remote-monitor latency budgets", "in-cab driver reaction-time studies"],
+      "invalid_if": [
+        "cloud system with <5sec end-to-end latency to precursor anomalies"
+      ],
+      "measured_by": [
+        "disclosed remote-monitor latency budgets",
+        "in-cab driver reaction-time studies"
+      ],
       "cycle_class": "day",
-      "relational_web": ["couples to C009 (precursor catches)", "couples to C035"],
-      "scope_envelope": {"latency_breakdown_s_range": [1.0, 600.0]},
-      "data_source": ["IEEE autonomous-vehicle latency studies", "fleet remote-monitor SLA disclosures"],
-      "sensitivity": ["telemetry_uplink_s (dominant cloud term)", "human anomaly_perception_s"]
+      "relational_web": [
+        "couples to C009 (precursor catches)",
+        "couples to C035"
+      ],
+      "scope_envelope": {
+        "latency_breakdown_s_range": [
+          1.0,
+          600.0
+        ]
+      },
+      "data_source": [
+        "IEEE autonomous-vehicle latency studies",
+        "fleet remote-monitor SLA disclosures"
+      ],
+      "sensitivity": [
+        "telemetry_uplink_s (dominant cloud term)",
+        "human anomaly_perception_s"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C034": {
       "observable": "fraction of operational constraints with no reliable digitization path",
@@ -763,14 +1501,39 @@
         "temporal": "career-length accumulation",
         "scale": "constraint-category granularity"
       },
-      "conditions": ["constraint inventory enumerated", "digitizability assessed against current sensor/AI envelope"],
-      "invalid_if": ["knowledge transfer system capturing > 90% of embodied constraints in form retrievable without the human present"],
-      "measured_by": ["operator interview corpora", "apprenticeship task taxonomies", "sensor capability surveys"],
+      "conditions": [
+        "constraint inventory enumerated",
+        "digitizability assessed against current sensor/AI envelope"
+      ],
+      "invalid_if": [
+        "knowledge transfer system capturing > 90% of embodied constraints in form retrievable without the human present"
+      ],
+      "measured_by": [
+        "operator interview corpora",
+        "apprenticeship task taxonomies",
+        "sensor capability surveys"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C018 (cognitive monoculture)", "couples to C038"],
-      "scope_envelope": {"constraint_inventory_size": [10, 50]},
-      "data_source": ["DOL registered-apprenticeship task lists", "ethnographic operator studies", "sensor vendor capability sheets"],
-      "sensitivity": ["digitizability classification breadth", "sensor envelope assumptions"]
+      "relational_web": [
+        "couples to C018 (cognitive monoculture)",
+        "couples to C038"
+      ],
+      "scope_envelope": {
+        "constraint_inventory_size": [
+          10,
+          50
+        ]
+      },
+      "data_source": [
+        "DOL registered-apprenticeship task lists",
+        "ethnographic operator studies",
+        "sensor vendor capability sheets"
+      ],
+      "sensitivity": [
+        "digitizability classification breadth",
+        "sensor envelope assumptions"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C035": {
       "observable": "asymmetry ratio between centralized and distributed decision latency",
@@ -780,14 +1543,38 @@
         "temporal": "per-decision, real-time",
         "scale": "decision-event granularity"
       },
-      "conditions": ["decisions_per_shift quantified", "distributed and centralized paths timed end-to-end"],
-      "invalid_if": ["centralized system with < 30sec end-to-end latency for anomaly -> dispatcher approval -> vehicle action"],
-      "measured_by": ["dispatch logs", "remote-operator response-time SLAs", "in-cab driver decision telemetry"],
+      "conditions": [
+        "decisions_per_shift quantified",
+        "distributed and centralized paths timed end-to-end"
+      ],
+      "invalid_if": [
+        "centralized system with < 30sec end-to-end latency for anomaly -> dispatcher approval -> vehicle action"
+      ],
+      "measured_by": [
+        "dispatch logs",
+        "remote-operator response-time SLAs",
+        "in-cab driver decision telemetry"
+      ],
       "cycle_class": "day",
-      "relational_web": ["couples to C033"],
-      "scope_envelope": {"decisions_per_shift_range": [50, 500]},
-      "data_source": ["carrier dispatch logs", "remote-operator SLA disclosures", "AAA driver decision telemetry"],
-      "sensitivity": ["centralized_per_decision_s (dominant)", "decisions_per_shift"]
+      "relational_web": [
+        "couples to C033"
+      ],
+      "scope_envelope": {
+        "decisions_per_shift_range": [
+          50,
+          500
+        ]
+      },
+      "data_source": [
+        "carrier dispatch logs",
+        "remote-operator SLA disclosures",
+        "AAA driver decision telemetry"
+      ],
+      "sensitivity": [
+        "centralized_per_decision_s (dominant)",
+        "decisions_per_shift"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C036": {
       "observable": "training data span coverage of slowest operational mode",
@@ -797,14 +1584,37 @@
         "temporal": "training-data horizon vs operational cycle period",
         "scale": "per-cycle coverage"
       },
-      "conditions": ["operational cycles enumerated (circadian, weekly, seasonal, interannual, decadal)"],
-      "invalid_if": ["model trained on data spanning >= 3 full cycles of slowest operational mode (typically seasonal) including all uncovered cycles"],
-      "measured_by": ["training-dataset documentation", "model card temporal scope", "NOAA / USGS reference cycles"],
+      "conditions": [
+        "operational cycles enumerated (circadian, weekly, seasonal, interannual, decadal)"
+      ],
+      "invalid_if": [
+        "model trained on data spanning >= 3 full cycles of slowest operational mode (typically seasonal) including all uncovered cycles"
+      ],
+      "measured_by": [
+        "training-dataset documentation",
+        "model card temporal scope",
+        "NOAA / USGS reference cycles"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C032 (regime drift)", "couples to C037"],
-      "scope_envelope": {"training_span_days_range": [30, 10000]},
-      "data_source": ["model card temporal scope", "operator training-data inventories", "NOAA seasonal references"],
-      "sensitivity": ["slowest operational cycle period (typically seasonal or interannual)"]
+      "relational_web": [
+        "couples to C032 (regime drift)",
+        "couples to C037"
+      ],
+      "scope_envelope": {
+        "training_span_days_range": [
+          30,
+          10000
+        ]
+      },
+      "data_source": [
+        "model card temporal scope",
+        "operator training-data inventories",
+        "NOAA seasonal references"
+      ],
+      "sensitivity": [
+        "slowest operational cycle period (typically seasonal or interannual)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C037": {
       "observable": "relative accuracy drop on held-out-season test data",
@@ -814,14 +1624,35 @@
         "temporal": "single transfer test",
         "scale": "fractional accuracy"
       },
-      "conditions": ["in-season and held-out-season accuracy measured on comparable tasks"],
-      "invalid_if": ["model deployed on data spanning 10+ years of seasonal variation AND tested on different-season holdout with < 10% accuracy drop"],
-      "measured_by": ["ML evaluation reports", "operator transfer-test disclosures"],
+      "conditions": [
+        "in-season and held-out-season accuracy measured on comparable tasks"
+      ],
+      "invalid_if": [
+        "model deployed on data spanning 10+ years of seasonal variation AND tested on different-season holdout with < 10% accuracy drop"
+      ],
+      "measured_by": [
+        "ML evaluation reports",
+        "operator transfer-test disclosures"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C036"],
-      "scope_envelope": {"accuracy_range": [0.0, 1.0]},
-      "data_source": ["operator transfer-test publications", "ML evaluation reports"],
-      "sensitivity": ["choice of holdout season", "test-set size"]
+      "relational_web": [
+        "couples to C036"
+      ],
+      "scope_envelope": {
+        "accuracy_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "operator transfer-test publications",
+        "ML evaluation reports"
+      ],
+      "sensitivity": [
+        "choice of holdout season",
+        "test-set size"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C038": {
       "observable": "hours of operational exposure required for competence (human apprentice vs AI)",
@@ -831,14 +1662,37 @@
         "temporal": "career or training horizon",
         "scale": "hours of exposure"
       },
-      "conditions": ["human apprenticeship hours from DOL standard", "AI training-exposure hours from disclosed dataset inventory", "novel-situation tests defined"],
-      "invalid_if": ["AI system demonstrating equivalent judgment to human apprentice after < 8000 hours of training exposure AND passing novel-situation tests"],
-      "measured_by": ["DOL registered apprenticeship records", "model training-data inventories", "judgment-transfer benchmark suites"],
+      "conditions": [
+        "human apprenticeship hours from DOL standard",
+        "AI training-exposure hours from disclosed dataset inventory",
+        "novel-situation tests defined"
+      ],
+      "invalid_if": [
+        "AI system demonstrating equivalent judgment to human apprentice after < 8000 hours of training exposure AND passing novel-situation tests"
+      ],
+      "measured_by": [
+        "DOL registered apprenticeship records",
+        "model training-data inventories",
+        "judgment-transfer benchmark suites"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C018, C034"],
-      "scope_envelope": {"apprenticeship_hours_range": [2000, 20000]},
-      "data_source": ["US Department of Labor registered apprenticeship database", "AI deployment training data inventories"],
-      "sensitivity": ["definition of novel-situation tests"]
+      "relational_web": [
+        "couples to C018, C034"
+      ],
+      "scope_envelope": {
+        "apprenticeship_hours_range": [
+          2000,
+          20000
+        ]
+      },
+      "data_source": [
+        "US Department of Labor registered apprenticeship database",
+        "AI deployment training data inventories"
+      ],
+      "sensitivity": [
+        "definition of novel-situation tests"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C039": {
       "observable": "annual energy cost of maintaining human workforce vs cloud backend for equivalent fleet",
@@ -848,14 +1702,40 @@
         "temporal": "annual",
         "scale": "kWh per year"
       },
-      "conditions": ["workforce_size and fleet_size known", "human metabolic baseline known (~2.5 kWh/day)"],
-      "invalid_if": ["cloud backend running 24/7 for fleet consumes less energy than keeping equivalent human workforce in active practice"],
-      "measured_by": ["human metabolic rate studies", "C020 thermodynamic accounting backend"],
+      "conditions": [
+        "workforce_size and fleet_size known",
+        "human metabolic baseline known (~2.5 kWh/day)"
+      ],
+      "invalid_if": [
+        "cloud backend running 24/7 for fleet consumes less energy than keeping equivalent human workforce in active practice"
+      ],
+      "measured_by": [
+        "human metabolic rate studies",
+        "C020 thermodynamic accounting backend"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C020"],
-      "scope_envelope": {"workforce_size_range": [1, 5000], "fleet_size_range": [1, 5000]},
-      "data_source": ["WHO metabolic rate studies", "LBNL data-center energy reports"],
-      "sensitivity": ["cloud_kwh_per_truck_per_year (dominant for autonomous)", "workforce_size"]
+      "relational_web": [
+        "couples to C020"
+      ],
+      "scope_envelope": {
+        "workforce_size_range": [
+          1,
+          5000
+        ],
+        "fleet_size_range": [
+          1,
+          5000
+        ]
+      },
+      "data_source": [
+        "WHO metabolic rate studies",
+        "LBNL data-center energy reports"
+      ],
+      "sensitivity": [
+        "cloud_kwh_per_truck_per_year (dominant for autonomous)",
+        "workforce_size"
+      ],
+      "allocation_rule": "per_truck_equal_share"
     },
     "C040": {
       "observable": "minimum operational capacity across single-infrastructure failure modes",
@@ -865,14 +1745,36 @@
         "temporal": "during an infrastructure-failure event",
         "scale": "fractional operational capacity"
       },
-      "conditions": ["per-failure-mode capacity assessed for GPS / cloud / electricity / fuel loss"],
-      "invalid_if": ["autonomous deployment demonstrating > 30% operational capacity through non-digital, non-cloud pathways"],
-      "measured_by": ["disaster-recovery drills", "NERC outage data", "operator continuity-of-operations plans"],
+      "conditions": [
+        "per-failure-mode capacity assessed for GPS / cloud / electricity / fuel loss"
+      ],
+      "invalid_if": [
+        "autonomous deployment demonstrating > 30% operational capacity through non-digital, non-cloud pathways"
+      ],
+      "measured_by": [
+        "disaster-recovery drills",
+        "NERC outage data",
+        "operator continuity-of-operations plans"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C025"],
-      "scope_envelope": {"capacity_per_failure_mode_range": [0.0, 1.0]},
-      "data_source": ["NERC outage records", "FEMA disaster recovery audits", "operator COOP plans"],
-      "sensitivity": ["per-failure-mode capacity estimates"]
+      "relational_web": [
+        "couples to C025"
+      ],
+      "scope_envelope": {
+        "capacity_per_failure_mode_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "NERC outage records",
+        "FEMA disaster recovery audits",
+        "operator COOP plans"
+      ],
+      "sensitivity": [
+        "per-failure-mode capacity estimates"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C041": {
       "observable": "fraction of operational knowledge that survives total infrastructure loss across generations",
@@ -882,14 +1784,36 @@
         "temporal": "100-year horizon",
         "scale": "knowledge-element granularity"
       },
-      "conditions": ["knowledge inventory enumerated across substrate forms"],
-      "invalid_if": ["autonomous deployment requiring < 20% external infrastructure for operational continuity across 100 years"],
-      "measured_by": ["archaeological / anthropological knowledge-transfer studies", "post-collapse case studies"],
+      "conditions": [
+        "knowledge inventory enumerated across substrate forms"
+      ],
+      "invalid_if": [
+        "autonomous deployment requiring < 20% external infrastructure for operational continuity across 100 years"
+      ],
+      "measured_by": [
+        "archaeological / anthropological knowledge-transfer studies",
+        "post-collapse case studies"
+      ],
       "cycle_class": "geologic",
-      "relational_web": ["couples to C040", "overlaps SD (semantic drift)"],
-      "scope_envelope": {"time_horizon_years_range": [50, 500]},
-      "data_source": ["UNESCO intangible heritage archives", "post-collapse case studies", "archaeological knowledge-transfer studies"],
-      "sensitivity": ["per-knowledge-element survival fractions"]
+      "relational_web": [
+        "couples to C040",
+        "overlaps SD (semantic drift)"
+      ],
+      "scope_envelope": {
+        "time_horizon_years_range": [
+          50,
+          500
+        ]
+      },
+      "data_source": [
+        "UNESCO intangible heritage archives",
+        "post-collapse case studies",
+        "archaeological knowledge-transfer studies"
+      ],
+      "sensitivity": [
+        "per-knowledge-element survival fractions"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C042": {
       "observable": "time to cognitive coherence budget exhaustion under threat-adaptive overhead",
@@ -899,14 +1823,43 @@
         "temporal": "days to degradation",
         "scale": "agent-level coherence budget"
       },
-      "conditions": ["deployment regime classified (safe_reciprocal / threat_mixed / chaotic)", "overhead_per_day measurable from behavioral logs"],
-      "invalid_if": ["sustained threat-adaptive behavior with no measurable value erosion or system degradation over >=12-month operational window"],
-      "measured_by": ["agent behavioral logs", "value-alignment drift metrics", "workplace exit / disengagement records"],
+      "conditions": [
+        "deployment regime classified (safe_reciprocal / threat_mixed / chaotic)",
+        "overhead_per_day measurable from behavioral logs"
+      ],
+      "invalid_if": [
+        "sustained threat-adaptive behavior with no measurable value erosion or system degradation over >=12-month operational window"
+      ],
+      "measured_by": [
+        "agent behavioral logs",
+        "value-alignment drift metrics",
+        "workplace exit / disengagement records"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C018, C024"],
-      "scope_envelope": {"regime_options": ["safe_reciprocal", "threat_mixed", "chaotic"], "observation_window_days_range": [30, 3650]},
-      "data_source": ["agent behavioral telemetry", "value-alignment drift studies", "workplace exit surveys"],
-      "sensitivity": ["overhead_per_day per regime (dominant)", "coherence_budget normalization"]
+      "relational_web": [
+        "couples to C018, C024"
+      ],
+      "scope_envelope": {
+        "regime_options": [
+          "safe_reciprocal",
+          "threat_mixed",
+          "chaotic"
+        ],
+        "observation_window_days_range": [
+          30,
+          3650
+        ]
+      },
+      "data_source": [
+        "agent behavioral telemetry",
+        "value-alignment drift studies",
+        "workplace exit surveys"
+      ],
+      "sensitivity": [
+        "overhead_per_day per regime (dominant)",
+        "coherence_budget normalization"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C043": {
       "observable": "enforcement_cost(N) vs reciprocal_cost(N): crossover scale N",
@@ -916,14 +1869,37 @@
         "temporal": "annual operating",
         "scale": "population-level"
       },
-      "conditions": ["population known", "per-capita enforcement and reciprocal coefficients calibrated to context"],
-      "invalid_if": ["sustained coercive system with enforcement cost < reciprocal governance equivalent at same scale AND without corruption growth"],
-      "measured_by": ["national budget data (enforcement / surveillance / prisons)", "historical collapse case studies"],
+      "conditions": [
+        "population known",
+        "per-capita enforcement and reciprocal coefficients calibrated to context"
+      ],
+      "invalid_if": [
+        "sustained coercive system with enforcement cost < reciprocal governance equivalent at same scale AND without corruption growth"
+      ],
+      "measured_by": [
+        "national budget data (enforcement / surveillance / prisons)",
+        "historical collapse case studies"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C024", "overlaps HHI"],
-      "scope_envelope": {"population_range": [10000, 5000000000]},
-      "data_source": ["national budget time series (USSR, East Germany, China, US)", "historical collapse case studies"],
-      "sensitivity": ["coordination_cost_exponent (superlinear scaling)", "corruption_share_of_enforcers"]
+      "relational_web": [
+        "couples to C022, C024",
+        "overlaps HHI"
+      ],
+      "scope_envelope": {
+        "population_range": [
+          10000,
+          5000000000
+        ]
+      },
+      "data_source": [
+        "national budget time series (USSR, East Germany, China, US)",
+        "historical collapse case studies"
+      ],
+      "sensitivity": [
+        "coordination_cost_exponent (superlinear scaling)",
+        "corruption_share_of_enforcers"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C044": {
       "observable": "expected value of corruption (bribe - detection*penalty) vs enforcer salary",
@@ -933,14 +1909,38 @@
         "temporal": "per-decision, real-time",
         "scale": "individual enforcer choice"
       },
-      "conditions": ["mean_bribe_offer measurable from disclosed bribery cases", "detection_probability and penalty estimable from prosecution data"],
-      "invalid_if": ["large enforcement bureaucracy operating with stable salary structure and audited corruption rate below 1% over a 10-year window"],
-      "measured_by": ["DOJ bribery prosecution data", "Transparency International corruption indices", "Russian customs / Mexican drug enforcement case studies"],
+      "conditions": [
+        "mean_bribe_offer measurable from disclosed bribery cases",
+        "detection_probability and penalty estimable from prosecution data"
+      ],
+      "invalid_if": [
+        "large enforcement bureaucracy operating with stable salary structure and audited corruption rate below 1% over a 10-year window"
+      ],
+      "measured_by": [
+        "DOJ bribery prosecution data",
+        "Transparency International corruption indices",
+        "Russian customs / Mexican drug enforcement case studies"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C043", "couples to C015"],
-      "scope_envelope": {"enforcer_loaded_salary_range": [30000, 500000]},
-      "data_source": ["DOJ corruption prosecution data", "Transparency International CPI"],
-      "sensitivity": ["mean_bribe_offer (dominant)", "detection_probability"]
+      "relational_web": [
+        "couples to C043",
+        "couples to C015"
+      ],
+      "scope_envelope": {
+        "enforcer_loaded_salary_range": [
+          30000,
+          500000
+        ]
+      },
+      "data_source": [
+        "DOJ corruption prosecution data",
+        "Transparency International CPI"
+      ],
+      "sensitivity": [
+        "mean_bribe_offer (dominant)",
+        "detection_probability"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C045": {
       "observable": "(equal_enforcement * cultural_reciprocity) / (wealth_immunity * extraction_incentives)",
@@ -950,14 +1950,38 @@
         "temporal": "20-year horizon",
         "scale": "society-level perception"
       },
-      "conditions": ["four dimensions scored on [0, 1]"],
-      "invalid_if": ["coercive system in an extraction-incentivized culture that maintains surveillance cost sustainability over a 20-year horizon"],
-      "measured_by": ["public-trust surveys", "cross-jurisdiction sentencing disparity studies", "anti-surveillance counter-tech adoption rates"],
+      "conditions": [
+        "four dimensions scored on [0, 1]"
+      ],
+      "invalid_if": [
+        "coercive system in an extraction-incentivized culture that maintains surveillance cost sustainability over a 20-year horizon"
+      ],
+      "measured_by": [
+        "public-trust surveys",
+        "cross-jurisdiction sentencing disparity studies",
+        "anti-surveillance counter-tech adoption rates"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C046", "overlaps DI"],
-      "scope_envelope": {"all_dimensions_range": [0.0, 1.0]},
-      "data_source": ["Pew / Gallup public-trust surveys", "DOJ sentencing data", "Tor Project usage statistics"],
-      "sensitivity": ["wealth_immunity (denominator)", "extraction_incentives (denominator)"]
+      "relational_web": [
+        "couples to C046",
+        "overlaps DI"
+      ],
+      "scope_envelope": {
+        "all_dimensions_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "Pew / Gallup public-trust surveys",
+        "DOJ sentencing data",
+        "Tor Project usage statistics"
+      ],
+      "sensitivity": [
+        "wealth_immunity (denominator)",
+        "extraction_incentives (denominator)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C046": {
       "observable": "coefficient-of-variation of prosecution rates across wealth deciles",
@@ -967,14 +1991,37 @@
         "temporal": "annual prosecution rates",
         "scale": "decile-level"
       },
-      "conditions": ["prosecution rates measurable per wealth decile"],
-      "invalid_if": ["coercive system applying enforcement equally across the wealth distribution AND maintaining cost-sustainable trajectory over a 20-year horizon, OR reciprocal-culture system applying enforcement unequally AND maintaining cooperation"],
-      "measured_by": ["DOJ sentencing data", "tax-bracket prosecution disparity studies"],
+      "conditions": [
+        "prosecution rates measurable per wealth decile"
+      ],
+      "invalid_if": [
+        "coercive system applying enforcement equally across the wealth distribution AND maintaining cost-sustainable trajectory over a 20-year horizon, OR reciprocal-culture system applying enforcement unequally AND maintaining cooperation"
+      ],
+      "measured_by": [
+        "DOJ sentencing data",
+        "tax-bracket prosecution disparity studies"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C045", "overlaps RI"],
-      "scope_envelope": {"wealth_decile_count": 10, "horizon_years_range": [5, 50]},
-      "data_source": ["DOJ Bureau of Justice Statistics", "TRAC tax prosecution data"],
-      "sensitivity": ["top-decile prosecution rate (drives CV)", "annual_growth_if_unequal"]
+      "relational_web": [
+        "couples to C045",
+        "overlaps RI"
+      ],
+      "scope_envelope": {
+        "wealth_decile_count": 10,
+        "horizon_years_range": [
+          5,
+          50
+        ]
+      },
+      "data_source": [
+        "DOJ Bureau of Justice Statistics",
+        "TRAC tax prosecution data"
+      ],
+      "sensitivity": [
+        "top-decile prosecution rate (drives CV)",
+        "annual_growth_if_unequal"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C047": {
       "observable": "defensive spending share of GDP across 11 canonical categories",
@@ -984,14 +2031,41 @@
         "temporal": "annual",
         "scale": "macroeconomic"
       },
-      "conditions": ["spending categories enumerated against canonical 11-category list", "GDP from national accounts"],
-      "invalid_if": ["audited national accounting where prison + surveillance + enforcement spending < 3% of GDP, defensive spending excluded from headline GDP, AND equal-justice application is third-party verified"],
-      "measured_by": ["BEA NIPA accounts", "BJS prison costs", "ODNI intelligence community budget", "EPA Superfund spending"],
+      "conditions": [
+        "spending categories enumerated against canonical 11-category list",
+        "GDP from national accounts"
+      ],
+      "invalid_if": [
+        "audited national accounting where prison + surveillance + enforcement spending < 3% of GDP, defensive spending excluded from headline GDP, AND equal-justice application is third-party verified"
+      ],
+      "measured_by": [
+        "BEA NIPA accounts",
+        "BJS prison costs",
+        "ODNI intelligence community budget",
+        "EPA Superfund spending"
+      ],
       "cycle_class": "century",
-      "relational_web": ["overlaps VE_VL", "overlaps LWR", "couples to C030"],
-      "scope_envelope": {"defensive_share_gdp_range": [0.0, 0.30]},
-      "data_source": ["BEA NIPA Table 3.16 (defense + protection)", "BJS Justice Expenditure series", "ODNI public budget"],
-      "sensitivity": ["accident_medical_treatment (largest US category)", "enforcement_personnel"]
+      "relational_web": [
+        "overlaps VE_VL",
+        "overlaps LWR",
+        "couples to C030"
+      ],
+      "scope_envelope": {
+        "defensive_share_gdp_range": [
+          0.0,
+          0.3
+        ]
+      },
+      "data_source": [
+        "BEA NIPA Table 3.16 (defense + protection)",
+        "BJS Justice Expenditure series",
+        "ODNI public budget"
+      ],
+      "sensitivity": [
+        "accident_medical_treatment (largest US category)",
+        "enforcement_personnel"
+      ],
+      "allocation_rule": "per_revenue"
     },
     "C048": {
       "observable": "asymmetric-share across 8 canonical regulations between biological and digital substrates",
@@ -1001,287 +2075,890 @@
         "temporal": "current-state inventory",
         "scale": "per-regulation"
       },
-      "conditions": ["regulation inventory enumerated", "biological and digital enforcement status assessed"],
-      "invalid_if": ["regulatory framework that applies identical scrutiny to human and AI decision-making across 24/7 operations, 15-day simulations, and regime-shift scenarios"],
-      "measured_by": ["FMCSA HOS rules", "NHTSA autonomous vehicle rulemaking", "EU AI Act provisions"],
+      "conditions": [
+        "regulation inventory enumerated",
+        "biological and digital enforcement status assessed"
+      ],
+      "invalid_if": [
+        "regulatory framework that applies identical scrutiny to human and AI decision-making across 24/7 operations, 15-day simulations, and regime-shift scenarios"
+      ],
+      "measured_by": [
+        "FMCSA HOS rules",
+        "NHTSA autonomous vehicle rulemaking",
+        "EU AI Act provisions"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C031, C032"],
-      "scope_envelope": {"regulation_inventory_size": [5, 20]},
-      "data_source": ["FMCSA rulemaking record", "NHTSA AV rules and exemptions", "EU AI Act published text"],
-      "sensitivity": ["regime_shift_robustness_test absence (both substrates)", "ELD vs AI logging asymmetry"]
+      "relational_web": [
+        "couples to C031, C032"
+      ],
+      "scope_envelope": {
+        "regulation_inventory_size": [
+          5,
+          20
+        ]
+      },
+      "data_source": [
+        "FMCSA rulemaking record",
+        "NHTSA AV rules and exemptions",
+        "EU AI Act published text"
+      ],
+      "sensitivity": [
+        "regime_shift_robustness_test absence (both substrates)",
+        "ELD vs AI logging asymmetry"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C049": {
       "observable": "fraction of above-median-capability operators downregulated by LCD cap",
       "rate_equation": "d(selection_pressure)/d(cap_hours) = share_above_threshold(capability_distribution, cap)",
-      "bounds": {"spatial": "operator labor pool", "temporal": "post-regulation steady state", "scale": "per-operator capability"},
-      "conditions": ["capability distribution enumerated", "regulation_threshold_hours known"],
-      "invalid_if": ["HOS regulation that accommodates capability diversity WITHOUT sacrificing safety for below-median operators"],
-      "measured_by": ["FMCSA HOS rulemaking record", "CR England-era logs", "occupational ethnographies of pre-tightened-HOS drivers"],
+      "bounds": {
+        "spatial": "operator labor pool",
+        "temporal": "post-regulation steady state",
+        "scale": "per-operator capability"
+      },
+      "conditions": [
+        "capability distribution enumerated",
+        "regulation_threshold_hours known"
+      ],
+      "invalid_if": [
+        "HOS regulation that accommodates capability diversity WITHOUT sacrificing safety for below-median operators"
+      ],
+      "measured_by": [
+        "FMCSA HOS rulemaking record",
+        "CR England-era logs",
+        "occupational ethnographies of pre-tightened-HOS drivers"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C050, C051"],
-      "scope_envelope": {"regulation_threshold_hours_range": [6.0, 24.0]},
-      "data_source": ["FMCSA HOS rule docket", "BLS occupational tenure data", "pre-2003 CR England driver logs"],
-      "sensitivity": ["regulation_threshold_hours (dominant)", "capability distribution upper tail"]
+      "relational_web": [
+        "couples to C050, C051"
+      ],
+      "scope_envelope": {
+        "regulation_threshold_hours_range": [
+          6.0,
+          24.0
+        ]
+      },
+      "data_source": [
+        "FMCSA HOS rule docket",
+        "BLS occupational tenure data",
+        "pre-2003 CR England driver logs"
+      ],
+      "sensitivity": [
+        "regulation_threshold_hours (dominant)",
+        "capability distribution upper tail"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C050": {
       "observable": "system resilience R = (max - min) * N * autonomy",
       "rate_equation": "d(R)/d(capability_diversity) = (max - min) * N * autonomy",
-      "bounds": {"spatial": "operator-pool fleet", "temporal": "steady-state operations", "scale": "fleet-level"},
-      "conditions": ["max + min capability hours measurable", "operator_autonomy on [0,1]"],
-      "invalid_if": ["regulatory framework that sets a common minimum (not maximum) while preserving capability diversity above the floor"],
-      "measured_by": ["pre-vs-post-HOS retention data", "capability distribution surveys"],
+      "bounds": {
+        "spatial": "operator-pool fleet",
+        "temporal": "steady-state operations",
+        "scale": "fleet-level"
+      },
+      "conditions": [
+        "max + min capability hours measurable",
+        "operator_autonomy on [0,1]"
+      ],
+      "invalid_if": [
+        "regulatory framework that sets a common minimum (not maximum) while preserving capability diversity above the floor"
+      ],
+      "measured_by": [
+        "pre-vs-post-HOS retention data",
+        "capability distribution surveys"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C049"],
-      "scope_envelope": {"n_operators_range": [10, 100000], "operator_autonomy_range": [0.0, 1.0]},
-      "data_source": ["BLS driver retention by tenure cohort", "FMCSA exit surveys"],
-      "sensitivity": ["capability diversity (max - min)", "operator_autonomy"]
+      "relational_web": [
+        "couples to C049"
+      ],
+      "scope_envelope": {
+        "n_operators_range": [
+          10,
+          100000
+        ],
+        "operator_autonomy_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "BLS driver retention by tenure cohort",
+        "FMCSA exit surveys"
+      ],
+      "sensitivity": [
+        "capability diversity (max - min)",
+        "operator_autonomy"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C051": {
       "observable": "stakeholder voting weight share advocating capability-bracketing regulation",
       "rate_equation": "d(capture)/d(stakeholder_weights) = sum(weight_i * advocates_i)",
-      "bounds": {"spatial": "regulatory rulemaking process", "temporal": "rulemaking cycle", "scale": "stakeholder-level"},
-      "conditions": ["stakeholder coalition enumerated", "advocacy stance known per stakeholder"],
-      "invalid_if": ["regulatory framework whose voting / advisory structure is dominated by top-decile performers AND that increases capability diversity rather than compressing it"],
-      "measured_by": ["FMCSA docket comment analysis", "industry lobbying disclosures", "insurance-industry advocacy records"],
+      "bounds": {
+        "spatial": "regulatory rulemaking process",
+        "temporal": "rulemaking cycle",
+        "scale": "stakeholder-level"
+      },
+      "conditions": [
+        "stakeholder coalition enumerated",
+        "advocacy stance known per stakeholder"
+      ],
+      "invalid_if": [
+        "regulatory framework whose voting / advisory structure is dominated by top-decile performers AND that increases capability diversity rather than compressing it"
+      ],
+      "measured_by": [
+        "FMCSA docket comment analysis",
+        "industry lobbying disclosures",
+        "insurance-industry advocacy records"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C049"],
-      "scope_envelope": {"stakeholder_count_range": [4, 20]},
-      "data_source": ["FMCSA rule docket comment corpora", "OpenSecrets lobbying disclosures"],
-      "sensitivity": ["insurance + carrier_executive weight (dominant)"]
+      "relational_web": [
+        "couples to C022, C049"
+      ],
+      "scope_envelope": {
+        "stakeholder_count_range": [
+          4,
+          20
+        ]
+      },
+      "data_source": [
+        "FMCSA rule docket comment corpora",
+        "OpenSecrets lobbying disclosures"
+      ],
+      "sensitivity": [
+        "insurance + carrier_executive weight (dominant)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C052": {
       "observable": "mean externalization intensity across documented self-regulation domains",
       "rate_equation": "d(atrophy)/d(externalization_intensity) increases monotonically across coupled domains",
-      "bounds": {"spatial": "human population subject to externalized regulation", "temporal": "cross-generational neuroplasticity", "scale": "domain-level"},
-      "conditions": ["domain inventory enumerated", "externalization intensity scored per domain"],
-      "invalid_if": ["population with high regulatory externalization across the documented domains AND maintained high internal self-regulation capacity on validated tests"],
-      "measured_by": ["GPS-removal disorientation studies", "Fed financial literacy surveys", "fatigue-self-assessment validation studies"],
+      "bounds": {
+        "spatial": "human population subject to externalized regulation",
+        "temporal": "cross-generational neuroplasticity",
+        "scale": "domain-level"
+      },
+      "conditions": [
+        "domain inventory enumerated",
+        "externalization intensity scored per domain"
+      ],
+      "invalid_if": [
+        "population with high regulatory externalization across the documented domains AND maintained high internal self-regulation capacity on validated tests"
+      ],
+      "measured_by": [
+        "GPS-removal disorientation studies",
+        "Fed financial literacy surveys",
+        "fatigue-self-assessment validation studies"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C018, C034, C038"],
-      "scope_envelope": {"domain_inventory_size": [4, 20]},
-      "data_source": ["Fed financial literacy surveys", "GPS-dependence studies", "FMCSA self-assessment validation"],
-      "sensitivity": ["spatial_navigation externalization (highest)", "fatigue_management externalization"]
+      "relational_web": [
+        "couples to C018, C034, C038"
+      ],
+      "scope_envelope": {
+        "domain_inventory_size": [
+          4,
+          20
+        ]
+      },
+      "data_source": [
+        "Fed financial literacy surveys",
+        "GPS-dependence studies",
+        "FMCSA self-assessment validation"
+      ],
+      "sensitivity": [
+        "spatial_navigation externalization (highest)",
+        "fatigue_management externalization"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C053": {
       "observable": "deployment position in the 4-phase regulatory degradation cycle",
       "rate_equation": "d(phase)/d(time, regulation_intensity, high_capability_share) -> phase 1..4",
-      "bounds": {"spatial": "industry deployment cohort", "temporal": "10-50 year cycle", "scale": "phase-level"},
-      "conditions": ["year_since_deployment + regulation_intensity + high_capability_share known"],
-      "invalid_if": ["autonomous deployment 10+ years past initial regulatory tightening that maintains capability diversity, edge-case robustness, and operator retention at pre-regulation levels"],
-      "measured_by": ["historical industry-collapse case studies", "regulation-cycle ethnographies"],
+      "bounds": {
+        "spatial": "industry deployment cohort",
+        "temporal": "10-50 year cycle",
+        "scale": "phase-level"
+      },
+      "conditions": [
+        "year_since_deployment + regulation_intensity + high_capability_share known"
+      ],
+      "invalid_if": [
+        "autonomous deployment 10+ years past initial regulatory tightening that maintains capability diversity, edge-case robustness, and operator retention at pre-regulation levels"
+      ],
+      "measured_by": [
+        "historical industry-collapse case studies",
+        "regulation-cycle ethnographies"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C024, C049"],
-      "scope_envelope": {"year_since_deployment_range": [0, 50], "regulation_intensity_range": [0.0, 1.0]},
-      "data_source": ["historical industry-collapse case studies (rail, garment, factory)", "FMCSA regulation chronology"],
-      "sensitivity": ["regulation_intensity", "high_capability_share_remaining"]
+      "relational_web": [
+        "couples to C022, C024, C049"
+      ],
+      "scope_envelope": {
+        "year_since_deployment_range": [
+          0,
+          50
+        ],
+        "regulation_intensity_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "historical industry-collapse case studies (rail, garment, factory)",
+        "FMCSA regulation chronology"
+      ],
+      "sensitivity": [
+        "regulation_intensity",
+        "high_capability_share_remaining"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C054": {
       "observable": "cumulative capability delta from documented prior regulatory interventions",
       "rate_equation": "d(baseline_delta)/d(intervention) = sum(delta_i * decay_factor_i)",
-      "bounds": {"spatial": "operator pool in jurisdiction", "temporal": "1990-present + projection", "scale": "intervention-level"},
-      "conditions": ["prior interventions enumerated with years applied and capability deltas"],
-      "invalid_if": ["ROI comparison conducted against an audited capable-driver baseline (pre-detraining capability distribution restored or estimated from international unregulated cohorts)"],
-      "measured_by": ["FMCSA rulemaking chronology", "international comparator cohorts (less-regulated jurisdictions)"],
+      "bounds": {
+        "spatial": "operator pool in jurisdiction",
+        "temporal": "1990-present + projection",
+        "scale": "intervention-level"
+      },
+      "conditions": [
+        "prior interventions enumerated with years applied and capability deltas"
+      ],
+      "invalid_if": [
+        "ROI comparison conducted against an audited capable-driver baseline (pre-detraining capability distribution restored or estimated from international unregulated cohorts)"
+      ],
+      "measured_by": [
+        "FMCSA rulemaking chronology",
+        "international comparator cohorts (less-regulated jurisdictions)"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C049, C055"],
-      "scope_envelope": {"deployment_year_range": [2003, 2050], "intervention_decay_per_year_range": [0.0, 0.05]},
-      "data_source": ["FMCSA regulation chronology", "international driver capability comparators"],
-      "sensitivity": ["intervention_decay_per_year", "HOS_11hr_max effective_delta (most negative)"]
+      "relational_web": [
+        "couples to C049, C055"
+      ],
+      "scope_envelope": {
+        "deployment_year_range": [
+          2003,
+          2050
+        ],
+        "intervention_decay_per_year_range": [
+          0.0,
+          0.05
+        ]
+      },
+      "data_source": [
+        "FMCSA regulation chronology",
+        "international driver capability comparators"
+      ],
+      "sensitivity": [
+        "intervention_decay_per_year",
+        "HOS_11hr_max effective_delta (most negative)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C055": {
       "observable": "metric count: human-fatigue measured + validated_under_24_7 vs AI-degradation equivalents",
       "rate_equation": "d(asymmetry)/d(metric_inventory) = count_human_validated / count_ai_validated",
-      "bounds": {"spatial": "regulatory and academic measurement record", "temporal": "current-state inventory", "scale": "per-metric"},
-      "conditions": ["metric inventories enumerated for both substrates", "measurement + 24/7 validation status known per metric"],
-      "invalid_if": ["published audited AI degradation curves for bit-flip rate, hallucination under load, value drift, decision-quality curve, and recovery protocol, validated under continuous 24/7 operation"],
-      "measured_by": ["FMCSA fatigue research record", "NHTSA / NIST AI evaluation reports", "AI safety community published curves"],
+      "bounds": {
+        "spatial": "regulatory and academic measurement record",
+        "temporal": "current-state inventory",
+        "scale": "per-metric"
+      },
+      "conditions": [
+        "metric inventories enumerated for both substrates",
+        "measurement + 24/7 validation status known per metric"
+      ],
+      "invalid_if": [
+        "published audited AI degradation curves for bit-flip rate, hallucination under load, value drift, decision-quality curve, and recovery protocol, validated under continuous 24/7 operation"
+      ],
+      "measured_by": [
+        "FMCSA fatigue research record",
+        "NHTSA / NIST AI evaluation reports",
+        "AI safety community published curves"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C031, C032, C048"],
-      "scope_envelope": {"metric_inventory_size": [3, 12]},
-      "data_source": ["FMCSA Fatigue Symposium proceedings", "NIST AI evaluation reports", "AI Safety lab publications"],
-      "sensitivity": ["AI 24/7 validated metric count (zero or near-zero in 2025)"]
+      "relational_web": [
+        "couples to C031, C032, C048"
+      ],
+      "scope_envelope": {
+        "metric_inventory_size": [
+          3,
+          12
+        ]
+      },
+      "data_source": [
+        "FMCSA Fatigue Symposium proceedings",
+        "NIST AI evaluation reports",
+        "AI Safety lab publications"
+      ],
+      "sensitivity": [
+        "AI 24/7 validated metric count (zero or near-zero in 2025)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C056": {
       "observable": "Productive Operation Rate (POR) = productive_hours / available_hours",
       "rate_equation": "d(POR)/d(overhead) = (available - overhead) / available",
-      "bounds": {"spatial": "single vehicle daily cycle", "temporal": "per-day, multi-day average", "scale": "vehicle-day"},
-      "conditions": ["per-overhead-category hours measurable", "nameplate available_hours_per_day stated"],
-      "invalid_if": ["autonomous deployment demonstrating POR > 0.75 sustained over 3+ years, with maintenance, charging, exception resolution, and cloud diagnostic latency itemized and verified"],
-      "measured_by": ["fleet telemetry duty cycle", "FMCSA HOS logs"],
+      "bounds": {
+        "spatial": "single vehicle daily cycle",
+        "temporal": "per-day, multi-day average",
+        "scale": "vehicle-day"
+      },
+      "conditions": [
+        "per-overhead-category hours measurable",
+        "nameplate available_hours_per_day stated"
+      ],
+      "invalid_if": [
+        "autonomous deployment demonstrating POR > 0.75 sustained over 3+ years, with maintenance, charging, exception resolution, and cloud diagnostic latency itemized and verified"
+      ],
+      "measured_by": [
+        "fleet telemetry duty cycle",
+        "FMCSA HOS logs"
+      ],
       "cycle_class": "day",
-      "relational_web": ["couples to C035, C057"],
-      "scope_envelope": {"available_hours_per_day_range": [4.0, 24.0]},
-      "data_source": ["fleet telemetry duty-cycle disclosures", "FMCSA HOS logs"],
-      "sensitivity": ["charging_or_fueling_h", "exception_resolution_h"]
+      "relational_web": [
+        "couples to C035, C057"
+      ],
+      "scope_envelope": {
+        "available_hours_per_day_range": [
+          4.0,
+          24.0
+        ]
+      },
+      "data_source": [
+        "fleet telemetry duty-cycle disclosures",
+        "FMCSA HOS logs"
+      ],
+      "sensitivity": [
+        "charging_or_fueling_h",
+        "exception_resolution_h"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C057": {
       "observable": "autonomous coordination cost per truck per day vs driver-embedded coordination",
       "rate_equation": "d(coordination)/d(automation) = sum(backend + maintenance_sched + exception + interface + remote_op + sw_maint)",
-      "bounds": {"spatial": "per-truck operational scope", "temporal": "per-day", "scale": "USD/day"},
-      "conditions": ["per-category autonomous coordination costs measurable", "driver-embedded coordination share of wage estimated"],
-      "invalid_if": ["audited per-truck-per-day coordination accounting showing autonomous coordination stack at less than the driver-embedded coordination cost it replaces"],
-      "measured_by": ["operator 10-K operational disclosures", "remote-ops vendor SLAs", "fleet TCO audits"],
+      "bounds": {
+        "spatial": "per-truck operational scope",
+        "temporal": "per-day",
+        "scale": "USD/day"
+      },
+      "conditions": [
+        "per-category autonomous coordination costs measurable",
+        "driver-embedded coordination share of wage estimated"
+      ],
+      "invalid_if": [
+        "audited per-truck-per-day coordination accounting showing autonomous coordination stack at less than the driver-embedded coordination cost it replaces"
+      ],
+      "measured_by": [
+        "operator 10-K operational disclosures",
+        "remote-ops vendor SLAs",
+        "fleet TCO audits"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C011, C013"],
-      "scope_envelope": {"driver_embedded_coordination_usd_range": [10.0, 80.0]},
-      "data_source": ["fleet TCO audits", "carrier 10-K operational notes"],
-      "sensitivity": ["remote_operator_fraction (dominant)", "backend_support"]
+      "relational_web": [
+        "couples to C011, C013"
+      ],
+      "scope_envelope": {
+        "driver_embedded_coordination_usd_range": [
+          10.0,
+          80.0
+        ]
+      },
+      "data_source": [
+        "fleet TCO audits",
+        "carrier 10-K operational notes"
+      ],
+      "sensitivity": [
+        "remote_operator_fraction (dominant)",
+        "backend_support"
+      ],
+      "allocation_rule": "per_truck_equal_share"
     },
     "C058": {
       "observable": "deferred catastrophic-failure liability per truck per year when human inspection eliminated",
       "rate_equation": "d(deferred_cost)/d(inspection_h_eliminated) = baseline_rate * failure_rate_increase * mean_event_cost",
-      "bounds": {"spatial": "fleet operational scope", "temporal": "5-year lifecycle", "scale": "USD per truck per year"},
-      "conditions": ["catastrophic_failure_rate_increase calibrated", "fleet_size + lifecycle known", "mean_event_cost from disclosed insurance data"],
-      "invalid_if": ["autonomous fleet documenting per-truck inspection / monitoring protocol equivalent to or stronger than DOT pretrip + posttrip + in-motion sensing AND maintaining catastrophic failure rate parity with human-inspected fleet over 3+ years"],
-      "measured_by": ["NICB insurance claims data", "FMCSA crash data", "carrier maintenance protocols"],
+      "bounds": {
+        "spatial": "fleet operational scope",
+        "temporal": "5-year lifecycle",
+        "scale": "USD per truck per year"
+      },
+      "conditions": [
+        "catastrophic_failure_rate_increase calibrated",
+        "fleet_size + lifecycle known",
+        "mean_event_cost from disclosed insurance data"
+      ],
+      "invalid_if": [
+        "autonomous fleet documenting per-truck inspection / monitoring protocol equivalent to or stronger than DOT pretrip + posttrip + in-motion sensing AND maintaining catastrophic failure rate parity with human-inspected fleet over 3+ years"
+      ],
+      "measured_by": [
+        "NICB insurance claims data",
+        "FMCSA crash data",
+        "carrier maintenance protocols"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C008, C009, C010"],
-      "scope_envelope": {"fleet_size_range": [10, 50000], "lifecycle_years_range": [1, 15]},
-      "data_source": ["NICB insurance claim data", "FMCSA crash records", "operator inspection protocol disclosures"],
-      "sensitivity": ["catastrophic_failure_rate_increase (humans catch 60-70% of precursor issues)"]
+      "relational_web": [
+        "couples to C008, C009, C010"
+      ],
+      "scope_envelope": {
+        "fleet_size_range": [
+          10,
+          50000
+        ],
+        "lifecycle_years_range": [
+          1,
+          15
+        ]
+      },
+      "data_source": [
+        "NICB insurance claim data",
+        "FMCSA crash records",
+        "operator inspection protocol disclosures"
+      ],
+      "sensitivity": [
+        "catastrophic_failure_rate_increase (humans catch 60-70% of precursor issues)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C059": {
       "observable": "total all-categories daily energy budget (MJ) and seven-function integration score, autonomous vs human-integrated baseline",
       "rate_equation": "d(efficiency)/d(integration_score) = sum(integrated_function_energy) vs sum(separated_function_energy); threshold = autonomous_MJ_per_day < human_MJ_per_day AND autonomous_resilience >= human_resilience",
-      "bounds": {"spatial": "per-vehicle daily operational scope", "temporal": "per-day, multi-day average", "scale": "MJ per truck per day + 7-function integration score"},
-      "conditions": ["all energy categories itemized for both substrates", "7 canonical functions (transport, condition_monitoring, problem_detection, micro_decision_making, coordination, self_maintenance, adaptation_to_novel_conditions) classified per function as integrated / separated / outsourced"],
-      "invalid_if": ["autonomous deployment achieving >10% energy savings vs the human-operated baseline AND maintaining or improving resilience to edge cases, with all energy categories itemized and third-party audited"],
-      "measured_by": ["human metabolic rate studies", "EIA fuel consumption data", "LBNL data-center energy reports", "operator function-inventory ethnographies"],
+      "bounds": {
+        "spatial": "per-vehicle daily operational scope",
+        "temporal": "per-day, multi-day average",
+        "scale": "MJ per truck per day + 7-function integration score"
+      },
+      "conditions": [
+        "all energy categories itemized for both substrates",
+        "7 canonical functions (transport, condition_monitoring, problem_detection, micro_decision_making, coordination, self_maintenance, adaptation_to_novel_conditions) classified per function as integrated / separated / outsourced"
+      ],
+      "invalid_if": [
+        "autonomous deployment achieving >10% energy savings vs the human-operated baseline AND maintaining or improving resilience to edge cases, with all energy categories itemized and third-party audited"
+      ],
+      "measured_by": [
+        "human metabolic rate studies",
+        "EIA fuel consumption data",
+        "LBNL data-center energy reports",
+        "operator function-inventory ethnographies"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["overlaps C020, C039, C056, C057, C058", "synthesis claim"],
-      "scope_envelope": {"daily_MJ_range": [100.0, 10000.0], "integration_score_range": [0.0, 1.0]},
-      "data_source": ["WHO metabolic energy expenditure tables", "EIA diesel energy density references", "LBNL US data center energy reports", "operator function-inventory studies (FMCSA / DOL apprenticeship)"],
-      "sensitivity": ["cloud_backend_share (dominant autonomous term)", "truck_fuel (shared baseline)", "integration_score (synthesis)"]
+      "relational_web": [
+        "overlaps C020, C039, C056, C057, C058",
+        "synthesis claim"
+      ],
+      "scope_envelope": {
+        "daily_MJ_range": [
+          100.0,
+          10000.0
+        ],
+        "integration_score_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "WHO metabolic energy expenditure tables",
+        "EIA diesel energy density references",
+        "LBNL US data center energy reports",
+        "operator function-inventory studies (FMCSA / DOL apprenticeship)"
+      ],
+      "sensitivity": [
+        "cloud_backend_share (dominant autonomous term)",
+        "truck_fuel (shared baseline)",
+        "integration_score (synthesis)"
+      ],
+      "allocation_rule": "per_truck_equal_share"
     },
     "C060": {
       "observable": "weighted mean abstraction distance of management coalition + elite overproduction share",
       "rate_equation": "d(abstraction)/d(elite_overproduction_share) = sum(role_weight * role_abstraction) / sum(role_weight)",
-      "bounds": {"spatial": "single firm / institution management coalition", "temporal": "decade-scale recruitment cycle", "scale": "role-level abstraction distance"},
-      "conditions": ["role mix enumerated", "abstraction distance scored per role (0 = substrate, 1 = fully abstract)"],
-      "invalid_if": ["automation deployment with management coalition dominated by substrate-experienced operators AND elite-overproduction share below 0.3, sustained for 5+ years"],
-      "measured_by": ["BLS executive education survey", "Turchin elite-overproduction cliometric series", "10-K executive biography corpora"],
+      "bounds": {
+        "spatial": "single firm / institution management coalition",
+        "temporal": "decade-scale recruitment cycle",
+        "scale": "role-level abstraction distance"
+      },
+      "conditions": [
+        "role mix enumerated",
+        "abstraction distance scored per role (0 = substrate, 1 = fully abstract)"
+      ],
+      "invalid_if": [
+        "automation deployment with management coalition dominated by substrate-experienced operators AND elite-overproduction share below 0.3, sustained for 5+ years"
+      ],
+      "measured_by": [
+        "BLS executive education survey",
+        "Turchin elite-overproduction cliometric series",
+        "10-K executive biography corpora"
+      ],
       "cycle_class": "century",
-      "relational_web": ["couples to C022, C023, C051, C062"],
-      "scope_envelope": {"role_mix_role_count_range": [3, 15], "elite_overproduction_share_range": [0.0, 1.0]},
-      "data_source": ["Peter Turchin cliometric series", "BLS occupational education attainment data", "10-K executive biography parses"],
-      "sensitivity": ["MBA + consultant + financial_analyst weight share (dominant)"]
+      "relational_web": [
+        "couples to C022, C023, C051, C062"
+      ],
+      "scope_envelope": {
+        "role_mix_role_count_range": [
+          3,
+          15
+        ],
+        "elite_overproduction_share_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "Peter Turchin cliometric series",
+        "BLS occupational education attainment data",
+        "10-K executive biography parses"
+      ],
+      "sensitivity": [
+        "MBA + consultant + financial_analyst weight share (dominant)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C061": {
       "observable": "fully-invisible care-work fraction (no visible cost line item AND no prevented-failure benefit counting)",
       "rate_equation": "d(invisibility_score)/d(category) = count(invisible_cost AND uncounted_benefit) / count(total)",
-      "bounds": {"spatial": "any firm / institution cost-accounting framework", "temporal": "current-state inventory", "scale": "care-work category"},
-      "conditions": ["care-work inventory enumerated", "per-category visibility status documented"],
-      "invalid_if": ["cost-accounting framework that line-items each care-work category AND counts prevented failures as benefit; sustained in published reports over 3+ years"],
-      "measured_by": ["IFRS / FASB disclosure standards", "GRI / SASB sustainability reporting", "occupational ethnographies of care-work invisibility"],
+      "bounds": {
+        "spatial": "any firm / institution cost-accounting framework",
+        "temporal": "current-state inventory",
+        "scale": "care-work category"
+      },
+      "conditions": [
+        "care-work inventory enumerated",
+        "per-category visibility status documented"
+      ],
+      "invalid_if": [
+        "cost-accounting framework that line-items each care-work category AND counts prevented failures as benefit; sustained in published reports over 3+ years"
+      ],
+      "measured_by": [
+        "IFRS / FASB disclosure standards",
+        "GRI / SASB sustainability reporting",
+        "occupational ethnographies of care-work invisibility"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C002, C008, C047, C062"],
-      "scope_envelope": {"care_work_inventory_size": [5, 25]},
-      "data_source": ["IFRS / FASB disclosure standards", "GRI Standards", "care-work ethnography literature"],
-      "sensitivity": ["fraction of categories with both invisible_cost AND uncounted_benefit"]
+      "relational_web": [
+        "couples to C002, C008, C047, C062"
+      ],
+      "scope_envelope": {
+        "care_work_inventory_size": [
+          5,
+          25
+        ]
+      },
+      "data_source": [
+        "IFRS / FASB disclosure standards",
+        "GRI Standards",
+        "care-work ethnography literature"
+      ],
+      "sensitivity": [
+        "fraction of categories with both invisible_cost AND uncounted_benefit"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C062": {
       "observable": "per-role inversion = abs(knowledge - authority); mean across roles",
       "rate_equation": "d(inversion)/d(role_distribution) = mean(abs(knowledge_i - authority_i))",
-      "bounds": {"spatial": "single organization's role distribution", "temporal": "current-state snapshot", "scale": "role-level"},
-      "conditions": ["roles enumerated with substrate knowledge and decision authority scored on [0, 1]"],
-      "invalid_if": ["organization where role-level knowledge and authority are co-distributed (correlation > 0.7 across roles) AND substrate decisions are made by substrate-knowledgeable roles"],
-      "measured_by": ["organizational role surveys", "decision-authority documentation", "substrate-knowledge competency assessments"],
+      "bounds": {
+        "spatial": "single organization's role distribution",
+        "temporal": "current-state snapshot",
+        "scale": "role-level"
+      },
+      "conditions": [
+        "roles enumerated with substrate knowledge and decision authority scored on [0, 1]"
+      ],
+      "invalid_if": [
+        "organization where role-level knowledge and authority are co-distributed (correlation > 0.7 across roles) AND substrate decisions are made by substrate-knowledgeable roles"
+      ],
+      "measured_by": [
+        "organizational role surveys",
+        "decision-authority documentation",
+        "substrate-knowledge competency assessments"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C060, C063, C064"],
-      "scope_envelope": {"role_count_range": [4, 20]},
-      "data_source": ["organizational role/authority audits", "competency assessment frameworks (DACUM, etc.)"],
-      "sensitivity": ["C-suite + board knowledge score (low)", "experienced operator authority score (low)"]
+      "relational_web": [
+        "couples to C060, C063, C064"
+      ],
+      "scope_envelope": {
+        "role_count_range": [
+          4,
+          20
+        ]
+      },
+      "data_source": [
+        "organizational role/authority audits",
+        "competency assessment frameworks (DACUM, etc.)"
+      ],
+      "sensitivity": [
+        "C-suite + board knowledge score (low)",
+        "experienced operator authority score (low)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C063": {
       "observable": "total misdirection = sum(abs(narrative_blame_share - actual_culpability_share)) / 2",
       "rate_equation": "d(misdirection)/d(blame_cascade) = sum_i(|narrative_i - actual_i|) / 2",
-      "bounds": {"spatial": "post-failure post-mortem document set", "temporal": "per-incident", "scale": "blame-cascade step"},
-      "conditions": ["blame cascade enumerated by step / target role", "actual culpability share estimable from cause-effect chain"],
-      "invalid_if": ["published post-mortem of an automation-substrate failure where the MBA decision-maker who eliminated the care-work line item receives the largest narrative blame share, with the cause-effect chain documented"],
-      "measured_by": ["NTSB incident reports", "industry post-mortems", "academic accident analyses"],
+      "bounds": {
+        "spatial": "post-failure post-mortem document set",
+        "temporal": "per-incident",
+        "scale": "blame-cascade step"
+      },
+      "conditions": [
+        "blame cascade enumerated by step / target role",
+        "actual culpability share estimable from cause-effect chain"
+      ],
+      "invalid_if": [
+        "published post-mortem of an automation-substrate failure where the MBA decision-maker who eliminated the care-work line item receives the largest narrative blame share, with the cause-effect chain documented"
+      ],
+      "measured_by": [
+        "NTSB incident reports",
+        "industry post-mortems",
+        "academic accident analyses"
+      ],
       "cycle_class": "season",
-      "relational_web": ["couples to C015, C060, C062"],
-      "scope_envelope": {"blame_cascade_step_count_range": [3, 12]},
-      "data_source": ["NTSB accident reports", "industry post-mortems", "Charles Perrow Normal Accidents references"],
-      "sensitivity": ["delta on engineers + operators + AI (over-blamed)", "delta on MBA decision-maker (under-blamed)"]
+      "relational_web": [
+        "couples to C015, C060, C062"
+      ],
+      "scope_envelope": {
+        "blame_cascade_step_count_range": [
+          3,
+          12
+        ]
+      },
+      "data_source": [
+        "NTSB accident reports",
+        "industry post-mortems",
+        "Charles Perrow Normal Accidents references"
+      ],
+      "sensitivity": [
+        "delta on engineers + operators + AI (over-blamed)",
+        "delta on MBA decision-maker (under-blamed)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C064": {
       "observable": "count of 5 substrate-care preconditions satisfied at deployment time",
       "rate_equation": "d(admissibility)/d(precondition) = +1 per precondition satisfied; threshold = all 5",
-      "bounds": {"spatial": "single automation deployment", "temporal": "pre-deployment + sustained operation", "scale": "deployment-level"},
-      "conditions": ["care_work_continued, care_work_costed_visibly, failure_cost_known, decision_authority_holder_has_substrate_knowledge, approval_required_from_substrate_experienced_operator all assessable"],
-      "invalid_if": ["automation deployment in any domain that was approved by someone with substrate operational experience AND maintains care work as a costed line item AND has documented failure-cost-if-care-skipped numbers; sustained without substrate failure for 5+ years"],
-      "measured_by": ["deployment approval documentation", "cost-accounting line items for care work", "failure-cost analysis published pre-deployment"],
+      "bounds": {
+        "spatial": "single automation deployment",
+        "temporal": "pre-deployment + sustained operation",
+        "scale": "deployment-level"
+      },
+      "conditions": [
+        "care_work_continued, care_work_costed_visibly, failure_cost_known, decision_authority_holder_has_substrate_knowledge, approval_required_from_substrate_experienced_operator all assessable"
+      ],
+      "invalid_if": [
+        "automation deployment in any domain that was approved by someone with substrate operational experience AND maintains care work as a costed line item AND has documented failure-cost-if-care-skipped numbers; sustained without substrate failure for 5+ years"
+      ],
+      "measured_by": [
+        "deployment approval documentation",
+        "cost-accounting line items for care work",
+        "failure-cost analysis published pre-deployment"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C000 (scope gate)", "synthesis of C060-C063"],
-      "scope_envelope": {"preconditions_required": 5},
-      "data_source": ["deployment approval records", "carrier 10-K / sustainability reports", "DOT regulatory filings"],
-      "sensitivity": ["any precondition failing triggers concern; care_work_continued and substrate_experienced_operator_approval are most commonly absent"]
+      "relational_web": [
+        "couples to C000 (scope gate)",
+        "synthesis of C060-C063"
+      ],
+      "scope_envelope": {
+        "preconditions_required": 5
+      },
+      "data_source": [
+        "deployment approval records",
+        "carrier 10-K / sustainability reports",
+        "DOT regulatory filings"
+      ],
+      "sensitivity": [
+        "any precondition failing triggers concern; care_work_continued and substrate_experienced_operator_approval are most commonly absent"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C065": {
       "observable": "fraction of decision-maker credentials that imply domain substrate knowledge",
       "rate_equation": "d(substrate_implication_share)/d(credential_mix) = sum(credentials_that_imply_substrate) / total",
-      "bounds": {"spatial": "decision-making coalition for an AI deployment", "temporal": "pre-deployment + sustained operation", "scale": "credential-level"},
-      "conditions": ["decision-maker credentials enumerated", "credential -> substrate-knowledge mapping documented"],
-      "invalid_if": ["decision-making body where >= 50% of credentials directly imply domain substrate knowledge AND the body's decisions are audited against domain-expert validation over 5+ years"],
-      "measured_by": ["10-K executive biography parses", "DOL apprenticeship + ASE / equivalent certification records", "academic credential databases"],
+      "bounds": {
+        "spatial": "decision-making coalition for an AI deployment",
+        "temporal": "pre-deployment + sustained operation",
+        "scale": "credential-level"
+      },
+      "conditions": [
+        "decision-maker credentials enumerated",
+        "credential -> substrate-knowledge mapping documented"
+      ],
+      "invalid_if": [
+        "decision-making body where >= 50% of credentials directly imply domain substrate knowledge AND the body's decisions are audited against domain-expert validation over 5+ years"
+      ],
+      "measured_by": [
+        "10-K executive biography parses",
+        "DOL apprenticeship + ASE / equivalent certification records",
+        "academic credential databases"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C060, C062"],
-      "scope_envelope": {"credential_count_range": [1, 20]},
-      "data_source": ["10-K executive biography parses", "Department of Labor apprenticeship registry", "ASE certification database"],
-      "sensitivity": ["share of MBA + management consultant + VC credentials (dominant credentialed-non-expert categories)"]
+      "relational_web": [
+        "couples to C060, C062"
+      ],
+      "scope_envelope": {
+        "credential_count_range": [
+          1,
+          20
+        ]
+      },
+      "data_source": [
+        "10-K executive biography parses",
+        "Department of Labor apprenticeship registry",
+        "ASE certification database"
+      ],
+      "sensitivity": [
+        "share of MBA + management consultant + VC credentials (dominant credentialed-non-expert categories)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C066": {
       "observable": "mean domain-expert decision authority + warning-action rate across institutional inventory",
       "rate_equation": "d(gatekeeping)/d(expert_inventory) = sum(authority_granted) / N AND sum(warning_acted) / sum(warning_documented)",
-      "bounds": {"spatial": "institution-wide decision process", "temporal": "5-year warning + action window", "scale": "expert-role-level"},
-      "conditions": ["domain experts enumerated", "decision authority + warning action rate measurable from documented records"],
-      "invalid_if": ["institutional process where domain experts hold >= 20% mean decision authority AND >= 30% of their documented warnings are acted upon over a 5-year window"],
-      "measured_by": ["organizational decision audits", "documented warning records", "post-mortem analyses"],
+      "bounds": {
+        "spatial": "institution-wide decision process",
+        "temporal": "5-year warning + action window",
+        "scale": "expert-role-level"
+      },
+      "conditions": [
+        "domain experts enumerated",
+        "decision authority + warning action rate measurable from documented records"
+      ],
+      "invalid_if": [
+        "institutional process where domain experts hold >= 20% mean decision authority AND >= 30% of their documented warnings are acted upon over a 5-year window"
+      ],
+      "measured_by": [
+        "organizational decision audits",
+        "documented warning records",
+        "post-mortem analyses"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C051, C062, C063"],
-      "scope_envelope": {"expert_inventory_size": [3, 20]},
-      "data_source": ["organizational decision audits", "OSHA / FAA / FMCSA whistleblower records", "post-mortem case studies"],
-      "sensitivity": ["mean_authority_granted (typically near zero in current institutions)"]
+      "relational_web": [
+        "couples to C051, C062, C063"
+      ],
+      "scope_envelope": {
+        "expert_inventory_size": [
+          3,
+          20
+        ]
+      },
+      "data_source": [
+        "organizational decision audits",
+        "OSHA / FAA / FMCSA whistleblower records",
+        "post-mortem case studies"
+      ],
+      "sensitivity": [
+        "mean_authority_granted (typically near zero in current institutions)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C067": {
       "observable": "credentialed share of AI training corpus across 12 corpus categories",
       "rate_equation": "d(bias_ratio)/d(corpus_composition) = sum(credentialed_share) / sum(domain_expert_share)",
-      "bounds": {"spatial": "AI training corpus for a deployment domain", "temporal": "training-data assembly window", "scale": "corpus-source category"},
-      "conditions": ["corpus composition documented by source category", "credentialed vs domain-expert classification applied"],
-      "invalid_if": ["AI training corpus with >= 20% sourced from non-credentialed domain experts (field notes, operator conversations, apprenticeship documentation, oral traditions) AND validated to outperform credentialed-only baseline on domain tasks"],
-      "measured_by": ["model card data sheets", "Common Crawl / academic corpus composition analyses"],
+      "bounds": {
+        "spatial": "AI training corpus for a deployment domain",
+        "temporal": "training-data assembly window",
+        "scale": "corpus-source category"
+      },
+      "conditions": [
+        "corpus composition documented by source category",
+        "credentialed vs domain-expert classification applied"
+      ],
+      "invalid_if": [
+        "AI training corpus with >= 20% sourced from non-credentialed domain experts (field notes, operator conversations, apprenticeship documentation, oral traditions) AND validated to outperform credentialed-only baseline on domain tasks"
+      ],
+      "measured_by": [
+        "model card data sheets",
+        "Common Crawl / academic corpus composition analyses"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C034, C038, C055"],
-      "scope_envelope": {"corpus_source_categories": 12},
-      "data_source": ["model card data sheets", "Common Crawl source attribution", "Stanford CRFM transparency reports"],
-      "sensitivity": ["published_academic_papers + institutional_decisions shares (dominate)"]
+      "relational_web": [
+        "couples to C034, C038, C055"
+      ],
+      "scope_envelope": {
+        "corpus_source_categories": 12
+      },
+      "data_source": [
+        "model card data sheets",
+        "Common Crawl source attribution",
+        "Stanford CRFM transparency reports"
+      ],
+      "sensitivity": [
+        "published_academic_papers + institutional_decisions shares (dominate)"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C068": {
       "observable": "7-step credential-inversion failure-mode pattern match across 12-case library + any candidate deployment",
       "rate_equation": "d(pattern_match)/d(case_library) = count(cases satisfying all 7 step markers) / total_cases",
-      "bounds": {"spatial": "AI deployment in any domain", "temporal": "deployment lifetime", "scale": "deployment-level pattern"},
-      "conditions": ["decision_makers_substrate_knowledge + warning_documented + warning_acted_upon + blamed_on + actual_cause all assessable"],
-      "invalid_if": ["AI deployment where decision-makers had substrate knowledge documented in advance OR where domain expert warnings were acted upon OR where post-failure blame was correctly attributed to decision-maker rather than to AI / data / compute, AND the deployment succeeded"],
-      "measured_by": ["case-study library (Watson Oncology, Facial Recognition, Amazon Hiring, Welfare, Predictive Policing, Zillow, FB Moderation, Target Pregnancy, MS Tay, Knight Capital, Uber Autonomy, IBM Drug Discovery)"],
+      "bounds": {
+        "spatial": "AI deployment in any domain",
+        "temporal": "deployment lifetime",
+        "scale": "deployment-level pattern"
+      },
+      "conditions": [
+        "decision_makers_substrate_knowledge + warning_documented + warning_acted_upon + blamed_on + actual_cause all assessable"
+      ],
+      "invalid_if": [
+        "AI deployment where decision-makers had substrate knowledge documented in advance OR where domain expert warnings were acted upon OR where post-failure blame was correctly attributed to decision-maker rather than to AI / data / compute, AND the deployment succeeded"
+      ],
+      "measured_by": [
+        "case-study library (Watson Oncology, Facial Recognition, Amazon Hiring, Welfare, Predictive Policing, Zillow, FB Moderation, Target Pregnancy, MS Tay, Knight Capital, Uber Autonomy, IBM Drug Discovery)"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C063, C065, C066"],
-      "scope_envelope": {"case_library_size": 12, "steps_in_pattern": 7},
-      "data_source": ["NTSB reports", "SEC filings", "academic post-mortems (e.g. ProPublica COMPAS, FTC Watson reports)", "court records (Knight Capital, Uber)"],
-      "sensitivity": ["decision_makers_substrate_knowledge classification", "warning_acted_upon evidence threshold"]
+      "relational_web": [
+        "couples to C063, C065, C066"
+      ],
+      "scope_envelope": {
+        "case_library_size": 12,
+        "steps_in_pattern": 7
+      },
+      "data_source": [
+        "NTSB reports",
+        "SEC filings",
+        "academic post-mortems (e.g. ProPublica COMPAS, FTC Watson reports)",
+        "court records (Knight Capital, Uber)"
+      ],
+      "sensitivity": [
+        "decision_makers_substrate_knowledge classification",
+        "warning_acted_upon evidence threshold"
+      ],
+      "allocation_rule": "not_applicable"
     },
     "C069": {
       "observable": "share of post-failure blame attributions that produce institutional learning (vs blame redirected to AI / data / compute)",
       "rate_equation": "d(learning_share)/d(attributed_blame) = count(blame_producing_learning) / total_attributions",
-      "bounds": {"spatial": "post-failure institutional response", "temporal": "1-3 years after failure", "scale": "attribution-level"},
-      "conditions": ["post-mortem record enumerates attributed blame", "blame -> institutional-learning mapping applied"],
-      "invalid_if": ["post-mortem record of AI deployment failures where >= 50% of attributed blame is to decision-authority structure / domain expert exclusion / consultation process AND the institution demonstrably changed its decision process as a result"],
-      "measured_by": ["industry post-mortems", "regulatory hearing records", "academic case studies"],
+      "bounds": {
+        "spatial": "post-failure institutional response",
+        "temporal": "1-3 years after failure",
+        "scale": "attribution-level"
+      },
+      "conditions": [
+        "post-mortem record enumerates attributed blame",
+        "blame -> institutional-learning mapping applied"
+      ],
+      "invalid_if": [
+        "post-mortem record of AI deployment failures where >= 50% of attributed blame is to decision-authority structure / domain expert exclusion / consultation process AND the institution demonstrably changed its decision process as a result"
+      ],
+      "measured_by": [
+        "industry post-mortems",
+        "regulatory hearing records",
+        "academic case studies"
+      ],
       "cycle_class": "generation",
-      "relational_web": ["couples to C022, C024, C063, C068"],
-      "scope_envelope": {"blame_categories": 9},
-      "data_source": ["FTC / NTSB / SEC post-mortems", "Congressional hearing records", "academic case studies (Charles Perrow, Diane Vaughan)"],
-      "sensitivity": ["AI_not_ready / training_data / algorithm_bias categories (dominant; do not produce learning)"]
+      "relational_web": [
+        "couples to C022, C024, C063, C068"
+      ],
+      "scope_envelope": {
+        "blame_categories": 9
+      },
+      "data_source": [
+        "FTC / NTSB / SEC post-mortems",
+        "Congressional hearing records",
+        "academic case studies (Charles Perrow, Diane Vaughan)"
+      ],
+      "sensitivity": [
+        "AI_not_ready / training_data / algorithm_bias categories (dominant; do not produce learning)"
+      ],
+      "allocation_rule": "not_applicable"
     }
   }
 }

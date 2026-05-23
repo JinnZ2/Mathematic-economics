@@ -31,6 +31,11 @@ License: CC0-1.0
 import re
 from typing import Dict, List
 
+try:
+    from . import semantic_coherence_check
+except ImportError:
+    import semantic_coherence_check  # type: ignore[no-redef]
+
 
 SCOPE_DIMENSIONS = [
     "beneficiary",
@@ -124,22 +129,26 @@ def c000_verdict(claim_text: str) -> dict:
     """Meta-claim verdict.
 
     `threshold_met` for C000 is True when the claim is *inadmissible* —
-    i.e., the structural concern (the claim is unfalsifiable due to
-    missing scope) registers. Admissible claims have `threshold_met`
-    False; downstream claims (C001-C024) then become applicable.
+    either because a scope dimension is absent, OR because one of the
+    scope-bearing fields contains tautology / empty content / circular
+    definition (per `semantic_coherence_check`).
     """
     v = validate_scope_specification(claim_text)
+    coherence = semantic_coherence_check.is_coherent(claim_text)
+    admissible = v["admissible"] and coherence["coherent"]
     return {
-        "claim_id":      "C000",
-        "claim_text":    claim_text,
-        "admissible":    v["admissible"],
-        "present":       v["present"],
-        "missing":       v["missing"],
-        "matches":       v["matches"],
-        "threshold_met": not v["admissible"],
+        "claim_id":          "C000",
+        "claim_text":        claim_text,
+        "admissible":        admissible,
+        "present":           v["present"],
+        "missing":           v["missing"],
+        "matches":           v["matches"],
+        "semantic_coherence": coherence,
+        "threshold_met":     not admissible,
         "falsifier":
             "a primary-source claim that explicitly answers all seven scope "
-            "questions AND publishes a measurable falsifier",
+            "questions AND publishes a measurable falsifier AND has no "
+            "tautological / empty / circular phrasing in its scope fields",
     }
 
 
