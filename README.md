@@ -916,6 +916,17 @@ The equations measure structural properties independent of labeling conventions.
 
 All equations reference specific, publicly available data sources with API endpoints documented in `equations.yaml`. Computation scripts are provided in `data/` for independent verification. See `data/README.md` for setup instructions.
 
+### Companion folders
+
+- **`automation_scope_audit/`** — 33 falsifiable claims (C000-C032) about autonomous-trucking ROI, organized into 17 modules, each with a measurable threshold and single-sentence falsifier. Cross-references the 13 canonical equations above through `equations.yaml::automation_scope_audit_claims:`. See `automation_scope_audit/README.md`.
+- **`audit/`** — broader audit / accountability / certification framework. Includes `autonomous_freight_audit.py` (Class-1-corridor constraint layers), `efficiency_report_audit.py` (Six-Sigma audit on industry archetypes), and the field_system / scope_audit / metabolic / money-signal / investment-signal bridges.
+- **`calibration/`** — falsifiable diagnostic suite (5 dimensions, GREEN/YELLOW/RED/EXTINCT bands, 11 falsification tests).
+- **`core/`** — vendored TAF physical sub-models (fatigue, human-system-collapse, heat-leak).
+- **`labor_thermodynamics/`** — five compounding labor-measurement failure modes.
+- **`substrate_accounting/`** — cross-substrate translation and unified-claims index.
+- **`vehicle_audit/`** — Producer / Accumulator architecture for autonomous-vehicle audit cascade (distinct from `automation_scope_audit/`; see `automation_scope_audit/RELATION.md`).
+- **`physics_guard/`** — vendored snapshot fieldlinked one-way through the bridges in `audit/`.
+
 -----
 
 *This framework measures structural properties of economic systems — energy flows, resource dependencies, risk distributions, and power concentrations — using falsifiable equations. Each equation includes a falsification method and data source references. The measurements characterize the current system as predominantly collectively dependent, extraction-dominant, and highly concentrated in control. Threshold choices, weighting assumptions, and illustrative values are documented and subject to sensitivity analysis.*

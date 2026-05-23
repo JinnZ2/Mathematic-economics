@@ -18,6 +18,21 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
+# Deliberately partial — the dispersed-wellsite vendor pitch does NOT
+# publish scope. The gate fails this spec; run.py refuses to audit
+# unless `--allow-missing-scope` is set. This is the correct fail-safe
+# behavior the framework exists to enforce.
+DEPLOYMENT_SPEC = {
+    "beneficiary":        "scaling efficiency",                  # narrative
+    "conditions":         None,                                  # absent
+    "time_period":        "long-term",                           # narrative
+    "resource":           "capital",                             # ambiguous
+    "externalized_cost":  None,                                  # absent
+    "profit_allocation":  None,                                  # absent
+    "falsifier":          None,                                  # absent
+}
+
+
 from automation_scope_audit.modules import (
     meta_scope_guard,
     scope_geometry,

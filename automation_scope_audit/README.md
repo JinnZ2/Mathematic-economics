@@ -228,3 +228,37 @@ The package has no third-party dependencies. It does not import from
 `physics_guard/`, `calibration/`, or any of the vendored subtrees; the
 invariant in `tests/test_bridges.py::ImportDirectionInvariant` is
 respected by construction.
+
+## Related folders
+
+- **`../`** (repo root) — the 13 canonical structural equations, the
+  `DIFFERENTIAL_FRAME.md` ontology this module conforms to, and the
+  `equations.yaml` registry that cross-references every claim here.
+- **`../audit/`** — the broader audit / accountability / certification
+  framework. `audit/autonomous_freight_audit.py` covers complementary
+  Class-1-corridor constraint layers; `audit/efficiency_report_audit.py`
+  runs the Six-Sigma audit on industry "efficiency" archetypes.
+- **`../calibration/`** — the falsifiable diagnostic suite the
+  contract pattern (`falsifier` strings) originates from.
+- **`../core/`** — vendored TAF physical sub-models (fatigue,
+  human-system-collapse, heat-leak) that complement the labor-time
+  side of the C002 / C008 claims.
+- **`../labor_thermodynamics/`** — the five compounding labor-
+  measurement failure modes the C002 task-inventory and C013
+  distributed-labor analysis are calibrated against.
+- **`../substrate_accounting/`** — cross-substrate translation and
+  the unified-claims index that C029 / C030 unified capital
+  accounting plugs into.
+- **`../vehicle_audit/`** — earlier autonomous-vehicle audit
+  framework (Producer / Accumulator). See `RELATION.md` in this
+  folder for the architectural distinction.
+- **`../physics_guard/`** — vendored snapshot used as a one-way
+  fieldlink; the audit framework does NOT depend on it (per CLAUDE.md
+  invariant). See `physics_guard/PROVENANCE.md`.
+- **`../tests/test_automation_scope_audit.py`** — pytest /
+  unittest-compatible harness covering scope gate, works case, fails
+  case, cluster signatures, and contract round-trip.
+- **`./CONTRACT_NOTES.md`** — schema-requirements reading notes
+  produced in TASK 1.1.
+- **`./TODO.md`** — deferred items and renumber/rename reconciliation
+  for the TASK 2.x-7.x batch.

@@ -25,6 +25,21 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
+DEPLOYMENT_SPEC = {
+    "beneficiary":        "fleet_operator_share_60pct_and_atlas_pad_operator_40pct",
+    "conditions":         [
+        "stable_diesel_supply",
+        "no_FMCSA_rule_shift_in_corridor",
+        "weather_within_30yr_envelope",
+    ],
+    "time_period":        "7yr_equipment_lifecycle_amortization",
+    "resource":           "diesel_energy_joules_with_off_vehicle_kwh_overhead",
+    "externalized_cost":  "rural_road_maintenance_to_state_DOT_and_carbon_burden",
+    "profit_allocation":  ["operator_60pct", "atlas_energy_40pct"],
+    "falsifier":          "fuel_intensity_per_ton_mile_increase_post_deployment",
+}
+
+
 from automation_scope_audit.modules import (
     meta_scope_guard,
     scope_geometry,

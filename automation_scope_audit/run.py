@@ -23,6 +23,8 @@ from automation_scope_audit.examples import (
     kodiak_atlas_permian,
     dispersed_wellsite,
 )
+from automation_scope_audit import correlation
+from automation_scope_audit.modules import scope_gate
 
 try:
     from epistemic_ledger import AuditLedger
@@ -30,6 +32,19 @@ try:
 except Exception:
     AuditLedger = None  # type: ignore[assignment]
     _HAS_LEDGER = False
+
+
+# Per-scenario deployment spec used by the scope gate. Each example is
+# expected to publish a `DEPLOYMENT_SPEC` dict declaring the 7 required
+# scope fields. The spec lives in the example module; we default to a
+# blank dict that fails the gate, which is the correct fail-safe
+# behavior for unannotated examples.
+SCENARIO_SPECS: dict = {
+    "kodiak_atlas_permian": getattr(
+        kodiak_atlas_permian, "DEPLOYMENT_SPEC", {}),
+    "dispersed_wellsite": getattr(
+        dispersed_wellsite, "DEPLOYMENT_SPEC", {}),
+}
 
 
 CLAIM_ORDER = ["C000"] + [f"C{n:03d}" for n in range(1, 33)]
@@ -109,6 +124,29 @@ def _record_to_ledger(report: dict, ledger_path: str | None = None) -> int:
     return written
 
 
+def _gate_then_run(scenario_key: str, runner, allow_missing_scope: bool
+                   ) -> dict | None:
+    """Run scope-gate first; if admitted (or override), execute the audit.
+
+    Returns the audit report dict, OR a MISSING_SCOPE report stub if the
+    spec doesn't pass and `--allow-missing-scope` was not set.
+    """
+    spec = SCENARIO_SPECS.get(scenario_key) or {}
+    gate = scope_gate.scope_gate_verdict(spec)
+    if not gate["admissible"] and not allow_missing_scope:
+        print(f"\n=== {scenario_key}: {gate['report']} ===")
+        for field in gate["missing"]:
+            print(f"  missing scope field: {field}")
+        print("audit skipped. Re-run with --allow-missing-scope to override "
+              "(legacy examples).")
+        return None
+    report = runner()
+    # Replace C000 verdict with the spec-level gate verdict so the table
+    # reflects deployment-spec admissibility, not just pitch-text scope.
+    report["C000"] = gate
+    return report
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--json", action="store_true",
@@ -119,13 +157,26 @@ def main() -> int:
                     help="skip appending verdicts to epistemic_ledger.jsonl")
     ap.add_argument("--ledger-path", default=None,
                     help="override path for the ledger file (default: repo root)")
+    ap.add_argument("--allow-missing-scope", action="store_true",
+                    help="run audit even if scope_gate would block it "
+                         "(legacy / un-annotated example specs)")
+    ap.add_argument("--clusters", action="store_true",
+                    help="also print cross-claim cluster report")
     args = ap.parse_args()
 
     reports = []
     if args.scenario in ("works", "both"):
-        reports.append(kodiak_atlas_permian.run())
+        r = _gate_then_run("kodiak_atlas_permian",
+                            kodiak_atlas_permian.run,
+                            args.allow_missing_scope)
+        if r is not None:
+            reports.append(r)
     if args.scenario in ("fails", "both"):
-        reports.append(dispersed_wellsite.run())
+        r = _gate_then_run("dispersed_wellsite",
+                            dispersed_wellsite.run,
+                            args.allow_missing_scope)
+        if r is not None:
+            reports.append(r)
 
     if not args.no_ledger:
         total = sum(_record_to_ledger(r, args.ledger_path) for r in reports)
@@ -140,6 +191,9 @@ def main() -> int:
 
     for r in reports:
         print_table(summarize(r))
+    if args.clusters:
+        for r in reports:
+            correlation.print_clusters(correlation.detect_clusters(r))
     print()
     return 0
 
