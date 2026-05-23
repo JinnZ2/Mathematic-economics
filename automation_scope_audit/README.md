@@ -63,6 +63,23 @@ operates by:
     is undercut by the deployment itself, and the institution cannot
     go backwards (skills atrophied) or forwards (preconditions
     deteriorating).
+15. **Energy-grounded economic validity** — economic models must pass
+    five tests (energy-grounded, optimization reduces energy, causal
+    explanation, scarcity-robust, models its own failure) or they are
+    unfalsifiable. Internal coherence is not validity.
+16. **Institutional blindness from internal coherence** — alternative
+    models get defunded as "inefficient" during abundance; when the
+    primary model fails the institution doubles down because it has no
+    Plan B. Cascade follows.
+17. **Selective capital accounting** — financial models count
+    financial + labor capital and externalize the other seven forms
+    (environmental, biological, thermodynamic, social, temporal,
+    health, regulatory).
+18. **Scaling-as-reallocation** — under unified capital accounting with
+    a joules-equivalent denominator, large-scale deployments routinely
+    show non-financial-loss > financial-gain. Scaling is then transfer
+    of capital from substrate reserves into financial accounts, not
+    creation of capital.
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -103,6 +120,10 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C024  | institutional_dynamics_audit      | Institutional lock-in -> accelerated collapse cycle |
 | C025  | systemic_precondition_audit       | Earth-system precondition failure cascades automation monoculture |
 | C026  | systemic_precondition_audit       | Automation undercuts its own economic-stability precondition |
+| C027  | economic_energy_grounding_audit   | Economic claim must pass 5 energy-grounding validity tests |
+| C028  | economic_energy_grounding_audit   | Internal coherence creates institutional blindness; pivot capacity |
+| C029  | unified_capital_accounting_audit  | Financial models count only 2 of 9 capital forms; rest externalized |
+| C030  | unified_capital_accounting_audit  | "Scaling" is capital reallocation, not creation, under unified accounting |
 
 ## Layout
 
@@ -128,6 +149,8 @@ automation_scope_audit/
 │   ├── scaling_audit.py                  # C021
 │   ├── institutional_dynamics_audit.py   # C022, C023, C024
 │   ├── systemic_precondition_audit.py    # C025, C026
+│   ├── economic_energy_grounding_audit.py # C027, C028
+│   ├── unified_capital_accounting_audit.py # C029, C030
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

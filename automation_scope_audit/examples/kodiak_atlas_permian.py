@@ -42,6 +42,8 @@ from automation_scope_audit.modules import (
     scaling_audit,
     institutional_dynamics_audit,
     systemic_precondition_audit,
+    economic_energy_grounding_audit,
+    unified_capital_accounting_audit,
 )
 
 
@@ -230,6 +232,56 @@ def run() -> dict:
         claim_text=permian_pitch)
     c026 = systemic_precondition_audit.c026_verdict(claim_text=permian_pitch)
 
+    # C027 — energy-grounding validity of the pitch text
+    c027 = economic_energy_grounding_audit.c027_verdict(permian_pitch)
+
+    # C028 — institutional blindness: Atlas / Kodiak operate inside a
+    # mid-sized institutional context with limited but nonzero pivot
+    # capacity (they pivoted from owner-operator to autonomous, so the
+    # institution has shown some adaptability).
+    c028 = economic_energy_grounding_audit.c028_verdict(
+        model_claims=[permian_pitch,
+                       "scaling reduces per-vehicle cost"],
+        external_constraints=[
+            "climate-driven route closure rate",
+            "semiconductor supply chain volatility",
+            "rare-earth export licensing",
+            "FMCSA rule volatility",
+            "labor displacement and demand contraction",
+        ],
+        organization_type="hierarchical",
+        model_dependence=0.70,
+        alternative_models_available=2)
+
+    # C029 / C030 — unified capital accounting. Permian works-case
+    # deployment scaled to 60-truck fleet equivalent.
+    permian_deployment = {
+        "name": "kodiak_atlas_permian_60_truck",
+        "annual_financial_gain_usd": 18_000_000.0,
+        "capitals": {
+            "financial":     18_000_000.0,
+            "labor":          80.0,
+            "environmental":  6_500.0,    # tons CO2/yr for backend + manufacturing
+            "biological":     0.005,
+            "thermodynamic":  18_000.0,   # exergy_kwh/yr off-vehicle
+            "social":         0.020,
+            "temporal":       12.0,
+            "health":         2.0,
+            "regulatory":     0.010,
+        },
+    }
+    # C029 takes the *reported* accounting, not the auditor's full picture
+    # — to model what the marketing / financial report actually counts.
+    permian_reported = {
+        "capitals": {"financial": 18_000_000.0, "labor": 80.0},
+    }
+    c029 = unified_capital_accounting_audit.c029_verdict(permian_reported)
+    # C030 takes the auditor's full picture: the unified accounting that
+    # reveals the deficit the reported picture omits.
+    c030 = unified_capital_accounting_audit.c030_verdict(
+        permian_deployment, time_horizon=30,
+        model_claims=[permian_pitch])
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -239,7 +291,8 @@ def run() -> dict:
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
-        "C025": c025, "C026": c026,
+        "C025": c025, "C026": c026, "C027": c027, "C028": c028,
+        "C029": c029, "C030": c030,
     }
 
 

@@ -1,7 +1,7 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "5.0",
+  "version": "6.0",
   "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict. C000 is a meta-claim: a scope-admissibility gate every other claim must pass.",
   "claims": [
     {
@@ -251,6 +251,39 @@
       ],
       "threshold": ">= 3 of 5 destabilization mechanisms structurally present",
       "falsifier": "automation deployment that does not depend on continuous growth, has supply-chain diversification adequate to absorb any single jurisdiction's restriction, and demonstrates resilience to economic shock without external bailout"
+    },
+    {
+      "id": "C027",
+      "module": "economic_energy_grounding_audit",
+      "metric": "5-test validity battery: energy_grounding, optimization_reduces_energy, causal_explanation, scarcity_robust, failure_modes_modeled",
+      "statement": "Economic models must be grounded in energy / resource accounting or they are unfalsifiable. Internal coherence is not validity. A model that optimizes within itself (cheaper capital, lower lending rate) is blind to whether the underlying deployment makes energetic sense.",
+      "threshold": "claim fails any of 5 validity tests OR fails resource-scarcity stress test (rare-earth or energy scarcity at 0.8 / 0.6 intensity)",
+      "falsifier": "economic model that predicts outcomes accurately during conditions of resource scarcity (where money != energy)"
+    },
+    {
+      "id": "C028",
+      "module": "economic_energy_grounding_audit",
+      "metric": "blindness count + institutional pivot capacity (organization_type + model_dependence + alternative_models_available)",
+      "statement": "Internal economic coherence creates institutional blindness to external constraints. Alternative models get defunded as inefficient during abundance; when the primary model fails, the institution doubles down because it has no Plan B. Cascade follows.",
+      "historical_example": "US auto industry vs OPEC embargo, 1973-2013: 40-year refusal to pivot to efficiency",
+      "threshold": ">= 2 constraints invisible to the model OR pivot capacity < 0.3",
+      "falsifier": "economic model that successfully adapts to fundamental resource scarcity without institutional collapse or reversal"
+    },
+    {
+      "id": "C029",
+      "module": "unified_capital_accounting_audit",
+      "metric": "fraction of 9 capital forms accounted for in deployment statements (financial, labor, environmental, biological, thermodynamic, social, temporal, health, regulatory)",
+      "statement": "Financial models use selective capital accounting, counting only financial + labor capital and ignoring the other seven forms. The omitted forms are externalized rather than accounted for; the model's profit claim cannot be reconciled with the substrate cost of producing that profit.",
+      "threshold": "fewer than half of the 9 capital forms have nonzero entries in the deployment's reported accounting",
+      "falsifier": "financial deployment publishing audited per-period accounting that includes nonzero entries against all nine capital forms with comparable denominators"
+    },
+    {
+      "id": "C030",
+      "module": "unified_capital_accounting_audit",
+      "metric": "joules-equivalent deficit (sum of non-financial capital losses minus financial capital gain) over a 30-year horizon",
+      "statement": "Under unified capital accounting with joules-equivalent denominators, large-scale automation deployments routinely exhibit financial_capital_gained << sum(all_other_capital_losses). Scaling is then capital reallocation from environmental / biological / temporal reserves into financial accounts, not capital creation.",
+      "threshold": "total_non_financial_loss_joules > total_financial_gain_joules over the time horizon",
+      "falsifier": "large-scale automation deployment where financial_capital_gained > sum(all_other_capital_losses) when all capitals are denominated in comparable units (joules-equivalent or years-to-recovery)"
     }
   ]
 }

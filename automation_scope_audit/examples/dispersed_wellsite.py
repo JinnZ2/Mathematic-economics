@@ -35,6 +35,8 @@ from automation_scope_audit.modules import (
     scaling_audit,
     institutional_dynamics_audit,
     systemic_precondition_audit,
+    economic_energy_grounding_audit,
+    unified_capital_accounting_audit,
 )
 
 
@@ -192,6 +194,57 @@ def run() -> dict:
         claim_text=pitch)
     c026 = systemic_precondition_audit.c026_verdict(claim_text=pitch)
 
+    # C027 — fails case pitch fails energy grounding
+    c027 = economic_energy_grounding_audit.c027_verdict(pitch)
+
+    # C028 — captured / monolithic institution with zero alternative
+    # models available (the narrative-setting institutions in autonomous
+    # trucking have systematically defunded distributed and human-driver
+    # alternatives over the past decade)
+    c028 = economic_energy_grounding_audit.c028_verdict(
+        model_claims=[pitch,
+                       "autonomous always wins at scale",
+                       "automation is more efficient than human operation"],
+        external_constraints=[
+            "rare-earth concentration in single jurisdiction",
+            "Kessler syndrome risk to satellite navigation",
+            "grid frequency instability under renewable transition",
+            "labor displacement reduces consumer demand",
+            "climate-driven route closure rate",
+            "FMCSA / state DOT rule volatility",
+        ],
+        organization_type="captured",
+        model_dependence=0.95,
+        alternative_models_available=0)
+
+    # C029 / C030 — unified capital accounting, scaled for the 12-truck
+    # dispersed deployment but with backend-pool overheads that don't
+    # amortize at this scale.
+    dispersed_deployment = {
+        "name": "dispersed_wellsite_12_truck",
+        "annual_financial_gain_usd": 1_800_000.0,
+        "capitals": {
+            "financial":     1_800_000.0,
+            "labor":         20.0,
+            "environmental": 4_800.0,    # backend + manufacturing scaled
+            "biological":    0.003,
+            "thermodynamic": 9_000.0,
+            "social":        0.030,
+            "temporal":      8.0,
+            "health":        1.2,
+            "regulatory":    0.020,
+        },
+    }
+    # C029 takes only the reported (financial + labor) picture
+    dispersed_reported = {
+        "capitals": {"financial": 1_800_000.0, "labor": 20.0},
+    }
+    c029 = unified_capital_accounting_audit.c029_verdict(dispersed_reported)
+    # C030 takes the full audit picture
+    c030 = unified_capital_accounting_audit.c030_verdict(
+        dispersed_deployment, time_horizon=30,
+        model_claims=[pitch])
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -201,7 +254,8 @@ def run() -> dict:
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
         "C017": c017, "C018": c018, "C019": c019, "C020": c020,
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
-        "C025": c025, "C026": c026,
+        "C025": c025, "C026": c026, "C027": c027, "C028": c028,
+        "C029": c029, "C030": c030,
     }
 
 
