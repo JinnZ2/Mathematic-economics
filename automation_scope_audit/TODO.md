@@ -37,6 +37,27 @@ silently.
 
 ---
 
+## Regulatory-dynamics + ROI-baseline-integrity renumbering (C049-C058 batch)
+
+| User label                            | Repo claim ID | Module                            |
+|---------------------------------------|---------------|-----------------------------------|
+| C041 LCD selects against capability   | **C049**      | regulatory_dynamics_audit         |
+| C042/C045 capability diversity        | **C050**      | regulatory_dynamics_audit         |
+| C043 regulatory capture by low-cap    | **C051**      | regulatory_dynamics_audit         |
+| C043 externalized -> internal atrophy | **C052**      | regulatory_dynamics_audit         |
+| C044 degradation cycle                | **C053**      | regulatory_dynamics_audit         |
+| C044/C045 degraded baseline           | **C054**      | roi_baseline_integrity_audit      |
+| C046 AI degradation rigor             | **C055**      | roi_baseline_integrity_audit      |
+| C045/C046 POR not nameplate           | **C056**      | roi_baseline_integrity_audit      |
+| C046 coordination redistributed       | **C057**      | roi_baseline_integrity_audit      |
+| C047/C048 maintenance deferred        | **C058**      | roi_baseline_integrity_audit      |
+
+The user reused C041-C049 in this batch with multiple definitions per
+number. The repo-stable IDs above preserve all distinct claims under
+the next available numbers, and keep parallel-but-distinct claims
+separate (C049 selection-pressure vs C050 resilience-formula, in
+particular, measure related but distinct things).
+
 ## Governance-thermodynamics renumbering (C043-C048 batch)
 
 | User label                            | Repo claim ID | Module                            |

@@ -69,6 +69,8 @@ from automation_scope_audit.modules import (
     substrate_primacy_audit,
     adversarial_overhead_audit,
     governance_thermodynamics_audit,
+    regulatory_dynamics_audit,
+    roi_baseline_integrity_audit,
 )
 
 
@@ -362,6 +364,38 @@ def run() -> dict:
     c047 = governance_thermodynamics_audit.c047_verdict()
     c048 = governance_thermodynamics_audit.c048_verdict()
 
+    # C049-C053 — regulatory dynamics. Systemic claims about the US
+    # regulatory environment; register in both scenarios.
+    c049 = regulatory_dynamics_audit.c049_verdict()
+    c050 = regulatory_dynamics_audit.c050_verdict(
+        max_capability_hours=11.0, min_capability_hours=11.0,
+        n_operators=60, operator_autonomy=0.35)
+    c051 = regulatory_dynamics_audit.c051_verdict()
+    c052 = regulatory_dynamics_audit.c052_verdict()
+    c053 = regulatory_dynamics_audit.c053_verdict(
+        year_since_deployment=4,
+        regulation_intensity=0.45,
+        high_capability_share_remaining=0.30)
+
+    # C054-C058 — ROI baseline integrity. Works case has a slightly more
+    # favorable POR than fails case (consolidated corridor, fewer
+    # exceptions), but the structural concerns still register.
+    c054 = roi_baseline_integrity_audit.c054_verdict()
+    c055 = roi_baseline_integrity_audit.c055_verdict()
+    c056 = roi_baseline_integrity_audit.c056_verdict(
+        autonomous_overhead={
+            "pretrip_diagnostics_h":      0.50,
+            "posttrip_diagnostics_h":     0.50,
+            "charging_or_fueling_h":      2.00,
+            "maintenance_h":              0.75,
+            "interface_integration_h":    0.50,
+            "cloud_diagnostic_latency_h": 0.25,
+            "exception_resolution_h":     1.00,
+        })
+    c057 = roi_baseline_integrity_audit.c057_verdict()
+    c058 = roi_baseline_integrity_audit.c058_verdict(
+        fleet_size=60, lifecycle_years=5)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -377,6 +411,9 @@ def run() -> dict:
         "C037": c037, "C038": c038, "C039": c039, "C040": c040,
         "C041": c041, "C042": c042, "C043": c043, "C044": c044,
         "C045": c045, "C046": c046, "C047": c047, "C048": c048,
+        "C049": c049, "C050": c050, "C051": c051, "C052": c052,
+        "C053": c053, "C054": c054, "C055": c055, "C056": c056,
+        "C057": c057, "C058": c058,
     }
 
 

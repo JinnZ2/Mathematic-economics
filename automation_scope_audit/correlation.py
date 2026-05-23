@@ -123,6 +123,22 @@ CLUSTERS: List[dict] = [
         "engineering-grade falsifiability gap + AI on unstable models + "
         "human-vs-digital regulatory asymmetry — rules apply to one "
         "substrate but not the other across the same operational envelope"},
+    {"name": "lcd_regulatory_degradation_cluster",
+     "claims": ["C049", "C050", "C051", "C052", "C053"],
+     "polarity": "all_register",
+     "explanation":
+        "LCD selection pressure + capability-diversity collapse + "
+        "regulatory capture + externalized-regulation atrophy + 4-phase "
+        "degradation cycle — the same pattern that broke trucking is now "
+        "operating on the automation deployment"},
+    {"name": "roi_baseline_integrity_cluster",
+     "claims": ["C054", "C055", "C056", "C057", "C058"],
+     "polarity": "all_register",
+     "explanation":
+        "degraded baseline + asymmetric AI degradation measurement + "
+        "POR misrepresentation + redistributed coordination + deferred "
+        "maintenance liability — the ROI claim cannot be evaluated because "
+        "the comparison is structurally invalid"},
 ]
 
 

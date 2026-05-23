@@ -113,6 +113,21 @@ operates by:
     output (C047). Regulatory asymmetry between biological and
     digital substrates leaves the digital substrate unregulated
     (C048).
+24. **Regulatory dynamics (LCD)** — lowest-common-denominator
+    regulation eliminates high-capability operators (C049),
+    collapses system resilience (C050), is captured by lowest-
+    capability stakeholders (C051), externalizes self-regulation
+    onto rules that erode internal calibration across domains
+    (C052), and follows a predictable 4-phase degradation cycle
+    that autonomous deployments are entering (C053).
+25. **ROI baseline integrity** — automation is being compared to a
+    baseline that's itself degraded by prior regulation (C054); AI
+    degradation modes lack measurement rigor equivalent to human
+    fatigue curves (C055); nameplate "24/7" misrepresents actual
+    productive operation rate (C056); coordination overhead is
+    redistributed across budget lines, not eliminated (C057);
+    maintenance / inspection cost evasion creates deferred
+    catastrophic liability (C058).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -175,6 +190,16 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C046  | governance_thermodynamics_audit   | Material equality of enforcement determines cost trajectory |
 | C047  | governance_thermodynamics_audit   | Defensive spending counted as GDP misclassifies maintenance |
 | C048  | governance_thermodynamics_audit   | Regulatory asymmetry between biological and digital substrates |
+| C049  | regulatory_dynamics_audit         | LCD regulation selects against high-capability operators |
+| C050  | regulatory_dynamics_audit         | Resilience R = (max-min) * N * autonomy; compression collapses R |
+| C051  | regulatory_dynamics_audit         | Regulatory capture by lowest-capability stakeholders |
+| C052  | regulatory_dynamics_audit         | Externalized regulation degrades internal self-regulation |
+| C053  | regulatory_dynamics_audit         | 4-phase degradation cycle predicts automation collapse |
+| C054  | roi_baseline_integrity_audit      | ROI baseline degraded by prior regulatory intervention |
+| C055  | roi_baseline_integrity_audit      | AI degradation lacks measurement rigor equivalent to human fatigue |
+| C056  | roi_baseline_integrity_audit      | Productive Operation Rate (POR), not nameplate 24/7 |
+| C057  | roi_baseline_integrity_audit      | Coordination overhead redistributed, not eliminated |
+| C058  | roi_baseline_integrity_audit      | Maintenance / inspection externalization -> deferred catastrophic liability |
 
 ## Layout
 
@@ -206,6 +231,8 @@ automation_scope_audit/
 │   ├── substrate_primacy_audit.py        # C033-C041
 │   ├── adversarial_overhead_audit.py     # C042
 │   ├── governance_thermodynamics_audit.py # C043-C048
+│   ├── regulatory_dynamics_audit.py      # C049-C053
+│   ├── roi_baseline_integrity_audit.py   # C054-C058
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

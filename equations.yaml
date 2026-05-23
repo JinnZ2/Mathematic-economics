@@ -745,6 +745,56 @@ automation_scope_audit_claims:
       summary: "Regulatory asymmetry: human HOS regulated, AI 24/7 operation unregulated"
       cross_references: ["SD"]
 
+    - id: "C049"
+      module: "regulatory_dynamics_audit"
+      summary: "LCD regulation selects against high-capability operators"
+      cross_references: ["LWR", "SD"]
+
+    - id: "C050"
+      module: "regulatory_dynamics_audit"
+      summary: "System resilience requires capability diversity: R = (max - min) * N * autonomy"
+      cross_references: ["BSC"]
+
+    - id: "C051"
+      module: "regulatory_dynamics_audit"
+      summary: "Regulatory capture by lowest-capability stakeholders + insurance + agencies"
+      cross_references: ["DI", "HHI"]
+
+    - id: "C052"
+      module: "regulatory_dynamics_audit"
+      summary: "Externalized regulation degrades internal self-regulation across domains"
+      cross_references: ["SD"]
+
+    - id: "C053"
+      module: "regulatory_dynamics_audit"
+      summary: "4-phase regulatory degradation cycle predicts automation collapse trajectory"
+      cross_references: ["HHI", "BSC"]
+
+    - id: "C054"
+      module: "roi_baseline_integrity_audit"
+      summary: "ROI baseline degraded by prior regulatory intervention; comparison invalid"
+      cross_references: ["LWR", "VE_VL"]
+
+    - id: "C055"
+      module: "roi_baseline_integrity_audit"
+      summary: "AI degradation modes lack measurement rigor equivalent to human fatigue curves"
+      cross_references: ["MSI", "SD"]
+
+    - id: "C056"
+      module: "roi_baseline_integrity_audit"
+      summary: "Productive Operation Rate (POR), not nameplate 24/7; autonomous POR ~ 0.25-0.50"
+      cross_references: ["ER"]
+
+    - id: "C057"
+      module: "roi_baseline_integrity_audit"
+      summary: "Coordination overhead redistributed, not eliminated; fragments across budget lines"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C058"
+      module: "roi_baseline_integrity_audit"
+      summary: "Maintenance / inspection externalization creates deferred catastrophic liability"
+      cross_references: ["BSC", "RI"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

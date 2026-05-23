@@ -31,6 +31,8 @@ from . import (
     substrate_primacy_audit,
     adversarial_overhead_audit,
     governance_thermodynamics_audit,
+    regulatory_dynamics_audit,
+    roi_baseline_integrity_audit,
 )
 
 __all__ = [
@@ -56,4 +58,6 @@ __all__ = [
     "substrate_primacy_audit",
     "adversarial_overhead_audit",
     "governance_thermodynamics_audit",
+    "regulatory_dynamics_audit",
+    "roi_baseline_integrity_audit",
 ]
