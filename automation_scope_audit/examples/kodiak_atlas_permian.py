@@ -36,6 +36,8 @@ from automation_scope_audit.modules import (
     interface_externalization_audit,
     constraint_validation_audit,
     legal_liability_audit,
+    cognitive_monoculture_audit,
+    thermodynamic_accounting_audit,
 )
 
 
@@ -163,13 +165,42 @@ def run() -> dict:
     # C017 — legal/regulatory framework
     c017 = legal_liability_audit.c017_verdict(fleet_size=60)
 
+    # C018 / C019 — cognitive monoculture (works case: early in transition,
+    # dispatchers still see enough variant routes that retention is higher)
+    early_transition_skills = {
+        "manual_route_planning":     0.10,
+        "anomaly_diagnosis":         0.20,
+        "field_mechanical_repair":   0.20,
+        "customer_negotiation":      0.20,
+        "regulatory_field_judgment": 0.15,
+        "degraded_mode_operation":   0.15,
+    }
+    c018 = cognitive_monoculture_audit.c018_verdict(
+        skill_weights=early_transition_skills,
+        years_into_transition=2.0)
+    c019 = cognitive_monoculture_audit.c019_verdict(
+        skill_weights=early_transition_skills,
+        years_into_transition=2.0,
+        edge_case_profile={"annual_frequency_per_vehicle": 0.3})
+
+    # C020 — thermodynamic accounting (works case: short corridor, lower
+    # telemetry hours, fewer sensors per truck)
+    c020 = thermodynamic_accounting_audit.c020_verdict(
+        fleet_size=60,
+        sensor_inventory={"lidar_unit": 3, "camera_unit": 6,
+                          "radar_unit": 4, "thermal_imager": 1,
+                          "imu_unit": 2},
+        backend_location="cellular",
+        fuel_saved_kwh=7_500.0,           # consolidated corridor: bigger savings
+        truck_operations_kwh=32_000.0)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C001": c001, "C002": c002, "C003": c003, "C004": c004,
         "C005": c005, "C006": c006, "C007": c007, "C008": c008,
         "C009": c009, "C010": c010, "C011": c011, "C012": c012,
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
-        "C017": c017,
+        "C017": c017, "C018": c018, "C019": c019, "C020": c020,
     }
 
 

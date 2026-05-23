@@ -1,7 +1,7 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "2.0",
+  "version": "3.0",
   "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict.",
   "claims": [
     {
@@ -132,6 +132,49 @@
       "statement": "Litigation defense, regulatory engagement, lobbying, insurance navigation, and incident-investigation specialists are a structural operating expense for autonomous deployments, not a one-time startup cost.",
       "threshold": "autonomous : conventional annual cost ratio > 1.5",
       "falsifier": "deployed autonomous trucking operation showing legal and regulatory framework cost at <1.5x conventional, sustained over 3 consecutive years"
+    },
+    {
+      "id": "C018",
+      "module": "cognitive_monoculture_audit",
+      "metric": "weighted human domain expertise retention across 6 skill atrophy curves",
+      "statement": "System resilience degrades when human domain expertise atrophies during transition to AI dominance; neuroplasticity optimizes away unused skills, institutional memory fades, degraded-mode operation disappears. When the AI hits a scenario outside its envelope, the humans who would normally recover have lost the ability to do so.",
+      "failure_modes": [
+        "human skill loss: domain knowledge fades due to disuse",
+        "neuroplasticity optimization: brain optimizes away skills marked AI-handled",
+        "edge-case blindness: AI encounters scenario outside training, humans cannot recover",
+        "degraded-mode failure: no analog-mode operation when AI fails",
+        "institutional memory loss: nobody remembers why the old process existed"
+      ],
+      "threshold": "weighted domain expertise retention < 60% during transition",
+      "falsifier": "deployment where AI-dominant system experiences edge-case failure AND humans successfully recover without catastrophic cost"
+    },
+    {
+      "id": "C019",
+      "module": "cognitive_monoculture_audit",
+      "metric": "edge-case recovery cost (scaled by deskilling) vs apparent monoculture savings",
+      "statement": "True eROI of the symbiosis-to-monoculture transition must include skill recovery overhead; monoculture appears cheaper at steady state but pays recovery cost when edge cases occur (humans must re-skill, AI must retrain, system offline during both, cascade costs downstream).",
+      "threshold": "edge_case_recovery_cost x frequency > routine_cost_savings",
+      "falsifier": "operational deployment where monoculture edge-case recovery cost is less than hybrid-redundancy steady-state cost"
+    },
+    {
+      "id": "C020",
+      "module": "thermodynamic_accounting_audit",
+      "metric": "honest eROI = useful energy out / total energy in across truck + server + network + manufacturing + extraction stacks",
+      "statement": "Automation energy efficiency claims require full thermodynamic accounting. Server farm electricity, network transmission, data center construction, sensor manufacturing, rare earth extraction, software development, cloud overhead, redundancy systems, and compliance compute are not in the apparent-eROI denominator.",
+      "what_is_not_counted": [
+        "server farm electricity (24/7 + PUE)",
+        "network infrastructure (cellular / satellite / fiber)",
+        "data center construction (embodied carbon)",
+        "remote diagnostic compute per vehicle",
+        "sensor manufacturing (LiDAR, GPU, camera, RADAR, thermal)",
+        "rare earth extraction for electronics",
+        "software development + CI/CD compute",
+        "cloud overhead (20-40% hyperscaler utilization)",
+        "redundancy / failover infrastructure",
+        "regulatory compliance compute (audit logs, encryption, monitoring)"
+      ],
+      "threshold": "honest eROI < 1.5",
+      "falsifier": "audited end-to-end energy accounting showing autonomous eROI > 1.5 across server, manufacturing, extraction, and network energy stacks"
     }
   ]
 }

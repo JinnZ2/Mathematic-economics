@@ -33,8 +33,18 @@ operates by:
 7. **Legal / regulatory framework cost** — litigation defense,
    regulatory engagement, and lobbying for liability shields are
    structural operating expenses, not one-time startup costs.
+8. **Cognitive monoculture** — human domain expertise atrophies during
+   transition to AI dominance; degraded-mode operation disappears
+   alongside the skill that once made recovery possible.
+9. **Transition energy cost** — monoculture appears cheaper at steady
+   state but pays a recovery cost (human re-skilling + AI retraining +
+   downtime + cascade) when edge cases occur.
+10. **Incomplete thermodynamic accounting** — apparent eROI counts fuel
+    savings against truck operations; honest eROI must include server
+    farm electricity, sensor manufacturing, rare-earth extraction,
+    network transmission, and software / CI-CD energy.
 
-Each is encoded as a numbered claim (C001-C017) with a measurable threshold
+Each is encoded as a numbered claim (C001-C020) with a measurable threshold
 and a single-sentence falsifier sufficient to refute it.
 
 ## Claims at a glance
@@ -60,6 +70,9 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C015  | constraint_validation_audit       | Liability void across 7-participant chain        |
 | C016  | constraint_validation_audit       | Override hierarchy misses novel conflicts        |
 | C017  | legal_liability_audit             | Framework + litigation premium > 1.5x conventional |
+| C018  | cognitive_monoculture_audit       | Human domain expertise atrophies during AI transition |
+| C019  | cognitive_monoculture_audit       | Edge-case recovery cost > apparent monoculture savings |
+| C020  | thermodynamic_accounting_audit    | Honest eROI < 1.5 with full energy stack accounted |
 
 ## Layout
 
@@ -79,7 +92,9 @@ automation_scope_audit/
 │   ├── scope_collapse_detector.py        # C006, C007
 │   ├── interface_externalization_audit.py # C011, C012, C013
 │   ├── constraint_validation_audit.py    # C014, C015, C016
-│   └── legal_liability_audit.py          # C017
+│   ├── legal_liability_audit.py          # C017
+│   ├── cognitive_monoculture_audit.py    # C018, C019
+│   └── thermodynamic_accounting_audit.py # C020
 └── examples/
     ├── kodiak_atlas_permian.py           # works case
     └── dispersed_wellsite.py             # fails case

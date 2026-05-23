@@ -29,6 +29,8 @@ from automation_scope_audit.modules import (
     interface_externalization_audit,
     constraint_validation_audit,
     legal_liability_audit,
+    cognitive_monoculture_audit,
+    thermodynamic_accounting_audit,
 )
 
 
@@ -135,13 +137,34 @@ def run() -> dict:
     # C017 — legal/regulatory framework (small fleet)
     c017 = legal_liability_audit.c017_verdict(fleet_size=12)
 
+    # C018 / C019 — cognitive monoculture (fails case: deep into transition,
+    # variable routes mean dispatchers have lost the most-needed skills)
+    c018 = cognitive_monoculture_audit.c018_verdict(
+        years_into_transition=6.0)
+    c019 = cognitive_monoculture_audit.c019_verdict(
+        years_into_transition=6.0,
+        edge_case_profile={"annual_frequency_per_vehicle": 1.6,
+                            "downstream_cascade_usd": 60_000.0})
+
+    # C020 — thermodynamic accounting (fails case: small fleet pays heavier
+    # fixed-pool overhead, sat backhaul where cellular doesn't reach,
+    # higher sensor count for terrain handling)
+    c020 = thermodynamic_accounting_audit.c020_verdict(
+        fleet_size=12,
+        sensor_inventory={"lidar_unit": 5, "camera_unit": 10,
+                          "radar_unit": 8, "thermal_imager": 3,
+                          "imu_unit": 3},
+        backend_location="satellite",
+        fuel_saved_kwh=2_500.0,
+        truck_operations_kwh=38_000.0)
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C001": c001, "C002": c002, "C003": c003, "C004": c004,
         "C005": c005, "C006": c006, "C007": c007, "C008": c008,
         "C009": c009, "C010": c010, "C011": c011, "C012": c012,
         "C013": c013, "C014": c014, "C015": c015, "C016": c016,
-        "C017": c017,
+        "C017": c017, "C018": c018, "C019": c019, "C020": c020,
     }
 
 

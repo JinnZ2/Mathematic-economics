@@ -19,6 +19,8 @@ from . import (
     interface_externalization_audit,
     constraint_validation_audit,
     legal_liability_audit,
+    cognitive_monoculture_audit,
+    thermodynamic_accounting_audit,
 )
 
 __all__ = [
@@ -32,4 +34,6 @@ __all__ = [
     "interface_externalization_audit",
     "constraint_validation_audit",
     "legal_liability_audit",
+    "cognitive_monoculture_audit",
+    "thermodynamic_accounting_audit",
 ]
