@@ -795,6 +795,11 @@ automation_scope_audit_claims:
       summary: "Maintenance / inspection externalization creates deferred catastrophic liability"
       cross_references: ["BSC", "RI"]
 
+    - id: "C059"
+      module: "system_integration_audit"
+      summary: "Integrated multi-function energy accounting: autonomous ~2x human-integrated baseline; synthesis of C020/C039/C056-C058"
+      cross_references: ["MSI", "ER", "VE_VL"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

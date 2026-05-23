@@ -58,6 +58,7 @@ from automation_scope_audit.modules import (
     governance_thermodynamics_audit,
     regulatory_dynamics_audit,
     roi_baseline_integrity_audit,
+    system_integration_audit,
 )
 
 
@@ -335,6 +336,10 @@ def run() -> dict:
     c058 = roi_baseline_integrity_audit.c058_verdict(
         fleet_size=12, lifecycle_years=5)
 
+    # C059 — fails case uses module defaults (autonomous-no-driver:
+    # only transport integrated, near-zero degraded-mode capacity).
+    c059 = system_integration_audit.c059_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -352,7 +357,7 @@ def run() -> dict:
         "C045": c045, "C046": c046, "C047": c047, "C048": c048,
         "C049": c049, "C050": c050, "C051": c051, "C052": c052,
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
-        "C057": c057, "C058": c058,
+        "C057": c057, "C058": c058, "C059": c059,
     }
 
 

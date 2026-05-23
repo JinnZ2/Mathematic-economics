@@ -128,6 +128,13 @@ operates by:
     redistributed across budget lines, not eliminated (C057);
     maintenance / inspection cost evasion creates deferred
     catastrophic liability (C058).
+26. **System integration synthesis** (bee analogy) — a human driver
+    performs seven functions as integrated side-effects of a single
+    metabolic budget already being paid; an autonomous deployment
+    separates each function into its own energy-hungry system. The
+    integrated baseline is ~1,155 MJ/truck/day; the autonomous
+    deployment is ~2,224 MJ/truck/day — ~2x more energy for the same
+    work (C059). Synthesis of C020 / C039 / C056-C058.
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -200,6 +207,7 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C056  | roi_baseline_integrity_audit      | Productive Operation Rate (POR), not nameplate 24/7 |
 | C057  | roi_baseline_integrity_audit      | Coordination overhead redistributed, not eliminated |
 | C058  | roi_baseline_integrity_audit      | Maintenance / inspection externalization -> deferred catastrophic liability |
+| C059  | system_integration_audit          | Integrated multi-function energy synthesis: autonomous ~2x human baseline (bee analogy) |
 
 ## Layout
 
@@ -233,6 +241,7 @@ automation_scope_audit/
 │   ├── governance_thermodynamics_audit.py # C043-C048
 │   ├── regulatory_dynamics_audit.py      # C049-C053
 │   ├── roi_baseline_integrity_audit.py   # C054-C058
+│   ├── system_integration_audit.py       # C059
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

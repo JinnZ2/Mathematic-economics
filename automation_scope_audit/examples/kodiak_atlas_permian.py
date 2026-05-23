@@ -71,6 +71,7 @@ from automation_scope_audit.modules import (
     governance_thermodynamics_audit,
     regulatory_dynamics_audit,
     roi_baseline_integrity_audit,
+    system_integration_audit,
 )
 
 
@@ -396,6 +397,16 @@ def run() -> dict:
     c058 = roi_baseline_integrity_audit.c058_verdict(
         fleet_size=60, lifecycle_years=5)
 
+    # C059 — integrated thermodynamic synthesis. Works case has modest
+    # degraded-mode capacity (safety driver in cab) and one extra
+    # integrated function (adaptation handled by the human, not the AI).
+    c059 = system_integration_audit.c059_verdict(
+        autonomous_function_status={
+            "transport": "integrated",
+            "adaptation_to_novel_conditions": "integrated",
+        },
+        autonomous_degraded_mode_capacity=0.30)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -413,7 +424,7 @@ def run() -> dict:
         "C045": c045, "C046": c046, "C047": c047, "C048": c048,
         "C049": c049, "C050": c050, "C051": c051, "C052": c052,
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
-        "C057": c057, "C058": c058,
+        "C057": c057, "C058": c058, "C059": c059,
     }
 
 

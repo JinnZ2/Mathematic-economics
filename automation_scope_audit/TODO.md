@@ -37,6 +37,24 @@ silently.
 
 ---
 
+## System-integration synthesis renumbering (C059 batch)
+
+| User label                                        | Repo claim ID | Module                       |
+|---------------------------------------------------|---------------|------------------------------|
+| C048 (multiple framings; bee-pollination analogy) | **C059**      | system_integration_audit     |
+
+The user used C048 multiple times in the same submission to express
+the same underlying synthesis claim (integrated multi-function energy
+accounting, the bee-vs-hand-pollination structural analogy, and the
+threshold "automation only efficient if total_energy lower AND
+resilience >= baseline"). The repo-stable ID C059 is the next free
+number and the new module `system_integration_audit.py` holds it.
+
+C059's default daily energy budget calibrates to the user's worked
+example exactly: human-integrated ~1,155 MJ/day; autonomous ~2,224
+MJ/day; ratio ~1.93. The bee analogy is preserved in the module
+docstring as the framing rationale.
+
 ## Regulatory-dynamics + ROI-baseline-integrity renumbering (C049-C058 batch)
 
 | User label                            | Repo claim ID | Module                            |

@@ -33,6 +33,7 @@ from . import (
     governance_thermodynamics_audit,
     regulatory_dynamics_audit,
     roi_baseline_integrity_audit,
+    system_integration_audit,
 )
 
 __all__ = [
@@ -60,4 +61,5 @@ __all__ = [
     "governance_thermodynamics_audit",
     "regulatory_dynamics_audit",
     "roi_baseline_integrity_audit",
+    "system_integration_audit",
 ]

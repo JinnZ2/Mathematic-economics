@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "10.0",
+  "version": "11.0",
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -1139,6 +1139,19 @@
       "scope_envelope": {"fleet_size_range": [10, 50000], "lifecycle_years_range": [1, 15]},
       "data_source": ["NICB insurance claim data", "FMCSA crash records", "operator inspection protocol disclosures"],
       "sensitivity": ["catastrophic_failure_rate_increase (humans catch 60-70% of precursor issues)"]
+    },
+    "C059": {
+      "observable": "total all-categories daily energy budget (MJ) and seven-function integration score, autonomous vs human-integrated baseline",
+      "rate_equation": "d(efficiency)/d(integration_score) = sum(integrated_function_energy) vs sum(separated_function_energy); threshold = autonomous_MJ_per_day < human_MJ_per_day AND autonomous_resilience >= human_resilience",
+      "bounds": {"spatial": "per-vehicle daily operational scope", "temporal": "per-day, multi-day average", "scale": "MJ per truck per day + 7-function integration score"},
+      "conditions": ["all energy categories itemized for both substrates", "7 canonical functions (transport, condition_monitoring, problem_detection, micro_decision_making, coordination, self_maintenance, adaptation_to_novel_conditions) classified per function as integrated / separated / outsourced"],
+      "invalid_if": ["autonomous deployment achieving >10% energy savings vs the human-operated baseline AND maintaining or improving resilience to edge cases, with all energy categories itemized and third-party audited"],
+      "measured_by": ["human metabolic rate studies", "EIA fuel consumption data", "LBNL data-center energy reports", "operator function-inventory ethnographies"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps C020, C039, C056, C057, C058", "synthesis claim"],
+      "scope_envelope": {"daily_MJ_range": [100.0, 10000.0], "integration_score_range": [0.0, 1.0]},
+      "data_source": ["WHO metabolic energy expenditure tables", "EIA diesel energy density references", "LBNL US data center energy reports", "operator function-inventory studies (FMCSA / DOL apprenticeship)"],
+      "sensitivity": ["cloud_backend_share (dominant autonomous term)", "truck_fuel (shared baseline)", "integration_score (synthesis)"]
     }
   }
 }

@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 59)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 60)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -163,6 +163,27 @@ class ClusterTests(unittest.TestCase):
     def test_works_case_does_not_fire_infrastructure_inadequacy(self):
         self.assertNotIn("infrastructure_inadequacy_cluster",
                           self.works_clusters["triggered_clusters"])
+
+
+class C059IntegrationTests(unittest.TestCase):
+    """Calibration tests for the bee-pollination synthesis claim."""
+
+    def test_default_budget_matches_worked_example(self):
+        from automation_scope_audit.modules import system_integration_audit
+        r = system_integration_audit.c059_verdict()
+        # Worked example: human ~1,155 MJ/day, autonomous ~2,224 MJ/day
+        self.assertAlmostEqual(r["human_budget"]["total_MJ_per_day"],
+                                1155.0, delta=5.0)
+        self.assertAlmostEqual(r["autonomous_budget"]["total_MJ_per_day"],
+                                2224.0, delta=5.0)
+        self.assertGreater(r["energy_ratio_autonomous_to_human"], 1.8)
+        self.assertLess(r["energy_ratio_autonomous_to_human"], 2.1)
+        self.assertTrue(r["threshold_met"])
+
+    def test_human_resilience_exceeds_autonomous(self):
+        from automation_scope_audit.modules import system_integration_audit
+        r = system_integration_audit.c059_verdict()
+        self.assertGreater(r["human_resilience"], r["autonomous_resilience"])
 
 
 class ContractValidatedTests(unittest.TestCase):

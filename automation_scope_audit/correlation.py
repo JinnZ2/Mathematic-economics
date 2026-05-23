@@ -139,6 +139,15 @@ CLUSTERS: List[dict] = [
         "POR misrepresentation + redistributed coordination + deferred "
         "maintenance liability — the ROI claim cannot be evaluated because "
         "the comparison is structurally invalid"},
+    {"name": "integrated_thermodynamic_inefficiency_cluster",
+     "claims": ["C020", "C039", "C056", "C057", "C059"],
+     "polarity": "all_register",
+     "explanation":
+        "honest eROI deficit + knowledge-preservation energy + low POR + "
+        "redistributed coordination + integrated multi-function energy "
+        "accounting — the autonomous deployment uses ~2x the energy of "
+        "the integrated human baseline to do the same work (bee-vs-hand "
+        "pollination structural analogy)"},
 ]
 
 
