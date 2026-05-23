@@ -265,6 +265,23 @@ automation_scope_audit/
     └── dispersed_wellsite.py             # fails case
 ```
 
+## 6-layer architecture
+
+The 65 claims sit in a 6-layer architecture with a closed coupling
+cycle (technical → operational → behavioral → institutional → energy
+→ economic → technical). Full description in
+`ARCHITECTURE.md`. Encoded in `architecture.py`:
+
+```bash
+python automation_scope_audit/run.py --layers              # per-layer report
+python automation_scope_audit/architecture.py              # standalone coverage check
+```
+
+Cycle status is `UNTENABLE_CYCLE_CLOSED` when every layer has at
+least one firing claim. Both example scenarios close the cycle; the
+discrimination between them appears as the *depth* of failure (works
+case: 1 fully-failed layer; fails case: 5).
+
 ## Usage
 
 ```bash

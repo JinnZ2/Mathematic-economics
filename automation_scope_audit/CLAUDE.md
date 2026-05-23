@@ -47,6 +47,22 @@ C001 (`scope_geometry`) also emits a `tier` field with four bins:
 (0.30-0.60), `chaotic` (>= 0.60). Use the tier for graduated routing
 recommendations; use `threshold_met` for the binary 5% gate.
 
+## 6-layer architecture
+
+`architecture.py` encodes the 6-layer structural architecture:
+technical → operational → behavioral → institutional → energy →
+economic → technical (closed cycle). Every claim belongs to exactly
+one layer or to the cross-cutting band; coverage check verifies this
+on every run.
+
+A deployment is `UNTENABLE_CYCLE_CLOSED` when every load-bearing
+layer has at least one firing claim; `PARTIAL_FAILURE` when some
+layers fire but not all; `ADMISSIBLE` only when zero layers register.
+
+Run with `--layers` to see the per-layer status table and active
+cycle edges. See `ARCHITECTURE.md` for the full architectural
+description.
+
 ## Cluster signatures
 
 `correlation.py` defines 8 curated cluster signatures (e.g.

@@ -186,6 +186,39 @@ class C059IntegrationTests(unittest.TestCase):
         self.assertGreater(r["human_resilience"], r["autonomous_resilience"])
 
 
+class ArchitectureTests(unittest.TestCase):
+    """6-layer architecture coverage + cycle detection."""
+
+    @classmethod
+    def setUpClass(cls):
+        from automation_scope_audit import architecture
+        cls.architecture = architecture
+        cls.works = kodiak_atlas_permian.run()
+        cls.fails = dispersed_wellsite.run()
+
+    def test_layer_coverage_complete(self):
+        cov = self.architecture.coverage_check()
+        self.assertTrue(cov["complete"],
+                         msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
+        self.assertEqual(cov["total_claims"], 65)
+
+    def test_six_load_bearing_layers(self):
+        self.assertEqual(len(self.architecture.LAYERS), 6)
+
+    def test_coupling_cycle_has_six_edges_closing_back(self):
+        edges = self.architecture.COUPLING_EDGES
+        self.assertEqual(len(edges), 6)
+        # First edge from layer 1; last edge returns to layer 1
+        self.assertEqual(edges[0]["upstream"], 1)
+        self.assertEqual(edges[-1]["downstream"], 1)
+
+    def test_fails_case_has_more_fully_failed_layers_than_works(self):
+        cs_works = self.architecture.cycle_status(self.works)
+        cs_fails = self.architecture.cycle_status(self.fails)
+        self.assertGreater(len(cs_fails["fully_failed_layers"]),
+                            len(cs_works["fully_failed_layers"]))
+
+
 class ContractValidatedTests(unittest.TestCase):
 
     def test_fab_table_round_trips(self):

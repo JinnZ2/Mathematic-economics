@@ -23,7 +23,7 @@ from automation_scope_audit.examples import (
     kodiak_atlas_permian,
     dispersed_wellsite,
 )
-from automation_scope_audit import correlation
+from automation_scope_audit import correlation, architecture
 from automation_scope_audit.modules import scope_gate
 
 try:
@@ -162,6 +162,8 @@ def main() -> int:
                          "(legacy / un-annotated example specs)")
     ap.add_argument("--clusters", action="store_true",
                     help="also print cross-claim cluster report")
+    ap.add_argument("--layers", action="store_true",
+                    help="also print 6-layer architecture report with cycle status")
     args = ap.parse_args()
 
     reports = []
@@ -194,6 +196,9 @@ def main() -> int:
     if args.clusters:
         for r in reports:
             correlation.print_clusters(correlation.detect_clusters(r))
+    if args.layers:
+        for r in reports:
+            architecture.print_layer_report(r)
     print()
     return 0
 
