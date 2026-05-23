@@ -1,0 +1,126 @@
+{
+  "license": "CC0-1.0",
+  "scope": "autonomous_trucking_roi_audit",
+  "version": "1.0",
+  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a falsifier: a single piece of evidence sufficient to flip the verdict.",
+  "claims": [
+    {
+      "id": "C001",
+      "module": "scope_geometry",
+      "statement": "Autonomous trucking ROI requires fixed depot-to-destination geometry.",
+      "threshold": "route variance < 5% week-over-week",
+      "falsifier": "working autonomous deployment on routes with >20% variance"
+    },
+    {
+      "id": "C002",
+      "module": "embedded_labor_audit",
+      "statement": "Wellsite labor (pump ops, terrain navigation, equipment maintenance) is not automated by haul automation.",
+      "threshold": "driver hours per delivery unchanged or increased post-automation",
+      "falsifier": "documented end-to-end automation including pump operation at variable sites"
+    },
+    {
+      "id": "C003",
+      "module": "infrastructure_precondition",
+      "statement": "Infrastructure precondition capex exceeds vehicle capex for dispersed small wells.",
+      "threshold": "paving + marking + receiving infrastructure > $500k per route-mile",
+      "falsifier": "cost data showing dispersed-well infrastructure < vehicle fleet cost"
+    },
+    {
+      "id": "C004",
+      "module": "lifecycle_eroi",
+      "statement": "ROI window must exceed well productivity decline curve.",
+      "threshold": "lease productive life > equipment depreciation period (typ. 7yr)",
+      "falsifier": "profitable autonomous deployment on <3yr wells"
+    },
+    {
+      "id": "C005",
+      "module": "stranded_asset_risk",
+      "statement": "Equipment resale value to non-consolidated operators approaches zero.",
+      "threshold": "secondary market price < 20% original within 5yr",
+      "falsifier": "active secondary market at >40% retention"
+    },
+    {
+      "id": "C006",
+      "module": "scope_collapse_detector",
+      "statement": "'Automation' framing collapses distinct labor categories.",
+      "threshold": "marketing claims do not distinguish haul / navigation / site-work",
+      "falsifier": "scope-honest deployment language in primary sources"
+    },
+    {
+      "id": "C007",
+      "module": "scope_collapse_detector",
+      "statement": "Threat-narrative deployment correlates with wage suppression, not efficiency gain.",
+      "threshold": "wages decline >10% in automated regions without productivity match",
+      "falsifier": "wage data showing parity or increase post-automation"
+    },
+    {
+      "id": "C008",
+      "module": "condition_monitoring_audit",
+      "statement": "Driver-performed condition monitoring is unpriced infrastructure.",
+      "tasks": [
+        "pretrip inspection (~30min, ~50 checkpoints)",
+        "posttrip inspection (~20min)",
+        "mid-shift fluid checks (oil, coolant, washer, DEF)",
+        "tire pressure + visual tire condition",
+        "brake adjustment monitoring",
+        "light/signal verification",
+        "air system leak detection (audio + gauge)",
+        "load securement re-check",
+        "windshield/mirror cleaning",
+        "fifth wheel inspection",
+        "belly/undercarriage visual"
+      ],
+      "threshold": "replacement cost = sensor array + diagnostic AI + intervention dispatch",
+      "falsifier": "deployed system showing <2x cost of driver-performed monitoring"
+    },
+    {
+      "id": "C009",
+      "module": "condition_monitoring_audit",
+      "statement": "Sensor replacement of human monitoring introduces new failure modes.",
+      "failure_modes": [
+        "sensor calibration drift (no human cross-check)",
+        "catastrophic detection vs. early-warning gap",
+        "maintenance dispatch lag vs. immediate driver action"
+      ],
+      "threshold": "mean-time-to-detection for non-instrumented failures",
+      "falsifier": "documented parity in catch rates for subtle/precursor failures"
+    },
+    {
+      "id": "C010",
+      "module": "condition_monitoring_audit",
+      "statement": "Roadside breakdown cost scales nonlinearly without operator present.",
+      "components": [
+        "tow",
+        "dispatch",
+        "lost load",
+        "cargo damage",
+        "route reschedule",
+        "customer penalty",
+        "sensor diagnostic limits"
+      ],
+      "threshold": "per-incident cost ratio autonomous:human > 3x",
+      "falsifier": "insurance/operational data showing parity"
+    },
+    {
+      "id": "C011",
+      "module": "interface_labor_audit",
+      "statement": "Driver-mediated interfaces (fuel, customer, dispatch, maintenance, regulatory, roadside) are unpriced flexibility that must be replaced.",
+      "threshold": "total interface replacement cost across all touchpoints",
+      "falsifier": "autonomous deployment with documented interface coverage at <2x driver-mediated cost"
+    },
+    {
+      "id": "C012",
+      "module": "interface_labor_audit",
+      "statement": "Autonomous deployments shift energy cost off-vehicle into remote diagnostic / dispatch / customer service infrastructure not counted in vehicle TCO.",
+      "threshold": "off-vehicle energy + staffing cost > 30% of total operating cost",
+      "falsifier": "audited TCO showing remote operations < 10% of total"
+    },
+    {
+      "id": "C013",
+      "module": "interface_labor_audit",
+      "statement": "Driver adaptation across novel fault modes is unpriced general-purpose problem-solving.",
+      "threshold": "fault-mode coverage ratio (driver_handled : autonomous_handled) > 5x",
+      "falsifier": "documented autonomous system handling >80% of historical driver exceptions"
+    }
+  ]
+}
