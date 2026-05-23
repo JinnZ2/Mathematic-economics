@@ -1,0 +1,739 @@
+{
+  "license": "CC0-1.0",
+  "contract_version": "1.0.0",
+  "scope": "autonomous_trucking_roi_audit",
+  "version": "7.0",
+  "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
+  "claims": {
+    "C000": {
+      "observable": "presence of seven scope dimensions in an automation / efficiency claim text",
+      "rate_equation": "d(admissibility)/d(scope_specification) = +1 if all seven dimensions present, else 0",
+      "bounds": {
+        "spatial": "any claim text passed to validate_scope_specification",
+        "temporal": "per-claim evaluation, no time-series",
+        "scale": "single-document granularity"
+      },
+      "conditions": [
+        "claim text is in plain English",
+        "regex patterns for the seven dimensions can detect any acknowledgment"
+      ],
+      "invalid_if": [
+        "a primary-source claim that explicitly answers all seven scope questions AND publishes a measurable falsifier"
+      ],
+      "measured_by": [
+        "regex match counts per dimension",
+        "manual annotation of canonical pitch corpus"
+      ],
+      "cycle_class": "day",
+      "relational_web": [
+        "feeds into every other C001-C032 verdict",
+        "couples to scope_collapse_detector (C006, C007)"
+      ],
+      "scope_envelope": {"text_length_chars": [50, 5000], "language": "english"},
+      "data_source": ["marketing pitches", "investor decks", "policy briefs", "analyst notes"],
+      "sensitivity": ["regex coverage", "domain-specific vocabulary outside default patterns"]
+    },
+    "C001": {
+      "observable": "trip-weighted mean pairwise Jaccard distance between same-OD waypoint sets",
+      "rate_equation": "d(variance)/d(trip_count) = unstable below 0.05 (automation-viable), >= 0.20 (human-only)",
+      "bounds": {
+        "spatial": "depot-to-destination route network",
+        "temporal": "week-over-week",
+        "scale": "single trip, waypoint identifiers"
+      },
+      "conditions": [
+        "route log has at least 2 trips per OD pair",
+        "waypoint identifiers are stable (HD-mapped node IDs or equivalent)"
+      ],
+      "invalid_if": [
+        "working autonomous deployment with mean Jaccard distance > 0.20"
+      ],
+      "measured_by": ["fleet telematics route logs", "dispatch system trip records"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C003 (infrastructure precondition)"],
+      "scope_envelope": {"route_variance_range": [0.0, 1.0], "od_pair_min_trips": 2, "geometry_type": "fixed_corridor | variable_lease_road | dispersed"},
+      "data_source": ["fleet telematics logs", "ELD records", "internal dispatch DB"],
+      "sensitivity": ["waypoint identifier granularity", "definition of OD pair (city-pair vs site-pair)"]
+    },
+    "C002": {
+      "observable": "fully_automated time-share across 20 task categories",
+      "rate_equation": "d(labor_offload_ratio)/d(automated_task_count) = sum(share_i) for tasks with automation_status='fully_automated'",
+      "bounds": {
+        "spatial": "single deployment, all driver-touchpoint tasks",
+        "temporal": "post-automation steady state",
+        "scale": "task-level, time-share weighted"
+      },
+      "conditions": [
+        "task inventory enumerated against canonical 20-task list",
+        "automation_status assigned per task from {fully_automated, partially_automated, remote_operator, human_required}"
+      ],
+      "invalid_if": [
+        "documented end-to-end automation including pump operation at variable sites"
+      ],
+      "measured_by": ["driver time-and-motion studies", "deployment task inventory", "post-deployment payroll deltas"],
+      "cycle_class": "season",
+      "relational_web": ["overlaps LWR (Labor Wealth Ratio)", "overlaps ER (Extraction Rate)"],
+      "scope_envelope": {"task_count_range": [13, 30], "categories": ["haul", "navigation", "site_work", "monitoring", "compliance", "interface"]},
+      "data_source": ["CDL driver time-and-motion field studies", "carrier task taxonomies", "AAR / ATA labor surveys"],
+      "sensitivity": ["task share weights", "category coverage breadth"]
+    },
+    "C003": {
+      "observable": "per-route-mile infrastructure capex with existing-state discounts across 7 line items",
+      "rate_equation": "d(infra_capex)/d(route_mile) = sum(unit_cost_i * (1 - existing_pct_i)) + receiving_sites_per_mile * pad_cost + comms_per_5mi",
+      "bounds": {
+        "spatial": "per route-mile of dispersed-well service area",
+        "temporal": "pre-deployment one-time capex",
+        "scale": "line-item per mile"
+      },
+      "conditions": [
+        "existing_*_pct values are in [0, 1]",
+        "unit costs are 2025 US dollars (override otherwise)"
+      ],
+      "invalid_if": [
+        "cost data showing dispersed-well infrastructure < vehicle fleet cost"
+      ],
+      "measured_by": ["state DOT bid tabulations", "FHWA rural construction cost reports", "Census economic data"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps SID (Socialist Infrastructure Dependency)", "overlaps ISR (Infrastructure Subsidy Ratio)"],
+      "scope_envelope": {"route_miles_range": [10.0, 1000.0], "well_density_range": [0.01, 0.5], "existing_pavement_pct_range": [0.0, 1.0]},
+      "data_source": ["state DOT bid tabs", "FHWA construction unit costs", "operator capex disclosures"],
+      "sensitivity": ["existing_pavement_pct (dominant)", "well_density", "comms_tower unit cost"]
+    },
+    "C004": {
+      "observable": "lifecycle EROI vs production decline curve",
+      "rate_equation": "d(viable_years)/d(decline_curve) = count(k : eroi * decline[k] >= 1.0)",
+      "bounds": {
+        "spatial": "single well / lease",
+        "temporal": "well productive life",
+        "scale": "annual production multipliers"
+      },
+      "conditions": [
+        "decline_curve in fractional multipliers per year",
+        "energy_input and energy_output denominated consistently (joules)"
+      ],
+      "invalid_if": [
+        "profitable autonomous deployment on <3yr wells"
+      ],
+      "measured_by": ["operator production curves", "USGS reserves data", "energy ledger"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps ER (Extraction Rate)"],
+      "scope_envelope": {"depreciation_years_range": [3, 15], "decline_curve_length_range": [3, 30]},
+      "data_source": ["operator type-curve disclosures", "USGS resource assessments", "EIA production data"],
+      "sensitivity": ["year-1 and year-2 decline rate (dominant)", "depreciation_years"]
+    },
+    "C005": {
+      "observable": "secondary-market retention curve by equipment type",
+      "rate_equation": "d(retention)/d(years_elapsed) follows RETENTION_PROFILES[equipment_type]",
+      "bounds": {
+        "spatial": "secondary equipment market, US class-8",
+        "temporal": "0-10 years post-purchase",
+        "scale": "fractional retention of original price"
+      },
+      "conditions": [
+        "equipment_type in {conventional_class8, autonomous_retrofit, purpose_built_autonomous}",
+        "years_elapsed in [0, 10]"
+      ],
+      "invalid_if": [
+        "active secondary market at >40% retention"
+      ],
+      "measured_by": ["Ritchie Bros auction results", "OEM trade-in data", "TuSimple/Embark write-down disclosures"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C004"],
+      "scope_envelope": {"years_elapsed_range": [0, 10], "equipment_types": ["conventional_class8", "autonomous_retrofit", "purpose_built_autonomous"]},
+      "data_source": ["Ritchie Bros auction database", "ACT Research used-truck reports", "10-K write-down disclosures"],
+      "sensitivity": ["equipment_type (dominant)", "software-licensing terms"]
+    },
+    "C006": {
+      "observable": "scope-collapse markers in pitch text vs scope-honest markers",
+      "rate_equation": "d(collapse_score)/d(pitch_length) = +1 per overreach marker, -1 per scope-honest marker",
+      "bounds": {
+        "spatial": "any pitch / press release / investor deck",
+        "temporal": "per-document evaluation",
+        "scale": "regex match-set granularity"
+      },
+      "conditions": [
+        "pitch is in English",
+        "regex patterns include domain vocabulary"
+      ],
+      "invalid_if": [
+        "scope-honest deployment language in primary sources"
+      ],
+      "measured_by": ["press releases", "10-Q narrative", "analyst notes"],
+      "cycle_class": "season",
+      "relational_web": ["overlaps SD (Semantic Drift)"],
+      "scope_envelope": {"pitch_length_chars": [50, 5000]},
+      "data_source": ["company press releases", "S-1 filings", "investor day decks"],
+      "sensitivity": ["regex pattern coverage", "language variation"]
+    },
+    "C007": {
+      "observable": "wage suppression coincident with threat-narrative deployment",
+      "rate_equation": "d(wage)/d(automation_threat_index) measured against d(productivity)/d(t)",
+      "bounds": {
+        "spatial": "region with automation deployment",
+        "temporal": "2-5 years post-deployment",
+        "scale": "regional mean wage, percent change"
+      },
+      "conditions": [
+        "threat narrative active (regex match in regional press)",
+        "productivity_change_pct measurable from BLS data"
+      ],
+      "invalid_if": [
+        "wage data showing parity or increase post-automation"
+      ],
+      "measured_by": ["BLS wage data", "regional press corpora", "carrier 10-Qs"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps LWR", "overlaps UFR (Upward Flow Rate)"],
+      "scope_envelope": {"wage_change_pct_range": [-50, 50], "productivity_change_pct_range": [-20, 50]},
+      "data_source": ["BLS Quarterly Census of Employment and Wages", "FRED state-level wage data", "regional press archive"],
+      "sensitivity": ["productivity_change_pct (offsets wage signal)", "region selection"]
+    },
+    "C008": {
+      "observable": "lifecycle ratio of sensor-stack replacement cost to driver-performed monitoring labor cost",
+      "rate_equation": "d(ratio)/d(lifecycle_years) = (capex + opex*lifecycle) / (driver_unpriced_labor * lifecycle)",
+      "bounds": {
+        "spatial": "single class-8 vehicle",
+        "temporal": "7-year equipment lifecycle",
+        "scale": "annual USD per vehicle"
+      },
+      "conditions": [
+        "task list covers DOT pretrip + posttrip + mid-shift inventory",
+        "sensor cost envelope is 2025 US"
+      ],
+      "invalid_if": [
+        "deployed system showing <2x cost of driver-performed monitoring"
+      ],
+      "measured_by": ["sensor vendor pricing", "FMCSA driver-time records", "carrier monitoring-cost disclosures"],
+      "cycle_class": "season",
+      "relational_web": ["couples to C009 (detection gap)", "couples to C010 (breakdown cost)"],
+      "scope_envelope": {"lifecycle_years_range": [3, 10], "hourly_rate_range": [20.0, 50.0]},
+      "data_source": ["sensor vendor price sheets", "FMCSA HOS audit reports", "ATRI operational cost reports"],
+      "sensitivity": ["acoustic_anomaly + undercarriage_imaging cost (dominant capex)", "diagnostic compute opex"]
+    },
+    "C009": {
+      "observable": "set difference between human-only precursor catches and sensor-detected catches",
+      "rate_equation": "d(detection_gap)/d(failure_mode_inventory) = |human \\ sensor|",
+      "bounds": {
+        "spatial": "single vehicle inspection",
+        "temporal": "per-shift",
+        "scale": "discrete failure-mode set"
+      },
+      "conditions": [
+        "human_caught and sensor_caught lists enumerated from same incident corpus"
+      ],
+      "invalid_if": [
+        "documented parity in catch rates for subtle/precursor failures"
+      ],
+      "measured_by": ["FMCSA incident reports", "carrier maintenance records", "warranty claim taxonomies"],
+      "cycle_class": "day",
+      "relational_web": ["couples to C008"],
+      "scope_envelope": {"failure_mode_inventory_size": [5, 50]},
+      "data_source": ["FMCSA CSA inspection data", "OEM warranty claim taxonomies"],
+      "sensitivity": ["precursor catch definition (acoustic, olfactory, kinesthetic)"]
+    },
+    "C010": {
+      "observable": "autonomous-to-human ratio of expected roadside-breakdown cost",
+      "rate_equation": "d(cost_ratio)/d(remoteness) = (2 + 2*r) * (1 + 4*r) / (1 * (1 + 4*r)) = 2 + 2*r",
+      "bounds": {
+        "spatial": "single incident, all US route classes",
+        "temporal": "per-event",
+        "scale": "USD per incident"
+      },
+      "conditions": [
+        "failure_type in canonical taxonomy",
+        "location_remoteness in [0, 1]"
+      ],
+      "invalid_if": [
+        "insurance/operational data showing parity"
+      ],
+      "measured_by": ["insurance claims data", "carrier breakdown logs", "FMCSA crash data"],
+      "cycle_class": "day",
+      "relational_web": ["couples to C008, C011"],
+      "scope_envelope": {"remoteness_range": [0.0, 1.0], "failure_types": ["tire", "engine", "brake", "electrical", "sensor", "load_shift", "weather_stranding", "other"]},
+      "data_source": ["NICB / III insurance reports", "ATRI operational cost report", "FMCSA crash data files"],
+      "sensitivity": ["location_remoteness (dominant)", "failure_type base cost"]
+    },
+    "C011": {
+      "observable": "middleware lifecycle cost ratio (autonomous : driver-mediated)",
+      "rate_equation": "d(ratio)/d(lifecycle_years) = sum(middleware_per_interface) / sum(driver_per_interface)",
+      "bounds": {
+        "spatial": "single class-8 vehicle across 7 interfaces",
+        "temporal": "7-year lifecycle",
+        "scale": "annual USD per vehicle per interface"
+      },
+      "conditions": [
+        "interface inventory enumerated against canonical 7-item list",
+        "mobile_escalation_pct given"
+      ],
+      "invalid_if": [
+        "audited middleware lifecycle cost at <2x driver-mediated cost"
+      ],
+      "measured_by": ["fleet TCO audits", "remote-ops vendor contracts", "carrier operational disclosures"],
+      "cycle_class": "season",
+      "relational_web": ["overlaps LWR", "overlaps VE_VL"],
+      "scope_envelope": {"interface_count_range": [5, 12], "mobile_escalation_pct_range": [0.05, 0.6]},
+      "data_source": ["fleet TCO audits", "remote-ops vendor disclosures", "carrier 10-Q operational notes"],
+      "sensitivity": ["mobile_escalation_pct (dominant)", "customer_receiving frequency"]
+    },
+    "C012": {
+      "observable": "expected annual cost of unhandled interface variants",
+      "rate_equation": "d(annual_cost)/d(variant_count) = variant_count * miss_rate * escalation_cost",
+      "bounds": {
+        "spatial": "across all customer / fuel / regulatory / roadside touchpoints",
+        "temporal": "annual",
+        "scale": "per-event escalation"
+      },
+      "conditions": [
+        "variant_count is the empirical count of distinct conventions seen in the field",
+        "miss_rate is per-interface autonomous handler coverage gap"
+      ],
+      "invalid_if": [
+        "autonomous deployment with documented handler coverage for >95% of field variants"
+      ],
+      "measured_by": ["operator exception logs", "customer site surveys", "state DOT taxonomy data"],
+      "cycle_class": "season",
+      "relational_web": ["couples to C011"],
+      "scope_envelope": {"variant_count_range": [3, 100], "miss_rate_range": [0.01, 0.5]},
+      "data_source": ["operator exception logs", "FMCSA state weigh-station data", "OEM field-service reports"],
+      "sensitivity": ["customer_receiving variant_count", "regulatory variant_count"]
+    },
+    "C013": {
+      "observable": "distributed-labor annual cost per truck supported as fraction of replaced driver fully-loaded cost",
+      "rate_equation": "d(distributed_labor_cost)/d(per_truck_share) = sum(stack_line_items_per_truck * multipliers)",
+      "bounds": {
+        "spatial": "per truck supported by the off-vehicle workforce",
+        "temporal": "annual",
+        "scale": "fully-loaded USD per role per truck"
+      },
+      "conditions": [
+        "stack includes remote operator, mobile tech, customer service, diagnostic specialist, compliance officer, ML-ops, data labeling",
+        "driver fully-loaded baseline is wages + benefits + payroll tax + per-diem"
+      ],
+      "invalid_if": [
+        "audited distributed-labor cost below 25% of replaced driver fully-loaded cost"
+      ],
+      "measured_by": ["BLS occupational wage data", "operator headcount disclosures", "ML-ops contractor rates"],
+      "cycle_class": "season",
+      "relational_web": ["overlaps LWR", "overlaps VE_VL"],
+      "scope_envelope": {"fleet_size_range": [10, 50000], "driver_loaded_cost_range_usd": [60000, 110000]},
+      "data_source": ["BLS OEWS (occupational employment & wages)", "operator 10-K headcount disclosures", "contractor staffing market rates"],
+      "sensitivity": ["mobile_tech_share multiplier", "remote_operator_share"]
+    },
+    "C014": {
+      "observable": "annual value of CDL driver-exercised refusals under FMCSA / OSHA / STAA",
+      "rate_equation": "d(annual_value)/d(refusal_rate) = sum_i (annual_rate_i * value_per_event_i)",
+      "bounds": {
+        "spatial": "per truck, US jurisdiction",
+        "temporal": "annual",
+        "scale": "USD per refusal event"
+      },
+      "conditions": [
+        "refusal categories enumerated from canonical FMCSA / OSHA / STAA list",
+        "value_per_event reflects cost averted by the refusal"
+      ],
+      "invalid_if": [
+        "documented autonomous deployment with legally recognized refusal authority at parity with a CDL driver"
+      ],
+      "measured_by": ["FMCSA enforcement data", "OSHA citations", "STAA whistleblower filings"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C016 (override)"],
+      "scope_envelope": {"refusal_category_count": [5, 15]},
+      "data_source": ["FMCSA enforcement database", "OSHA citations archive", "STAA case law"],
+      "sensitivity": ["fatigue_hours_of_service event rate (dominant)"]
+    },
+    "C015": {
+      "observable": "expected unrecovered share across 7-participant liability stack",
+      "rate_equation": "d(void_share)/d(participant_coverage) = sum_i(share_i * disclaim_probability_i)",
+      "bounds": {
+        "spatial": "single autonomous-incident liability chain",
+        "temporal": "incident-to-final-judgment horizon",
+        "scale": "fraction of damages"
+      },
+      "conditions": [
+        "coverage_share sums to ~1 across the 7 participants",
+        "disclaim_probability per participant reflects current case law and insurance posture"
+      ],
+      "invalid_if": [
+        "settled liability chain with insurance markets pricing autonomous-specific coverage at less than 2x conventional rates"
+      ],
+      "measured_by": ["case law database (Westlaw, PACER)", "insurance industry filings", "AAA / DRI panel discussions"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C017"],
+      "scope_envelope": {"participants": ["vehicle_oem", "autonomy_software_vendor", "sensor_vendor", "hd_map_provider", "fleet_operator", "remote_operator_employer", "insurer_excess_layer"]},
+      "data_source": ["PACER federal case filings", "Westlaw case law", "insurance industry whitepapers"],
+      "sensitivity": ["fleet_operator coverage_share", "autonomy_software_vendor disclaim_probability"]
+    },
+    "C016": {
+      "observable": "weighted override-resolution coverage across 7 historical override categories",
+      "rate_equation": "d(coverage)/d(category) = sum(rate_i * coverage_pct_i) / sum(rate_i)",
+      "bounds": {
+        "spatial": "per truck, US operating environment",
+        "temporal": "annual override-event horizon",
+        "scale": "per-category event"
+      },
+      "conditions": [
+        "override categories enumerated from historical driver-decision corpus",
+        "coverage_pct measurable from autonomous-system production logs"
+      ],
+      "invalid_if": [
+        "documented autonomous override-resolution coverage of >90% of historical driver override events"
+      ],
+      "measured_by": ["carrier ELD override logs", "autonomous-fleet escalation logs", "NTSB incident reports"],
+      "cycle_class": "season",
+      "relational_web": ["couples to C014"],
+      "scope_envelope": {"override_category_count": [5, 12]},
+      "data_source": ["carrier ELD override logs", "NTSB autonomous-vehicle incident reports"],
+      "sensitivity": ["novel_collision_avoidance coverage (dominant by rate)"]
+    },
+    "C017": {
+      "observable": "annual autonomous-vs-conventional cost ratio across 10 framework line items + 6 litigation categories",
+      "rate_equation": "d(premium)/d(year) = (autonomous_framework + expected_litigation) - conventional_framework",
+      "bounds": {
+        "spatial": "fleet operator, US multi-state operation",
+        "temporal": "annual, sustained over 3 years",
+        "scale": "fleet-level USD"
+      },
+      "conditions": [
+        "fleet_size given to compute per-truck premium",
+        "litigation probabilities reflect 2025-era case-law posture"
+      ],
+      "invalid_if": [
+        "deployed autonomous trucking operation showing legal and regulatory framework cost at <1.5x conventional, sustained over 3 consecutive years"
+      ],
+      "measured_by": ["10-K legal disclosures", "FMCSA petition dockets", "industry association compensation surveys"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps UFR", "overlaps ISR"],
+      "scope_envelope": {"fleet_size_range": [5, 50000]},
+      "data_source": ["10-K legal & regulatory disclosures", "FMCSA petition / rulemaking dockets", "Chambers / IFLR legal compensation surveys"],
+      "sensitivity": ["outside_litigation_defense_reserve (dominant)", "wrongful_death_novel_failure_mode probability"]
+    },
+    "C018": {
+      "observable": "weighted human domain expertise retention across 6 skill atrophy curves",
+      "rate_equation": "d(retention)/d(years_into_transition) follows SKILL_ATROPHY_CURVES per skill, weighted",
+      "bounds": {
+        "spatial": "human workforce in transition to AI-handled operations",
+        "temporal": "0-7 years into transition",
+        "scale": "fractional retention per skill"
+      },
+      "conditions": [
+        "skill_weights sum to ~1",
+        "atrophy curves are reliable for the target workforce"
+      ],
+      "invalid_if": [
+        "deployment where AI-dominant system experiences edge-case failure AND humans successfully recover without catastrophic cost"
+      ],
+      "measured_by": ["FAA pilot deskilling studies", "surgical robotics outcomes", "AV safety-driver attention research"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C019, C028"],
+      "scope_envelope": {"years_into_transition_range": [0, 10], "skill_count_range": [3, 10]},
+      "data_source": ["FAA loss-of-control accident reports", "surgical robotics outcome registries", "AV safety driver attention studies"],
+      "sensitivity": ["degraded_mode_operation atrophy curve (dominant)", "skill_weights"]
+    },
+    "C019": {
+      "observable": "edge-case recovery cost (scaled by deskilling) vs apparent monoculture savings",
+      "rate_equation": "d(true_savings)/d(retention) = symbiosis - (monoculture_steady + recovery_cost * (1/retention))",
+      "bounds": {
+        "spatial": "per truck, full operational cycle",
+        "temporal": "annual",
+        "scale": "USD per vehicle per year"
+      },
+      "conditions": [
+        "edge_case_frequency_per_vehicle from operational data",
+        "retention pulled from C018"
+      ],
+      "invalid_if": [
+        "operational deployment where monoculture edge-case recovery cost is less than hybrid-redundancy steady-state cost"
+      ],
+      "measured_by": ["operator exception logs", "incident response cost reports"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C018"],
+      "scope_envelope": {"edge_case_frequency_per_vehicle_range": [0.1, 5.0]},
+      "data_source": ["operator exception logs", "incident response cost reports"],
+      "sensitivity": ["retention scaling (reskill_multiplier)", "downstream_cascade_usd"]
+    },
+    "C020": {
+      "observable": "honest eROI vs apparent eROI for autonomous trucking",
+      "rate_equation": "d(honest_eROI)/d(stack_completeness) = fuel_saved / (truck_ops + backend + manufacturing + driver_metabolism)",
+      "bounds": {
+        "spatial": "per vehicle in a fleet",
+        "temporal": "annual",
+        "scale": "kWh per vehicle"
+      },
+      "conditions": [
+        "all energy stack categories included (truck, server, network, manufacturing, embodied)",
+        "amortization horizon explicit"
+      ],
+      "invalid_if": [
+        "audited end-to-end energy accounting showing autonomous eROI > 1.5 across server, manufacturing, extraction, and network energy stacks"
+      ],
+      "measured_by": ["LBNL data-center reports", "IEA ICT energy estimates", "ELCD lifecycle inventories", "USGS rare-earth processing energy"],
+      "cycle_class": "generation",
+      "relational_web": ["overlaps MSI (Money Signal Integrity)", "overlaps BSC"],
+      "scope_envelope": {"fleet_size_range": [10, 50000], "backend_location_options": ["cellular", "satellite", "fiber"]},
+      "data_source": ["LBNL US Data Center Energy Usage Report", "IEA Networks and AI energy outlooks", "USGS rare-earth processing energy reports"],
+      "sensitivity": ["inferences_per_truck_per_s", "transmit_compression_ratio", "PUE"]
+    },
+    "C021": {
+      "observable": "5-term cost-vs-fleet-size curve with interior optimum",
+      "rate_equation": "d(cost_per_truck)/d(n) = -backend/n^2 + coordination + 0.5*infra/sqrt(n) + regulatory + cascade",
+      "bounds": {
+        "spatial": "fleet across whatever geographic footprint it covers",
+        "temporal": "annual operating",
+        "scale": "kWh per truck per year"
+      },
+      "conditions": [
+        "coefficients reflect the deployment's actual cost structure (not industry averages necessarily)"
+      ],
+      "invalid_if": [
+        "audited multi-scale deployment data showing total energy cost per ton-mile monotonically decreasing across at least three orders of magnitude of fleet size"
+      ],
+      "measured_by": ["operator multi-scale benchmarks", "biology scaling-law references (Kleiber)"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C020, C022, C024"],
+      "scope_envelope": {"fleet_size_range": [1, 100000]},
+      "data_source": ["operator multi-scale internal benchmarks", "Kleiber 1932 metabolic scaling references", "biology scaling-laws literature"],
+      "sensitivity": ["cascade_quadratic_kwh coefficient (dominant at large n)", "backend_amortizing_kwh (dominant at small n)"]
+    },
+    "C022": {
+      "observable": "ratio of institution size to optimal scale point",
+      "rate_equation": "d(lock_in)/d(institution_size) = +1 once size > 1.2 * optimal_size",
+      "bounds": {
+        "spatial": "institution operating in an industry with an optimal scale point",
+        "temporal": "post-investment lock-in horizon",
+        "scale": "institution-level"
+      },
+      "conditions": [
+        "optimal_size known (from C021 or domain study)",
+        "institution has discretionary capital allocation authority"
+      ],
+      "invalid_if": [
+        "institution-backed research showing smaller scale is more efficient (rare because institution funding research is invested in scale)"
+      ],
+      "measured_by": ["funding allocation records", "regulatory rulemaking dockets", "industry research output"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps HHI", "overlaps MM"],
+      "scope_envelope": {"institution_size_range": [50, 100000]},
+      "data_source": ["NSF / DOE funding allocation databases", "FMCSA rulemaking dockets", "industry research publication corpora"],
+      "sensitivity": ["over_optimum_tolerance threshold"]
+    },
+    "C023": {
+      "observable": "fraction of documented substrates excluded from institutional funding / publication / policy",
+      "rate_equation": "d(exclusion_ratio)/d(substrate_inventory) = count(excluded) / count(total)",
+      "bounds": {
+        "spatial": "the institutional research field around autonomous logistics",
+        "temporal": "rolling 10-year publication window",
+        "scale": "per-substrate-category"
+      },
+      "conditions": [
+        "substrate inventory is comprehensive of plausible alternatives",
+        "exclusion verified against funding / publication / policy channels"
+      ],
+      "invalid_if": [
+        "substantive funded program studying decentralized / symbiotic / degraded-mode alternatives at parity with institution-scaled programs"
+      ],
+      "measured_by": ["NIH RePORTER / NSF awards", "Web of Science indexed publications", "FMCSA / state DOT rulemaking dockets"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C022, C024"],
+      "scope_envelope": {"substrate_inventory_size": [8, 20]},
+      "data_source": ["NSF / DOE / DARPA award databases", "Web of Science / Scopus indexed publications", "DOT rulemaking dockets"],
+      "sensitivity": ["substrate categorization breadth"]
+    },
+    "C024": {
+      "observable": "5-phase collapse cycle position with adaptive capacity score",
+      "rate_equation": "d(adaptive_capacity)/d(ratio_to_optimum) = -1 above 1.5x optimum, modulated by observed response",
+      "bounds": {
+        "spatial": "institution within its industry",
+        "temporal": "growth-to-collapse cycle, multi-decade",
+        "scale": "institution-level"
+      },
+      "conditions": [
+        "optimal_size known",
+        "observed_response in {doubled_down, partial, successful_adapt}"
+      ],
+      "invalid_if": [
+        "large institution successfully adapts to fundamental market / resource constraint without collapse"
+      ],
+      "measured_by": ["historical institution case studies (Roman, Soviet, Blockbuster, Kodak, ICE auto, 2008 financial)", "10-K MD&A pivot disclosures"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C022, C023"],
+      "scope_envelope": {"institution_size_range": [50, 100000]},
+      "data_source": ["historical case study literature", "10-K MD&A pivot / restructuring disclosures"],
+      "sensitivity": ["adaptive_response classification (dominant)"]
+    },
+    "C025": {
+      "observable": "10-year probability of any of 7 preconditions failing, weighted by degraded-mode capability",
+      "rate_equation": "d(fleet_impact)/d(window_years) = sum_i(adjusted_p_i * cascade_severity_i)",
+      "bounds": {
+        "spatial": "fleet operating across one or more national jurisdictions",
+        "temporal": "10-year rolling window, 2026-2036 trend baseline",
+        "scale": "fleet-level cascade share"
+      },
+      "conditions": [
+        "deployment_type assigned (autonomous_no_driver / hybrid_with_safety_driver / fully_remote_operator / human_driver_only)",
+        "earth_system_trends within 2026-2036 envelope"
+      ],
+      "invalid_if": [
+        "autonomous deployment that remains operational through a 24-hour regional power outage AND satellite signal loss AND 72-hour regional internet disruption AND 6-month critical-parts supply break AND geopolitical rare-earth embargo"
+      ],
+      "measured_by": ["NOAA disaster count", "NERC frequency excursion rate", "GPS jamming reports", "sanctions index"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps BSC", "couples to C026"],
+      "scope_envelope": {"deployment_scale_range": [1, 100000], "window_years_range": [1, 30]},
+      "data_source": ["NOAA Storm Events database", "NERC reliability reports", "USGS rare-earth flow data", "GAO sanctions index"],
+      "sensitivity": ["power_grid_stability adjusted probability", "deployment_type (gates concern)"]
+    },
+    "C026": {
+      "observable": "destabilization-mechanism count across 5 economic-model coupling effects",
+      "rate_equation": "d(double_bind)/d(deployment_scale) = +1 per mechanism activated by deployment",
+      "bounds": {
+        "spatial": "automation deployment within its economic system",
+        "temporal": "deployment-to-feedback horizon, 5-15 years",
+        "scale": "system-level economic feedback"
+      },
+      "conditions": [
+        "mechanism inventory enumerated against canonical 5-mechanism list",
+        "destabilization_strength scored per mechanism"
+      ],
+      "invalid_if": [
+        "automation deployment that does not depend on continuous growth, has supply-chain diversification adequate to absorb any single jurisdiction's restriction, and demonstrates resilience to economic shock without external bailout"
+      ],
+      "measured_by": ["BLS consumer purchasing power", "FRED capital markets indices", "USGS rare-earth supply concentration", "NERC grid stability"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps DI (Democracy Index)", "couples to C025"],
+      "scope_envelope": {"mechanism_count": [3, 5]},
+      "data_source": ["BLS purchasing power data", "FRED capital markets indices", "USGS rare-earth concentration data", "NERC grid stability reports"],
+      "sensitivity": ["rare_earth_concentration strength", "circular_growth_dependency strength"]
+    },
+    "C027": {
+      "observable": "5-test validity battery against claim text (energy-grounded, optimization reduces energy, causal, scarcity-robust, models failure)",
+      "rate_equation": "d(validity)/d(scope_specification) = sum(test_i) / 5",
+      "bounds": {
+        "spatial": "any economic claim about an automation deployment",
+        "temporal": "per-claim evaluation",
+        "scale": "single-document granularity"
+      },
+      "conditions": [
+        "claim is in natural language or structured dict",
+        "energy-grounding regex patterns include domain vocabulary"
+      ],
+      "invalid_if": [
+        "economic model that predicts outcomes accurately during conditions of resource scarcity (where money != energy)"
+      ],
+      "measured_by": ["claim corpus analysis", "operational data during scarcity periods"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps MSI", "couples to C020"],
+      "scope_envelope": {"claim_text_length_chars": [50, 5000]},
+      "data_source": ["operator pitch corpora", "academic economic-model publications", "regulatory filings under scarcity periods"],
+      "sensitivity": ["energy_grounding pattern coverage", "scarcity_robust marker presence"]
+    },
+    "C028": {
+      "observable": "blindness-count + institutional pivot capacity",
+      "rate_equation": "d(cascade_risk)/d(model_dependence) = -exp(-md*2) * (1 - exp(-alts/2)) * type_modifier",
+      "bounds": {
+        "spatial": "institution operating on a non-energy-grounded model",
+        "temporal": "model-failure-to-pivot horizon",
+        "scale": "institution-level"
+      },
+      "conditions": [
+        "organization_type classified",
+        "alternative_models_available counted"
+      ],
+      "invalid_if": [
+        "economic model that successfully adapts to fundamental resource scarcity without institutional collapse or reversal"
+      ],
+      "measured_by": ["NIH / NSF / DOE funding patterns", "industry think-tank output", "post-shock institutional pivot records"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C022, C024, C027"],
+      "scope_envelope": {"model_dependence_range": [0.0, 1.0], "alternative_models_available_range": [0, 10]},
+      "data_source": ["NSF / DOE funding databases", "industry think-tank publications", "historical post-shock pivot case studies"],
+      "sensitivity": ["organization_type (large multiplier)", "alternative_models_available count"]
+    },
+    "C029": {
+      "observable": "fraction of 9 capital forms with nonzero entries in deployment's reported accounting",
+      "rate_equation": "d(counted_share)/d(accounting_completeness) = count(forms with entries) / 9",
+      "bounds": {
+        "spatial": "single deployment / fleet operator",
+        "temporal": "per-reporting period",
+        "scale": "deployment-level accounting"
+      },
+      "conditions": [
+        "reported accounting is what the operator publishes (10-K, sustainability report, marketing pitch)",
+        "9 capital forms enumerated against canonical list"
+      ],
+      "invalid_if": [
+        "financial deployment publishing audited per-period accounting that includes nonzero entries against all nine capital forms with comparable denominators"
+      ],
+      "measured_by": ["10-K / sustainability reports", "IFRS / FASB filings", "GRI standards-compliant disclosures"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps VE_VL", "overlaps LWR", "couples to C030"],
+      "scope_envelope": {"reported_capital_form_count": [1, 9]},
+      "data_source": ["10-K / sustainability reports", "GRI Standards / SASB disclosures", "IFRS / FASB filings"],
+      "sensitivity": ["which capital forms are externalized (typically all but financial+labor)"]
+    },
+    "C030": {
+      "observable": "joules-equivalent deficit (sum of non-financial capital losses minus financial capital gain) over 30-year horizon",
+      "rate_equation": "d(deficit)/d(time_horizon) = sum_i(non_financial_loss_i_joules) - financial_gain_joules",
+      "bounds": {
+        "spatial": "single deployment, all 9 capital forms",
+        "temporal": "30-year horizon",
+        "scale": "joules-equivalent"
+      },
+      "conditions": [
+        "joules-per-unit conversion factors specified (defaults: financial 3.6e6, environmental 3.0e9/ton CO2, etc.)",
+        "all 9 capital forms have annual extraction values"
+      ],
+      "invalid_if": [
+        "large-scale automation deployment where financial_capital_gained > sum(all_other_capital_losses) when all capitals are denominated in comparable units (joules-equivalent or years-to-recovery)"
+      ],
+      "measured_by": ["operator full-stack capital audit", "EPA emissions data", "USGS resource depletion data", "QALY studies"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C029", "overlaps MM"],
+      "scope_envelope": {"time_horizon_years_range": [5, 100]},
+      "data_source": ["EPA emissions inventories", "USGS resource depletion data", "WHO QALY studies", "operator full-stack audits"],
+      "sensitivity": ["environmental joules_per_unit conversion factor", "financial joules_per_unit (US 2024 energy/GDP ratio)"]
+    },
+    "C031": {
+      "observable": "4-test engineering-grade validity + definition-stability + input-volatility scorecards",
+      "rate_equation": "d(eng_grade)/d(claim_structure) = AND(stated, regime_validated, design_margin, falsifier)",
+      "bounds": {
+        "spatial": "any economic model used for billion-dollar deployment decisions",
+        "temporal": "pre-deployment validation",
+        "scale": "single-model"
+      },
+      "conditions": [
+        "claim is a structured dict OR text containing regime / design-margin / falsifier markers",
+        "definition and input stability scores reflect current institutional posture"
+      ],
+      "invalid_if": [
+        "published economic model that satisfies all four engineering-grade criteria explicitly and has been third-party-audited under stress"
+      ],
+      "measured_by": ["NASA / DNV / NRC validation precedent", "academic peer review", "third-party stress testing"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps SD (Semantic Drift)", "couples to C027"],
+      "scope_envelope": {"claim_terms_evaluated_range": [3, 12]},
+      "data_source": ["NASA / DNV / NRC engineering validation documentation", "academic peer review records", "FRED / BLS / USGS input volatility data"],
+      "sensitivity": ["definition_stability score (terms drift)", "input_stability score"]
+    },
+    "C032": {
+      "observable": "regime-validation coverage + training-to-deployment regime drift severity",
+      "rate_equation": "d(cascade_prob)/d(drift) = eng_grade_failure * 0.6 + drift_severity * 0.6",
+      "bounds": {
+        "spatial": "AI deployment operating on an economic model",
+        "temporal": "training-window-to-deployment horizon",
+        "scale": "model-level cascade probability"
+      },
+      "conditions": [
+        "model carries regimes_validated list",
+        "training_regime and deployment_regime classified against 4-regime taxonomy"
+      ],
+      "invalid_if": [
+        "AI economic model that successfully predicts outcomes during a fundamental market regime shift (supply shock, geopolitical disruption, currency devaluation, regulatory overhaul)"
+      ],
+      "measured_by": ["historical cascade cases (LTCM, 2008, 2010 flash crash, March 2020)", "AI deployment post-mortems"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C027, C028, C031"],
+      "scope_envelope": {"regime_count_validated_range": [0, 4]},
+      "data_source": ["SEC / CFTC post-mortems (flash crash, March 2020)", "historical financial-crisis literature", "AI deployment post-mortem case studies"],
+      "sensitivity": ["regime drift severity matrix", "cascade probability combiner weights"]
+    }
+  }
+}
