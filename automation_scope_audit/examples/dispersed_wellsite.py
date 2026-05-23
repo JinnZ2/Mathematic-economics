@@ -26,7 +26,9 @@ from automation_scope_audit.modules import (
     stranded_asset_risk,
     condition_monitoring_audit,
     scope_collapse_detector,
-    interface_labor_audit,
+    interface_externalization_audit,
+    constraint_validation_audit,
+    legal_liability_audit,
 )
 
 
@@ -36,7 +38,7 @@ def build_route_log() -> list[dict]:
     well_ids = [f"well_{i:02d}" for i in range(35)]
     for i in range(120):
         wid = well_ids[(i * 7) % len(well_ids)]
-        # waypoint sequence rotates with seasonal mud / closures
+        # waypoint set rotates with seasonal mud / closures
         wp = [f"lease_seg_{(i + j * 3) % 11}" for j in range(3)]
         log.append({
             "origin": "service_yard",
@@ -47,30 +49,32 @@ def build_route_log() -> list[dict]:
 
 
 def run() -> dict:
-    deployment_spec = {"deployment": "dispersed_wellsite_service"}
-
     c001 = scope_geometry.c001_verdict(
         build_route_log(),
         infrastructure_state={"paved_pct": 0.18, "mapped_pct": 0.10},
     )
 
     c003 = infrastructure_precondition.c003_verdict(
-        route_miles=220.0,
-        well_density=0.22,
-        existing_pavement_pct=0.18,
+        route_miles=220.0, well_density=0.22,
+        existing_state={
+            "existing_pavement_pct":  0.18,
+            "existing_marking_pct":   0.08,
+            "existing_mapping_pct":   0.02,
+            "existing_receiving_pct": 0.10,
+            "existing_comms_pct":     0.30,
+            "existing_drainage_pct":  0.10,
+            "existing_signage_pct":   0.18,
+        },
         projected_revenue=14_000_000.0,
         vehicle_fleet_cost=9_000_000.0,
     )
 
-    # Only haul gets automated; site_work is what dispersed service IS.
+    # Only interstate haul gets automated; site_work is what dispersed service IS.
     c002 = embedded_labor_audit.c002_verdict(
-        deployment_spec,
-        automated_tasks=["interstate_haul"],
-        pre_hours=10.5,
-        post_hours=11.0,
+        status_map={"interstate_haul": "fully_automated"},
+        pre_hours=10.5, post_hours=11.0,
     )
 
-    # Steep shale-style decline against 7yr depreciation
     decline = [1.0, 0.28, 0.16, 0.11, 0.08, 0.06]
     c004 = lifecycle_eroi.c004_verdict(
         energy_input={"capex": 1.0e12, "opex": 0.7e12, "fuel": 0.6e12},
@@ -107,20 +111,37 @@ def run() -> dict:
                                                  productivity_change_pct=2.0,
                                                  region="bakken")
 
-    c011 = interface_labor_audit.c011_verdict()
-    c012 = interface_labor_audit.c012_verdict(
-        {"fleet_size": 12,
-         "multipliers": {"mobile_tech_fleet_share": 2.5,
-                         "remote_diagnostic_center": 1.5}},
-        reported_vehicle_tco_per_truck_usd=65_000.0)
-    c013 = interface_labor_audit.c013_verdict(autonomous_handled_per_year=120)
+    # C011 / C012 / C013 — dispersed deployments stress every dimension.
+    c011 = interface_externalization_audit.c011_verdict(
+        mobile_escalation_pct=0.45)
+    c012 = interface_externalization_audit.c012_verdict(
+        # Many small operators -> high customer-receiving variance;
+        # multi-jurisdictional -> higher regulatory miss-rate.
+        miss_rates={**interface_externalization_audit.DEFAULT_VARIANT_MISS_RATE,
+                    "customer_receiving": 0.32,
+                    "regulatory":         0.18,
+                    "roadside_services":  0.45})
+    c013 = interface_externalization_audit.c013_verdict(
+        multipliers={"mobile_tech_share": 2.5,
+                     "remote_operator_share": 1.4,
+                     "customer_service_share": 1.5,
+                     "diagnostic_specialist_share": 1.3})
+
+    # C014 / C015 / C016 — constraint validation
+    c014 = constraint_validation_audit.c014_verdict()
+    c015 = constraint_validation_audit.c015_verdict()
+    c016 = constraint_validation_audit.c016_verdict()  # use defaults
+
+    # C017 — legal/regulatory framework (small fleet)
+    c017 = legal_liability_audit.c017_verdict(fleet_size=12)
 
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C001": c001, "C002": c002, "C003": c003, "C004": c004,
         "C005": c005, "C006": c006, "C007": c007, "C008": c008,
         "C009": c009, "C010": c010, "C011": c011, "C012": c012,
-        "C013": c013,
+        "C013": c013, "C014": c014, "C015": c015, "C016": c016,
+        "C017": c017,
     }
 
 

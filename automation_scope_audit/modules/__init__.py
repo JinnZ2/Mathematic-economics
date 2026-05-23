@@ -16,7 +16,9 @@ from . import (
     stranded_asset_risk,
     condition_monitoring_audit,
     scope_collapse_detector,
-    interface_labor_audit,
+    interface_externalization_audit,
+    constraint_validation_audit,
+    legal_liability_audit,
 )
 
 __all__ = [
@@ -27,5 +29,7 @@ __all__ = [
     "stranded_asset_risk",
     "condition_monitoring_audit",
     "scope_collapse_detector",
-    "interface_labor_audit",
+    "interface_externalization_audit",
+    "constraint_validation_audit",
+    "legal_liability_audit",
 ]

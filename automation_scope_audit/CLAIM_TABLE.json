@@ -1,19 +1,21 @@
 {
   "license": "CC0-1.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "1.0",
-  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a falsifier: a single piece of evidence sufficient to flip the verdict.",
+  "version": "2.0",
+  "notes": "Falsifiable structural claims about autonomous trucking ROI in oilfield / dispersed-well contexts. Every claim has a measurable threshold and a single-sentence falsifier sufficient to flip the verdict.",
   "claims": [
     {
       "id": "C001",
       "module": "scope_geometry",
+      "metric": "Jaccard distance between same-OD trip waypoint sets",
       "statement": "Autonomous trucking ROI requires fixed depot-to-destination geometry.",
-      "threshold": "route variance < 5% week-over-week",
-      "falsifier": "working autonomous deployment on routes with >20% variance"
+      "threshold": "trip-weighted mean Jaccard distance < 0.05",
+      "falsifier": "working autonomous deployment with mean Jaccard distance > 0.20"
     },
     {
       "id": "C002",
       "module": "embedded_labor_audit",
+      "metric": "fully_automated time-share across 20 task categories",
       "statement": "Wellsite labor (pump ops, terrain navigation, equipment maintenance) is not automated by haul automation.",
       "threshold": "driver hours per delivery unchanged or increased post-automation",
       "falsifier": "documented end-to-end automation including pump operation at variable sites"
@@ -21,8 +23,9 @@
     {
       "id": "C003",
       "module": "infrastructure_precondition",
+      "metric": "per-route-mile capex with existing-state discounts on 7 line items",
       "statement": "Infrastructure precondition capex exceeds vehicle capex for dispersed small wells.",
-      "threshold": "paving + marking + receiving infrastructure > $500k per route-mile",
+      "threshold": "per-route-mile capex > $500k or total capex > vehicle fleet cost",
       "falsifier": "cost data showing dispersed-well infrastructure < vehicle fleet cost"
     },
     {
@@ -57,19 +60,6 @@
       "id": "C008",
       "module": "condition_monitoring_audit",
       "statement": "Driver-performed condition monitoring is unpriced infrastructure.",
-      "tasks": [
-        "pretrip inspection (~30min, ~50 checkpoints)",
-        "posttrip inspection (~20min)",
-        "mid-shift fluid checks (oil, coolant, washer, DEF)",
-        "tire pressure + visual tire condition",
-        "brake adjustment monitoring",
-        "light/signal verification",
-        "air system leak detection (audio + gauge)",
-        "load securement re-check",
-        "windshield/mirror cleaning",
-        "fifth wheel inspection",
-        "belly/undercarriage visual"
-      ],
       "threshold": "replacement cost = sensor array + diagnostic AI + intervention dispatch",
       "falsifier": "deployed system showing <2x cost of driver-performed monitoring"
     },
@@ -77,50 +67,71 @@
       "id": "C009",
       "module": "condition_monitoring_audit",
       "statement": "Sensor replacement of human monitoring introduces new failure modes.",
-      "failure_modes": [
-        "sensor calibration drift (no human cross-check)",
-        "catastrophic detection vs. early-warning gap",
-        "maintenance dispatch lag vs. immediate driver action"
-      ],
       "threshold": "mean-time-to-detection for non-instrumented failures",
-      "falsifier": "documented parity in catch rates for subtle/precursor failures"
+      "falsifier": "documented parity in catch rates for subtle / precursor failures"
     },
     {
       "id": "C010",
       "module": "condition_monitoring_audit",
       "statement": "Roadside breakdown cost scales nonlinearly without operator present.",
-      "components": [
-        "tow",
-        "dispatch",
-        "lost load",
-        "cargo damage",
-        "route reschedule",
-        "customer penalty",
-        "sensor diagnostic limits"
-      ],
       "threshold": "per-incident cost ratio autonomous:human > 3x",
-      "falsifier": "insurance/operational data showing parity"
+      "falsifier": "insurance / operational data showing parity"
     },
     {
       "id": "C011",
-      "module": "interface_labor_audit",
-      "statement": "Driver-mediated interfaces (fuel, customer, dispatch, maintenance, regulatory, roadside) are unpriced flexibility that must be replaced.",
-      "threshold": "total interface replacement cost across all touchpoints",
-      "falsifier": "autonomous deployment with documented interface coverage at <2x driver-mediated cost"
+      "module": "interface_externalization_audit",
+      "metric": "middleware lifecycle cost",
+      "statement": "Driver-mediated interfaces are externalized onto middleware that costs more in aggregate than the driver-mediated version.",
+      "threshold": "middleware lifecycle cost > 2x driver-mediated lifecycle cost",
+      "falsifier": "audited middleware lifecycle cost at <2x driver-mediated cost"
     },
     {
       "id": "C012",
-      "module": "interface_labor_audit",
-      "statement": "Autonomous deployments shift energy cost off-vehicle into remote diagnostic / dispatch / customer service infrastructure not counted in vehicle TCO.",
-      "threshold": "off-vehicle energy + staffing cost > 30% of total operating cost",
-      "falsifier": "audited TCO showing remote operations < 10% of total"
+      "module": "interface_externalization_audit",
+      "metric": "heterogeneity risk: variant_count * miss_rate * escalation cost",
+      "statement": "Heterogeneity across customer sites, fuel chains, jurisdictions, and roadside ecosystems is absorbed for free by drivers; autonomous stacks need explicit handlers and pay escalation cost for every uncovered variant.",
+      "threshold": "annual heterogeneity escalation cost > 5x driver baseline",
+      "falsifier": "autonomous deployment with documented handler coverage for >95% of field variants"
     },
     {
       "id": "C013",
-      "module": "interface_labor_audit",
-      "statement": "Driver adaptation across novel fault modes is unpriced general-purpose problem-solving.",
-      "threshold": "fault-mode coverage ratio (driver_handled : autonomous_handled) > 5x",
-      "falsifier": "documented autonomous system handling >80% of historical driver exceptions"
+      "module": "interface_externalization_audit",
+      "metric": "distributed labor cost (remote operators + mobile techs + customer service + diagnostic specialists + compliance officers + ML-ops + data labeling) per truck supported",
+      "statement": "Distributed off-vehicle labor doing the work the driver used to do is billed at higher fully-loaded rates than the driver, often through 24/7 retainers.",
+      "threshold": "distributed labor annual cost >= 50% of replaced driver fully-loaded cost",
+      "falsifier": "audited distributed-labor cost below 25% of replaced driver fully-loaded cost"
+    },
+    {
+      "id": "C014",
+      "module": "constraint_validation_audit",
+      "metric": "annual value of driver-exercised refusals under FMCSA / OSHA / STAA",
+      "statement": "Driver refusal authority — unsafe load, fatigue, vehicle defect, weather, overweight, unsafe site, unsafe dispatch, whistleblower — is legally recognized and exercised at scale. Autonomous stacks have no equivalent recognized authority.",
+      "threshold": "annual refusal value > $10k per truck",
+      "falsifier": "documented autonomous deployment with legally recognized refusal authority at parity with a CDL driver"
+    },
+    {
+      "id": "C015",
+      "module": "constraint_validation_audit",
+      "metric": "residual unrecovered share across 7-participant liability stack",
+      "statement": "The autonomous liability chain is unresolved; OEM, software vendor, sensor vendor, HD-map provider, fleet operator, remote operator employer, and excess insurer can each disclaim. The residual unrecovered share is a liability void.",
+      "threshold": "void probability > 10%",
+      "falsifier": "settled liability chain with insurance markets pricing autonomous-specific coverage at less than 2x conventional rates"
+    },
+    {
+      "id": "C016",
+      "module": "constraint_validation_audit",
+      "metric": "weighted override-resolution coverage across 7 historical override categories",
+      "statement": "Drivers exercise on-the-spot override authority across heterogeneous decision points; autonomous override hierarchies have to be designed in advance and miss novel conflicts.",
+      "threshold": "weighted coverage < 90% of historical driver overrides",
+      "falsifier": "documented autonomous override-resolution coverage of >90% of historical driver override events"
+    },
+    {
+      "id": "C017",
+      "module": "legal_liability_audit",
+      "metric": "annual framework + litigation premium over conventional baseline",
+      "statement": "Litigation defense, regulatory engagement, lobbying, insurance navigation, and incident-investigation specialists are a structural operating expense for autonomous deployments, not a one-time startup cost.",
+      "threshold": "autonomous : conventional annual cost ratio > 1.5",
+      "falsifier": "deployed autonomous trucking operation showing legal and regulatory framework cost at <1.5x conventional, sustained over 3 consecutive years"
     }
   ]
 }

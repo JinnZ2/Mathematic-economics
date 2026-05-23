@@ -21,34 +21,45 @@ operates by:
 3. **Unpriced monitoring labor** — omitting the ~60 min/day of pretrip,
    posttrip, fluid, tire, brake, and undercarriage inspection that the
    driver currently performs for free.
-4. **Off-vehicle energy displacement** — moving fuel, dispatch, customer
-   service, diagnostics, and roadside response into remote operations
-   centers that aren't counted in the truck's TCO.
+4. **Interface externalization** — the driver-mediated interfaces (fuel,
+   customer, dispatch, maintenance, regulatory, roadside, payment) are
+   not eliminated; they are externalized onto middleware, heterogeneous
+   third parties, and distributed labor at higher fully-loaded cost.
 5. **Lifecycle mismatch** — depreciating equipment over 7 years against
    shale wells that lose 70-80% of flow in year one.
+6. **Missing constraint-validation authority** — drivers carry legally-
+   recognized refusal authority, override authority, and a settled
+   liability chain; autonomous stacks do not.
+7. **Legal / regulatory framework cost** — litigation defense,
+   regulatory engagement, and lobbying for liability shields are
+   structural operating expenses, not one-time startup costs.
 
-Each of these is encoded as a numbered claim (C001-C013) with a measurable
-threshold and a single-sentence falsifier sufficient to refute it.
+Each is encoded as a numbered claim (C001-C017) with a measurable threshold
+and a single-sentence falsifier sufficient to refute it.
 
 ## Claims at a glance
 
 See `CLAIM_TABLE.json` for the full machine-readable list.
 
-| ID    | Module                          | Statement (short)                                     |
-|-------|--------------------------------|--------------------------------------------------------|
-| C001  | scope_geometry                  | ROI requires fixed depot-to-destination geometry      |
-| C002  | embedded_labor_audit            | Wellsite labor not automated by haul automation       |
-| C003  | infrastructure_precondition     | Infra capex > vehicle capex for dispersed wells       |
-| C004  | lifecycle_eroi                  | ROI window must exceed well decline curve             |
-| C005  | stranded_asset_risk             | Resale to non-consolidated operators -> zero          |
-| C006  | scope_collapse_detector         | "Automation" framing collapses labor categories       |
-| C007  | scope_collapse_detector         | Threat narrative correlates with wage suppression     |
-| C008  | condition_monitoring_audit      | Driver monitoring is unpriced infrastructure          |
-| C009  | condition_monitoring_audit      | Sensor replacement introduces new failure modes       |
-| C010  | condition_monitoring_audit      | Roadside breakdown cost scales nonlinearly            |
-| C011  | interface_labor_audit           | Driver-mediated interfaces are unpriced flexibility   |
-| C012  | interface_labor_audit           | Energy cost shifted off-vehicle, off-TCO              |
-| C013  | interface_labor_audit           | Driver adaptation is unpriced general problem-solving |
+| ID    | Module                            | Statement (short)                                |
+|-------|-----------------------------------|--------------------------------------------------|
+| C001  | scope_geometry                    | ROI requires fixed geometry (Jaccard distance)   |
+| C002  | embedded_labor_audit              | Wellsite labor not automated; 20-task automation_status |
+| C003  | infrastructure_precondition       | Infra capex > vehicle capex with existing-state discounts |
+| C004  | lifecycle_eroi                    | ROI window must exceed well decline curve        |
+| C005  | stranded_asset_risk               | Resale to non-consolidated operators -> zero     |
+| C006  | scope_collapse_detector           | "Automation" framing collapses labor categories  |
+| C007  | scope_collapse_detector           | Threat narrative correlates with wage suppression|
+| C008  | condition_monitoring_audit        | Driver monitoring is unpriced infrastructure     |
+| C009  | condition_monitoring_audit        | Sensor replacement introduces new failure modes  |
+| C010  | condition_monitoring_audit        | Roadside breakdown cost scales nonlinearly       |
+| C011  | interface_externalization_audit   | Middleware lifecycle cost > driver-mediated      |
+| C012  | interface_externalization_audit   | Heterogeneity risk: variant_count * miss * cost  |
+| C013  | interface_externalization_audit   | Distributed labor cost >= half a driver          |
+| C014  | constraint_validation_audit       | Refusal authority is unpriced legal authority    |
+| C015  | constraint_validation_audit       | Liability void across 7-participant chain        |
+| C016  | constraint_validation_audit       | Override hierarchy misses novel conflicts        |
+| C017  | legal_liability_audit             | Framework + litigation premium > 1.5x conventional |
 
 ## Layout
 
@@ -61,12 +72,14 @@ automation_scope_audit/
 │   ├── __init__.py
 │   ├── scope_geometry.py                 # C001
 │   ├── infrastructure_precondition.py    # C003
-│   ├── embedded_labor_audit.py           # C002, C006
+│   ├── embedded_labor_audit.py           # C002
 │   ├── lifecycle_eroi.py                 # C004
 │   ├── stranded_asset_risk.py            # C005
 │   ├── condition_monitoring_audit.py     # C008, C009, C010
 │   ├── scope_collapse_detector.py        # C006, C007
-│   └── interface_labor_audit.py          # C011, C012, C013
+│   ├── interface_externalization_audit.py # C011, C012, C013
+│   ├── constraint_validation_audit.py    # C014, C015, C016
+│   └── legal_liability_audit.py          # C017
 └── examples/
     ├── kodiak_atlas_permian.py           # works case
     └── dispersed_wellsite.py             # fails case
@@ -89,24 +102,35 @@ Each module is also runnable standalone for inspection, e.g.:
 
 ```bash
 python automation_scope_audit/modules/scope_geometry.py
-python automation_scope_audit/modules/condition_monitoring_audit.py
-python automation_scope_audit/modules/interface_labor_audit.py
+python automation_scope_audit/modules/interface_externalization_audit.py
+python automation_scope_audit/modules/constraint_validation_audit.py
+python automation_scope_audit/modules/legal_liability_audit.py
 ```
+
+## Concern polarity
+
+`run.py` normalizes a per-claim `concern_registers` boolean across all 17
+claims. For C001 (Jaccard variance) and C004 (lifecycle EROI vs decline)
+the per-claim `threshold_met` field describes the *prescriptive* condition
+(deployment in the safe zone), so the runner inverts those two for the
+unified concern column. Every other claim uses `threshold_met = True` to
+indicate the structural concern registers against the deployment.
 
 ## Default numbers
 
-Default unit costs, retention curves, sensor cost envelopes, and off-vehicle
-energy stacks are 2025 US dollar / SI joule conservative estimates. Each
-constant is exposed at module scope so callers can override with audited
-data when available — the framework is the load-bearing piece, the numbers
-are placeholders.
+Default unit costs, retention curves, sensor cost envelopes, distributed-
+labor stacks, refusal-event rates, liability-void probabilities, and
+framework costs are 2025 US dollar / SI joule conservative estimates.
+Each constant is exposed at module scope so callers can override with
+audited data when available — the framework is the load-bearing piece,
+the numbers are placeholders.
 
 ## Falsification
 
 Every claim publishes a single-sentence falsifier. A claim is *retired*
 when a primary source produces evidence matching that falsifier; until
 then the claim survives. The works case (`kodiak_atlas_permian.py`)
-deliberately satisfies the threshold for C001, C003, and C004 to show
+deliberately satisfies the thresholds for C001, C003, and C004 to show
 that the framework does not auto-reject every deployment; the fails case
 (`dispersed_wellsite.py`) shows which claims register simultaneously when
 the geometry is wrong.
@@ -116,4 +140,4 @@ the geometry is wrong.
 The package has no third-party dependencies. It does not import from
 `physics_guard/`, `calibration/`, or any of the vendored subtrees; the
 invariant in `tests/test_bridges.py::ImportDirectionInvariant` is
-respected by construction (vendored code is not imported here at all).
+respected by construction.
