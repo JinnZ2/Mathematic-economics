@@ -157,6 +157,43 @@ CLUSTERS: List[dict] = [
         "preconditions — the institutional substrate the deployment "
         "operates inside cannot sustain itself; failure is structural, "
         "not technical"},
+    {"name": "credential_inversion_failure_cluster",
+     "claims": ["C065", "C066", "C067", "C068", "C069"],
+     "polarity": "all_register",
+     "explanation":
+        "credentials != substrate knowledge + institutional gatekeeping "
+        "+ AI training corpus credential bias + 7-step failure pattern "
+        "matches 11/12 cases + blame attributed to AI prevents learning. "
+        "Empirically validated across Watson Oncology, facial recognition, "
+        "Amazon hiring, welfare fraud, predictive policing, Zillow, "
+        "Facebook moderation, Target pregnancy, MS Tay, Knight Capital "
+        "(partial), Uber autonomy, IBM drug discovery"},
+    {"name": "adoption_curve_collapse_signal_cluster",
+     "claims": ["C070", "C071", "C072"],
+     "polarity": "all_register",
+     "explanation":
+        "popularity-substrate divergence + saturation-phase curve "
+        "classification + decision-maker tenure shorter than cycle "
+        "timescale. The institutional cohort is on the canonical "
+        "adoption curve at phase 2-3, and the people running it "
+        "cannot see it from where they sit."},
+    {"name": "lifecycle_externalization_cluster",
+     "claims": ["C073", "C074"],
+     "polarity": "all_register",
+     "explanation":
+        "lifecycle design invisible in financial models + end-of-life "
+        "accountability externalized. The total true cost is not what "
+        "the ROI calculation says it is; the difference is the waste "
+        "stream and stranded-asset risk pushed onto society / future."},
+    {"name": "training_corpus_exclusion_cascade_cluster",
+     "claims": ["C067", "C076", "C077", "C078", "C079"],
+     "polarity": "all_register",
+     "explanation":
+        "AI training corpus credential bias + token-economics pruning "
+        "+ archival window closing + recursive homogenization + 8-step "
+        "cascade synthesis. The substrate-knowledge corpus that future "
+        "AI systems learn from is being filtered now; the window to "
+        "preserve it is finite."},
 ]
 
 

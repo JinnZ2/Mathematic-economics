@@ -35,6 +35,14 @@ from . import (
     roi_baseline_integrity_audit,
     system_integration_audit,
     substrate_care_audit,
+    credential_inversion_audit,
+    semantic_coherence_check,
+    spatial_resolution_parity,
+    timescale_phenomenon_match,
+    adoption_curve_audit,
+    lifecycle_design_audit,
+    framework_reflexivity_audit,
+    training_corpus_dynamics_audit,
 )
 
 __all__ = [
@@ -64,4 +72,12 @@ __all__ = [
     "roi_baseline_integrity_audit",
     "system_integration_audit",
     "substrate_care_audit",
+    "credential_inversion_audit",
+    "semantic_coherence_check",
+    "spatial_resolution_parity",
+    "timescale_phenomenon_match",
+    "adoption_curve_audit",
+    "lifecycle_design_audit",
+    "framework_reflexivity_audit",
+    "training_corpus_dynamics_audit",
 ]

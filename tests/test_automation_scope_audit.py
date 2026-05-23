@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 65)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -165,6 +165,31 @@ class ClusterTests(unittest.TestCase):
                           self.works_clusters["triggered_clusters"])
 
 
+class C068CredentialInversionLibraryTests(unittest.TestCase):
+    """Calibration of the 12-case library against the 7-step pattern."""
+
+    def test_library_has_12_documented_cases(self):
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        self.assertEqual(len(m.DOCUMENTED_FAILURES), 12)
+
+    def test_at_least_10_cases_match_7step_pattern(self):
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        res = m.case_library_pattern_match()
+        self.assertGreaterEqual(res["matches"], 10,
+                                 msg=f"only {res['matches']}/12 cases match")
+        self.assertGreaterEqual(res["match_rate"], 0.80)
+
+    def test_knight_capital_does_not_match(self):
+        """Knight Capital is the outlier: decision-makers HAD substrate
+        knowledge but skipped code review for speed. Different failure
+        mode; the pattern matcher should correctly NOT count it."""
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        res = m.case_library_pattern_match()
+        knight = [c for c in res["by_case"]
+                   if c["case"] == "knight_capital_flash_crash_2012"][0]
+        self.assertFalse(knight["matches_pattern"])
+
+
 class C059IntegrationTests(unittest.TestCase):
     """Calibration tests for the bee-pollination synthesis claim."""
 
@@ -200,7 +225,7 @@ class ArchitectureTests(unittest.TestCase):
         cov = self.architecture.coverage_check()
         self.assertTrue(cov["complete"],
                          msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
-        self.assertEqual(cov["total_claims"], 65)
+        self.assertEqual(cov["total_claims"], 80)
 
     def test_six_load_bearing_layers(self):
         self.assertEqual(len(self.architecture.LAYERS), 6)
@@ -217,6 +242,81 @@ class ArchitectureTests(unittest.TestCase):
         cs_fails = self.architecture.cycle_status(self.fails)
         self.assertGreater(len(cs_fails["fully_failed_layers"]),
                             len(cs_works["fully_failed_layers"]))
+
+
+class Phase8HardeningTests(unittest.TestCase):
+    """Phase 8 hardening: semantic coherence, spatial parity, timescale match."""
+
+    def test_8_1_c000_rejects_tautological_falsifier(self):
+        """Acceptance test from the task spec."""
+        from automation_scope_audit.modules import meta_scope_guard
+        bad = ("Autonomous trucking is more efficient over a 7-year horizon, "
+               "measured in energy joules, with infrastructure cost externalized "
+               "to road authorities; profit accrues to shareholders; this "
+               "deployment cannot be falsified because it is perfect.")
+        v = meta_scope_guard.c000_verdict(bad)
+        # All seven scope dimensions are present (so old gate would pass)
+        # but the tautological falsifier blocks admission.
+        self.assertFalse(v["admissible"])
+        self.assertFalse(v["semantic_coherence"]["coherent"])
+        self.assertTrue(v["semantic_coherence"]["tautology"])
+
+    def test_8_1_c000_admits_substantive_falsifier(self):
+        from automation_scope_audit.modules import meta_scope_guard
+        good = ("Autonomous trucking reduces per-ton-mile energy by 12% over a "
+                "7-year horizon, under stable diesel supply and no regulatory "
+                "change, measured in joules, with infrastructure cost "
+                "externalized to road authorities; profit accrues to fleet "
+                "shareholders; falsified by audited data showing energy "
+                "increase post-deployment.")
+        v = meta_scope_guard.c000_verdict(good)
+        self.assertTrue(v["admissible"])
+
+    def test_8_2_spatial_resolution_parity_flags_mismatch(self):
+        from automation_scope_audit.modules import spatial_resolution_parity as srp
+        gps_log = [{"origin": "A", "destination": "B",
+                    "waypoints": ["lat_32.7831_lon_-96.8067"],
+                    "waypoint_convention": "gps_lat_lon"}]
+        city_log = [{"origin": "DAL", "destination": "HOU",
+                      "waypoints": ["DFW"],
+                      "waypoint_convention": "city"}]
+        res = srp.parity_check(gps_log, city_log)
+        self.assertTrue(res["mismatch"])
+        self.assertGreater(res["log10_diff"], 2.0)
+
+    def test_8_2_same_resolution_passes_parity(self):
+        from automation_scope_audit.modules import spatial_resolution_parity as srp
+        gps_log = [{"origin": "A", "destination": "B",
+                    "waypoints": ["lat_32.7", "lat_32.8"],
+                    "waypoint_convention": "gps_lat_lon"}]
+        res = srp.parity_check(gps_log, gps_log)
+        self.assertFalse(res["mismatch"])
+
+    def test_8_3_allocation_rule_field_present_on_all_claims(self):
+        import json
+        path = os.path.join(ROOT, "automation_scope_audit",
+                             "CLAIM_TABLE.fab.json")
+        with open(path) as f:
+            data = json.load(f)
+        enum = set(data["allocation_rules_enum"])
+        for cid, payload in data["claims"].items():
+            self.assertIn("allocation_rule", payload,
+                           msg=f"{cid} missing allocation_rule")
+            self.assertIn(payload["allocation_rule"], enum,
+                           msg=f"{cid} allocation_rule={payload['allocation_rule']!r}")
+
+    def test_8_4_timescale_flags_long_horizon_claims_at_1yr(self):
+        from automation_scope_audit.modules import timescale_phenomenon_match as tpm
+        r = tpm.audit_horizon_report(verification_horizon_years=1.0)
+        self.assertGreater(len(r["inadequate_horizon_claims"]), 5,
+                            msg="expected multiple long-horizon claims to flag")
+        for cid in ("C022", "C043", "C046", "C047"):
+            self.assertIn(cid, r["inadequate_horizon_claims"])
+
+    def test_8_4_timescale_passes_at_200yr(self):
+        from automation_scope_audit.modules import timescale_phenomenon_match as tpm
+        r = tpm.audit_horizon_report(verification_horizon_years=200.0)
+        self.assertTrue(r["horizon_adequate_for_all"])
 
 
 class ContractValidatedTests(unittest.TestCase):

@@ -37,6 +37,68 @@ silently.
 
 ---
 
+## Phase 8 hardening — deferred items
+
+Recorded in `AUDIT_TASKS.md`. The deferred items below need either
+external data the AI does not have (8.7 Token Price Index, 8.8 Kodiak
+primary-source data) or substantial cross-module refactoring (8.5
+adversary cost curve, 8.6 valuation sensitivity).
+
+### 8.5 — adversary_cost_curve as input
+
+For C042 (adversarial overhead), C043 (coercive vs reciprocal), and
+C044 (corruption incentive), the threshold currently uses fixed
+defaults for attacker capabilities. The user spec asks for a
+declared attacker-cost curve so defense-cost verdicts can be
+bracketed by attacker-cost sensitivity.
+
+Starter scaffold: extend each of the three verdict functions to
+accept an optional `adversary_cost_curve` argument shaped as
+`{action: cost_per_action_usd, capabilities: list[str],
+action_rate_per_year: float}`. Return the verdict at low / median /
+high attacker capability. Estimated effort: ~2 hr per module, ~6 hr
+total. Out of scope for this commit; needs representative
+attacker-cost data per domain.
+
+### 8.6 — valuation_sensitivity.py
+
+For C025 (Earth-system fragility), C026 (economic double-bind),
+C029 (selective capital accounting), and broadly any claim that
+depends on a magnitude valuation (joules-per-CO2-ton, joules-per-USD,
+QALY value), the verdict should be computed at three valuation
+bands: low / medium / high.
+
+Starter scaffold: introduce `automation_scope_audit/valuation.py`
+with `VALUATION_BANDS = {"low": 0.5, "medium": 1.0, "high": 2.0}` and
+helper `sensitivity_verdict(claim_id, *args, valuation_band, **kwargs)`
+that scales the dominant valuation factor and re-runs the verdict.
+Affects ~5-7 modules; needs a consistent valuation-factor convention.
+Estimated effort: ~4 hr.
+
+### 8.7 — Token Price Index integration
+
+Requires the Deloitte AI Token Price Index methodology to be
+published in a stable form (units, sampling, normalization). When
+available, plug it into C020 (thermodynamic accounting) as a
+per-token energy cost input, and into C027 (economic energy
+grounding) to test whether token price tracks joule cost. Out of
+scope until the methodology exists in citable form.
+
+### 8.8 — Applied case study: Kodiak / Atlas
+
+Run the full 70-claim audit against publicly available Kodiak /
+Atlas Permian data, with each field documented as
+`measured | inferred | absent`. Publish as
+`AUDIT_RESULT_KODIAK_ATLAS_PUBLIC.json`. This is the Perplexity
+audit-rigor requirement made concrete.
+
+Requires real research with primary-source field-by-field data
+collection (operator 10-K, press releases, SEC filings, FMCSA
+disclosures). The AI cannot fabricate audited numbers; this task
+needs a human researcher with access to the source documents.
+Estimated effort: ~8 hr of field-by-field documentation + audit run
++ verdict justification.
+
 ## Substrate-care renumbering (C060-C064 batch)
 
 | User label                                       | Repo claim ID | Module                  |

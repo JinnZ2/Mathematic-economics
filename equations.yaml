@@ -825,6 +825,81 @@ automation_scope_audit_claims:
       summary: "Substrate care + substrate authority are non-negotiable preconditions for any automation deployment"
       cross_references: ["SID", "ISR"]
 
+    - id: "C065"
+      module: "credential_inversion_audit"
+      summary: "Credentials != substrate knowledge; MBA/PhD-Econ/AI-PhD do not imply domain mastery"
+      cross_references: ["SD", "DI"]
+
+    - id: "C066"
+      module: "credential_inversion_audit"
+      summary: "Institutional knowledge exclusion via credential gatekeeping; domain expert warnings documented but ignored"
+      cross_references: ["RI", "DI"]
+
+    - id: "C067"
+      module: "credential_inversion_audit"
+      summary: "AI training data inherits credential bias (>80% credentialed-source corpora)"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C068"
+      module: "credential_inversion_audit"
+      summary: "7-step credential-inversion failure mode matches 11 of 12 documented AI deployment failures"
+      cross_references: ["RI", "BSC", "HHI"]
+
+    - id: "C069"
+      module: "credential_inversion_audit"
+      summary: "Blame attribution to AI / data / compute prevents institutional learning; cycle perpetuates"
+      cross_references: ["DI", "BSC"]
+
+    - id: "C070"
+      module: "adoption_curve_audit"
+      summary: "Popularity-substrate divergence: popularity rises while substrate health drops"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C071"
+      module: "adoption_curve_audit"
+      summary: "4-phase adoption curve is timescale-invariant from fashion to 80-year institutional cycles"
+      cross_references: ["HHI", "MM"]
+
+    - id: "C072"
+      module: "adoption_curve_audit"
+      summary: "Institutional cycle blindness: decision-maker tenure < cycle timescale"
+      cross_references: ["DI", "HHI"]
+
+    - id: "C073"
+      module: "lifecycle_design_audit"
+      summary: "Lifecycle design is invisible in conventional financial models; end-of-life cost externalized"
+      cross_references: ["VE_VL", "ER"]
+
+    - id: "C074"
+      module: "lifecycle_design_audit"
+      summary: "End-of-life accountability requirement: designer must own second-life + materials recovery + EoL liability"
+      cross_references: ["SID", "ISR"]
+
+    - id: "C075"
+      module: "framework_reflexivity_audit"
+      summary: "Framework reflexivity: adoption metrics are inverse signals; effectiveness measured by predict-then-prevent"
+      cross_references: ["SD"]
+
+    - id: "C076"
+      module: "training_corpus_dynamics_audit"
+      summary: "Token-economics pruning: rising token price filters out high-curation-cost substrate corpora"
+      cross_references: ["MSI", "ER"]
+
+    - id: "C077"
+      module: "training_corpus_dynamics_audit"
+      summary: "Substrate-knowledge archival window: 2-5 years before exclusion completes (2025-2029)"
+      cross_references: ["SD"]
+
+    - id: "C078"
+      module: "training_corpus_dynamics_audit"
+      summary: "Recursive AI homogenization: synthetic-content share rises; diversity collapses; confidence inflates"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C079"
+      module: "training_corpus_dynamics_audit"
+      summary: "8-step institutional-cascade trajectory synthesis (C000 + C065 + C067 + C068 + C069 + C076 + C078)"
+      cross_references: ["HHI", "BSC", "DI"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

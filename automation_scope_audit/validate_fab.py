@@ -32,6 +32,7 @@ def main() -> int:
               f"differs from schemas/claim_contract.CONTRACT_VERSION={CONTRACT_VERSION!r}")
 
     claims = data["claims"]
+    allocation_enum = set(data.get("allocation_rules_enum", []))
     failures = []
     ok = []
 
@@ -41,6 +42,11 @@ def main() -> int:
             # Round-trip
             roundtrip = Claim.from_dict(claim.to_dict())
             assert roundtrip == claim, f"{cid} round-trip mismatch"
+            # Phase 8 Task 8.3: allocation_rule must be present + valid enum value
+            if allocation_enum:
+                ar = payload.get("allocation_rule")
+                assert ar in allocation_enum, \
+                    f"{cid} allocation_rule={ar!r} not in {sorted(allocation_enum)}"
             ok.append(cid)
         except Exception as e:
             failures.append((cid, str(e)))

@@ -73,6 +73,11 @@ from automation_scope_audit.modules import (
     roi_baseline_integrity_audit,
     system_integration_audit,
     substrate_care_audit,
+    credential_inversion_audit,
+    adoption_curve_audit,
+    lifecycle_design_audit,
+    framework_reflexivity_audit,
+    training_corpus_dynamics_audit,
 )
 
 
@@ -436,6 +441,63 @@ def run() -> dict:
         decision_authority_holder_has_substrate_knowledge=True,
         approval_required_from_substrate_experienced_operator=False)
 
+    # C065-C069 — credential inversion. Works case has somewhat better
+    # credential / substrate-knowledge alignment (Kodiak founders are
+    # engineers with operational experience) but still operates in a
+    # broader credential-biased AI training corpus.
+    c065 = credential_inversion_audit.c065_verdict(
+        decision_maker_credentials=[
+            "domain_PhD", "operational_experience_20yr", "MBA",
+            "AI_researcher_PhD", "venture_capitalist",
+        ])
+    c066 = credential_inversion_audit.c066_verdict()
+    c067 = credential_inversion_audit.c067_verdict()
+    c068 = credential_inversion_audit.c068_verdict()
+    c069 = credential_inversion_audit.c069_verdict(
+        attributed_blame=[
+            "AI_not_ready_training_data",
+            "decision_maker_lacked_substrate_knowledge",
+            "edge_case_complexity",
+        ])
+
+    # C070-C072 — adoption-curve. Autonomous trucking deployment cohort
+    # is in phase 2-3 of the canonical curve. Works case has slightly
+    # better substrate metrics due to consolidated corridor + safety
+    # driver, but the systemic divergence still registers.
+    c070 = adoption_curve_audit.c070_verdict(
+        substrate_trend={
+            "energy_cost_per_unit_trend":    -0.12,
+            "failure_rate_trend":            -0.08,
+            "resilience_to_disruption":      -0.05,
+            "human_skill_retention":         -0.08,
+            "biodiversity_substrate_health": -0.06,
+            "knowledge_preservation":        -0.05,
+            "edge_case_robustness":          -0.06,
+        })
+    c071 = adoption_curve_audit.c071_verdict()
+    c072 = adoption_curve_audit.c072_verdict(
+        decision_maker_class="fortune_500_ceo",
+        cycle_timescale_years=20.0)
+
+    # C073 / C074 — lifecycle design. Works case uses module defaults
+    # (conventional financial model; designer not accountable for EoL).
+    c073 = lifecycle_design_audit.c073_verdict(fleet_size=60)
+    c074 = lifecycle_design_audit.c074_verdict()
+
+    # C075 — framework reflexivity. Static state at audit time.
+    c075 = framework_reflexivity_audit.c075_verdict()
+
+    # C076-C079 — training-corpus dynamics. Audit run "now" (2026),
+    # token-pruning forecast at 2030 (when concern fully matures),
+    # synthetic share at 2030 ~ 0.70, 8-step cascade self-test.
+    c076 = training_corpus_dynamics_audit.c076_verdict(year=2030)
+    c077 = training_corpus_dynamics_audit.c077_verdict(current_year=2026)
+    c078 = training_corpus_dynamics_audit.c078_verdict(year=2030)
+    # C079 evaluated against the audit report itself to surface which
+    # cascade steps registered; defer the in-report scan to run.py
+    # post-collection so the report is fully populated first.
+    c079 = training_corpus_dynamics_audit.c079_verdict()
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -455,7 +517,10 @@ def run() -> dict:
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
         "C057": c057, "C058": c058, "C059": c059,
         "C060": c060, "C061": c061, "C062": c062, "C063": c063,
-        "C064": c064,
+        "C064": c064, "C065": c065, "C066": c066, "C067": c067,
+        "C068": c068, "C069": c069, "C070": c070, "C071": c071,
+        "C072": c072, "C073": c073, "C074": c074, "C075": c075,
+        "C076": c076, "C077": c077, "C078": c078, "C079": c079,
     }
 
 
