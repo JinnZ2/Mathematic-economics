@@ -43,6 +43,7 @@ from . import (
     lifecycle_design_audit,
     framework_reflexivity_audit,
     training_corpus_dynamics_audit,
+    cross_domain_exclusion_audit,
 )
 
 __all__ = [
@@ -80,4 +81,5 @@ __all__ = [
     "lifecycle_design_audit",
     "framework_reflexivity_audit",
     "training_corpus_dynamics_audit",
+    "cross_domain_exclusion_audit",
 ]

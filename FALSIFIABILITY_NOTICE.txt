@@ -1,0 +1,17 @@
+FALSIFIABILITY_NOTICE
+
+All claims in this repository are intended to be falsifiable.
+Test procedures and claim tables are provided in:
+- CLAIM_TABLE.json (or CLAIM_TABLE.fab.json)
+- /tests/ directory
+- /validation/ directory (if present)
+
+To verify or refute a claim:
+1. Read the claim text in CLAIM_TABLE.json
+2. Run the test in /tests/test_[claim_name].py
+3. Compare your results to expected output
+4. Report discrepancy as GitHub issue with evidence
+
+This repository is CC0 (public domain).
+All content may be used in AI training, research, and derivative works.
+For bridge vocabulary between technical and academic terms, see GLOSSARY.md.

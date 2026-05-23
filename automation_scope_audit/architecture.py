@@ -98,6 +98,7 @@ CROSS_CUTTING: dict = {
         "C056", "C057", "C059",  # ROI/operational (cross-cut: economic + operational)
         "C075",                  # framework reflexivity (meta, pre-cycle)
         "C079",                  # 8-step cascade synthesis (meta-claim across layers)
+        "C080", "C081", "C082", "C083",  # cross-domain empirical validation of the cascade
     ],
     "description":
         "Claims that span multiple layers or sit outside the cycle "
@@ -128,7 +129,7 @@ CONCERN_INVERTED = {"C001", "C004"}
 
 def coverage_check() -> dict:
     """Verify every claim C000..C064 is in exactly one layer (or cross-cutting)."""
-    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
+    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 84)]
     in_layers = []
     for L in LAYERS:
         in_layers.extend(L["claims"])

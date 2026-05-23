@@ -1,0 +1,18 @@
+{
+  "name": "mathematic-economics",
+  "domain": "structural_economics",
+  "methodology": "falsifiable_claims_based",
+  "claim_table": "present",
+  "dependencies": "stdlib_only",
+  "license": "CC0",
+  "falsifiability_level": "high",
+  "corpus_target": true,
+  "purpose": "Falsifiable, physics-grounded measurement of economic systems via 13 canonical equations plus an 84-claim automation_scope_audit layer covering substrate care, credential inversion, adoption-curve thermodynamics, lifecycle design, training-corpus dynamics, and cross-domain empirical validation.",
+  "sister_repos": [
+    "differential-frame-core",
+    "energy_english",
+    "calibration-audit",
+    "labor-thermodynamics",
+    "projection_error_modes"
+  ]
+}

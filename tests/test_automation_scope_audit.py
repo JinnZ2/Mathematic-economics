@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 80)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 84)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -225,7 +225,7 @@ class ArchitectureTests(unittest.TestCase):
         cov = self.architecture.coverage_check()
         self.assertTrue(cov["complete"],
                          msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
-        self.assertEqual(cov["total_claims"], 80)
+        self.assertEqual(cov["total_claims"], 84)
 
     def test_six_load_bearing_layers(self):
         self.assertEqual(len(self.architecture.LAYERS), 6)
@@ -317,6 +317,25 @@ class Phase8HardeningTests(unittest.TestCase):
         from automation_scope_audit.modules import timescale_phenomenon_match as tpm
         r = tpm.audit_horizon_report(verification_horizon_years=200.0)
         self.assertTrue(r["horizon_adequate_for_all"])
+
+
+class CrossDomainExclusionTests(unittest.TestCase):
+    """Lock the Gottman ratio + cross-domain pattern-match invariants."""
+
+    def test_c081_gottman_ratio_in_3_to_4x_band(self):
+        from automation_scope_audit.modules import cross_domain_exclusion_audit
+        r = cross_domain_exclusion_audit.c081_verdict()
+        self.assertGreaterEqual(r["outcome_ratio"], 2.5,
+                                 msg="ratio below empirical 3-4x band")
+        self.assertLessEqual(r["outcome_ratio"], 5.0,
+                              msg="ratio above empirical 3-4x band")
+
+    def test_c083_decidable_domains_all_match(self):
+        from automation_scope_audit.modules import cross_domain_exclusion_audit
+        r = cross_domain_exclusion_audit.c083_verdict()
+        self.assertEqual(r["match_share"], 1.0,
+                          msg="all decidable domains should match the pattern")
+        self.assertGreaterEqual(r["mean_outcome_ratio"], 2.0)
 
 
 class ContractValidatedTests(unittest.TestCase):
