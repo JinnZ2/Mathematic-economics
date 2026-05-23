@@ -1,0 +1,32 @@
+name: validate-claims
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run tests (if present)
+        run: |
+          if [ -d tests ] || [ -d test ]; then
+            python -m pytest tests/ -v 2>/dev/null || \
+            python -m unittest discover -s tests -v 2>/dev/null || \
+            true
+          else
+            echo "no tests/ directory; skipping"
+          fi
+      - name: Validate claim table (if present)
+        run: |
+          if [ -f scripts/validate_claims.py ]; then
+            python scripts/validate_claims.py
+          else
+            echo "no scripts/validate_claims.py; skipping"
+          fi

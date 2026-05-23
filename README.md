@@ -1,3 +1,11 @@
+**mathematic-economics** — public domain (CC0). Falsifiable claims. Stdlib only.
+
+See `GLOSSARY.md` for bridge vocabulary (terms used here ↔ academic terms).
+See `CLAIM_TABLE.json` (or `CLAIM_TABLE.fab.json`) for falsifiable claims
+and test procedures.
+
+-----
+
 # Mathematic-economics
 Math and equations for different systems
 
