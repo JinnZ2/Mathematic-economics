@@ -48,7 +48,21 @@ REQUIRED_SPEC_FIELDS = [
     "externalized_cost",
     "profit_allocation",
     "falsifier",
+    "substrate_primacy_fraction",   # added per substrate_primacy_audit
 ]
+
+# Per-field validators above and beyond `_is_measurable`. Returns (ok, reason).
+# `substrate_primacy_fraction` must be a number in (0.0, 1.0]; a value of
+# 0% means the deployment cannot run at all without electricity / internet /
+# computers, which is a structural fail.
+EXTRA_FIELD_VALIDATORS = {
+    "substrate_primacy_fraction": lambda v: (
+        (isinstance(v, (int, float)) and 0.0 < float(v) <= 1.0,
+         "substrate_primacy_fraction must be a number in (0.0, 1.0]; "
+         "a deployment that cannot run at all without electricity / "
+         "internet / computers fails the substrate-primacy gate")
+    ),
+}
 
 
 # Sentinels that count as "operator deliberately chose to leave this open"
@@ -102,16 +116,25 @@ def validate_deployment_spec(spec: Dict[str, Any],
     req = required or REQUIRED_SPEC_FIELDS
     present: Dict[str, bool] = {}
     field_values: Dict[str, Any] = {}
+    extra_failures: Dict[str, str] = {}
     for field in req:
         value = spec.get(field)
-        present[field] = _is_measurable(value)
+        measurable = _is_measurable(value)
+        present[field] = measurable
         field_values[field] = value
+        validator = EXTRA_FIELD_VALIDATORS.get(field)
+        if measurable and validator is not None:
+            ok, reason = validator(value)
+            if not ok:
+                present[field] = False
+                extra_failures[field] = reason
     missing = [f for f in req if not present[f]]
     return {
         "claim_id":   "C000",
         "present":    present,
         "field_values": field_values,
         "missing":    missing,
+        "validator_failures": extra_failures,
         "admissible": not missing,
         "report":     ("ADMITTED" if not missing
                        else f"MISSING_SCOPE: {missing}"),

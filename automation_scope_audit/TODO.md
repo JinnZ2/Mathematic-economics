@@ -37,6 +37,29 @@ silently.
 
 ---
 
+## Substrate-primacy / adversarial-overhead renumbering (C033-C042 batch)
+
+The user-submitted "missing layers" batch numbered claims C029-C037
+plus a second C035. All collided with existing IDs. The repo-stable
+mapping:
+
+| User label                            | Repo claim ID | Module                       |
+|---------------------------------------|---------------|------------------------------|
+| C029 sensory latency                  | **C033**      | substrate_primacy_audit       |
+| C030 embodied knowledge loss          | **C034**      | substrate_primacy_audit       |
+| C031 decision latency                 | **C035**      | substrate_primacy_audit       |
+| C032 timescale adequacy               | **C036**      | substrate_primacy_audit       |
+| C033 holdout-season transfer          | **C037**      | substrate_primacy_audit       |
+| C034 apprenticeship                   | **C038**      | substrate_primacy_audit       |
+| C035 knowledge preservation energy    | **C039**      | substrate_primacy_audit       |
+| C036 institutional redundancy         | **C040**      | substrate_primacy_audit       |
+| C037 generational knowledge           | **C041**      | substrate_primacy_audit       |
+| C035 (second use, threat-adaptive)    | **C042**      | adversarial_overhead_audit    |
+
+The scope gate (C000) was extended with an 8th required field
+`substrate_primacy_fraction`. A deployment that declares 0% (cannot run
+at all without electricity / internet / computers) fails the gate.
+
 ## Tasks complete in this commit
 
 - **TASK 3.1 — scope_gate.py**: new module that wraps

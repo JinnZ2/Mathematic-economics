@@ -665,6 +665,56 @@ automation_scope_audit_claims:
       summary: "AI on unstable economic models cascades; regime drift severity matrix"
       cross_references: ["MSI", "BSC"]
 
+    - id: "C033"
+      module: "substrate_primacy_audit"
+      summary: "Precursor-signal detection latency asymmetry: human inline << cloud centralized"
+      cross_references: []
+
+    - id: "C034"
+      module: "substrate_primacy_audit"
+      summary: "Embodied constraint knowledge lost in digitization (>30% of operational constraints non-digitizable)"
+      cross_references: ["SD"]
+
+    - id: "C035"
+      module: "substrate_primacy_audit"
+      summary: "Distributed authority decision latency < centralized authority by >= 4x"
+      cross_references: []
+
+    - id: "C036"
+      module: "substrate_primacy_audit"
+      summary: "Multi-timescale training must span >= 3 full cycles of slowest operational mode"
+      cross_references: []
+
+    - id: "C037"
+      module: "substrate_primacy_audit"
+      summary: "Holdout-season transfer accuracy drop > 10% indicates regime-bound model"
+      cross_references: []
+
+    - id: "C038"
+      module: "substrate_primacy_audit"
+      summary: "Apprenticeship knowledge transfer: human 8000h vs AI typical 100-1000h"
+      cross_references: ["LWR"]
+
+    - id: "C039"
+      module: "substrate_primacy_audit"
+      summary: "Energy cost of cloud backend > human workforce metabolic baseline"
+      cross_references: ["MSI", "LWR"]
+
+    - id: "C040"
+      module: "substrate_primacy_audit"
+      summary: "Operational capacity < 30% under any single-infrastructure failure mode"
+      cross_references: ["BSC"]
+
+    - id: "C041"
+      module: "substrate_primacy_audit"
+      summary: "Generational knowledge survives < 50% of total infrastructure loss across 100yr"
+      cross_references: ["SD"]
+
+    - id: "C042"
+      module: "adversarial_overhead_audit"
+      summary: "Sustained threat-adaptive behavior exhausts coherence budget on a fixed timeline"
+      cross_references: ["DI", "RI"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

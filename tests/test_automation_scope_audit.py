@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 33)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 43)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -40,7 +40,8 @@ class ScopeGateTests(unittest.TestCase):
     def test_empty_spec_blocked(self):
         v = scope_gate.scope_gate_verdict({})
         self.assertFalse(v["admissible"])
-        self.assertEqual(len(v["missing"]), 7)
+        # 8 required fields: 7 declarative + substrate_primacy_fraction
+        self.assertEqual(len(v["missing"]), 8)
 
     def test_complete_spec_admitted(self):
         spec = {
@@ -51,6 +52,7 @@ class ScopeGateTests(unittest.TestCase):
             "externalized_cost":  "rural_road_maintenance_to_state_DOT",
             "profit_allocation":  ["operator_60pct"],
             "falsifier":          "fuel_intensity_increase_post_deployment",
+            "substrate_primacy_fraction": 0.30,
         }
         v = scope_gate.scope_gate_verdict(spec)
         self.assertTrue(v["admissible"], msg=v["missing"])
@@ -61,10 +63,21 @@ class ScopeGateTests(unittest.TestCase):
         # short string -> non-measurable
         self.assertFalse(v["admissible"])
 
-    def test_deliberate_open_sentinel_accepted(self):
-        spec = {f: "unspecified" for f in scope_gate.REQUIRED_SPEC_FIELDS}
+    def test_deliberate_open_sentinel_accepted_except_substrate(self):
+        # 7 declarative fields accept "unspecified"; substrate_primacy_fraction
+        # cannot use a sentinel because it must be a positive number.
+        spec = {f: "unspecified" for f in scope_gate.REQUIRED_SPEC_FIELDS
+                if f != "substrate_primacy_fraction"}
+        spec["substrate_primacy_fraction"] = 0.50
         v = scope_gate.scope_gate_verdict(spec)
-        self.assertTrue(v["admissible"])
+        self.assertTrue(v["admissible"], msg=v["missing"])
+
+    def test_zero_substrate_primacy_blocks_admission(self):
+        spec = {f: "fully specified value text" for f in scope_gate.REQUIRED_SPEC_FIELDS}
+        spec["substrate_primacy_fraction"] = 0.0
+        v = scope_gate.scope_gate_verdict(spec)
+        self.assertFalse(v["admissible"])
+        self.assertIn("substrate_primacy_fraction", v["missing"])
 
 
 class WorksCaseTests(unittest.TestCase):

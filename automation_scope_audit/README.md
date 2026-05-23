@@ -92,6 +92,16 @@ operates by:
     institution has no mechanism to see the failure because the
     failure is outside the model. Historical pattern: 1998 LTCM, 2008
     quant collapse, 2010 flash crash, March 2020 treasury dislocation.
+21. **Substrate primacy** — sensing latency, embodied knowledge,
+    distributed decision authority, multi-timescale training,
+    holdout-season transfer, apprenticeship hours, knowledge-
+    preservation energy, institutional redundancy, and generational
+    transferability are the substrates the deployment narrative
+    silently assumes. Each is its own falsifiable claim (C033-C041).
+22. **Adversarial cognitive overhead** — sustained threat-adaptive
+    behavior consumes a fixed coherence budget at a measurable
+    overhead per day; the time-to-degradation in any non-cooperative
+    regime is finite (C042).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -138,6 +148,16 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C030  | unified_capital_accounting_audit  | "Scaling" is capital reallocation, not creation, under unified accounting |
 | C031  | engineering_grade_validation_audit | Economics lacks engineering-grade falsifiability (4-criterion test) |
 | C032  | engineering_grade_validation_audit | AI on unstable economic models cascades; regime drift severity |
+| C033  | substrate_primacy_audit           | Precursor-signal detection latency: human inline << cloud |
+| C034  | substrate_primacy_audit           | Embodied constraint knowledge lost in digitization (>30%) |
+| C035  | substrate_primacy_audit           | Distributed authority latency < centralized by >= 4x |
+| C036  | substrate_primacy_audit           | Training must span >= 3 full cycles of slowest mode |
+| C037  | substrate_primacy_audit           | Holdout-season transfer accuracy drop > 10% |
+| C038  | substrate_primacy_audit           | Apprenticeship: human 8000h vs AI 100-1000h |
+| C039  | substrate_primacy_audit           | Cloud backend energy > human workforce metabolic cost |
+| C040  | substrate_primacy_audit           | < 30% operational capacity in any single-infrastructure failure |
+| C041  | substrate_primacy_audit           | < 50% knowledge survives total infrastructure loss across 100yr |
+| C042  | adversarial_overhead_audit        | Sustained threat-adaptive behavior exhausts coherence budget |
 
 ## Layout
 
@@ -166,6 +186,8 @@ automation_scope_audit/
 │   ├── economic_energy_grounding_audit.py # C027, C028
 │   ├── unified_capital_accounting_audit.py # C029, C030
 │   ├── engineering_grade_validation_audit.py # C031, C032
+│   ├── substrate_primacy_audit.py        # C033-C041
+│   ├── adversarial_overhead_audit.py     # C042
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

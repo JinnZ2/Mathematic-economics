@@ -53,6 +53,8 @@ from automation_scope_audit.modules import (
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
     engineering_grade_validation_audit,
+    substrate_primacy_audit,
+    adversarial_overhead_audit,
 )
 
 
@@ -275,6 +277,29 @@ def run() -> dict:
         deployment_regime="supply_constrained",
         claim=pitch)
 
+    # C033-C041 — substrate primacy. Fails case is the autonomous-no-driver
+    # hypothesis at dispersed wellsites: every substrate-primacy layer
+    # collapses because there's no in-cab human, no consolidated route,
+    # no apprenticeship pipeline.
+    c033 = substrate_primacy_audit.c033_verdict()
+    c034 = substrate_primacy_audit.c034_verdict()
+    c035 = substrate_primacy_audit.c035_verdict()
+    c036 = substrate_primacy_audit.c036_verdict(training_span_days=365.0)
+    c037 = substrate_primacy_audit.c037_verdict(
+        in_season_accuracy=0.92,
+        held_out_season_accuracy=0.68)        # bad winter transfer
+    c038 = substrate_primacy_audit.c038_verdict()
+    c039 = substrate_primacy_audit.c039_verdict(workforce_size=12,
+                                                  fleet_size=12)
+    c040 = substrate_primacy_audit.c040_verdict()    # use module defaults
+    c041 = substrate_primacy_audit.c041_verdict()
+
+    # C042 — adversarial overhead. Dispersed-wellsite vendors operate
+    # under sustained adversarial pressure (small operators vs major
+    # carriers, regulatory volatility, predatory acquisition climate).
+    c042 = adversarial_overhead_audit.c042_verdict("threat_mixed",
+                                                    overhead_per_day=0.015)
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -286,6 +311,9 @@ def run() -> dict:
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
         "C029": c029, "C030": c030, "C031": c031, "C032": c032,
+        "C033": c033, "C034": c034, "C035": c035, "C036": c036,
+        "C037": c037, "C038": c038, "C039": c039, "C040": c040,
+        "C041": c041, "C042": c042,
     }
 
 

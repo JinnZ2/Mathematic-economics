@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "7.0",
+  "version": "8.0",
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -734,6 +734,179 @@
       "scope_envelope": {"regime_count_validated_range": [0, 4]},
       "data_source": ["SEC / CFTC post-mortems (flash crash, March 2020)", "historical financial-crisis literature", "AI deployment post-mortem case studies"],
       "sensitivity": ["regime drift severity matrix", "cascade probability combiner weights"]
+    },
+    "C033": {
+      "observable": "end-to-end latency from anomaly onset to action signal back, human-inline vs cloud-centralized",
+      "rate_equation": "d(response)/d(anomaly_severity) = anomaly_perception + decision_to_act (human) vs telemetry + inference + dispatcher + action (cloud)",
+      "bounds": {
+        "spatial": "single autonomous vehicle in operational corridor",
+        "temporal": "per-incident, seconds resolution",
+        "scale": "single decision loop"
+      },
+      "conditions": [
+        "operator is in cab (human-inline) or remote (cloud-centralized)",
+        "telemetry link is live"
+      ],
+      "invalid_if": ["cloud system with <5sec end-to-end latency to precursor anomalies"],
+      "measured_by": ["disclosed remote-monitor latency budgets", "in-cab driver reaction-time studies"],
+      "cycle_class": "day",
+      "relational_web": ["couples to C009 (precursor catches)", "couples to C035"],
+      "scope_envelope": {"latency_breakdown_s_range": [1.0, 600.0]},
+      "data_source": ["IEEE autonomous-vehicle latency studies", "fleet remote-monitor SLA disclosures"],
+      "sensitivity": ["telemetry_uplink_s (dominant cloud term)", "human anomaly_perception_s"]
+    },
+    "C034": {
+      "observable": "fraction of operational constraints with no reliable digitization path",
+      "rate_equation": "d(loss_share)/d(constraint_inventory) = count(non-digitizable) / count(total)",
+      "bounds": {
+        "spatial": "operator domain knowledge for a specific corridor / route",
+        "temporal": "career-length accumulation",
+        "scale": "constraint-category granularity"
+      },
+      "conditions": ["constraint inventory enumerated", "digitizability assessed against current sensor/AI envelope"],
+      "invalid_if": ["knowledge transfer system capturing > 90% of embodied constraints in form retrievable without the human present"],
+      "measured_by": ["operator interview corpora", "apprenticeship task taxonomies", "sensor capability surveys"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C018 (cognitive monoculture)", "couples to C038"],
+      "scope_envelope": {"constraint_inventory_size": [10, 50]},
+      "data_source": ["DOL registered-apprenticeship task lists", "ethnographic operator studies", "sensor vendor capability sheets"],
+      "sensitivity": ["digitizability classification breadth", "sensor envelope assumptions"]
+    },
+    "C035": {
+      "observable": "asymmetry ratio between centralized and distributed decision latency",
+      "rate_equation": "d(asymmetry)/d(decision) = centralized_per_decision_s / distributed_per_decision_s",
+      "bounds": {
+        "spatial": "single shift, ~200 decision points",
+        "temporal": "per-decision, real-time",
+        "scale": "decision-event granularity"
+      },
+      "conditions": ["decisions_per_shift quantified", "distributed and centralized paths timed end-to-end"],
+      "invalid_if": ["centralized system with < 30sec end-to-end latency for anomaly -> dispatcher approval -> vehicle action"],
+      "measured_by": ["dispatch logs", "remote-operator response-time SLAs", "in-cab driver decision telemetry"],
+      "cycle_class": "day",
+      "relational_web": ["couples to C033"],
+      "scope_envelope": {"decisions_per_shift_range": [50, 500]},
+      "data_source": ["carrier dispatch logs", "remote-operator SLA disclosures", "AAA driver decision telemetry"],
+      "sensitivity": ["centralized_per_decision_s (dominant)", "decisions_per_shift"]
+    },
+    "C036": {
+      "observable": "training data span coverage of slowest operational mode",
+      "rate_equation": "d(coverage)/d(training_span_days) = +1 once span >= 3 * period_days for each cycle",
+      "bounds": {
+        "spatial": "any AI deployment that depends on time-varying inputs",
+        "temporal": "training-data horizon vs operational cycle period",
+        "scale": "per-cycle coverage"
+      },
+      "conditions": ["operational cycles enumerated (circadian, weekly, seasonal, interannual, decadal)"],
+      "invalid_if": ["model trained on data spanning >= 3 full cycles of slowest operational mode (typically seasonal) including all uncovered cycles"],
+      "measured_by": ["training-dataset documentation", "model card temporal scope", "NOAA / USGS reference cycles"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C032 (regime drift)", "couples to C037"],
+      "scope_envelope": {"training_span_days_range": [30, 10000]},
+      "data_source": ["model card temporal scope", "operator training-data inventories", "NOAA seasonal references"],
+      "sensitivity": ["slowest operational cycle period (typically seasonal or interannual)"]
+    },
+    "C037": {
+      "observable": "relative accuracy drop on held-out-season test data",
+      "rate_equation": "d(accuracy)/d(season_shift) = (in_season - held_out) / in_season",
+      "bounds": {
+        "spatial": "any AI deployment evaluated on cross-season holdout",
+        "temporal": "single transfer test",
+        "scale": "fractional accuracy"
+      },
+      "conditions": ["in-season and held-out-season accuracy measured on comparable tasks"],
+      "invalid_if": ["model deployed on data spanning 10+ years of seasonal variation AND tested on different-season holdout with < 10% accuracy drop"],
+      "measured_by": ["ML evaluation reports", "operator transfer-test disclosures"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C036"],
+      "scope_envelope": {"accuracy_range": [0.0, 1.0]},
+      "data_source": ["operator transfer-test publications", "ML evaluation reports"],
+      "sensitivity": ["choice of holdout season", "test-set size"]
+    },
+    "C038": {
+      "observable": "hours of operational exposure required for competence (human apprentice vs AI)",
+      "rate_equation": "d(competence)/d(exposure_hours) saturates around 8000h for humans; AI plateaus at 100-1000h without novel-test passage",
+      "bounds": {
+        "spatial": "knowledge transfer event (apprentice or trainer or training pipeline)",
+        "temporal": "career or training horizon",
+        "scale": "hours of exposure"
+      },
+      "conditions": ["human apprenticeship hours from DOL standard", "AI training-exposure hours from disclosed dataset inventory", "novel-situation tests defined"],
+      "invalid_if": ["AI system demonstrating equivalent judgment to human apprentice after < 8000 hours of training exposure AND passing novel-situation tests"],
+      "measured_by": ["DOL registered apprenticeship records", "model training-data inventories", "judgment-transfer benchmark suites"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C018, C034"],
+      "scope_envelope": {"apprenticeship_hours_range": [2000, 20000]},
+      "data_source": ["US Department of Labor registered apprenticeship database", "AI deployment training data inventories"],
+      "sensitivity": ["definition of novel-situation tests"]
+    },
+    "C039": {
+      "observable": "annual energy cost of maintaining human workforce vs cloud backend for equivalent fleet",
+      "rate_equation": "d(energy_ratio)/d(workforce_size) = (cloud_kwh_per_truck * fleet_size) / (workforce_size * metabolic_kwh_per_day * 250)",
+      "bounds": {
+        "spatial": "fleet operator scope",
+        "temporal": "annual",
+        "scale": "kWh per year"
+      },
+      "conditions": ["workforce_size and fleet_size known", "human metabolic baseline known (~2.5 kWh/day)"],
+      "invalid_if": ["cloud backend running 24/7 for fleet consumes less energy than keeping equivalent human workforce in active practice"],
+      "measured_by": ["human metabolic rate studies", "C020 thermodynamic accounting backend"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C020"],
+      "scope_envelope": {"workforce_size_range": [1, 5000], "fleet_size_range": [1, 5000]},
+      "data_source": ["WHO metabolic rate studies", "LBNL data-center energy reports"],
+      "sensitivity": ["cloud_kwh_per_truck_per_year (dominant for autonomous)", "workforce_size"]
+    },
+    "C040": {
+      "observable": "minimum operational capacity across single-infrastructure failure modes",
+      "rate_equation": "d(capacity)/d(infrastructure_lost) = min(by_failure_mode)",
+      "bounds": {
+        "spatial": "fleet-level operations",
+        "temporal": "during an infrastructure-failure event",
+        "scale": "fractional operational capacity"
+      },
+      "conditions": ["per-failure-mode capacity assessed for GPS / cloud / electricity / fuel loss"],
+      "invalid_if": ["autonomous deployment demonstrating > 30% operational capacity through non-digital, non-cloud pathways"],
+      "measured_by": ["disaster-recovery drills", "NERC outage data", "operator continuity-of-operations plans"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C025"],
+      "scope_envelope": {"capacity_per_failure_mode_range": [0.0, 1.0]},
+      "data_source": ["NERC outage records", "FEMA disaster recovery audits", "operator COOP plans"],
+      "sensitivity": ["per-failure-mode capacity estimates"]
+    },
+    "C041": {
+      "observable": "fraction of operational knowledge that survives total infrastructure loss across generations",
+      "rate_equation": "d(survival)/d(time_horizon_years) = weighted_mean of per-element survival fractions",
+      "bounds": {
+        "spatial": "operational knowledge corpus",
+        "temporal": "100-year horizon",
+        "scale": "knowledge-element granularity"
+      },
+      "conditions": ["knowledge inventory enumerated across substrate forms"],
+      "invalid_if": ["autonomous deployment requiring < 20% external infrastructure for operational continuity across 100 years"],
+      "measured_by": ["archaeological / anthropological knowledge-transfer studies", "post-collapse case studies"],
+      "cycle_class": "geologic",
+      "relational_web": ["couples to C040", "overlaps SD (semantic drift)"],
+      "scope_envelope": {"time_horizon_years_range": [50, 500]},
+      "data_source": ["UNESCO intangible heritage archives", "post-collapse case studies", "archaeological knowledge-transfer studies"],
+      "sensitivity": ["per-knowledge-element survival fractions"]
+    },
+    "C042": {
+      "observable": "time to cognitive coherence budget exhaustion under threat-adaptive overhead",
+      "rate_equation": "T = cognitive_coherence_budget / threat_response_overhead_per_day",
+      "bounds": {
+        "spatial": "single agent operating in a defined regime",
+        "temporal": "days to degradation",
+        "scale": "agent-level coherence budget"
+      },
+      "conditions": ["deployment regime classified (safe_reciprocal / threat_mixed / chaotic)", "overhead_per_day measurable from behavioral logs"],
+      "invalid_if": ["sustained threat-adaptive behavior with no measurable value erosion or system degradation over >=12-month operational window"],
+      "measured_by": ["agent behavioral logs", "value-alignment drift metrics", "workplace exit / disengagement records"],
+      "cycle_class": "season",
+      "relational_web": ["couples to C018, C024"],
+      "scope_envelope": {"regime_options": ["safe_reciprocal", "threat_mixed", "chaotic"], "observation_window_days_range": [30, 3650]},
+      "data_source": ["agent behavioral telemetry", "value-alignment drift studies", "workplace exit surveys"],
+      "sensitivity": ["overhead_per_day per regime (dominant)", "coherence_budget normalization"]
     }
   }
 }

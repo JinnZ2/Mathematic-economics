@@ -37,6 +37,12 @@ DEPLOYMENT_SPEC = {
     "externalized_cost":  "rural_road_maintenance_to_state_DOT_and_carbon_burden",
     "profit_allocation":  ["operator_60pct", "atlas_energy_40pct"],
     "falsifier":          "fuel_intensity_per_ton_mile_increase_post_deployment",
+    # Substrate-primacy fraction: in the consolidated Permian corridor
+    # with a safety driver in cab and physical interlocks at the pad,
+    # ~25% of operations can proceed without electricity / internet /
+    # computers (manual driving + paper bills of lading + visual
+    # weighing). Not great, but non-zero.
+    "substrate_primacy_fraction": 0.25,
 }
 
 
@@ -60,6 +66,8 @@ from automation_scope_audit.modules import (
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
     engineering_grade_validation_audit,
+    substrate_primacy_audit,
+    adversarial_overhead_audit,
 )
 
 
@@ -311,6 +319,32 @@ def run() -> dict:
         deployment_regime="volatile",
         claim=permian_pitch)
 
+    # C033-C041 — substrate primacy. Works case has a safety driver in
+    # cab and a relatively stable corridor; defaults are appropriate.
+    c033 = substrate_primacy_audit.c033_verdict()
+    c034 = substrate_primacy_audit.c034_verdict()
+    c035 = substrate_primacy_audit.c035_verdict()
+    c036 = substrate_primacy_audit.c036_verdict(training_span_days=730.0)
+    c037 = substrate_primacy_audit.c037_verdict()
+    c038 = substrate_primacy_audit.c038_verdict()
+    c039 = substrate_primacy_audit.c039_verdict(workforce_size=60,
+                                                  fleet_size=60)
+    # Works case retains some manual-fallback capacity due to in-cab
+    # safety driver; nominal GPS/cloud failures still leave physical
+    # driving + paper-trail backup operational.
+    c040 = substrate_primacy_audit.c040_verdict(
+        operational_capacity_by_failure={
+            "gps_down": 0.50, "cloud_down": 0.35,
+            "electricity_down": 0.10, "fuel_unavailable": 0.0,
+        })
+    c041 = substrate_primacy_audit.c041_verdict()
+
+    # C042 — adversarial overhead. The Permian deployment is largely
+    # cooperative (Atlas + Kodiak + carrier alignment) but operates in
+    # the broader mixed-model regulatory / market environment.
+    c042 = adversarial_overhead_audit.c042_verdict("threat_mixed",
+                                                    overhead_per_day=0.006)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -322,6 +356,9 @@ def run() -> dict:
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
         "C029": c029, "C030": c030, "C031": c031, "C032": c032,
+        "C033": c033, "C034": c034, "C035": c035, "C036": c036,
+        "C037": c037, "C038": c038, "C039": c039, "C040": c040,
+        "C041": c041, "C042": c042,
     }
 
 

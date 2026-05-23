@@ -93,6 +93,21 @@ CLUSTERS: List[dict] = [
      "explanation":
         "institutional lock-in + collapse cycle + Earth-system fragility "
         "+ AI on unstable models — historical prefix to every cascade"},
+    {"name": "substrate_primacy_collapse_cluster",
+     "claims": ["C033", "C034", "C035", "C040", "C041"],
+     "polarity": "all_register",
+     "explanation":
+        "sensing latency + embodied knowledge loss + distributed-authority "
+        "latency + degraded-mode capacity gap + generational knowledge "
+        "loss — the deployment cannot run without the infrastructure it "
+        "depends on, and the infrastructure is not preserved"},
+    {"name": "knowledge_transfer_failure_cluster",
+     "claims": ["C018", "C034", "C038", "C041"],
+     "polarity": "all_register",
+     "explanation":
+        "cognitive monoculture + embodied knowledge loss + apprenticeship "
+        "shortfall + generational non-transferability — the deployment "
+        "is one generation away from being unrecoverable"},
 ]
 
 
