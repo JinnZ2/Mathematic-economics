@@ -1,0 +1,109 @@
+cff-version: 1.2.0
+message: >-
+  If you use this framework, please cite the repository and the
+  underlying equations.yaml registry as documented below.
+title: >-
+  Mathematic-Economics: A Thermodynamic and Mathematical Framework
+  for Falsifiable Measurement of Economic Systems
+type: software
+abstract: >-
+  Falsifiable, physics-grounded framework for measuring energy flows,
+  resource dependencies, risk distributions, and power concentrations
+  in economic systems. 13 canonical structural equations plus 84
+  audit claims (C000-C083) covering autonomous-deployment ROI,
+  substrate-care preconditions, credential-inversion failure modes,
+  adoption-curve thermodynamics, lifecycle design, training-corpus
+  dynamics, and cross-domain empirical validation. Every claim is
+  contract-validated and carries a single-sentence falsifier.
+authors:
+  - name: "JinnZ2 (repository maintainer)"
+    affiliation: "Independent"
+license: CC0-1.0
+repository-code: "https://github.com/JinnZ2/mathematic-economics"
+url: "https://github.com/JinnZ2/mathematic-economics"
+keywords:
+  - falsifiable
+  - thermodynamic
+  - audit
+  - substrate
+  - differential frame
+  - scope
+  - preconditions
+  - physics-grounded
+  - econophysics
+  - biophysical economics
+  - thermoeconomics
+  - structural measurement
+  - automation
+  - autonomous trucking
+  - credential inversion
+  - substrate primacy
+  - adoption curve
+  - lifecycle design
+  - training corpus dynamics
+references:
+  - type: book
+    authors:
+      - family-names: Smith
+        given-names: Adam
+    title: "An Inquiry into the Nature and Causes of the Wealth of Nations"
+    year: 1776
+  - type: book
+    authors:
+      - family-names: Georgescu-Roegen
+        given-names: Nicholas
+    title: "The Entropy Law and the Economic Process"
+    year: 1971
+  - type: book
+    authors:
+      - family-names: Hall
+        given-names: Charles A. S.
+      - family-names: Klitgaard
+        given-names: Kent
+    title: "Energy and the Wealth of Nations: Understanding the Biophysical Economy"
+    year: 2012
+  - type: book
+    authors:
+      - family-names: Daly
+        given-names: Herman E.
+    title: "Steady-State Economics"
+    year: 1991
+  - type: book
+    authors:
+      - family-names: Wallerstein
+        given-names: Immanuel
+    title: "The Modern World-System I: Capitalist Agriculture and the Origins of the European World-Economy in the Sixteenth Century"
+    year: 1974
+  - type: article
+    authors:
+      - family-names: Gottman
+        given-names: John M.
+    title: "Predicting marital happiness and stability from newlywed interactions"
+    journal: "Journal of Marriage and the Family"
+    year: 1998
+  - type: book
+    authors:
+      - family-names: Turchin
+        given-names: Peter
+    title: "Secular Cycles"
+    year: 2009
+  - type: book
+    authors:
+      - family-names: Acemoglu
+        given-names: Daron
+      - family-names: Robinson
+        given-names: James A.
+    title: "Why Nations Fail"
+    year: 2012
+  - type: book
+    authors:
+      - family-names: Piketty
+        given-names: Thomas
+    title: "Capital in the Twenty-First Century"
+    year: 2014
+  - type: book
+    authors:
+      - family-names: Tainter
+        given-names: Joseph A.
+    title: "The Collapse of Complex Societies"
+    year: 1988
