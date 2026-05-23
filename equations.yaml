@@ -715,6 +715,36 @@ automation_scope_audit_claims:
       summary: "Sustained threat-adaptive behavior exhausts coherence budget on a fixed timeline"
       cross_references: ["DI", "RI"]
 
+    - id: "C043"
+      module: "governance_thermodynamics_audit"
+      summary: "Coercive enforcement cost > reciprocal governance cost beyond scale threshold N"
+      cross_references: ["HHI", "MM"]
+
+    - id: "C044"
+      module: "governance_thermodynamics_audit"
+      summary: "Enforcement layer creates perverse corruption incentives (bribe > salary)"
+      cross_references: ["VE_VL", "ER"]
+
+    - id: "C045"
+      module: "governance_thermodynamics_audit"
+      summary: "Surveillance sustainability requires perceived reciprocal protection, not extraction"
+      cross_references: ["DI", "MSI", "SD"]
+
+    - id: "C046"
+      module: "governance_thermodynamics_audit"
+      summary: "Material equality of enforcement determines cost trajectory (CV across deciles)"
+      cross_references: ["RI", "DI"]
+
+    - id: "C047"
+      module: "governance_thermodynamics_audit"
+      summary: "Defensive spending counted as GDP misclassifies maintenance cost as productive"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C048"
+      module: "governance_thermodynamics_audit"
+      summary: "Regulatory asymmetry: human HOS regulated, AI 24/7 operation unregulated"
+      cross_references: ["SD"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

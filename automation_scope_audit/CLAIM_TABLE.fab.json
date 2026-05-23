@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "8.0",
+  "version": "9.0",
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -907,6 +907,108 @@
       "scope_envelope": {"regime_options": ["safe_reciprocal", "threat_mixed", "chaotic"], "observation_window_days_range": [30, 3650]},
       "data_source": ["agent behavioral telemetry", "value-alignment drift studies", "workplace exit surveys"],
       "sensitivity": ["overhead_per_day per regime (dominant)", "coherence_budget normalization"]
+    },
+    "C043": {
+      "observable": "enforcement_cost(N) vs reciprocal_cost(N): crossover scale N",
+      "rate_equation": "d(enforcement_cost)/dN = O(N^1.15 * agents_per_capita) ; d(reciprocal_cost)/dN = O(N^0.85)",
+      "bounds": {
+        "spatial": "polity / institutional scope",
+        "temporal": "annual operating",
+        "scale": "population-level"
+      },
+      "conditions": ["population known", "per-capita enforcement and reciprocal coefficients calibrated to context"],
+      "invalid_if": ["sustained coercive system with enforcement cost < reciprocal governance equivalent at same scale AND without corruption growth"],
+      "measured_by": ["national budget data (enforcement / surveillance / prisons)", "historical collapse case studies"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C022, C024", "overlaps HHI"],
+      "scope_envelope": {"population_range": [10000, 5000000000]},
+      "data_source": ["national budget time series (USSR, East Germany, China, US)", "historical collapse case studies"],
+      "sensitivity": ["coordination_cost_exponent (superlinear scaling)", "corruption_share_of_enforcers"]
+    },
+    "C044": {
+      "observable": "expected value of corruption (bribe - detection*penalty) vs enforcer salary",
+      "rate_equation": "EV_corrupt = mean_bribe_offer - detection_prob * penalty_if_caught",
+      "bounds": {
+        "spatial": "single enforcement bureaucracy",
+        "temporal": "per-decision, real-time",
+        "scale": "individual enforcer choice"
+      },
+      "conditions": ["mean_bribe_offer measurable from disclosed bribery cases", "detection_probability and penalty estimable from prosecution data"],
+      "invalid_if": ["large enforcement bureaucracy operating with stable salary structure and audited corruption rate below 1% over a 10-year window"],
+      "measured_by": ["DOJ bribery prosecution data", "Transparency International corruption indices", "Russian customs / Mexican drug enforcement case studies"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C043", "couples to C015"],
+      "scope_envelope": {"enforcer_loaded_salary_range": [30000, 500000]},
+      "data_source": ["DOJ corruption prosecution data", "Transparency International CPI"],
+      "sensitivity": ["mean_bribe_offer (dominant)", "detection_probability"]
+    },
+    "C045": {
+      "observable": "(equal_enforcement * cultural_reciprocity) / (wealth_immunity * extraction_incentives)",
+      "rate_equation": "d(sustainability_score)/d(reciprocity_legitimacy) = ratio of perceived-protection factors over perceived-extraction factors",
+      "bounds": {
+        "spatial": "polity-wide surveillance / enforcement system",
+        "temporal": "20-year horizon",
+        "scale": "society-level perception"
+      },
+      "conditions": ["four dimensions scored on [0, 1]"],
+      "invalid_if": ["coercive system in an extraction-incentivized culture that maintains surveillance cost sustainability over a 20-year horizon"],
+      "measured_by": ["public-trust surveys", "cross-jurisdiction sentencing disparity studies", "anti-surveillance counter-tech adoption rates"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C046", "overlaps DI"],
+      "scope_envelope": {"all_dimensions_range": [0.0, 1.0]},
+      "data_source": ["Pew / Gallup public-trust surveys", "DOJ sentencing data", "Tor Project usage statistics"],
+      "sensitivity": ["wealth_immunity (denominator)", "extraction_incentives (denominator)"]
+    },
+    "C046": {
+      "observable": "coefficient-of-variation of prosecution rates across wealth deciles",
+      "rate_equation": "d(equality)/d(decile_dispersion) = 1 - CV(prosecution_rate_by_decile)",
+      "bounds": {
+        "spatial": "jurisdictional scope",
+        "temporal": "annual prosecution rates",
+        "scale": "decile-level"
+      },
+      "conditions": ["prosecution rates measurable per wealth decile"],
+      "invalid_if": ["coercive system applying enforcement equally across the wealth distribution AND maintaining cost-sustainable trajectory over a 20-year horizon, OR reciprocal-culture system applying enforcement unequally AND maintaining cooperation"],
+      "measured_by": ["DOJ sentencing data", "tax-bracket prosecution disparity studies"],
+      "cycle_class": "century",
+      "relational_web": ["couples to C045", "overlaps RI"],
+      "scope_envelope": {"wealth_decile_count": 10, "horizon_years_range": [5, 50]},
+      "data_source": ["DOJ Bureau of Justice Statistics", "TRAC tax prosecution data"],
+      "sensitivity": ["top-decile prosecution rate (drives CV)", "annual_growth_if_unequal"]
+    },
+    "C047": {
+      "observable": "defensive spending share of GDP across 11 canonical categories",
+      "rate_equation": "d(net_productive_value)/d(defensive_spending) = headline_gdp - sum(defensive_categories)",
+      "bounds": {
+        "spatial": "national economy",
+        "temporal": "annual",
+        "scale": "macroeconomic"
+      },
+      "conditions": ["spending categories enumerated against canonical 11-category list", "GDP from national accounts"],
+      "invalid_if": ["audited national accounting where prison + surveillance + enforcement spending < 3% of GDP, defensive spending excluded from headline GDP, AND equal-justice application is third-party verified"],
+      "measured_by": ["BEA NIPA accounts", "BJS prison costs", "ODNI intelligence community budget", "EPA Superfund spending"],
+      "cycle_class": "century",
+      "relational_web": ["overlaps VE_VL", "overlaps LWR", "couples to C030"],
+      "scope_envelope": {"defensive_share_gdp_range": [0.0, 0.30]},
+      "data_source": ["BEA NIPA Table 3.16 (defense + protection)", "BJS Justice Expenditure series", "ODNI public budget"],
+      "sensitivity": ["accident_medical_treatment (largest US category)", "enforcement_personnel"]
+    },
+    "C048": {
+      "observable": "asymmetric-share across 8 canonical regulations between biological and digital substrates",
+      "rate_equation": "d(asymmetry)/d(regulation_inventory) = count(asymmetric) / count(total)",
+      "bounds": {
+        "spatial": "regulatory framework for autonomous + human operations",
+        "temporal": "current-state inventory",
+        "scale": "per-regulation"
+      },
+      "conditions": ["regulation inventory enumerated", "biological and digital enforcement status assessed"],
+      "invalid_if": ["regulatory framework that applies identical scrutiny to human and AI decision-making across 24/7 operations, 15-day simulations, and regime-shift scenarios"],
+      "measured_by": ["FMCSA HOS rules", "NHTSA autonomous vehicle rulemaking", "EU AI Act provisions"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C031, C032"],
+      "scope_envelope": {"regulation_inventory_size": [5, 20]},
+      "data_source": ["FMCSA rulemaking record", "NHTSA AV rules and exemptions", "EU AI Act published text"],
+      "sensitivity": ["regime_shift_robustness_test absence (both substrates)", "ELD vs AI logging asymmetry"]
     }
   }
 }

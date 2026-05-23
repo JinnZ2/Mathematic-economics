@@ -55,6 +55,7 @@ from automation_scope_audit.modules import (
     engineering_grade_validation_audit,
     substrate_primacy_audit,
     adversarial_overhead_audit,
+    governance_thermodynamics_audit,
 )
 
 
@@ -300,6 +301,16 @@ def run() -> dict:
     c042 = adversarial_overhead_audit.c042_verdict("threat_mixed",
                                                     overhead_per_day=0.015)
 
+    # C043-C048 — governance thermodynamics. Fails case uses defaults
+    # (no operator-side reciprocity carve-out).
+    c043 = governance_thermodynamics_audit.c043_verdict(
+        population=330_000_000)
+    c044 = governance_thermodynamics_audit.c044_verdict()
+    c045 = governance_thermodynamics_audit.c045_verdict()
+    c046 = governance_thermodynamics_audit.c046_verdict()
+    c047 = governance_thermodynamics_audit.c047_verdict()
+    c048 = governance_thermodynamics_audit.c048_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -313,7 +324,8 @@ def run() -> dict:
         "C029": c029, "C030": c030, "C031": c031, "C032": c032,
         "C033": c033, "C034": c034, "C035": c035, "C036": c036,
         "C037": c037, "C038": c038, "C039": c039, "C040": c040,
-        "C041": c041, "C042": c042,
+        "C041": c041, "C042": c042, "C043": c043, "C044": c044,
+        "C045": c045, "C046": c046, "C047": c047, "C048": c048,
     }
 
 

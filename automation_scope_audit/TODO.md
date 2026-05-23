@@ -37,6 +37,23 @@ silently.
 
 ---
 
+## Governance-thermodynamics renumbering (C043-C048 batch)
+
+| User label                            | Repo claim ID | Module                            |
+|---------------------------------------|---------------|-----------------------------------|
+| C037 coercive vs reciprocal at N      | **C043**      | governance_thermodynamics_audit   |
+| C038 corruption incentive             | **C044**      | governance_thermodynamics_audit   |
+| C038/C039 surveillance reciprocity    | **C045**      | governance_thermodynamics_audit   |
+| C039 material equal-enforcement       | **C046**      | governance_thermodynamics_audit   |
+| C039 defensive spending as GDP        | **C047**      | governance_thermodynamics_audit   |
+| C040 regulatory asymmetry             | **C048**      | governance_thermodynamics_audit   |
+
+The user used C037-C040 with multiple definitions of C037/C038/C039 in
+the same submission. The repo-stable IDs above resolve the collision
+and respect the user's intent to keep parallel-but-distinct claims
+separate (C045 and C046, in particular, are both about legitimacy but
+measured on different axes: perception vs material equality).
+
 ## Substrate-primacy / adversarial-overhead renumbering (C033-C042 batch)
 
 The user-submitted "missing layers" batch numbered claims C029-C037

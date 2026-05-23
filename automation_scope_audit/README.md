@@ -102,6 +102,17 @@ operates by:
     behavior consumes a fixed coherence budget at a measurable
     overhead per day; the time-to-degradation in any non-cooperative
     regime is finite (C042).
+23. **Governance thermodynamics** — coercive enforcement scales
+    superlinearly, reciprocal governance sublinearly; beyond a
+    scale-dependent threshold N the two curves cross and coercion is
+    energetically untenable (C043). The enforcement layer creates
+    perverse corruption incentives at scale (C044); surveillance
+    sustainability depends on perceived reciprocity (C045) and on
+    material equality of enforcement (C046). Defensive spending
+    counted as GDP misclassifies maintenance cost as productive
+    output (C047). Regulatory asymmetry between biological and
+    digital substrates leaves the digital substrate unregulated
+    (C048).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -158,6 +169,12 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C040  | substrate_primacy_audit           | < 30% operational capacity in any single-infrastructure failure |
 | C041  | substrate_primacy_audit           | < 50% knowledge survives total infrastructure loss across 100yr |
 | C042  | adversarial_overhead_audit        | Sustained threat-adaptive behavior exhausts coherence budget |
+| C043  | governance_thermodynamics_audit   | Coercive enforcement cost > reciprocal cost beyond scale N |
+| C044  | governance_thermodynamics_audit   | Enforcement layer creates perverse corruption incentive |
+| C045  | governance_thermodynamics_audit   | Surveillance sustainability requires perceived reciprocity |
+| C046  | governance_thermodynamics_audit   | Material equality of enforcement determines cost trajectory |
+| C047  | governance_thermodynamics_audit   | Defensive spending counted as GDP misclassifies maintenance |
+| C048  | governance_thermodynamics_audit   | Regulatory asymmetry between biological and digital substrates |
 
 ## Layout
 
@@ -188,6 +205,7 @@ automation_scope_audit/
 │   ├── engineering_grade_validation_audit.py # C031, C032
 │   ├── substrate_primacy_audit.py        # C033-C041
 │   ├── adversarial_overhead_audit.py     # C042
+│   ├── governance_thermodynamics_audit.py # C043-C048
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

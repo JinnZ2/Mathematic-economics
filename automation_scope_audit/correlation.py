@@ -108,6 +108,21 @@ CLUSTERS: List[dict] = [
         "cognitive monoculture + embodied knowledge loss + apprenticeship "
         "shortfall + generational non-transferability — the deployment "
         "is one generation away from being unrecoverable"},
+    {"name": "coercive_governance_unsustainability_cluster",
+     "claims": ["C043", "C044", "C046", "C047"],
+     "polarity": "all_register",
+     "explanation":
+        "enforcement > reciprocal at scale + perverse corruption "
+        "incentive + unequal enforcement trajectory + defensive spending "
+        "as GDP misaccounting — the governance substrate the deployment "
+        "depends on is itself in thermodynamic deficit"},
+    {"name": "substrate_regulatory_asymmetry_cluster",
+     "claims": ["C031", "C032", "C048"],
+     "polarity": "all_register",
+     "explanation":
+        "engineering-grade falsifiability gap + AI on unstable models + "
+        "human-vs-digital regulatory asymmetry — rules apply to one "
+        "substrate but not the other across the same operational envelope"},
 ]
 
 

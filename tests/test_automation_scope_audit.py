@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 43)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 49)]
 
 
 class ScopeGateTests(unittest.TestCase):

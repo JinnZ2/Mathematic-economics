@@ -30,6 +30,7 @@ from . import (
     engineering_grade_validation_audit,
     substrate_primacy_audit,
     adversarial_overhead_audit,
+    governance_thermodynamics_audit,
 )
 
 __all__ = [
@@ -54,4 +55,5 @@ __all__ = [
     "engineering_grade_validation_audit",
     "substrate_primacy_audit",
     "adversarial_overhead_audit",
+    "governance_thermodynamics_audit",
 ]
