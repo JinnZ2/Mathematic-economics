@@ -60,6 +60,7 @@ from automation_scope_audit.modules import (
     roi_baseline_integrity_audit,
     system_integration_audit,
     substrate_care_audit,
+    credential_inversion_audit,
 )
 
 
@@ -349,6 +350,23 @@ def run() -> dict:
     c063 = substrate_care_audit.c063_verdict()
     c064 = substrate_care_audit.c064_verdict()    # all preconditions False
 
+    # C065-C069 — credential inversion. Fails case uses module defaults
+    # (credentialed-non-expert decision makers, gatekeeping-dominant
+    # institution, training corpus saturated with credentialed sources,
+    # full 7-step failure pattern, blame routed to "AI not ready").
+    c065 = credential_inversion_audit.c065_verdict()
+    c066 = credential_inversion_audit.c066_verdict()
+    c067 = credential_inversion_audit.c067_verdict()
+    c068 = credential_inversion_audit.c068_verdict(deployment={
+        "decision_makers_substrate_knowledge": False,
+        "warning_documented":                  True,
+        "warning_acted_upon":                  False,
+        "blamed_on":                           "AI_not_ready_training_data",
+        "actual_cause":                        "decision_makers_lacked_substrate_knowledge",
+        "institutional_learning_fails":        True,
+    })
+    c069 = credential_inversion_audit.c069_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -368,7 +386,8 @@ def run() -> dict:
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
         "C057": c057, "C058": c058, "C059": c059,
         "C060": c060, "C061": c061, "C062": c062, "C063": c063,
-        "C064": c064,
+        "C064": c064, "C065": c065, "C066": c066, "C067": c067,
+        "C068": c068, "C069": c069,
     }
 
 

@@ -32,7 +32,7 @@ from automation_scope_audit import correlation
 from automation_scope_audit.modules import scope_gate
 
 
-CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 65)]
+CLAIM_IDS = ["C000"] + [f"C{n:03d}" for n in range(1, 70)]
 
 
 class ScopeGateTests(unittest.TestCase):
@@ -165,6 +165,31 @@ class ClusterTests(unittest.TestCase):
                           self.works_clusters["triggered_clusters"])
 
 
+class C068CredentialInversionLibraryTests(unittest.TestCase):
+    """Calibration of the 12-case library against the 7-step pattern."""
+
+    def test_library_has_12_documented_cases(self):
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        self.assertEqual(len(m.DOCUMENTED_FAILURES), 12)
+
+    def test_at_least_10_cases_match_7step_pattern(self):
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        res = m.case_library_pattern_match()
+        self.assertGreaterEqual(res["matches"], 10,
+                                 msg=f"only {res['matches']}/12 cases match")
+        self.assertGreaterEqual(res["match_rate"], 0.80)
+
+    def test_knight_capital_does_not_match(self):
+        """Knight Capital is the outlier: decision-makers HAD substrate
+        knowledge but skipped code review for speed. Different failure
+        mode; the pattern matcher should correctly NOT count it."""
+        from automation_scope_audit.modules import credential_inversion_audit as m
+        res = m.case_library_pattern_match()
+        knight = [c for c in res["by_case"]
+                   if c["case"] == "knight_capital_flash_crash_2012"][0]
+        self.assertFalse(knight["matches_pattern"])
+
+
 class C059IntegrationTests(unittest.TestCase):
     """Calibration tests for the bee-pollination synthesis claim."""
 
@@ -200,7 +225,7 @@ class ArchitectureTests(unittest.TestCase):
         cov = self.architecture.coverage_check()
         self.assertTrue(cov["complete"],
                          msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
-        self.assertEqual(cov["total_claims"], 65)
+        self.assertEqual(cov["total_claims"], 70)
 
     def test_six_load_bearing_layers(self):
         self.assertEqual(len(self.architecture.LAYERS), 6)

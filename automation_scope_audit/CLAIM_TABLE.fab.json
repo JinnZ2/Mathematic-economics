@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "12.0",
+  "version": "13.0",
   "notes": "Contract-validated form of CLAIM_TABLE.json. Every entry round-trips through schemas/claim_contract.Claim.from_dict(...). Each claim adds `scope_envelope`, `data_source`, and `sensitivity` blocks beyond the minimum schema for downstream pinning.",
   "claims": {
     "C000": {
@@ -1217,6 +1217,71 @@
       "scope_envelope": {"preconditions_required": 5},
       "data_source": ["deployment approval records", "carrier 10-K / sustainability reports", "DOT regulatory filings"],
       "sensitivity": ["any precondition failing triggers concern; care_work_continued and substrate_experienced_operator_approval are most commonly absent"]
+    },
+    "C065": {
+      "observable": "fraction of decision-maker credentials that imply domain substrate knowledge",
+      "rate_equation": "d(substrate_implication_share)/d(credential_mix) = sum(credentials_that_imply_substrate) / total",
+      "bounds": {"spatial": "decision-making coalition for an AI deployment", "temporal": "pre-deployment + sustained operation", "scale": "credential-level"},
+      "conditions": ["decision-maker credentials enumerated", "credential -> substrate-knowledge mapping documented"],
+      "invalid_if": ["decision-making body where >= 50% of credentials directly imply domain substrate knowledge AND the body's decisions are audited against domain-expert validation over 5+ years"],
+      "measured_by": ["10-K executive biography parses", "DOL apprenticeship + ASE / equivalent certification records", "academic credential databases"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C060, C062"],
+      "scope_envelope": {"credential_count_range": [1, 20]},
+      "data_source": ["10-K executive biography parses", "Department of Labor apprenticeship registry", "ASE certification database"],
+      "sensitivity": ["share of MBA + management consultant + VC credentials (dominant credentialed-non-expert categories)"]
+    },
+    "C066": {
+      "observable": "mean domain-expert decision authority + warning-action rate across institutional inventory",
+      "rate_equation": "d(gatekeeping)/d(expert_inventory) = sum(authority_granted) / N AND sum(warning_acted) / sum(warning_documented)",
+      "bounds": {"spatial": "institution-wide decision process", "temporal": "5-year warning + action window", "scale": "expert-role-level"},
+      "conditions": ["domain experts enumerated", "decision authority + warning action rate measurable from documented records"],
+      "invalid_if": ["institutional process where domain experts hold >= 20% mean decision authority AND >= 30% of their documented warnings are acted upon over a 5-year window"],
+      "measured_by": ["organizational decision audits", "documented warning records", "post-mortem analyses"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C051, C062, C063"],
+      "scope_envelope": {"expert_inventory_size": [3, 20]},
+      "data_source": ["organizational decision audits", "OSHA / FAA / FMCSA whistleblower records", "post-mortem case studies"],
+      "sensitivity": ["mean_authority_granted (typically near zero in current institutions)"]
+    },
+    "C067": {
+      "observable": "credentialed share of AI training corpus across 12 corpus categories",
+      "rate_equation": "d(bias_ratio)/d(corpus_composition) = sum(credentialed_share) / sum(domain_expert_share)",
+      "bounds": {"spatial": "AI training corpus for a deployment domain", "temporal": "training-data assembly window", "scale": "corpus-source category"},
+      "conditions": ["corpus composition documented by source category", "credentialed vs domain-expert classification applied"],
+      "invalid_if": ["AI training corpus with >= 20% sourced from non-credentialed domain experts (field notes, operator conversations, apprenticeship documentation, oral traditions) AND validated to outperform credentialed-only baseline on domain tasks"],
+      "measured_by": ["model card data sheets", "Common Crawl / academic corpus composition analyses"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C034, C038, C055"],
+      "scope_envelope": {"corpus_source_categories": 12},
+      "data_source": ["model card data sheets", "Common Crawl source attribution", "Stanford CRFM transparency reports"],
+      "sensitivity": ["published_academic_papers + institutional_decisions shares (dominate)"]
+    },
+    "C068": {
+      "observable": "7-step credential-inversion failure-mode pattern match across 12-case library + any candidate deployment",
+      "rate_equation": "d(pattern_match)/d(case_library) = count(cases satisfying all 7 step markers) / total_cases",
+      "bounds": {"spatial": "AI deployment in any domain", "temporal": "deployment lifetime", "scale": "deployment-level pattern"},
+      "conditions": ["decision_makers_substrate_knowledge + warning_documented + warning_acted_upon + blamed_on + actual_cause all assessable"],
+      "invalid_if": ["AI deployment where decision-makers had substrate knowledge documented in advance OR where domain expert warnings were acted upon OR where post-failure blame was correctly attributed to decision-maker rather than to AI / data / compute, AND the deployment succeeded"],
+      "measured_by": ["case-study library (Watson Oncology, Facial Recognition, Amazon Hiring, Welfare, Predictive Policing, Zillow, FB Moderation, Target Pregnancy, MS Tay, Knight Capital, Uber Autonomy, IBM Drug Discovery)"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C063, C065, C066"],
+      "scope_envelope": {"case_library_size": 12, "steps_in_pattern": 7},
+      "data_source": ["NTSB reports", "SEC filings", "academic post-mortems (e.g. ProPublica COMPAS, FTC Watson reports)", "court records (Knight Capital, Uber)"],
+      "sensitivity": ["decision_makers_substrate_knowledge classification", "warning_acted_upon evidence threshold"]
+    },
+    "C069": {
+      "observable": "share of post-failure blame attributions that produce institutional learning (vs blame redirected to AI / data / compute)",
+      "rate_equation": "d(learning_share)/d(attributed_blame) = count(blame_producing_learning) / total_attributions",
+      "bounds": {"spatial": "post-failure institutional response", "temporal": "1-3 years after failure", "scale": "attribution-level"},
+      "conditions": ["post-mortem record enumerates attributed blame", "blame -> institutional-learning mapping applied"],
+      "invalid_if": ["post-mortem record of AI deployment failures where >= 50% of attributed blame is to decision-authority structure / domain expert exclusion / consultation process AND the institution demonstrably changed its decision process as a result"],
+      "measured_by": ["industry post-mortems", "regulatory hearing records", "academic case studies"],
+      "cycle_class": "generation",
+      "relational_web": ["couples to C022, C024, C063, C068"],
+      "scope_envelope": {"blame_categories": 9},
+      "data_source": ["FTC / NTSB / SEC post-mortems", "Congressional hearing records", "academic case studies (Charles Perrow, Diane Vaughan)"],
+      "sensitivity": ["AI_not_ready / training_data / algorithm_bias categories (dominant; do not produce learning)"]
     }
   }
 }

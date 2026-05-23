@@ -55,11 +55,12 @@ LAYERS: List[dict] = [
     {"layer": 4, "name": "institutional",
      "claims": ["C022", "C023", "C024",
                 "C051", "C052",
-                "C060", "C061", "C062", "C063", "C064"],
+                "C060", "C061", "C062", "C063", "C064",
+                "C065", "C066", "C067", "C068", "C069"],
      "description":
         "What governance the behavioral layer demands. Institutional "
         "lock-in, regulatory capture, knowledge exclusion, substrate "
-        "care + authority."},
+        "care + authority, credential inversion."},
     {"layer": 5, "name": "energy",
      "claims": ["C020", "C021", "C025", "C026",
                 "C043", "C044", "C045", "C046", "C047", "C048"],
@@ -119,7 +120,7 @@ CONCERN_INVERTED = {"C001", "C004"}
 
 def coverage_check() -> dict:
     """Verify every claim C000..C064 is in exactly one layer (or cross-cutting)."""
-    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 65)]
+    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 70)]
     in_layers = []
     for L in LAYERS:
         in_layers.extend(L["claims"])

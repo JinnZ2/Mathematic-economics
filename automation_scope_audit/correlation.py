@@ -157,6 +157,17 @@ CLUSTERS: List[dict] = [
         "preconditions — the institutional substrate the deployment "
         "operates inside cannot sustain itself; failure is structural, "
         "not technical"},
+    {"name": "credential_inversion_failure_cluster",
+     "claims": ["C065", "C066", "C067", "C068", "C069"],
+     "polarity": "all_register",
+     "explanation":
+        "credentials != substrate knowledge + institutional gatekeeping "
+        "+ AI training corpus credential bias + 7-step failure pattern "
+        "matches 11/12 cases + blame attributed to AI prevents learning. "
+        "Empirically validated across Watson Oncology, facial recognition, "
+        "Amazon hiring, welfare fraud, predictive policing, Zillow, "
+        "Facebook moderation, Target pregnancy, MS Tay, Knight Capital "
+        "(partial), Uber autonomy, IBM drug discovery"},
 ]
 
 

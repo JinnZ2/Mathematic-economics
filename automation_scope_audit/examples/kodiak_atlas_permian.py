@@ -73,6 +73,7 @@ from automation_scope_audit.modules import (
     roi_baseline_integrity_audit,
     system_integration_audit,
     substrate_care_audit,
+    credential_inversion_audit,
 )
 
 
@@ -436,6 +437,25 @@ def run() -> dict:
         decision_authority_holder_has_substrate_knowledge=True,
         approval_required_from_substrate_experienced_operator=False)
 
+    # C065-C069 — credential inversion. Works case has somewhat better
+    # credential / substrate-knowledge alignment (Kodiak founders are
+    # engineers with operational experience) but still operates in a
+    # broader credential-biased AI training corpus.
+    c065 = credential_inversion_audit.c065_verdict(
+        decision_maker_credentials=[
+            "domain_PhD", "operational_experience_20yr", "MBA",
+            "AI_researcher_PhD", "venture_capitalist",
+        ])
+    c066 = credential_inversion_audit.c066_verdict()
+    c067 = credential_inversion_audit.c067_verdict()
+    c068 = credential_inversion_audit.c068_verdict()
+    c069 = credential_inversion_audit.c069_verdict(
+        attributed_blame=[
+            "AI_not_ready_training_data",
+            "decision_maker_lacked_substrate_knowledge",
+            "edge_case_complexity",
+        ])
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -455,7 +475,8 @@ def run() -> dict:
         "C053": c053, "C054": c054, "C055": c055, "C056": c056,
         "C057": c057, "C058": c058, "C059": c059,
         "C060": c060, "C061": c061, "C062": c062, "C063": c063,
-        "C064": c064,
+        "C064": c064, "C065": c065, "C066": c066, "C067": c067,
+        "C068": c068, "C069": c069,
     }
 
 

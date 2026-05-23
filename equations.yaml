@@ -825,6 +825,31 @@ automation_scope_audit_claims:
       summary: "Substrate care + substrate authority are non-negotiable preconditions for any automation deployment"
       cross_references: ["SID", "ISR"]
 
+    - id: "C065"
+      module: "credential_inversion_audit"
+      summary: "Credentials != substrate knowledge; MBA/PhD-Econ/AI-PhD do not imply domain mastery"
+      cross_references: ["SD", "DI"]
+
+    - id: "C066"
+      module: "credential_inversion_audit"
+      summary: "Institutional knowledge exclusion via credential gatekeeping; domain expert warnings documented but ignored"
+      cross_references: ["RI", "DI"]
+
+    - id: "C067"
+      module: "credential_inversion_audit"
+      summary: "AI training data inherits credential bias (>80% credentialed-source corpora)"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C068"
+      module: "credential_inversion_audit"
+      summary: "7-step credential-inversion failure mode matches 11 of 12 documented AI deployment failures"
+      cross_references: ["RI", "BSC", "HHI"]
+
+    - id: "C069"
+      module: "credential_inversion_audit"
+      summary: "Blame attribution to AI / data / compute prevents institutional learning; cycle perpetuates"
+      cross_references: ["DI", "BSC"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

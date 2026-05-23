@@ -35,6 +35,7 @@ from . import (
     roi_baseline_integrity_audit,
     system_integration_audit,
     substrate_care_audit,
+    credential_inversion_audit,
 )
 
 __all__ = [
@@ -64,4 +65,5 @@ __all__ = [
     "roi_baseline_integrity_audit",
     "system_integration_audit",
     "substrate_care_audit",
+    "credential_inversion_audit",
 ]
