@@ -25,6 +25,27 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
+DEPLOYMENT_SPEC = {
+    "beneficiary":        "fleet_operator_share_60pct_and_atlas_pad_operator_40pct",
+    "conditions":         [
+        "stable_diesel_supply",
+        "no_FMCSA_rule_shift_in_corridor",
+        "weather_within_30yr_envelope",
+    ],
+    "time_period":        "7yr_equipment_lifecycle_amortization",
+    "resource":           "diesel_energy_joules_with_off_vehicle_kwh_overhead",
+    "externalized_cost":  "rural_road_maintenance_to_state_DOT_and_carbon_burden",
+    "profit_allocation":  ["operator_60pct", "atlas_energy_40pct"],
+    "falsifier":          "fuel_intensity_per_ton_mile_increase_post_deployment",
+    # Substrate-primacy fraction: in the consolidated Permian corridor
+    # with a safety driver in cab and physical interlocks at the pad,
+    # ~25% of operations can proceed without electricity / internet /
+    # computers (manual driving + paper bills of lading + visual
+    # weighing). Not great, but non-zero.
+    "substrate_primacy_fraction": 0.25,
+}
+
+
 from automation_scope_audit.modules import (
     meta_scope_guard,
     scope_geometry,
@@ -45,6 +66,13 @@ from automation_scope_audit.modules import (
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
     engineering_grade_validation_audit,
+    substrate_primacy_audit,
+    adversarial_overhead_audit,
+    governance_thermodynamics_audit,
+    regulatory_dynamics_audit,
+    roi_baseline_integrity_audit,
+    system_integration_audit,
+    substrate_care_audit,
 )
 
 
@@ -296,6 +324,118 @@ def run() -> dict:
         deployment_regime="volatile",
         claim=permian_pitch)
 
+    # C033-C041 — substrate primacy. Works case has a safety driver in
+    # cab and a relatively stable corridor; defaults are appropriate.
+    c033 = substrate_primacy_audit.c033_verdict()
+    c034 = substrate_primacy_audit.c034_verdict()
+    c035 = substrate_primacy_audit.c035_verdict()
+    c036 = substrate_primacy_audit.c036_verdict(training_span_days=730.0)
+    c037 = substrate_primacy_audit.c037_verdict()
+    c038 = substrate_primacy_audit.c038_verdict()
+    c039 = substrate_primacy_audit.c039_verdict(workforce_size=60,
+                                                  fleet_size=60)
+    # Works case retains some manual-fallback capacity due to in-cab
+    # safety driver; nominal GPS/cloud failures still leave physical
+    # driving + paper-trail backup operational.
+    c040 = substrate_primacy_audit.c040_verdict(
+        operational_capacity_by_failure={
+            "gps_down": 0.50, "cloud_down": 0.35,
+            "electricity_down": 0.10, "fuel_unavailable": 0.0,
+        })
+    c041 = substrate_primacy_audit.c041_verdict()
+
+    # C042 — adversarial overhead. The Permian deployment is largely
+    # cooperative (Atlas + Kodiak + carrier alignment) but operates in
+    # the broader mixed-model regulatory / market environment.
+    c042 = adversarial_overhead_audit.c042_verdict("threat_mixed",
+                                                    overhead_per_day=0.006)
+
+    # C043-C048 — governance thermodynamics. The audited deployment
+    # operates inside the US regulatory / institutional environment.
+    # Population basis for C043 is the relevant federal jurisdiction.
+    c043 = governance_thermodynamics_audit.c043_verdict(
+        population=330_000_000)
+    c044 = governance_thermodynamics_audit.c044_verdict()
+    # Works-case has slightly better legitimacy parameters than default
+    # (Atlas dedicated lane has explicit operator + carrier reciprocity
+    # within the corridor, even though the broader culture is extractive).
+    c045 = governance_thermodynamics_audit.c045_verdict(
+        equal_enforcement=0.50,    cultural_reciprocity=0.45,
+        wealth_immunity=0.70,      extraction_incentives=0.75)
+    c046 = governance_thermodynamics_audit.c046_verdict()
+    c047 = governance_thermodynamics_audit.c047_verdict()
+    c048 = governance_thermodynamics_audit.c048_verdict()
+
+    # C049-C053 — regulatory dynamics. Systemic claims about the US
+    # regulatory environment; register in both scenarios.
+    c049 = regulatory_dynamics_audit.c049_verdict()
+    c050 = regulatory_dynamics_audit.c050_verdict(
+        max_capability_hours=11.0, min_capability_hours=11.0,
+        n_operators=60, operator_autonomy=0.35)
+    c051 = regulatory_dynamics_audit.c051_verdict()
+    c052 = regulatory_dynamics_audit.c052_verdict()
+    c053 = regulatory_dynamics_audit.c053_verdict(
+        year_since_deployment=4,
+        regulation_intensity=0.45,
+        high_capability_share_remaining=0.30)
+
+    # C054-C058 — ROI baseline integrity. Works case has a slightly more
+    # favorable POR than fails case (consolidated corridor, fewer
+    # exceptions), but the structural concerns still register.
+    c054 = roi_baseline_integrity_audit.c054_verdict()
+    c055 = roi_baseline_integrity_audit.c055_verdict()
+    c056 = roi_baseline_integrity_audit.c056_verdict(
+        autonomous_overhead={
+            "pretrip_diagnostics_h":      0.50,
+            "posttrip_diagnostics_h":     0.50,
+            "charging_or_fueling_h":      2.00,
+            "maintenance_h":              0.75,
+            "interface_integration_h":    0.50,
+            "cloud_diagnostic_latency_h": 0.25,
+            "exception_resolution_h":     1.00,
+        })
+    c057 = roi_baseline_integrity_audit.c057_verdict()
+    c058 = roi_baseline_integrity_audit.c058_verdict(
+        fleet_size=60, lifecycle_years=5)
+
+    # C059 — integrated thermodynamic synthesis. Works case has modest
+    # degraded-mode capacity (safety driver in cab) and one extra
+    # integrated function (adaptation handled by the human, not the AI).
+    c059 = system_integration_audit.c059_verdict(
+        autonomous_function_status={
+            "transport": "integrated",
+            "adaptation_to_novel_conditions": "integrated",
+        },
+        autonomous_degraded_mode_capacity=0.30)
+
+    # C060-C064 — substrate care. Works case has slightly more
+    # substrate experience in the management coalition (Kodiak founders
+    # are engineers) but still fails the precondition gate because the
+    # broader institutional context defunds care work.
+    c060 = substrate_care_audit.c060_verdict(
+        role_mix={
+            "MBA_trained_executive":   0.25,
+            "consultant_external":     0.05,
+            "domain_engineer":         0.30,
+            "operations_engineer":     0.15,
+            "site_supervisor":         0.10,
+            "factory_floor_operator":  0.10,
+            "experienced_driver":      0.05,
+        },
+        elite_overproduction_share=0.35)
+    c061 = substrate_care_audit.c061_verdict()
+    c062 = substrate_care_audit.c062_verdict()
+    c063 = substrate_care_audit.c063_verdict()
+    # Works case: safety driver in cab maintains some care work; failure
+    # cost is partially modeled; substrate-experienced engineer signed
+    # off on the deployment. But care work isn't separately costed.
+    c064 = substrate_care_audit.c064_verdict(
+        care_work_continued=True,
+        care_work_costed_visibly=False,
+        failure_cost_known=True,
+        decision_authority_holder_has_substrate_knowledge=True,
+        approval_required_from_substrate_experienced_operator=False)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -307,6 +447,15 @@ def run() -> dict:
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
         "C029": c029, "C030": c030, "C031": c031, "C032": c032,
+        "C033": c033, "C034": c034, "C035": c035, "C036": c036,
+        "C037": c037, "C038": c038, "C039": c039, "C040": c040,
+        "C041": c041, "C042": c042, "C043": c043, "C044": c044,
+        "C045": c045, "C046": c046, "C047": c047, "C048": c048,
+        "C049": c049, "C050": c050, "C051": c051, "C052": c052,
+        "C053": c053, "C054": c054, "C055": c055, "C056": c056,
+        "C057": c057, "C058": c058, "C059": c059,
+        "C060": c060, "C061": c061, "C062": c062, "C063": c063,
+        "C064": c064,
     }
 
 

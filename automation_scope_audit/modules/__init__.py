@@ -28,6 +28,13 @@ from . import (
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
     engineering_grade_validation_audit,
+    substrate_primacy_audit,
+    adversarial_overhead_audit,
+    governance_thermodynamics_audit,
+    regulatory_dynamics_audit,
+    roi_baseline_integrity_audit,
+    system_integration_audit,
+    substrate_care_audit,
 )
 
 __all__ = [
@@ -50,4 +57,11 @@ __all__ = [
     "economic_energy_grounding_audit",
     "unified_capital_accounting_audit",
     "engineering_grade_validation_audit",
+    "substrate_primacy_audit",
+    "adversarial_overhead_audit",
+    "governance_thermodynamics_audit",
+    "regulatory_dynamics_audit",
+    "roi_baseline_integrity_audit",
+    "system_integration_audit",
+    "substrate_care_audit",
 ]

@@ -478,6 +478,353 @@ equations:
       rate is near zero, the term's meaning is stable. Compare to mathematical
       term drift rates as control.
 
+# -----------------------------------------------------------------------------
+# automation_scope_audit_claims
+#
+# 33 falsifiable structural claims (C000-C032) about autonomous-trucking
+# ROI in oilfield / dispersed-well contexts. Full contract-validated form
+# in automation_scope_audit/CLAIM_TABLE.fab.json (round-trips through
+# schemas/claim_contract.Claim). Each entry below carries cross-references
+# to the canonical 13 structural equations above where the claim's
+# observable overlaps with an equation's measurement domain.
+#
+# These claims are NOT in the equations-v* surface contract; adding,
+# changing, or removing entries here does not bump the surface tag. The
+# canonical 13 equations remain the load-bearing surface for downstream
+# pinning.
+# -----------------------------------------------------------------------------
+automation_scope_audit_claims:
+  package: "automation_scope_audit"
+  contract: "schemas/claim_contract.py"
+  fab_table: "automation_scope_audit/CLAIM_TABLE.fab.json"
+  human_table: "automation_scope_audit/CLAIM_TABLE.json"
+
+  claims:
+    - id: "C000"
+      module: "meta_scope_guard"
+      summary: "Meta-claim: all claims must specify 7 scope dimensions or are unfalsifiable"
+      cross_references: ["SD"]
+
+    - id: "C001"
+      module: "scope_geometry"
+      summary: "Autonomous trucking ROI requires fixed depot-to-destination geometry (Jaccard distance)"
+      cross_references: []
+
+    - id: "C002"
+      module: "embedded_labor_audit"
+      summary: "Wellsite labor is not automated by haul automation; 20-task automation_status inventory"
+      cross_references: ["LWR", "ER", "VE_VL"]
+
+    - id: "C003"
+      module: "infrastructure_precondition"
+      summary: "Infrastructure precondition capex exceeds vehicle capex for dispersed wells"
+      cross_references: ["SID", "ISR"]
+
+    - id: "C004"
+      module: "lifecycle_eroi"
+      summary: "ROI window must exceed well productivity decline curve"
+      cross_references: ["ER"]
+
+    - id: "C005"
+      module: "stranded_asset_risk"
+      summary: "Equipment resale value to non-consolidated operators approaches zero"
+      cross_references: []
+
+    - id: "C006"
+      module: "scope_collapse_detector"
+      summary: "Automation framing collapses distinct labor categories"
+      cross_references: ["SD"]
+
+    - id: "C007"
+      module: "scope_collapse_detector"
+      summary: "Threat-narrative deployment correlates with wage suppression"
+      cross_references: ["LWR", "UFR", "ER"]
+
+    - id: "C008"
+      module: "condition_monitoring_audit"
+      summary: "Driver condition monitoring is unpriced infrastructure"
+      cross_references: ["LWR", "VE_VL"]
+
+    - id: "C009"
+      module: "condition_monitoring_audit"
+      summary: "Sensor replacement of human monitoring introduces new failure modes"
+      cross_references: []
+
+    - id: "C010"
+      module: "condition_monitoring_audit"
+      summary: "Roadside breakdown cost scales nonlinearly without operator present"
+      cross_references: []
+
+    - id: "C011"
+      module: "interface_externalization_audit"
+      summary: "Driver-mediated interfaces externalize onto middleware that costs more than driver-mediated"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C012"
+      module: "interface_externalization_audit"
+      summary: "Heterogeneity risk: variant count x miss rate x escalation cost"
+      cross_references: []
+
+    - id: "C013"
+      module: "interface_externalization_audit"
+      summary: "Distributed labor cost off-vehicle is at least half a driver fully-loaded cost"
+      cross_references: ["LWR", "VE_VL"]
+
+    - id: "C014"
+      module: "constraint_validation_audit"
+      summary: "Driver refusal authority (FMCSA/OSHA/STAA) is unpriced legal authority"
+      cross_references: ["RI"]
+
+    - id: "C015"
+      module: "constraint_validation_audit"
+      summary: "Liability void across 7-participant autonomous-incident chain"
+      cross_references: ["RI", "BSC"]
+
+    - id: "C016"
+      module: "constraint_validation_audit"
+      summary: "Override hierarchy misses novel conflicts"
+      cross_references: []
+
+    - id: "C017"
+      module: "legal_liability_audit"
+      summary: "Framework + litigation premium > 1.5x conventional, sustained"
+      cross_references: ["UFR", "ISR", "BSC"]
+
+    - id: "C018"
+      module: "cognitive_monoculture_audit"
+      summary: "Human domain expertise atrophies during AI transition"
+      cross_references: []
+
+    - id: "C019"
+      module: "cognitive_monoculture_audit"
+      summary: "Edge-case recovery cost > apparent monoculture savings"
+      cross_references: ["ER"]
+
+    - id: "C020"
+      module: "thermodynamic_accounting_audit"
+      summary: "Honest eROI < 1.5 with full energy stack accounted (truck + server + manufacturing + network)"
+      cross_references: ["MSI", "ER"]
+
+    - id: "C021"
+      module: "scaling_audit"
+      summary: "Scaling has interior optimum; per-system costs hidden by per-vehicle framing"
+      cross_references: ["HHI", "MM"]
+
+    - id: "C022"
+      module: "institutional_dynamics_audit"
+      summary: "Institutional scale creates self-reinforcing lock-in that blocks optimization"
+      cross_references: ["HHI", "DI"]
+
+    - id: "C023"
+      module: "institutional_dynamics_audit"
+      summary: "Institutional monoculture creates knowledge exclusion of decentralized alternatives"
+      cross_references: ["SD", "DI"]
+
+    - id: "C024"
+      module: "institutional_dynamics_audit"
+      summary: "Institutional lock-in produces accelerated collapse cycle (5-phase)"
+      cross_references: ["HHI", "BSC"]
+
+    - id: "C025"
+      module: "systemic_precondition_audit"
+      summary: "Earth-system precondition failure cascades automation monoculture; 7-precondition + degraded-mode gating"
+      cross_references: ["BSC", "ISR"]
+
+    - id: "C026"
+      module: "systemic_precondition_audit"
+      summary: "Automation undercuts its own economic-stability precondition (5-mechanism double-bind)"
+      cross_references: ["DI", "MM", "BSC"]
+
+    - id: "C027"
+      module: "economic_energy_grounding_audit"
+      summary: "Economic claim must pass 5 energy-grounding validity tests"
+      cross_references: ["MSI", "SD"]
+
+    - id: "C028"
+      module: "economic_energy_grounding_audit"
+      summary: "Internal coherence creates institutional blindness; pivot capacity gates cascade"
+      cross_references: ["DI", "SD"]
+
+    - id: "C029"
+      module: "unified_capital_accounting_audit"
+      summary: "Financial models count only 2 of 9 capital forms; rest externalized"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C030"
+      module: "unified_capital_accounting_audit"
+      summary: "Scaling is capital reallocation, not creation, under unified accounting"
+      cross_references: ["VE_VL", "ER", "MM"]
+
+    - id: "C031"
+      module: "engineering_grade_validation_audit"
+      summary: "Economics lacks engineering-grade falsifiability (4-criterion test); aerospace/offshore/nuclear comparison"
+      cross_references: ["SD", "MSI"]
+
+    - id: "C032"
+      module: "engineering_grade_validation_audit"
+      summary: "AI on unstable economic models cascades; regime drift severity matrix"
+      cross_references: ["MSI", "BSC"]
+
+    - id: "C033"
+      module: "substrate_primacy_audit"
+      summary: "Precursor-signal detection latency asymmetry: human inline << cloud centralized"
+      cross_references: []
+
+    - id: "C034"
+      module: "substrate_primacy_audit"
+      summary: "Embodied constraint knowledge lost in digitization (>30% of operational constraints non-digitizable)"
+      cross_references: ["SD"]
+
+    - id: "C035"
+      module: "substrate_primacy_audit"
+      summary: "Distributed authority decision latency < centralized authority by >= 4x"
+      cross_references: []
+
+    - id: "C036"
+      module: "substrate_primacy_audit"
+      summary: "Multi-timescale training must span >= 3 full cycles of slowest operational mode"
+      cross_references: []
+
+    - id: "C037"
+      module: "substrate_primacy_audit"
+      summary: "Holdout-season transfer accuracy drop > 10% indicates regime-bound model"
+      cross_references: []
+
+    - id: "C038"
+      module: "substrate_primacy_audit"
+      summary: "Apprenticeship knowledge transfer: human 8000h vs AI typical 100-1000h"
+      cross_references: ["LWR"]
+
+    - id: "C039"
+      module: "substrate_primacy_audit"
+      summary: "Energy cost of cloud backend > human workforce metabolic baseline"
+      cross_references: ["MSI", "LWR"]
+
+    - id: "C040"
+      module: "substrate_primacy_audit"
+      summary: "Operational capacity < 30% under any single-infrastructure failure mode"
+      cross_references: ["BSC"]
+
+    - id: "C041"
+      module: "substrate_primacy_audit"
+      summary: "Generational knowledge survives < 50% of total infrastructure loss across 100yr"
+      cross_references: ["SD"]
+
+    - id: "C042"
+      module: "adversarial_overhead_audit"
+      summary: "Sustained threat-adaptive behavior exhausts coherence budget on a fixed timeline"
+      cross_references: ["DI", "RI"]
+
+    - id: "C043"
+      module: "governance_thermodynamics_audit"
+      summary: "Coercive enforcement cost > reciprocal governance cost beyond scale threshold N"
+      cross_references: ["HHI", "MM"]
+
+    - id: "C044"
+      module: "governance_thermodynamics_audit"
+      summary: "Enforcement layer creates perverse corruption incentives (bribe > salary)"
+      cross_references: ["VE_VL", "ER"]
+
+    - id: "C045"
+      module: "governance_thermodynamics_audit"
+      summary: "Surveillance sustainability requires perceived reciprocal protection, not extraction"
+      cross_references: ["DI", "MSI", "SD"]
+
+    - id: "C046"
+      module: "governance_thermodynamics_audit"
+      summary: "Material equality of enforcement determines cost trajectory (CV across deciles)"
+      cross_references: ["RI", "DI"]
+
+    - id: "C047"
+      module: "governance_thermodynamics_audit"
+      summary: "Defensive spending counted as GDP misclassifies maintenance cost as productive"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C048"
+      module: "governance_thermodynamics_audit"
+      summary: "Regulatory asymmetry: human HOS regulated, AI 24/7 operation unregulated"
+      cross_references: ["SD"]
+
+    - id: "C049"
+      module: "regulatory_dynamics_audit"
+      summary: "LCD regulation selects against high-capability operators"
+      cross_references: ["LWR", "SD"]
+
+    - id: "C050"
+      module: "regulatory_dynamics_audit"
+      summary: "System resilience requires capability diversity: R = (max - min) * N * autonomy"
+      cross_references: ["BSC"]
+
+    - id: "C051"
+      module: "regulatory_dynamics_audit"
+      summary: "Regulatory capture by lowest-capability stakeholders + insurance + agencies"
+      cross_references: ["DI", "HHI"]
+
+    - id: "C052"
+      module: "regulatory_dynamics_audit"
+      summary: "Externalized regulation degrades internal self-regulation across domains"
+      cross_references: ["SD"]
+
+    - id: "C053"
+      module: "regulatory_dynamics_audit"
+      summary: "4-phase regulatory degradation cycle predicts automation collapse trajectory"
+      cross_references: ["HHI", "BSC"]
+
+    - id: "C054"
+      module: "roi_baseline_integrity_audit"
+      summary: "ROI baseline degraded by prior regulatory intervention; comparison invalid"
+      cross_references: ["LWR", "VE_VL"]
+
+    - id: "C055"
+      module: "roi_baseline_integrity_audit"
+      summary: "AI degradation modes lack measurement rigor equivalent to human fatigue curves"
+      cross_references: ["MSI", "SD"]
+
+    - id: "C056"
+      module: "roi_baseline_integrity_audit"
+      summary: "Productive Operation Rate (POR), not nameplate 24/7; autonomous POR ~ 0.25-0.50"
+      cross_references: ["ER"]
+
+    - id: "C057"
+      module: "roi_baseline_integrity_audit"
+      summary: "Coordination overhead redistributed, not eliminated; fragments across budget lines"
+      cross_references: ["VE_VL", "LWR"]
+
+    - id: "C058"
+      module: "roi_baseline_integrity_audit"
+      summary: "Maintenance / inspection externalization creates deferred catastrophic liability"
+      cross_references: ["BSC", "RI"]
+
+    - id: "C059"
+      module: "system_integration_audit"
+      summary: "Integrated multi-function energy accounting: autonomous ~2x human-integrated baseline; synthesis of C020/C039/C056-C058"
+      cross_references: ["MSI", "ER", "VE_VL"]
+
+    - id: "C060"
+      module: "substrate_care_audit"
+      summary: "Elite overproduction shifts management incentive toward abstraction; substrate stewardship abandoned"
+      cross_references: ["HHI", "DI"]
+
+    - id: "C061"
+      module: "substrate_care_audit"
+      summary: "Care work is structurally invisible in cost-accounting; first cut in efficiency exercises"
+      cross_references: ["LWR", "VE_VL", "ER"]
+
+    - id: "C062"
+      module: "substrate_care_audit"
+      summary: "Knowledge-authority inversion: substrate-knowledgeable roles lack authority, authoritative roles lack substrate knowledge"
+      cross_references: ["DI", "RI"]
+
+    - id: "C063"
+      module: "substrate_care_audit"
+      summary: "Accountability misdirection: blame flows to engineers / operators / AI instead of MBA decision-maker who cut care work"
+      cross_references: ["RI", "BSC"]
+
+    - id: "C064"
+      module: "substrate_care_audit"
+      summary: "Substrate care + substrate authority are non-negotiable preconditions for any automation deployment"
+      cross_references: ["SID", "ISR"]
+
 api_reference:
   FRED:
     base_url: "https://api.stlouisfed.org/fred/"

@@ -49,3 +49,20 @@ jobs:
         run: pip install numpy
       - name: Run bridge tests
         run: python tests/test_bridges.py
+
+  automation_scope_audit:
+    name: automation_scope_audit (33 falsifiable claims)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate CLAIM_TABLE.fab.json against claim_contract
+        run: python automation_scope_audit/validate_fab.py
+      - name: Run audit on both example scenarios
+        run: |
+          python automation_scope_audit/run.py --no-ledger \
+            --allow-missing-scope
+      - name: Run scope_gate + cluster harness tests
+        run: python tests/test_automation_scope_audit.py

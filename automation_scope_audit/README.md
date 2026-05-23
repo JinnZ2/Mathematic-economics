@@ -92,6 +92,60 @@ operates by:
     institution has no mechanism to see the failure because the
     failure is outside the model. Historical pattern: 1998 LTCM, 2008
     quant collapse, 2010 flash crash, March 2020 treasury dislocation.
+21. **Substrate primacy** — sensing latency, embodied knowledge,
+    distributed decision authority, multi-timescale training,
+    holdout-season transfer, apprenticeship hours, knowledge-
+    preservation energy, institutional redundancy, and generational
+    transferability are the substrates the deployment narrative
+    silently assumes. Each is its own falsifiable claim (C033-C041).
+22. **Adversarial cognitive overhead** — sustained threat-adaptive
+    behavior consumes a fixed coherence budget at a measurable
+    overhead per day; the time-to-degradation in any non-cooperative
+    regime is finite (C042).
+23. **Governance thermodynamics** — coercive enforcement scales
+    superlinearly, reciprocal governance sublinearly; beyond a
+    scale-dependent threshold N the two curves cross and coercion is
+    energetically untenable (C043). The enforcement layer creates
+    perverse corruption incentives at scale (C044); surveillance
+    sustainability depends on perceived reciprocity (C045) and on
+    material equality of enforcement (C046). Defensive spending
+    counted as GDP misclassifies maintenance cost as productive
+    output (C047). Regulatory asymmetry between biological and
+    digital substrates leaves the digital substrate unregulated
+    (C048).
+24. **Regulatory dynamics (LCD)** — lowest-common-denominator
+    regulation eliminates high-capability operators (C049),
+    collapses system resilience (C050), is captured by lowest-
+    capability stakeholders (C051), externalizes self-regulation
+    onto rules that erode internal calibration across domains
+    (C052), and follows a predictable 4-phase degradation cycle
+    that autonomous deployments are entering (C053).
+25. **ROI baseline integrity** — automation is being compared to a
+    baseline that's itself degraded by prior regulation (C054); AI
+    degradation modes lack measurement rigor equivalent to human
+    fatigue curves (C055); nameplate "24/7" misrepresents actual
+    productive operation rate (C056); coordination overhead is
+    redistributed across budget lines, not eliminated (C057);
+    maintenance / inspection cost evasion creates deferred
+    catastrophic liability (C058).
+26. **System integration synthesis** (bee analogy) — a human driver
+    performs seven functions as integrated side-effects of a single
+    metabolic budget already being paid; an autonomous deployment
+    separates each function into its own energy-hungry system. The
+    integrated baseline is ~1,155 MJ/truck/day; the autonomous
+    deployment is ~2,224 MJ/truck/day — ~2x more energy for the same
+    work (C059). Synthesis of C020 / C039 / C056-C058.
+27. **Substrate care + authority** — elite overproduction recruits
+    management from abstraction-trained pools that have never been on
+    the operation floor (C060); care work (driver pretrip, quality
+    inspector walks, preventive maintenance, teacher attention, nurse
+    observation, farmer soil management) is structurally invisible
+    because it prevents problems that never show up in reports, so
+    it's the first thing cut (C061); knowledge and authority decouple
+    (C062); when the system fails on substrate grounds, blame
+    externalizes to engineers / operators / AI (C063). Substrate care
+    + substrate authority are non-negotiable preconditions for any
+    automation deployment (C064).
 
 C000 is a *meta-claim*: a scope-admissibility gate that every other claim
 (C001-C024) must pass. An "automation is more efficient" claim that does
@@ -138,6 +192,38 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C030  | unified_capital_accounting_audit  | "Scaling" is capital reallocation, not creation, under unified accounting |
 | C031  | engineering_grade_validation_audit | Economics lacks engineering-grade falsifiability (4-criterion test) |
 | C032  | engineering_grade_validation_audit | AI on unstable economic models cascades; regime drift severity |
+| C033  | substrate_primacy_audit           | Precursor-signal detection latency: human inline << cloud |
+| C034  | substrate_primacy_audit           | Embodied constraint knowledge lost in digitization (>30%) |
+| C035  | substrate_primacy_audit           | Distributed authority latency < centralized by >= 4x |
+| C036  | substrate_primacy_audit           | Training must span >= 3 full cycles of slowest mode |
+| C037  | substrate_primacy_audit           | Holdout-season transfer accuracy drop > 10% |
+| C038  | substrate_primacy_audit           | Apprenticeship: human 8000h vs AI 100-1000h |
+| C039  | substrate_primacy_audit           | Cloud backend energy > human workforce metabolic cost |
+| C040  | substrate_primacy_audit           | < 30% operational capacity in any single-infrastructure failure |
+| C041  | substrate_primacy_audit           | < 50% knowledge survives total infrastructure loss across 100yr |
+| C042  | adversarial_overhead_audit        | Sustained threat-adaptive behavior exhausts coherence budget |
+| C043  | governance_thermodynamics_audit   | Coercive enforcement cost > reciprocal cost beyond scale N |
+| C044  | governance_thermodynamics_audit   | Enforcement layer creates perverse corruption incentive |
+| C045  | governance_thermodynamics_audit   | Surveillance sustainability requires perceived reciprocity |
+| C046  | governance_thermodynamics_audit   | Material equality of enforcement determines cost trajectory |
+| C047  | governance_thermodynamics_audit   | Defensive spending counted as GDP misclassifies maintenance |
+| C048  | governance_thermodynamics_audit   | Regulatory asymmetry between biological and digital substrates |
+| C049  | regulatory_dynamics_audit         | LCD regulation selects against high-capability operators |
+| C050  | regulatory_dynamics_audit         | Resilience R = (max-min) * N * autonomy; compression collapses R |
+| C051  | regulatory_dynamics_audit         | Regulatory capture by lowest-capability stakeholders |
+| C052  | regulatory_dynamics_audit         | Externalized regulation degrades internal self-regulation |
+| C053  | regulatory_dynamics_audit         | 4-phase degradation cycle predicts automation collapse |
+| C054  | roi_baseline_integrity_audit      | ROI baseline degraded by prior regulatory intervention |
+| C055  | roi_baseline_integrity_audit      | AI degradation lacks measurement rigor equivalent to human fatigue |
+| C056  | roi_baseline_integrity_audit      | Productive Operation Rate (POR), not nameplate 24/7 |
+| C057  | roi_baseline_integrity_audit      | Coordination overhead redistributed, not eliminated |
+| C058  | roi_baseline_integrity_audit      | Maintenance / inspection externalization -> deferred catastrophic liability |
+| C059  | system_integration_audit          | Integrated multi-function energy synthesis: autonomous ~2x human baseline (bee analogy) |
+| C060  | substrate_care_audit              | Elite overproduction shifts management incentive toward abstraction |
+| C061  | substrate_care_audit              | Care work is structurally invisible; first cut in efficiency exercises |
+| C062  | substrate_care_audit              | Knowledge-authority inversion (substrate-knowing roles lack authority) |
+| C063  | substrate_care_audit              | Accountability misdirection: blame flows to executors, not designers |
+| C064  | substrate_care_audit              | Substrate care + substrate authority are non-negotiable preconditions |
 
 ## Layout
 
@@ -166,11 +252,35 @@ automation_scope_audit/
 │   ├── economic_energy_grounding_audit.py # C027, C028
 │   ├── unified_capital_accounting_audit.py # C029, C030
 │   ├── engineering_grade_validation_audit.py # C031, C032
+│   ├── substrate_primacy_audit.py        # C033-C041
+│   ├── adversarial_overhead_audit.py     # C042
+│   ├── governance_thermodynamics_audit.py # C043-C048
+│   ├── regulatory_dynamics_audit.py      # C049-C053
+│   ├── roi_baseline_integrity_audit.py   # C054-C058
+│   ├── system_integration_audit.py       # C059
+│   ├── substrate_care_audit.py           # C060-C064
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case
     └── dispersed_wellsite.py             # fails case
 ```
+
+## 6-layer architecture
+
+The 65 claims sit in a 6-layer architecture with a closed coupling
+cycle (technical → operational → behavioral → institutional → energy
+→ economic → technical). Full description in
+`ARCHITECTURE.md`. Encoded in `architecture.py`:
+
+```bash
+python automation_scope_audit/run.py --layers              # per-layer report
+python automation_scope_audit/architecture.py              # standalone coverage check
+```
+
+Cycle status is `UNTENABLE_CYCLE_CLOSED` when every layer has at
+least one firing claim. Both example scenarios close the cycle; the
+discrimination between them appears as the *depth* of failure (works
+case: 1 fully-failed layer; fails case: 5).
 
 ## Usage
 
@@ -228,3 +338,37 @@ The package has no third-party dependencies. It does not import from
 `physics_guard/`, `calibration/`, or any of the vendored subtrees; the
 invariant in `tests/test_bridges.py::ImportDirectionInvariant` is
 respected by construction.
+
+## Related folders
+
+- **`../`** (repo root) — the 13 canonical structural equations, the
+  `DIFFERENTIAL_FRAME.md` ontology this module conforms to, and the
+  `equations.yaml` registry that cross-references every claim here.
+- **`../audit/`** — the broader audit / accountability / certification
+  framework. `audit/autonomous_freight_audit.py` covers complementary
+  Class-1-corridor constraint layers; `audit/efficiency_report_audit.py`
+  runs the Six-Sigma audit on industry "efficiency" archetypes.
+- **`../calibration/`** — the falsifiable diagnostic suite the
+  contract pattern (`falsifier` strings) originates from.
+- **`../core/`** — vendored TAF physical sub-models (fatigue,
+  human-system-collapse, heat-leak) that complement the labor-time
+  side of the C002 / C008 claims.
+- **`../labor_thermodynamics/`** — the five compounding labor-
+  measurement failure modes the C002 task-inventory and C013
+  distributed-labor analysis are calibrated against.
+- **`../substrate_accounting/`** — cross-substrate translation and
+  the unified-claims index that C029 / C030 unified capital
+  accounting plugs into.
+- **`../vehicle_audit/`** — earlier autonomous-vehicle audit
+  framework (Producer / Accumulator). See `RELATION.md` in this
+  folder for the architectural distinction.
+- **`../physics_guard/`** — vendored snapshot used as a one-way
+  fieldlink; the audit framework does NOT depend on it (per CLAUDE.md
+  invariant). See `physics_guard/PROVENANCE.md`.
+- **`../tests/test_automation_scope_audit.py`** — pytest /
+  unittest-compatible harness covering scope gate, works case, fails
+  case, cluster signatures, and contract round-trip.
+- **`./CONTRACT_NOTES.md`** — schema-requirements reading notes
+  produced in TASK 1.1.
+- **`./TODO.md`** — deferred items and renumber/rename reconciliation
+  for the TASK 2.x-7.x batch.

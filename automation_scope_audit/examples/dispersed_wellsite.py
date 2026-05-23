@@ -18,6 +18,21 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))))
 
+# Deliberately partial — the dispersed-wellsite vendor pitch does NOT
+# publish scope. The gate fails this spec; run.py refuses to audit
+# unless `--allow-missing-scope` is set. This is the correct fail-safe
+# behavior the framework exists to enforce.
+DEPLOYMENT_SPEC = {
+    "beneficiary":        "scaling efficiency",                  # narrative
+    "conditions":         None,                                  # absent
+    "time_period":        "long-term",                           # narrative
+    "resource":           "capital",                             # ambiguous
+    "externalized_cost":  None,                                  # absent
+    "profit_allocation":  None,                                  # absent
+    "falsifier":          None,                                  # absent
+}
+
+
 from automation_scope_audit.modules import (
     meta_scope_guard,
     scope_geometry,
@@ -38,6 +53,13 @@ from automation_scope_audit.modules import (
     economic_energy_grounding_audit,
     unified_capital_accounting_audit,
     engineering_grade_validation_audit,
+    substrate_primacy_audit,
+    adversarial_overhead_audit,
+    governance_thermodynamics_audit,
+    regulatory_dynamics_audit,
+    roi_baseline_integrity_audit,
+    system_integration_audit,
+    substrate_care_audit,
 )
 
 
@@ -260,6 +282,73 @@ def run() -> dict:
         deployment_regime="supply_constrained",
         claim=pitch)
 
+    # C033-C041 — substrate primacy. Fails case is the autonomous-no-driver
+    # hypothesis at dispersed wellsites: every substrate-primacy layer
+    # collapses because there's no in-cab human, no consolidated route,
+    # no apprenticeship pipeline.
+    c033 = substrate_primacy_audit.c033_verdict()
+    c034 = substrate_primacy_audit.c034_verdict()
+    c035 = substrate_primacy_audit.c035_verdict()
+    c036 = substrate_primacy_audit.c036_verdict(training_span_days=365.0)
+    c037 = substrate_primacy_audit.c037_verdict(
+        in_season_accuracy=0.92,
+        held_out_season_accuracy=0.68)        # bad winter transfer
+    c038 = substrate_primacy_audit.c038_verdict()
+    c039 = substrate_primacy_audit.c039_verdict(workforce_size=12,
+                                                  fleet_size=12)
+    c040 = substrate_primacy_audit.c040_verdict()    # use module defaults
+    c041 = substrate_primacy_audit.c041_verdict()
+
+    # C042 — adversarial overhead. Dispersed-wellsite vendors operate
+    # under sustained adversarial pressure (small operators vs major
+    # carriers, regulatory volatility, predatory acquisition climate).
+    c042 = adversarial_overhead_audit.c042_verdict("threat_mixed",
+                                                    overhead_per_day=0.015)
+
+    # C043-C048 — governance thermodynamics. Fails case uses defaults
+    # (no operator-side reciprocity carve-out).
+    c043 = governance_thermodynamics_audit.c043_verdict(
+        population=330_000_000)
+    c044 = governance_thermodynamics_audit.c044_verdict()
+    c045 = governance_thermodynamics_audit.c045_verdict()
+    c046 = governance_thermodynamics_audit.c046_verdict()
+    c047 = governance_thermodynamics_audit.c047_verdict()
+    c048 = governance_thermodynamics_audit.c048_verdict()
+
+    # C049-C053 — regulatory dynamics. Fails case at later phase of
+    # the cycle (more compressed capability distribution, less retention).
+    c049 = regulatory_dynamics_audit.c049_verdict()
+    c050 = regulatory_dynamics_audit.c050_verdict(
+        max_capability_hours=11.0, min_capability_hours=11.0,
+        n_operators=12, operator_autonomy=0.15)
+    c051 = regulatory_dynamics_audit.c051_verdict()
+    c052 = regulatory_dynamics_audit.c052_verdict()
+    c053 = regulatory_dynamics_audit.c053_verdict(
+        year_since_deployment=7,
+        regulation_intensity=0.80,
+        high_capability_share_remaining=0.10)
+
+    # C054-C058 — ROI baseline integrity. Fails case uses module defaults
+    # (autonomous overhead heavy, POR low).
+    c054 = roi_baseline_integrity_audit.c054_verdict()
+    c055 = roi_baseline_integrity_audit.c055_verdict()
+    c056 = roi_baseline_integrity_audit.c056_verdict()
+    c057 = roi_baseline_integrity_audit.c057_verdict()
+    c058 = roi_baseline_integrity_audit.c058_verdict(
+        fleet_size=12, lifecycle_years=5)
+
+    # C059 — fails case uses module defaults (autonomous-no-driver:
+    # only transport integrated, near-zero degraded-mode capacity).
+    c059 = system_integration_audit.c059_verdict()
+
+    # C060-C064 — substrate care. Fails case uses module defaults
+    # (MBA-heavy management coalition, all 5 preconditions failing).
+    c060 = substrate_care_audit.c060_verdict()
+    c061 = substrate_care_audit.c061_verdict()
+    c062 = substrate_care_audit.c062_verdict()
+    c063 = substrate_care_audit.c063_verdict()
+    c064 = substrate_care_audit.c064_verdict()    # all preconditions False
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -271,6 +360,15 @@ def run() -> dict:
         "C021": c021, "C022": c022, "C023": c023, "C024": c024,
         "C025": c025, "C026": c026, "C027": c027, "C028": c028,
         "C029": c029, "C030": c030, "C031": c031, "C032": c032,
+        "C033": c033, "C034": c034, "C035": c035, "C036": c036,
+        "C037": c037, "C038": c038, "C039": c039, "C040": c040,
+        "C041": c041, "C042": c042, "C043": c043, "C044": c044,
+        "C045": c045, "C046": c046, "C047": c047, "C048": c048,
+        "C049": c049, "C050": c050, "C051": c051, "C052": c052,
+        "C053": c053, "C054": c054, "C055": c055, "C056": c056,
+        "C057": c057, "C058": c058, "C059": c059,
+        "C060": c060, "C061": c061, "C062": c062, "C063": c063,
+        "C064": c064,
     }
 
 

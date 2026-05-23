@@ -98,20 +98,49 @@ def classify_scope(variance: float, infrastructure_state: dict) -> str:
     return "human_only"
 
 
+VARIANCE_TIERS = [
+    ("fixed",          0.00, 0.10, "Automation-viable corridor: variance below 10%."),
+    ("hybrid_viable",  0.10, 0.30, "Hybrid (autonomous on corridor + human at touchpoints)."),
+    ("variable",       0.30, 0.60, "Mostly human; autonomy applies only to stable sub-segments."),
+    ("chaotic",        0.60, 1.01, "Human-only; no stable geometry to anchor autonomy."),
+]
+
+
+def variance_tier(variance: float) -> dict:
+    """Bin a route-variance measurement into the four-tier scale.
+
+    Bins (Jaccard distance):
+      0.00-0.10  -> "fixed"
+      0.10-0.30  -> "hybrid_viable"
+      0.30-0.60  -> "variable"
+      >= 0.60    -> "chaotic"
+    """
+    for name, lo, hi, note in VARIANCE_TIERS:
+        if lo <= variance < hi:
+            return {"tier": name, "lo": lo, "hi": hi, "note": note}
+    return {"tier": "chaotic", "lo": 0.60, "hi": 1.01,
+            "note": VARIANCE_TIERS[-1][3]}
+
+
 def c001_verdict(route_log: List[dict], infrastructure_state: dict) -> dict:
-    """Compose the C001 audit result."""
+    """Compose the C001 audit result with both binary and tiered output."""
     variance = measure_route_variance(route_log)
     classification = classify_scope(variance, infrastructure_state)
+    tier = variance_tier(variance)
     threshold_met = variance < 0.05
     return {
         "claim_id": "C001",
         "variance": variance,
+        "tier": tier["tier"],
+        "tier_note": tier["note"],
+        "tier_bounds": [tier["lo"], tier["hi"]],
         "classification": classification,
         "threshold_met": threshold_met,
         "falsifier": "working autonomous deployment on routes with >20% variance",
         "notes": (
-            "Variance is fraction of trips deviating from modal waypoint "
-            "sequence per OD pair, weighted by trip count."
+            "Variance is trip-weighted mean pairwise Jaccard distance per "
+            "OD pair. Tier is the graduated bin (fixed / hybrid_viable / "
+            "variable / chaotic); threshold_met is the binary 5%% gate."
         ),
     }
 
