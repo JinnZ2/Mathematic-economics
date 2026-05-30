@@ -2,7 +2,7 @@
 
 License: CC0 1.0 Universal.
 
-The `accounting/` package declares four composable falsifiable-audit
+The `accounting/` package declares five composable falsifiable-audit
 claim families with stable prefixes that **do not enter** the global
 mathematic-economics C-series. They are domain-agnostic primitives
 usable across the JinnZ2 substrate-primary toolchain.
@@ -13,6 +13,10 @@ usable across the JinnZ2 substrate-primary toolchain.
 | GDP metrology political invariant | `GM-` | `gdp_metrology_political_invariant.py` | 5 |
 | Substrate parity | `SP-` | `substrate_parity_audit.py` | 5 |
 | Thermodynamic exception | `TE-` | `thermodynamic_exception_detector.py` | 5 |
+| Cost of competition | `CC-` | `cost_of_competition.py` | 6 |
+
+Two-letter `CC-` is structurally distinct from the global C-series
+(`C` + 3 digits) and lives in the accounting/ namespace.
 
 Each module's docstring carries the load-bearing claim text inline.
 This document is the cross-family index plus the test invariants that
@@ -93,6 +97,28 @@ Worked demo: honest private-O2 loop (`eta0=0.92, decay=8e-4`, 50 000-J
 reservoir, 1-hour cycles) → FALSIFIED at cycle 62 (~2.6 days);
 "indefinite" marketing claim → VIOLATION held aside per TE-5.
 
+## CC — Cost of Competition
+
+Test for the claim "competition drives innovation." Innovation is
+re-defined as advance toward a problem's physical ceiling (closure);
+competition caps deployed effort at "beat the runner-up", whereas
+cooperation compounds capabilities across a shared substrate.
+
+| ID | Statement | Falsifier |
+|---|---|---|
+| **CC-1** | Innovation := closure toward `problem.true_ceiling`; "beat a rival" is not innovation by itself. | Audit that scores beat-rival margin as innovation without closure delta. |
+| **CC-2** | Competition frame caps the leader's deployed effort at `runner_up * (1 + margin)`; capability above that cap is unused. | Documented competitive frame where the leader deploys full capability against no rival pressure. |
+| **CC-3** | Effort that does not advance closure (duplication, turf defense, capped surplus, beat-rival margin) is held aside: reported, never netted into innovation. | Audit that nets held-aside effort into the innovation total. |
+| **CC-4** | Cooperation compounds capabilities over a shared substrate plus a cross-domain synthesis term; competition silos them (synthesis = 0). | Cooperative case with single domain that still credits synthesis. |
+| **CC-5** | An installed competitive winner taxes all downstream rounds; "diminishing returns in technology" is fragmentation / lock-in, not a law of physics. | Multi-round case where the installed winner imposes zero downstream tax. |
+| **CC-6** | `cost_of_competition := cooperation_closure - competition_closure` (>= 0). | Audit with negative cost (competition closure exceeds cooperation closure). |
+
+Worked demo: distributed energy substrate (ceiling 30; three actors
+across field-resonance / electrostatics / infrastructure) →
+competition closure 9.90, cooperation closure 30.00,
+**cost = 20.10** (STATUS RED); over 3 rounds with `lockin_tax=0.30`,
+cumulative loss = 120.82.
+
 ## Test invariants
 
 `tests/test_accounting.py` locks the load-bearing semantics:
@@ -113,8 +139,12 @@ reservoir, 1-hour cycles) → FALSIFIED at cycle 62 (~2.6 days);
 | `test_te3_finite_reservoir_falsifies_indefinite` | TE-3 + TE-4 |
 | `test_te4_decay_alone_falsifies_indefinite` | TE-4 |
 | `test_te5_asserted_corner_flagged_VIOLATION` | TE-5 |
+| `test_cc2_competition_is_capped_at_runner_plus_margin` | CC-2 |
+| `test_cc3_held_aside_is_total_effort_minus_closure` | CC-3 |
+| `test_cc4_cooperation_silos_without_cross_domain` | CC-4 |
+| `test_cc6_cost_is_nonnegative_and_zero_at_ceiling` | CC-6 |
 
-14/14 pass.
+18/18 pass.
 
 ## Relation to the C-series
 
@@ -131,6 +161,10 @@ automation-scope-audit C-series:
 - TE-5 is the engine behind the `held aside` term in SP-5: any
   "private closed loop" exception must be run through TE before
   being credited.
+- CC-3 supplies the held-aside term for any innovation/efficiency
+  claim that scores "beat a rival" rather than "advanced closure";
+  use it alongside GM-4 when monetary gain is reported without a
+  physical-output delta.
 
 When in doubt: domain-specific claim → C-series; reusable audit
 primitive → accounting/ family.

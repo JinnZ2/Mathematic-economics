@@ -10,6 +10,7 @@ mathematic-economics C-series:
   gdp_metrology_political_invariant   -> GM-1 .. GM-5
   substrate_parity_audit              -> SP-1 .. SP-5
   thermodynamic_exception_detector    -> TE-1 .. TE-5
+  cost_of_competition                 -> CC-1 .. CC-6
 
 These claim families are documented in `accounting/CLAIMS.md`.
 
@@ -21,6 +22,7 @@ from . import (
     gdp_metrology_political_invariant,
     substrate_parity_audit,
     thermodynamic_exception_detector,
+    cost_of_competition,
 )
 
 __all__ = [
@@ -28,4 +30,5 @@ __all__ = [
     "gdp_metrology_political_invariant",
     "substrate_parity_audit",
     "thermodynamic_exception_detector",
+    "cost_of_competition",
 ]

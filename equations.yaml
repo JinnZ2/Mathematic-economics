@@ -924,11 +924,14 @@ automation_scope_audit_claims:
 # composable accounting claim families
 #
 # Domain-agnostic falsifiable-audit primitives in `accounting/`. These
-# families use stable prefixes (AA-, GM-, SP-, TE-) that intentionally
-# do NOT enter the global mathematic-economics C-series. They are
-# complementary, not subsumed: C020 is a C-series application of AA;
-# C047 / C081 are domain-specific GM-4 cases; C025 / C040 are SP-4
-# special cases; TE is the engine behind the SP-5 held-aside term.
+# families use stable prefixes (AA-, GM-, SP-, TE-, CC-) that
+# intentionally do NOT enter the global mathematic-economics C-series
+# (which uses C + 3 digits, structurally distinct from two-letter CC-).
+# They are complementary, not subsumed: C020 is a C-series application
+# of AA; C047 / C081 are domain-specific GM-4 cases; C025 / C040 are
+# SP-4 special cases; TE is the engine behind the SP-5 held-aside
+# term; CC-3 is the held-aside engine for innovation/efficiency
+# claims that score "beat a rival" rather than closure-toward-ceiling.
 #
 # Full documentation in `accounting/CLAIMS.md`. Test invariants in
 # `tests/test_accounting.py`.
@@ -958,6 +961,11 @@ accounting_claim_families:
       summary: "Private closed-loop exception ('maintain own O2/cooling indefinitely') falsified whenever t_fail < inf; only survives by asserting d=0 AND reservoir=inf AND eta>=1 -> 2nd-law VIOLATION, held aside per SP-5"
       claim_count: 5
       cross_references: ["BSC", "ISR", "VE_VL"]
+    - prefix: "CC"
+      module: "cost_of_competition"
+      summary: "Innovation := closure toward problem.true_ceiling; competition caps deployed effort at runner_up*(1+margin) and silos domains (synthesis=0). cost_of_competition := cooperation_closure - competition_closure (>= 0); lock-in tax compounds the gap over rounds. Beat-rival margin is held aside per CC-3."
+      claim_count: 6
+      cross_references: ["VE_VL", "MSI", "SD", "HHI"]
 
 api_reference:
   FRED:
