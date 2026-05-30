@@ -1,7 +1,7 @@
 """
 test_accounting.py — invariant tests for the accounting/ package
 
-Locks the load-bearing semantics of the AA / GM / SP claim families:
+Locks the load-bearing semantics of the AA / GM / SP / TE claim families:
 
   AA-1  closure threshold semantics
   AA-2  mixed-unit RED
@@ -12,6 +12,9 @@ Locks the load-bearing semantics of the AA / GM / SP claim families:
   GM-5  off-grid substrate dependence detection
   SP-3  first failure mode = lowest margin
   SP-4  AI fails through maintenance coupling
+  TE-3  finite reservoir falsifies indefinite-survival
+  TE-4  decay > 0 alone falsifies indefinite-survival
+  TE-5  asserted d=0/inf-reservoir/eta>=1 corner flagged VIOLATION
 
 License: CC0-1.0
 """
@@ -28,6 +31,7 @@ from accounting import (
     atomic_accounting as AA,
     gdp_metrology_political_invariant as GM,
     substrate_parity_audit as SP,
+    thermodynamic_exception_detector as TE,
 )
 
 
@@ -131,6 +135,47 @@ class SubstrateParityTests(unittest.TestCase):
         c3 = SP.Constraint("c", "u", 0.7, (0, 1), (-SP.INF, SP.INF))
         a = SP.SubstrateAudit("test", [c1, c2, c3])
         self.assertEqual(a.first_failure().name, "b")
+
+
+class ThermodynamicExceptionTests(unittest.TestCase):
+
+    def test_te3_finite_reservoir_falsifies_indefinite(self):
+        # Perfect regen + no decay but a finite reservoir: the energy
+        # bookkeeping alone exhausts the loop.
+        loop = TE.ClosedLoopClaim(
+            name="finite_reservoir",
+            setpoint=21.0, window=(16.0, 23.0),
+            loss_per_cycle=0.0, eta0=1.0, decay=0.0,
+            e_base=1.0, reservoir=100.0, cycle_seconds=1.0)
+        r = loop.run()
+        self.assertEqual(r["verdict"], "FALSIFIED")
+        self.assertEqual(r["mode"], "energy reservoir exhausted")
+        self.assertIsNotNone(r["t_fail_cycles"])
+
+    def test_te4_decay_alone_falsifies_indefinite(self):
+        # Infinite reservoir + lossy loop with decay: window breach
+        # eventually occurs as eta drifts.
+        loop = TE.ClosedLoopClaim(
+            name="decay_only",
+            setpoint=21.0, window=(16.0, 23.0),
+            loss_per_cycle=0.8, eta0=0.95, decay=0.01,
+            e_base=1.0, reservoir=TE.INF, cycle_seconds=1.0)
+        r = loop.run()
+        self.assertEqual(r["verdict"], "FALSIFIED")
+        self.assertTrue(r["mode"].startswith("window breach"))
+
+    def test_te5_asserted_corner_flagged_VIOLATION(self):
+        # The "indefinite" claim only survives by asserting all three
+        # unphysical corners simultaneously -> 2nd-law VIOLATION.
+        loop = TE.ClosedLoopClaim(
+            name="indefinite_claim",
+            setpoint=21.0, window=(16.0, 23.0),
+            loss_per_cycle=0.8, eta0=1.0, decay=0.0,
+            e_base=1.0, reservoir=TE.INF, cycle_seconds=1.0)
+        self.assertTrue(loop.is_asserted_exception())
+        r = loop.run()
+        self.assertEqual(r["verdict"], "VIOLATION")
+        self.assertIsNone(r["t_fail_cycles"])
 
 
 if __name__ == "__main__":

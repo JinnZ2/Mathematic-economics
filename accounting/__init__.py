@@ -6,9 +6,10 @@ substrate-primary toolchain. Each module declares its own claim
 family with a stable prefix that does not enter the global
 mathematic-economics C-series:
 
-  atomic_accounting               -> AA-1 .. AA-5
-  gdp_metrology_political_invariant -> GM-1 .. GM-5
-  substrate_parity_audit          -> SP-1 .. SP-5
+  atomic_accounting                   -> AA-1 .. AA-5
+  gdp_metrology_political_invariant   -> GM-1 .. GM-5
+  substrate_parity_audit              -> SP-1 .. SP-5
+  thermodynamic_exception_detector    -> TE-1 .. TE-5
 
 These claim families are documented in `accounting/CLAIMS.md`.
 
@@ -19,10 +20,12 @@ from . import (
     atomic_accounting,
     gdp_metrology_political_invariant,
     substrate_parity_audit,
+    thermodynamic_exception_detector,
 )
 
 __all__ = [
     "atomic_accounting",
     "gdp_metrology_political_invariant",
     "substrate_parity_audit",
+    "thermodynamic_exception_detector",
 ]
