@@ -225,7 +225,7 @@ class ArchitectureTests(unittest.TestCase):
         cov = self.architecture.coverage_check()
         self.assertTrue(cov["complete"],
                          msg=f"missing={cov['missing']} doubles={cov['double_assigned']}")
-        self.assertEqual(cov["total_claims"], 84)
+        self.assertEqual(cov["total_claims"], 90)
 
     def test_six_load_bearing_layers(self):
         self.assertEqual(len(self.architecture.LAYERS), 6)
@@ -336,6 +336,72 @@ class CrossDomainExclusionTests(unittest.TestCase):
         self.assertEqual(r["match_share"], 1.0,
                           msg="all decidable domains should match the pattern")
         self.assertGreaterEqual(r["mean_outcome_ratio"], 2.0)
+
+
+class TruckingROIFalsifiersTests(unittest.TestCase):
+    """Lock the C084-C089 trucking-ROI falsifier invariants."""
+
+    def test_c084_fires_on_default_pilot_deployment_mismatch(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c084_verdict()
+        self.assertTrue(r["threshold_met"],
+                        msg="default pilot/deployment defaults should mismatch by > 1.0x")
+        self.assertGreater(r["mean_mismatch"], 1.0)
+
+    def test_c084_passes_when_pilot_matches_deployment(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        pilot = {"route_variance": 0.05, "destination_set_size": 4.0,
+                 "weather_envelope_span": 0.2, "surface_type_diversity": 0.1,
+                 "interface_partner_count": 3.0}
+        r = trucking_roi_falsifiers_audit.c084_verdict(
+            pilot=pilot, deployment=pilot)
+        self.assertFalse(r["threshold_met"],
+                         msg="identical pilot/deployment should not register concern")
+
+    def test_c085_aggregate_cv_exceeds_default_margin(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c085_verdict()
+        self.assertTrue(r["threshold_met"])
+        self.assertGreater(r["aggregate_cv_rss"], 0.15)
+
+    def test_c086_underwriter_premium_exceeds_claimed_reduction(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c086_verdict()
+        self.assertTrue(r["threshold_met"])
+        self.assertGreater(r["uncertainty_premium_fraction"],
+                           r["claimed_premium_reduction"])
+
+    def test_c086_passes_with_mature_actuarial_data(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c086_verdict(
+            years_of_continuous_fleet_data=5.0,
+            audited_fleet_size=300,
+            claimed_premium_reduction=0.20)
+        self.assertFalse(r["threshold_met"])
+        self.assertEqual(r["uncertainty_premium_fraction"], 0.0)
+
+    def test_c087_autonomous_stack_residual_forced_to_zero(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c087_verdict()
+        self.assertTrue(r["threshold_met"])
+        self.assertGreater(r["residual_overstatement_usd"], 0.0)
+
+    def test_c088_selection_bias_delta_dominates(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c088_verdict()
+        self.assertTrue(r["threshold_met"])
+        self.assertGreater(r["selection_bias_delta"], 0.50)
+
+    def test_c089_payback_exceeds_mean_refresh(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c089_verdict(reported_payback_years=6.0)
+        self.assertTrue(r["threshold_met"])
+        self.assertTrue(r["payback_exceeds_mean_refresh"])
+
+    def test_c089_passes_for_short_payback(self):
+        from automation_scope_audit.modules import trucking_roi_falsifiers_audit
+        r = trucking_roi_falsifiers_audit.c089_verdict(reported_payback_years=1.0)
+        self.assertFalse(r["threshold_met"])
 
 
 class ContractValidatedTests(unittest.TestCase):

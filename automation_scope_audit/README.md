@@ -224,6 +224,17 @@ See `CLAIM_TABLE.json` for the full machine-readable list.
 | C062  | substrate_care_audit              | Knowledge-authority inversion (substrate-knowing roles lack authority) |
 | C063  | substrate_care_audit              | Accountability misdirection: blame flows to executors, not designers |
 | C064  | substrate_care_audit              | Substrate care + substrate authority are non-negotiable preconditions |
+| C084  | trucking_roi_falsifiers_audit     | Pilot ROI is conditional on pilot geometry; not transferable without re-measurement |
+| C085  | trucking_roi_falsifiers_audit     | Static input-price assumption: aggregate input CV exceeds reported payback margin |
+| C086  | trucking_roi_falsifiers_audit     | Insurance actuarial table for autonomous freight does not yet exist |
+| C087  | trucking_roi_falsifiers_audit     | No secondary market for the autonomous stack; booked residual overstated |
+| C088  | trucking_roi_falsifiers_audit     | Pilot survivorship bias: shutdowns dropped from published success rate |
+| C089  | trucking_roi_falsifiers_audit     | Reported payback exceeds stack technological-obsolescence cycle |
+
+C065-C083 are documented in `CLAIM_TABLE.fab.json` and
+`equations.yaml::automation_scope_audit_claims:` (credential inversion,
+adoption-curve thermodynamics, lifecycle design, framework reflexivity,
+training-corpus dynamics, cross-domain empirical validation).
 
 ## Layout
 
@@ -259,6 +270,7 @@ automation_scope_audit/
 │   ├── roi_baseline_integrity_audit.py   # C054-C058
 │   ├── system_integration_audit.py       # C059
 │   ├── substrate_care_audit.py           # C060-C064
+│   ├── trucking_roi_falsifiers_audit.py  # C084-C089
 │   └── meta_scope_guard.py               # C000
 └── examples/
     ├── kodiak_atlas_permian.py           # works case

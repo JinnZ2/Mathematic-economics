@@ -2,7 +2,7 @@
   "license": "CC0-1.0",
   "contract_version": "1.0.0",
   "scope": "autonomous_trucking_roi_audit",
-  "version": "17.0",
+  "version": 18.0,
   "allocation_rules_enum": [
     "per_truck_equal_share",
     "per_ton_mile",
@@ -3531,6 +3531,256 @@
       ],
       "sensitivity": [
         "which domains are surveyed (selection bias risk)"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C084": {
+      "observable": "pilot-vs-deployment geometry mismatch (mean fractional gap across route variance, destination set size, weather envelope span, surface diversity, and interface partner count)",
+      "rate_equation": "d(geometry_mismatch)/d(deployment_class) = mean(|d_i - p_i| / |p_i|) over the audited geometry dimensions; threshold = mean_mismatch > 1.0",
+      "bounds": {
+        "spatial": "per geometry class (corridor / hub-spoke / dispersed / mixed)",
+        "temporal": "pilot duration vs ROI window of the deployment",
+        "scale": "fleet-equivalent (~50-500 trucks)"
+      },
+      "conditions": [
+        "pilot ROI numbers published",
+        "deployment geometry parameters declared with measurable values"
+      ],
+      "invalid_if": [
+        "audited per-geometry-class ROI measurements covering at least three distinct geometry classes spanning the deployment envelope, with payback numbers re-measured rather than extrapolated from the pilot corridor"
+      ],
+      "measured_by": [
+        "pilot publications and deployment specs",
+        "OOIDA / FMCSA fleet geometry profiles",
+        "shipper-level corridor density data"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "feeds C001 (scope geometry) and C005 (stranded asset risk)"
+      ],
+      "scope_envelope": {
+        "mismatch_range": [
+          0.0,
+          5.0
+        ]
+      },
+      "data_source": [
+        "Kodiak / Aurora / Plus pilot disclosures",
+        "shipper corridor density datasets",
+        "state DOT freight movement studies"
+      ],
+      "sensitivity": [
+        "which dimensions are included in the pilot disclosure",
+        "definition of \"geometry class\" boundaries"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C085": {
+      "observable": "aggregate coefficient of variation of payback-window input prices (RSS of diesel, electricity, fully-loaded labor, rare-earth, HD-map, insurance CVs)",
+      "rate_equation": "d(aggregate_uncertainty)/d(year) = sqrt(sum_i CV_i^2); threshold = aggregate_uncertainty > reported_payback_margin",
+      "bounds": {
+        "spatial": "US national input markets",
+        "temporal": "7-year rolling depreciation window",
+        "scale": "per-truck payback model"
+      },
+      "conditions": [
+        "depreciation window declared",
+        "per-input price history available over the rolling window"
+      ],
+      "invalid_if": [
+        "published ROI pro-forma carrying a documented Monte-Carlo or scenario band over the depreciation window for diesel, electricity, fully-loaded labor, rare-earth, HD-map subscription, and insurance, with the resulting payback band narrower than the reported margin"
+      ],
+      "measured_by": [
+        "EIA diesel price history",
+        "EIA industrial electricity price history",
+        "BLS transportation wage series",
+        "USGS rare-earth index",
+        "NAIC insurance loss-cost data"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "amplifies C054 (baseline degradation) under unstable inputs"
+      ],
+      "scope_envelope": {
+        "cv_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "data_source": [
+        "EIA STEO / Monthly Energy Review",
+        "BLS Employment and Wages",
+        "USGS Mineral Commodity Summaries",
+        "NAIC commercial auto insurance reports"
+      ],
+      "sensitivity": [
+        "independence assumption across inputs",
+        "choice of CV window length"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C086": {
+      "observable": "underwriter uncertainty-premium fraction implied by years of continuous fleet operational data and audited fleet size, vs claimed insurance premium reduction",
+      "rate_equation": "d(uncertainty_premium)/d(missing_year) = +0.20 per missing year of continuous data; d/d(missing_truck-100) = +0.10 per missing pool-of-100-trucks-yr",
+      "bounds": {
+        "spatial": "US commercial-auto underwriting jurisdictions",
+        "temporal": "cumulative through audit year",
+        "scale": "pooled fleet (>= 100 trucks recommended)"
+      },
+      "conditions": [
+        "autonomous-fleet continuous-operation hours published",
+        "claimed premium reduction stated"
+      ],
+      "invalid_if": [
+        "published audited actuarial table for autonomous freight, drawn from >= 3 years of continuous operational data across >= 100 trucks, supporting the claimed premium reduction at a regulated underwriter confidence level"
+      ],
+      "measured_by": [
+        "NAIC commercial auto loss-cost filings",
+        "state DOI rate filings for autonomous-freight endorsements",
+        "AM Best autonomous trucking actuarial notes"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "coupled to C015 (liability void) and C017 (framework cost premium)"
+      ],
+      "scope_envelope": {
+        "fleet_hours_range": [
+          0.0,
+          10000000.0
+        ]
+      },
+      "data_source": [
+        "NAIC",
+        "state DOI filings",
+        "AM Best"
+      ],
+      "sensitivity": [
+        "fleet-size and continuous-hours composition weights",
+        "choice of confidence level for underwriter table"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C087": {
+      "observable": "overstatement of residual value (booked residual minus market-tested residual) as a fraction of total capex, with autonomous-specific stack residual forced to 0 absent a clearing secondary market",
+      "rate_equation": "d(residual_overstatement)/d(capex_item) = +capex_i * booked_residual_i for i in autonomous_specific_stack; threshold = overstatement / capex_total > 0.10",
+      "bounds": {
+        "spatial": "North America (no clearing secondary market for autonomous freight stack)",
+        "temporal": "end-of-deployment (typically 5-7 years)",
+        "scale": "per-truck capex"
+      },
+      "conditions": [
+        "capex split available",
+        "booked residual schedule declared"
+      ],
+      "invalid_if": [
+        "audited secondary-market clearing prices for the autonomous stack as a unit (sensor pack + on-board compute + software license + HD-map subscription + cab integration) demonstrating residual values matching those booked in the ROI pro-forma"
+      ],
+      "measured_by": [
+        "used-truck dealer sales channels",
+        "auction clearing prices",
+        "OEM trade-in valuations"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "sharpens C005 (stranded asset risk) for the autonomous-specific stack"
+      ],
+      "scope_envelope": {
+        "capex_total_usd_range": [
+          200000.0,
+          800000.0
+        ]
+      },
+      "data_source": [
+        "Ritchie Bros auction data",
+        "TruckPaper used-truck listings",
+        "ACT Research used-truck index"
+      ],
+      "sensitivity": [
+        "which items are classified as autonomous-specific",
+        "booked residual fractions used in the pro-forma"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C088": {
+      "observable": "selection-bias delta between published pilot success rate (ongoing-only denominator) and survivorship-adjusted success rate (all-launched denominator)",
+      "rate_equation": "d(selection_bias)/d(missing_pilot) = +reported_rate - n_ongoing/(n_total+1); threshold = selection_bias_delta > 0.50",
+      "bounds": {
+        "spatial": "global autonomous-trucking pilot population",
+        "temporal": "last decade of publicly documented launches",
+        "scale": "industry-level reporting"
+      },
+      "conditions": [
+        "each known pilot has documented terminal status",
+        "reporting body publishes a success-rate figure"
+      ],
+      "invalid_if": [
+        "industry success-rate report that includes every publicly documented pilot launched in the last decade \u2014 shutdowns, pivots, and ongoing \u2014 in the denominator, with audited terminal status for each"
+      ],
+      "measured_by": [
+        "press releases and bankruptcy filings",
+        "SEC filings of pivoted SPAC-era companies",
+        "industry analyst pilot trackers"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "institutional analog of C067 / C068 / C069 (decision-maker accountability)"
+      ],
+      "scope_envelope": {
+        "pilot_count_range": [
+          5,
+          50
+        ]
+      },
+      "data_source": [
+        "company SEC filings and press releases",
+        "TechCrunch / Reuters trucking-pilot trackers",
+        "analyst reports (FreightWaves, Pitchbook)"
+      ],
+      "sensitivity": [
+        "choice of terminal-status categories",
+        "cutoff date for launched-pilot enumeration"
+      ],
+      "allocation_rule": "not_applicable"
+    },
+    "C089": {
+      "observable": "ratio of reported payback period to mean autonomous-stack refresh cycle across sensor pack, on-board compute, ML model architecture, HD-map standard, and regulatory software baseline",
+      "rate_equation": "d(payback_obsolescence_ratio)/d(reported_payback) = +1/mean_refresh; threshold = reported_payback > mean_refresh",
+      "bounds": {
+        "spatial": "global autonomous-stack vendor roadmap",
+        "temporal": "2018-2030 refresh-cycle envelope",
+        "scale": "per-stack-version"
+      },
+      "conditions": [
+        "reported payback period declared",
+        "per-component refresh cycle estimable from vendor disclosures"
+      ],
+      "invalid_if": [
+        "audited deployment that completed reported payback while running the originally-deployed sensor pack, on-board compute, ML architecture, and HD-map standard without mid-cycle refresh subsidized outside the ROI accounting"
+      ],
+      "measured_by": [
+        "vendor product roadmaps",
+        "ML conference architecture release cadence",
+        "HD-map standards revision history",
+        "NHTSA / DOT autonomous regulatory updates"
+      ],
+      "cycle_class": "generation",
+      "relational_web": [
+        "coupled with C073 / C074 (lifecycle design accountability) and C020 (thermodynamic accounting)"
+      ],
+      "scope_envelope": {
+        "payback_years_range": [
+          2.0,
+          12.0
+        ]
+      },
+      "data_source": [
+        "vendor SEC filings and roadmaps",
+        "NeurIPS / CVPR / RSS publication trends",
+        "OpenLR / NDS Open / TomTom HD-map standards releases"
+      ],
+      "sensitivity": [
+        "definition of \"refresh\" (architecture vs incremental)",
+        "choice of components included in stack"
       ],
       "allocation_rule": "not_applicable"
     }

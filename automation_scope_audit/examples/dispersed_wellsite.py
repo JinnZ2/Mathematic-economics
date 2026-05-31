@@ -66,6 +66,7 @@ from automation_scope_audit.modules import (
     framework_reflexivity_audit,
     training_corpus_dynamics_audit,
     cross_domain_exclusion_audit,
+    trucking_roi_falsifiers_audit,
 )
 
 
@@ -401,6 +402,19 @@ def run() -> dict:
     c082 = cross_domain_exclusion_audit.c082_verdict()
     c083 = cross_domain_exclusion_audit.c083_verdict()
 
+    # C084-C089 — trucking-ROI falsifiers. Fails case: dispersed wellsite
+    # geometry diverges sharply from any pilot corridor, so C084
+    # mismatch fires; payback claim of 6 years exceeds the mean
+    # autonomous-stack refresh cycle, so C089 fires; remaining
+    # industry-level patterns (C085-C088) fire as global structural
+    # claims independent of deployment specifics.
+    c084 = trucking_roi_falsifiers_audit.c084_verdict()
+    c085 = trucking_roi_falsifiers_audit.c085_verdict()
+    c086 = trucking_roi_falsifiers_audit.c086_verdict()
+    c087 = trucking_roi_falsifiers_audit.c087_verdict()
+    c088 = trucking_roi_falsifiers_audit.c088_verdict()
+    c089 = trucking_roi_falsifiers_audit.c089_verdict()
+
     return {
         "scenario": "dispersed_wellsite (fails case)",
         "C000": c000,
@@ -425,6 +439,8 @@ def run() -> dict:
         "C072": c072, "C073": c073, "C074": c074, "C075": c075,
         "C076": c076, "C077": c077, "C078": c078, "C079": c079,
         "C080": c080, "C081": c081, "C082": c082, "C083": c083,
+        "C084": c084, "C085": c085, "C086": c086, "C087": c087,
+        "C088": c088, "C089": c089,
     }
 
 

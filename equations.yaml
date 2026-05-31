@@ -920,6 +920,36 @@ automation_scope_audit_claims:
       summary: "Cross-domain pattern validation: empirically-grounded outperforms popular by mean 2.8x across 5 domains"
       cross_references: ["VE_VL", "MSI", "SD"]
 
+    - id: "C084"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "Pilot-geometry extrapolation: pilot ROI conditional on pilot geometry; deployment ROI cannot be projected without per-geometry-class re-measurement"
+      cross_references: ["MSI", "SD"]
+
+    - id: "C085"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "Static input-price assumption: aggregate CV of diesel/electricity/labor/rare-earth/HD-map/insurance over depreciation window exceeds the reported payback margin"
+      cross_references: ["MSI", "VE_VL"]
+
+    - id: "C086"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "Insurance actuarial gap: <3yr / <100-truck operational data forces underwriter uncertainty premium above the claimed premium reduction"
+      cross_references: ["UFR", "ISR"]
+
+    - id: "C087"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "No autonomous-stack secondary market: booked residual on sensor pack + compute + software + HD-map + cab integration overstates true residual"
+      cross_references: ["VE_VL", "MM"]
+
+    - id: "C088"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "Pilot survivorship bias: published success rate counts only ongoing pilots in the denominator; selection-bias delta vs all-launched > 50pts"
+      cross_references: ["MSI", "SD"]
+
+    - id: "C089"
+      module: "trucking_roi_falsifiers_audit"
+      summary: "Payback exceeds technological-obsolescence: reported 5-7yr payback > 2-3yr stack refresh cycle for sensors, compute silicon, ML architecture, HD-map standards"
+      cross_references: ["MSI", "VE_VL"]
+
 # -----------------------------------------------------------------------------
 # composable accounting claim families
 #
