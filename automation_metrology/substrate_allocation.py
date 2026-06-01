@@ -25,7 +25,14 @@ hold options open against entropy. Pay it only where novelty actually lives.
 
 from dataclasses import dataclass, field
 
-CAPS = ["C1_determ", "C2_chaos", "C3_novelty", "C4_drift_resist", "C5_energy"]
+CAPS = ["C1_determ", "C2_chaos", "C3_interp", "C3_extrap",
+        "C4_drift_resist", "C5_energy"]
+# C3 split (per the constraint-geometry correction):
+#   C3_interp  = INTERPOLATIVE novelty: synthesis within the training/data
+#                distribution. AI's real strength. fails OOD by hallucinating.
+#   C3_extrap  = EXTRAPOLATIVE novelty: zero-shot physics in genuinely
+#                unprecedented situations, via proprioceptive force-gradient
+#                sensing. the human/biological domain. survives OOD.
 
 
 @dataclass
@@ -44,10 +51,11 @@ class Quantity:
 
 
 # substrate capability SUPPLY vectors (0..1 over CAPS)
+#                  C1det C2chaos C3interp C3extrap C4drift C5energy
 SUBSTRATES = {
-    "DEDICATED":      [1.00, 0.10, 0.00, 1.00, 1.00],   # lookup, checksum, interlock
-    "HUMAN_PARALLEL": [0.30, 0.95, 0.60, 0.90, 0.55],   # substrate-primary cognition
-    "GENERAL_AI":     [0.70, 0.40, 0.90, 0.20, 0.20],   # reconfigurable, drifts, costly
+    "DEDICATED":      [1.00, 0.10,  0.00,   0.00,    1.00,   1.00],  # lookup/interlock
+    "HUMAN_PARALLEL": [0.30, 0.95,  0.40,   0.90,    0.90,   0.55],  # extrap domain
+    "GENERAL_AI":     [0.70, 0.40,  0.95,   0.15,    0.20,   0.20],  # interp; hallucinates OOD
 }
 
 
@@ -64,8 +72,10 @@ def fit_and_cost(task: Task, substrate: str) -> dict:
     supply = SUBSTRATES[substrate]
     shortfalls = [max(0.0, d - s) for d, s in zip(task.demand, supply)]
     total_short = sum(shortfalls)            # includes C5 energy as ONE axis
-    # risk: safety-critical tasks punished for shortfall on chaos + drift
-    risk = task.safety * (shortfalls[1] + shortfalls[3])
+    # risk: safety-critical tasks punished for shortfall on the axes that get
+    # people hurt -- chaos(1), extrapolative-OOD(3), drift-resistance(4). a
+    # substrate that hallucinates OOD on a safety-critical task is the worst case.
+    risk = task.safety * (shortfalls[1] + shortfalls[3] + shortfalls[4])
     fit = max(0.0, 1.0 - total_short / len(CAPS))
     # balanced additive cost: misfit + safety risk. energy lives in C5 demand,
     # which the task sets ~ proportional to op VOLUME (a one-off novel task
@@ -110,22 +120,28 @@ def audit_setup(tasks) -> dict:
 
 
 # ---- demo task set: the trucking subtasks, plus committed/novel examples ----
+#  demand order: C1det C2chaos C3interp C3extrap C4drift C5energy
 def demo_tasks():
     return [
-        Task("geo_tag_arrival",          [0.95, 0.10, 0.00, 0.90, 0.95],
+        Task("geo_tag_arrival",          [0.95, 0.10, 0.00, 0.00, 0.90, 0.95],
              safety=0.1, assigned="GENERAL_AI"),     # should be DEDICATED
-        Task("fuel_authorize_validate",  [0.90, 0.15, 0.00, 0.85, 0.90],
+        Task("fuel_authorize_validate",  [0.90, 0.15, 0.00, 0.00, 0.85, 0.90],
              safety=0.2, assigned="GENERAL_AI"),     # should be DEDICATED
-        Task("trailer_db_lookup",        [0.95, 0.10, 0.05, 0.95, 0.95],
+        Task("trailer_db_lookup",        [0.95, 0.10, 0.05, 0.00, 0.95, 0.95],
              safety=0.1, assigned="GENERAL_AI"),     # should be DEDICATED
-        Task("couple_misplaced_live_yard",[0.30, 0.95, 0.55, 0.80, 0.50],
-             safety=0.9, assigned="GENERAL_AI"),     # should be HUMAN_PARALLEL
-        Task("pretrip_under_chaos",      [0.35, 0.85, 0.45, 0.80, 0.50],
-             safety=0.9, assigned="GENERAL_AI"),     # should be HUMAN_PARALLEL
-        Task("manual_dataentry_8fields", [0.90, 0.10, 0.00, 0.85, 0.85],
-             safety=0.1, assigned="HUMAN_PARALLEL"), # committed work dumped on human
-        Task("novel_unmapped_reroute",   [0.40, 0.50, 0.90, 0.30, 0.30],
-             safety=0.4, assigned="HUMAN_PARALLEL"), # plausibly GENERAL_AI
+        Task("couple_misplaced_live_yard",[0.30, 0.95, 0.10, 0.55, 0.80, 0.50],
+             safety=0.9, assigned="GENERAL_AI"),     # extrap+chaos -> HUMAN
+        Task("pretrip_under_chaos",      [0.35, 0.85, 0.10, 0.45, 0.80, 0.50],
+             safety=0.9, assigned="GENERAL_AI"),     # extrap+chaos -> HUMAN
+        Task("manual_dataentry_8fields", [0.90, 0.10, 0.00, 0.00, 0.85, 0.85],
+             safety=0.1, assigned="HUMAN_PARALLEL"), # committed work on human
+        Task("unmapped_terrain_reroute", [0.40, 0.55, 0.25, 0.75, 0.30, 0.30],
+             safety=0.6, assigned="GENERAL_AI"),     # EXTRAP novelty -> HUMAN
+        Task("cross_corpus_synthesis",   [0.30, 0.20, 0.95, 0.10, 0.15, 0.30],
+             safety=0.1, assigned="GENERAL_AI"),     # INTERP novelty -> AI (correct)
+        Task("endurance_monotony_log",   [0.40, 0.20, 0.50, 0.10, 0.90, 0.80],
+             safety=0.2, assigned="HUMAN_PARALLEL"),  # high-stamina tedium:
+             # a quality body holds it; a low body drifts -> coverage flips
     ]
 
 
