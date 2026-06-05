@@ -5,8 +5,19 @@ Weighted latent scoring. Domain-silence (L0) decoupled from asserted-unbounded (
 Contract: do not forecast. Audit whether the model CAN forecast.
 Pipeline: ingest -> inventory -> count_dof -> detect_latent
           -> classify -> bound_scope -> emit_confidence
+
+Router (sec 11) dispatches by what the caller actually has:
+    f, g, theta, t, x0   -> sensitivity-rank (global by default)  [rigorous DOF]
+    A                    -> linear-rank                            [rigorous DOF]
+    ModelRegime          -> L0..L5 lexical heuristic               [naive DOF]
+
+The `tier` field on AuditResult names which path produced the verdict, so
+downstream consumers never conflate naive count_dof with rigorous rank
+deficiency.  to_json() emits the structured form for the orchestrator's
+coating-detector stage.
 """
 
+import json
 import re
 from dataclasses import dataclass, field
 from enum import Enum
@@ -108,6 +119,7 @@ class AuditResult:
     scope_in: str
     scope_out: str
     forecast_probability: str
+    tier: str = "heuristic"   # heuristic | linear-rank | sensitivity-rank-local | -global
 
 # ----------------------------------------------------------------------
 # 4. INGEST
@@ -244,7 +256,7 @@ def emit_confidence(sol, dof, score):
     return base + " (within stated scope)"
 
 # ----------------------------------------------------------------------
-# 9. ORCHESTRATOR
+# 9. ORCHESTRATOR (heuristic path)
 # ----------------------------------------------------------------------
 
 def audit(m):
@@ -255,15 +267,96 @@ def audit(m):
     sol   = classify(dof, score)
     s_in, s_out = bound_scope(m, flags)
     return AuditResult(sol, dof, n_unk, n_ind, score, flags, s_in, s_out,
-                       emit_confidence(sol, dof, score))
+                       emit_confidence(sol, dof, score), tier="heuristic")
 
 # ----------------------------------------------------------------------
-# 10. SMOKE TEST
+# 10. ROUTER  -- dispatch by what the caller actually has
+#     f (+g) -> sensitivity rank (global if global_sweep) ;
+#     A      -> linear rank ; regime -> L1-L5 heuristic
+# ----------------------------------------------------------------------
+
+try:
+    import rank_core as _rc
+    _HAVE_RANK = True
+except Exception:
+    _HAVE_RANK = False
+
+def _solvability_from_deficiency(deficiency):
+    if deficiency < 0:  return Solvability.OVERDETERMINED
+    if deficiency == 0: return Solvability.DETERMINED
+    return Solvability.UNDERDETERMINED
+
+def _result_from_rank(rep, tier):
+    """Map RankReport / GlobalRankReport into the shared AuditResult vocabulary.
+    `tier` records WHICH path produced this verdict so naive count_dof and
+    rigorous rank-deficiency are never confused downstream."""
+    rank = getattr(rep, "rank", getattr(rep, "generic_rank", None))
+    sol  = _solvability_from_deficiency(rep.deficiency)
+    zero = getattr(rep, "zero_cols", getattr(rep, "persistent_zero_cols", []))
+    flags = [Flag("ID", float(rep.deficiency), f"{tier}: {rep.note}")]
+    scope_in  = f"{rank}/{rep.p} parameter directions recoverable"
+    scope_out = ("unrecoverable: " + ", ".join(zero)) if zero else \
+                ("coupled directions: " + str(rep.deficiency)) if rep.deficiency else "none"
+    if rep.deficiency == 0:
+        conf = "identifiable: forecast supported within sampled regime"
+    elif zero:
+        conf = f"near-impossible: output blind to {zero} -- cannot recover before forecasting"
+    else:
+        conf = f"low: {rep.deficiency} coupled dimension(s) unrecoverable from output"
+    return AuditResult(sol, rep.deficiency, rep.p, rank, float(rep.deficiency),
+                       flags, scope_in, scope_out, conf, tier=tier)
+
+def audit_model(regime=None, *, f=None, g=None, theta=None, t_points=None, x0=None,
+                A=None, labels=None, global_sweep=True, n_samples=8):
+    """Single entry. Priority: dynamical ODE -> linear matrix -> narrative heuristic."""
+    if f is not None and g is not None and theta is not None and t_points and x0 is not None:
+        if not _HAVE_RANK:
+            raise RuntimeError("rank_core.py not importable; place it beside this module")
+        if global_sweep:
+            pts = _rc.jitter_points(theta, n=n_samples, frac=0.5, seed=0)
+            rep = _rc.sensitivity_rank_global(f, g, pts, t_points, x0, labels)
+            return _result_from_rank(rep, "sensitivity-rank-global")
+        rep = _rc.sensitivity_rank(f, g, theta, t_points, x0, labels)
+        return _result_from_rank(rep, "sensitivity-rank-local")
+    if A is not None:
+        if not _HAVE_RANK:
+            raise RuntimeError("rank_core.py not importable; place it beside this module")
+        return _result_from_rank(_rc.jacobian_rank_linear(A, labels), "linear-rank")
+    if regime is not None:
+        return audit(regime)
+    raise ValueError("provide (f,g,theta,t_points,x0) | A | regime")
+
+# ----------------------------------------------------------------------
+# 11. JSON EMIT  (orchestrator coating-detector stage hand-off)
+# ----------------------------------------------------------------------
+
+def to_json(result, indent=None):
+    """Serialize AuditResult for the orchestrator. Stable schema:
+    {tier, solvability, dof, n_unknowns, n_independent, latent_score,
+     flags:[{code,severity,reason}], scope_in, scope_out, forecast_probability}"""
+    d = {
+        "tier":                 result.tier,
+        "solvability":          result.solvability.name,
+        "dof":                  result.dof,
+        "n_unknowns":           result.n_unknowns,
+        "n_independent":        result.n_independent,
+        "latent_score":         result.latent_score,
+        "flags": [{"code": f.code, "severity": f.severity, "reason": f.reason}
+                  for f in result.flags],
+        "scope_in":             result.scope_in,
+        "scope_out":            result.scope_out,
+        "forecast_probability": result.forecast_probability,
+    }
+    return json.dumps(d, indent=indent, default=str)
+
+# ----------------------------------------------------------------------
+# 12. SMOKE TEST
 # ----------------------------------------------------------------------
 
 def _show(tag, r):
     print(f"== {tag} ==")
-    print(r.solvability.name, "| dof", r.dof, "| latent", r.latent_score, "|", r.forecast_probability)
+    print(r.solvability.name, "| tier", r.tier, "| dof", r.dof, "| latent", r.latent_score)
+    print("  ", r.forecast_probability)
     for f in r.flags: print(f"   {f.code} {f.severity:>4} {f.reason}")
     print()
 
@@ -282,3 +375,23 @@ if __name__ == "__main__":
     txt = ("Global insect population growth drives crop yield because temperature "
            "is held constant and emission effects are negligible.")
     _show("language: stationary coupled cross-domain", audit(ingest_language(txt)))
+
+    # D) ROUTER -> dynamical ODE, coupled product (rigorous, not keyword)
+    t = [0.0, 0.5, 1.0, 1.5, 2.0]
+    _show("router: ODE dx/dt=-(k1 k2)x, y=x  [coupled, global sweep]",
+          audit_model(f=lambda x,th:[-(th[0]*th[1])*x[0]], g=lambda x,th:[x[0]],
+                      theta=[0.7,1.1], t_points=t, x0=[1.0], labels=["k1","k2"]))
+
+    # E) ROUTER -> dynamical ODE, two observables recover k2  [identifiable]
+    _show("router: ODE y=[x, k2*x]  [identifiable, global sweep]",
+          audit_model(f=lambda x,th:[-th[0]*x[0]], g=lambda x,th:[x[0], th[1]*x[0]],
+                      theta=[0.7,1.1], t_points=t, x0=[1.0], labels=["k1","k2"]))
+
+    # F) ROUTER -> static linear 3 eq / 4 unknown
+    _show("router: static 3 eq / 4 unknown",
+          audit_model(A=[[1,1,0,0],[0,1,1,0],[0,0,1,1]], labels=["a","b","c","d"]))
+
+    # G) JSON emit demo
+    r = audit_model(A=[[1,1,0,0],[0,1,1,0],[0,0,1,1]], labels=["a","b","c","d"])
+    print("== JSON for orchestrator ==")
+    print(to_json(r, indent=2))

@@ -14,11 +14,13 @@ Three cases (Heinrich et al. 2025, StrucID):
 """
 
 import math
+import random
 from dataclasses import dataclass
 
-RTOL_RANK = 1e-7    # singular value counts as zero below RTOL_RANK * s_max
-RTOL_ZCOL = 1e-8    # column counts as zero below RTOL_ZCOL * max_col_norm
-FD_REL    = 1e-6    # finite-difference step, relative to |theta_j|
+RTOL_RANK     = 1e-7    # singular value counts as zero below RTOL_RANK * s_max
+RTOL_ZCOL     = 1e-8    # column counts as zero below RTOL_ZCOL * max_col_norm
+NEAR_RANK_TOL = 1e-4    # min/max sval ratio below this -> NEAR-DEFICIENT (marginal)
+FD_REL        = 1e-6    # finite-difference step, relative to |theta_j|
 
 # ----------------------------------------------------------------------
 # 1. STDLIB LINEAR ALGEBRA
@@ -99,12 +101,23 @@ def _classify_rank(p, svals, col_norms, labels):
     zero_cols = [labels[j] for j, cn in enumerate(col_norms)
                  if cmax == 0.0 or cn < RTOL_ZCOL * cmax]
     deficiency = p - rank
+
+    # near-rank-deficiency guard: smallest *counted-nonzero* sval close to threshold
+    # means a small perturbation could flip the rank.  Mark as MARGINAL.
+    near = ""
+    if smax > 0 and rank > 0:
+        nonzero = [s for s in svals if s > RTOL_RANK * smax]
+        if nonzero:
+            ratio = min(nonzero) / smax
+            if ratio < NEAR_RANK_TOL:
+                near = f"  [MARGINAL: min/max sval = {ratio:.2e} < {NEAR_RANK_TOL:.0e}]"
+
     if deficiency == 0:
-        cls, note = "IDENTIFIABLE", "rank == p (locally)"
+        cls, note = "IDENTIFIABLE", "rank == p (locally)" + near
     elif zero_cols:
-        cls, note = "NON_IDENTIFIABLE", f"output insensitive to: {zero_cols}"
+        cls, note = "NON_IDENTIFIABLE", f"output insensitive to: {zero_cols}" + near
     else:
-        cls, note = "NON_IDENTIFIABLE", "rank-deficient: columns linearly dependent (coupled params)"
+        cls, note = "NON_IDENTIFIABLE", "rank-deficient: columns linearly dependent (coupled params)" + near
     return RankReport(p, rank, deficiency, [round(s, 6) for s in svals], zero_cols, cls, note)
 
 # ----------------------------------------------------------------------
@@ -144,20 +157,81 @@ def _observe(g, states, theta):
     return vec
 
 def sensitivity_rank(f, g, theta, t_points, x0, labels=None):
-    """Build S[r][j] = d y_r / d theta_j by forward finite difference, then rank.
-    f(x,theta)->dx ; g(x,theta)->observables. Pure numerics, model-agnostic."""
+    """Build S[r][j] = d y_r / d theta_j by *central* finite difference, then rank.
+    Central diff cancels the O(h) truncation term -> conditioning ~ h^2 + eps/h.
+    f(x,theta)->dx ; g(x,theta)->observables. Pure numerics, model-agnostic.
+    Near-rank-deficiency surfaces via the [MARGINAL] tag in the report note."""
     p = len(theta)
     labels = labels or [f"theta{j}" for j in range(p)]
-    base = _observe(g, _rk4(f, x0, theta, t_points), theta)
-    rows = len(base)
-    S = [[0.0]*p for _ in range(rows)]
+    S = None
     for j in range(p):
         d = FD_REL * (abs(theta[j]) if theta[j] != 0 else 1.0)
-        tp = list(theta); tp[j] += d
-        pert = _observe(g, _rk4(f, x0, tp, t_points), tp)
-        for r in range(rows):
-            S[r][j] = (pert[r] - base[r]) / d
+        tp_plus  = list(theta); tp_plus[j]  += d
+        tp_minus = list(theta); tp_minus[j] -= d
+        y_plus  = _observe(g, _rk4(f, x0, tp_plus,  t_points), tp_plus)
+        y_minus = _observe(g, _rk4(f, x0, tp_minus, t_points), tp_minus)
+        if S is None:
+            S = [[0.0]*p for _ in range(len(y_plus))]
+        inv2d = 0.5 / d
+        for r in range(len(y_plus)):
+            S[r][j] = (y_plus[r] - y_minus[r]) * inv2d
     return _classify_rank(p, singular_values(S), _col_norms(S), labels)
+
+# ----------------------------------------------------------------------
+# 4b. GLOBAL SWEEP  (sample-and-aggregate identifiability)
+# ----------------------------------------------------------------------
+
+@dataclass
+class GlobalRankReport:
+    p: int
+    generic_rank: int           # max rank attained across samples (~almost-everywhere)
+    deficiency: int             # p - generic_rank
+    singular_values: list       # spectrum at the sample that attained generic_rank
+    persistent_zero_cols: list  # zero in EVERY sample -> structurally insensitive
+    classification: str
+    note: str = ""
+    n_samples: int = 0
+
+def jitter_points(theta, n=8, frac=0.5, seed=0):
+    """Return n parameter samples: theta itself, then n-1 uniform [-frac, +frac]
+    relative jitters.  Used by the global sweep to probe genericity of rank."""
+    rng = random.Random(seed)
+    pts = [list(theta)]
+    for _ in range(max(0, n - 1)):
+        pts.append([v + (abs(v) if v != 0 else 1.0) * frac * (2*rng.random() - 1)
+                    for v in theta])
+    return pts
+
+def sensitivity_rank_global(f, g, theta_points, t_points, x0, labels=None):
+    """Sweep rank across theta samples.  Generic rank = max attained (rank holds
+    almost everywhere; lower-rank points are measure-zero pathologies in the
+    StrucID sense).  Persistent zero col = zero at every sample -> param truly
+    structurally insensitive, not just zero at one degenerate point."""
+    p = len(theta_points[0])
+    labels = labels or [f"theta{j}" for j in range(p)]
+    reports = [sensitivity_rank(f, g, th, t_points, x0, labels) for th in theta_points]
+
+    ranks = [r.rank for r in reports]
+    generic_rank = max(ranks)
+    best = next(r for r in reports if r.rank == generic_rank)
+
+    persistent = set(reports[0].zero_cols)
+    for r in reports[1:]:
+        persistent &= set(r.zero_cols)
+    persistent_zero_cols = [c for c in labels if c in persistent]
+
+    deficiency = p - generic_rank
+    if deficiency == 0:
+        cls = "IDENTIFIABLE"
+        note = f"generic rank == p across {len(theta_points)} samples"
+    elif persistent_zero_cols:
+        cls = "NON_IDENTIFIABLE"
+        note = f"persistently insensitive across all samples: {persistent_zero_cols}"
+    else:
+        cls = "NON_IDENTIFIABLE"
+        note = f"generic-rank deficient by {deficiency}: coupling holds across all {len(theta_points)} samples"
+    return GlobalRankReport(p, generic_rank, deficiency, best.singular_values,
+                            persistent_zero_cols, cls, note, len(theta_points))
 
 # ----------------------------------------------------------------------
 # 5. SMOKE TESTS  (known identifiability outcomes)
