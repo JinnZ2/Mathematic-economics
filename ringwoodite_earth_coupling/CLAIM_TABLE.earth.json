@@ -1,0 +1,172 @@
+[
+  {
+    "cid": "RW-01",
+    "statement": "Ringwoodite stores 0-3 wt% structural water across the lower transition zone (~525-660 km, ~18-23 GPa).",
+    "evidence": "MEASURED",
+    "unit": "wt_percent_H2O",
+    "sanity": [
+      0.0,
+      3.0
+    ],
+    "falsifier": "Hydrous ringwoodite inclusions / electrical conductivity show storage capacity outside 0-3 wt% under TZ P-T.",
+    "references": [
+      "Pearson et al. 2014 (diamond inclusion, ~1.4 wt%)",
+      "Schmandt et al. 2014 (dehydration melting atop 660)"
+    ],
+    "status": "SUPPORTED",
+    "note": ""
+  },
+  {
+    "cid": "RW-02",
+    "statement": "Hydrous ringwoodite descending across the 660 km boundary (rw -> bridgmanite + ferropericlase) sheds water because the lower-mantle assemblage stores far less.",
+    "evidence": "MEASURED",
+    "unit": "kg_H2O_per_kg_rock",
+    "sanity": [
+      0.0,
+      0.03
+    ],
+    "falsifier": "Lower-mantle phases shown to retain ~rw-level water, erasing the dehydration contrast at 660.",
+    "references": [
+      "Schmandt et al. 2014"
+    ],
+    "status": "SUPPORTED",
+    "note": ""
+  },
+  {
+    "cid": "CPL-01",
+    "statement": "Mantle water content lowers effective viscosity (hydrolytic weakening), modulating heat delivered to the base of the crust on >10 kyr timescales.",
+    "evidence": "DERIVED",
+    "unit": "dimensionless_log10_eta_drop_per_wt_percent",
+    "sanity": [
+      0.5,
+      2.5
+    ],
+    "falsifier": "Olivine/ringwoodite rheology shows <0.5 decade viscosity drop per wt% water at TZ conditions.",
+    "references": [
+      "Mei & Kohlstedt 2000 (hydrolytic weakening)"
+    ],
+    "status": "OPEN",
+    "note": ""
+  },
+  {
+    "cid": "CPL-02",
+    "statement": "Deep-water boundary state sets a SLOW background sensitivity; it does NOT trigger human-timescale floods directly. Mantle overturn ~1e8-1e9 yr >> narrative window ~1e4-1e5 yr.",
+    "evidence": "DERIVED",
+    "unit": "years_mantle_overturn",
+    "sanity": [
+      100000000.0,
+      2000000000.0
+    ],
+    "falsifier": "Demonstrated regional deep-water pulse with surface expression on <1e4 yr timescale.",
+    "references": [
+      "whole-mantle convection overturn estimates"
+    ],
+    "status": "SUPPORTED",
+    "note": "This is the honesty spine. Ringwoodite is the dimmer switch, not the trigger. The trigger is fast forcing on a sensitive base."
+  },
+  {
+    "cid": "EVT-01",
+    "statement": "Surface water-emergence/flood events cluster where FAST forcings (orbital insolation, glacial unloading, solar, Chandler/annual wobble) constructively align ON TOP OF a high deep-water sensitivity baseline.",
+    "evidence": "SPECULATIVE",
+    "unit": "event_probability",
+    "sanity": [
+      0.0,
+      1.0
+    ],
+    "falsifier": "Adding the deep-water baseline term does NOT improve hit-rate of predicted windows vs fast-forcing-only model above a random-shuffle baseline.",
+    "references": [],
+    "status": "OPEN",
+    "note": "The whole model lives or dies here. If the baseline term is inert, drop it and keep the fast-forcing model."
+  },
+  {
+    "cid": "NAR-01",
+    "statement": "Geographic/temporal clustering of flood & island-subsidence narratives correlates with predicted high-probability windows better than chance.",
+    "evidence": "SPECULATIVE",
+    "unit": "hit_rate_minus_random",
+    "sanity": [
+      -1.0,
+      1.0
+    ],
+    "falsifier": "Narrative-cluster dates show no excess overlap with predicted windows beyond a Monte-Carlo shuffle null.",
+    "references": [],
+    "status": "OPEN",
+    "note": "Requires a real, dated narrative dataset. Placeholder shipped."
+  },
+  {
+    "cid": "AQ-01",
+    "statement": "Coseismic / crustal-stress change drives pore-pressure change in saturated aquifers via undrained poroelastic (Skempton) coupling, dp = B * d_sigma_mean.",
+    "evidence": "MEASURED",
+    "unit": "Pa_pore_pressure_change",
+    "sanity": [
+      0.0,
+      5000000.0
+    ],
+    "falsifier": "Observed water-level/spring response to known coseismic strain departs from poroelastic prediction with B in 0.4-0.9.",
+    "references": [
+      "Skempton 1954",
+      "Roeloffs 1996",
+      "Manga & Wang 2010"
+    ],
+    "status": "SUPPORTED",
+    "note": ""
+  },
+  {
+    "cid": "AQ-02",
+    "statement": "Liquefaction / forced upwelling ('water from the ground') occurs above a seismic-energy-density threshold (~0.1 J/m^3); milder hydrologic response (spring/level) extends to ~1e-3 J/m^3. e(M,r) per Wang 2007.",
+    "evidence": "MEASURED",
+    "unit": "J_per_m3_energy_density",
+    "sanity": [
+      0.0001,
+      10000.0
+    ],
+    "falsifier": "Documented liquefaction at e well below 1e-2 J/m^3, or no liquefaction well above 1 J/m^3 in saturated loose soil.",
+    "references": [
+      "Wang 2007 GRL (seismic energy density)",
+      "Wang & Manga 2010"
+    ],
+    "status": "SUPPORTED",
+    "note": ""
+  },
+  {
+    "cid": "AQ-03",
+    "statement": "A primed deep-water baseline (low effective stress / pre-overpressured aquifers) lowers the energy-density threshold for forced emergence, linking the SLOW mantle state to FAST seismic triggering.",
+    "evidence": "SPECULATIVE",
+    "unit": "dimensionless_threshold_scale",
+    "sanity": [
+      0.3,
+      1.0
+    ],
+    "falsifier": "Sites over high-sensitivity zones show no lower emergence threshold than matched control sites at equal M and r.",
+    "references": [],
+    "status": "OPEN",
+    "note": "The bridge between the mantle model and the seismic mechanism."
+  },
+  {
+    "cid": "SYN-01",
+    "statement": "Emergence narratives in disconnected cultures co-date with regional paleoseismic markers (turbidites, liquefaction features, tsunami deposits) better than chance.",
+    "evidence": "SPECULATIVE",
+    "unit": "hit_rate_minus_random",
+    "sanity": [
+      -1.0,
+      1.0
+    ],
+    "falsifier": "Emergence-narrative dates show no excess overlap with paleoseismic-marker dates beyond a shuffle null.",
+    "references": [],
+    "status": "OPEN",
+    "note": "Each region triggers LOCALLY. Apparent cross-continental synchrony is a SEPARATE claim (SYN-02): test it against dating resolution and a Poisson clustering null before believing it."
+  },
+  {
+    "cid": "SYN-02",
+    "statement": "Cross-continental TEMPORAL synchrony of emergence events exceeds what independent regional seismicity produces by chance (i.e. there is a common pacing, not coincidence).",
+    "evidence": "SPECULATIVE",
+    "unit": "synchrony_excess_over_poisson",
+    "sanity": [
+      -1.0,
+      1.0
+    ],
+    "falsifier": "Observed cross-region clustering is consistent with independent Poisson seismicity once dating uncertainty is convolved in. Then synchrony is an artifact, drop it.",
+    "references": [],
+    "status": "OPEN",
+    "note": "The seductive claim. Most likely to be a dating-resolution illusion. Built to be killed unless the data is overwhelming."
+  }
+]
