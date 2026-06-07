@@ -49,6 +49,10 @@ def main() -> int:
          [sys.executable, "calibration/test_calibration.py"]),
         ("PhysicsGuard <-> Math-Econ bridges",
          [sys.executable, "tests/test_bridges.py"]),
+        ("predictions_registry HMAC chain + per-domain accuracy",
+         [sys.executable, "tests/test_prediction_registry.py"]),
+        ("accounting / AA + GM + SP + TE + CC claim invariants",
+         [sys.executable, "tests/test_accounting.py"]),
     ]
     results = []
     for label, cmd in steps:

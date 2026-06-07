@@ -79,6 +79,7 @@ from automation_scope_audit.modules import (
     framework_reflexivity_audit,
     training_corpus_dynamics_audit,
     cross_domain_exclusion_audit,
+    trucking_roi_falsifiers_audit,
 )
 
 
@@ -507,6 +508,28 @@ def run() -> dict:
     c082 = cross_domain_exclusion_audit.c082_verdict()
     c083 = cross_domain_exclusion_audit.c083_verdict()
 
+    # C084-C089 — trucking-ROI falsifiers. Works case: pilot geometry
+    # *is* the deployment geometry (consolidated Permian corridor), so
+    # C084 mismatch is near zero; payback assumed at 4 years (faster than
+    # the marketing claim, reflecting the favorable corridor) so C089 is
+    # within the obsolescence window for most components. C085 / C086 /
+    # C087 / C088 are industry-level structural patterns and fire here
+    # as they do in the fails case.
+    pilot_geom = {
+        "route_variance":          0.05,
+        "destination_set_size":    4.0,
+        "weather_envelope_span":   0.2,
+        "surface_type_diversity":  0.1,
+        "interface_partner_count": 3.0,
+    }
+    c084 = trucking_roi_falsifiers_audit.c084_verdict(
+        pilot=pilot_geom, deployment=pilot_geom)
+    c085 = trucking_roi_falsifiers_audit.c085_verdict()
+    c086 = trucking_roi_falsifiers_audit.c086_verdict()
+    c087 = trucking_roi_falsifiers_audit.c087_verdict()
+    c088 = trucking_roi_falsifiers_audit.c088_verdict()
+    c089 = trucking_roi_falsifiers_audit.c089_verdict(reported_payback_years=4.0)
+
     return {
         "scenario": "kodiak_atlas_permian (works case)",
         "C000": c000,
@@ -531,6 +554,8 @@ def run() -> dict:
         "C072": c072, "C073": c073, "C074": c074, "C075": c075,
         "C076": c076, "C077": c077, "C078": c078, "C079": c079,
         "C080": c080, "C081": c081, "C082": c082, "C083": c083,
+        "C084": c084, "C085": c085, "C086": c086, "C087": c087,
+        "C088": c088, "C089": c089,
     }
 
 

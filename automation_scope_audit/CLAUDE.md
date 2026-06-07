@@ -5,8 +5,8 @@ License: CC0-1.0.
 
 ## What this package is
 
-A falsifiable audit of autonomous-trucking ROI claims, with 33 numbered
-structural claims (C000-C032) across 17 modules. Every claim conforms to
+A falsifiable audit of autonomous-trucking ROI claims, with 90 numbered
+structural claims (C000-C089) across 30+ modules. Every claim conforms to
 the repo-root `DIFFERENTIAL_FRAME.md`: each is a `dX/dt` under explicit
 scope, with a single-sentence falsifier sufficient to refute it.
 Contract-validated form: `CLAIM_TABLE.fab.json` (round-trips through
@@ -107,7 +107,7 @@ invariant, not the states."
 
 ## Adding a new claim
 
-1. Pick a free claim ID (currently C033 is the next free number).
+1. Pick a free claim ID (currently C090 is the next free number).
 2. Add the verdict function in the appropriate existing module, OR
    create a new module under `modules/`. Each verdict function must
    return a dict with at minimum `claim_id`, `threshold_met`, and

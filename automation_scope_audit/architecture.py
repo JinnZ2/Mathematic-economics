@@ -1,7 +1,7 @@
 """
 architecture.py — 6-layer structural architecture for the audit framework
 
-Every claim C000-C064 belongs to one of six layers (or to a cross-cutting
+Every claim C000-C089 belongs to one of six layers (or to a cross-cutting
 band that spans multiple layers). The layers form a closed coupling
 cycle: a break in any layer propagates downstream until it returns to
 the upstream layer it depends on. When every layer has at least one
@@ -76,12 +76,16 @@ LAYERS: List[dict] = [
     {"layer": 6, "name": "economic",
      "claims": ["C027", "C028", "C029", "C030",
                 "C054", "C055", "C058",
-                "C073", "C074"],
+                "C073", "C074",
+                "C084", "C085", "C086", "C087", "C089"],
      "description":
         "True cost accounting that closes the cycle. Energy-grounded "
         "economic claims, unified capital, baseline corruption, deferred "
-        "maintenance liability, lifecycle design accountability — feeds "
-        "back into layer 1 as the ROI feasibility check."},
+        "maintenance liability, lifecycle design accountability, "
+        "trucking-ROI falsifiers (pilot-geometry extrapolation, static "
+        "input-price assumption, insurance actuarial gap, secondary-market "
+        "absence, payback vs technological obsolescence) — feeds back "
+        "into layer 1 as the ROI feasibility check."},
 ]
 
 CROSS_CUTTING: dict = {
@@ -99,6 +103,7 @@ CROSS_CUTTING: dict = {
         "C075",                  # framework reflexivity (meta, pre-cycle)
         "C079",                  # 8-step cascade synthesis (meta-claim across layers)
         "C080", "C081", "C082", "C083",  # cross-domain empirical validation of the cascade
+        "C088",                  # pilot survivorship bias (industry-level reporting pattern)
     ],
     "description":
         "Claims that span multiple layers or sit outside the cycle "
@@ -128,8 +133,8 @@ CONCERN_INVERTED = {"C001", "C004"}
 # ---------------------------------------------------------------------------
 
 def coverage_check() -> dict:
-    """Verify every claim C000..C064 is in exactly one layer (or cross-cutting)."""
-    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 84)]
+    """Verify every claim C000..C089 is in exactly one layer (or cross-cutting)."""
+    all_claim_ids = ["C000"] + [f"C{n:03d}" for n in range(1, 90)]
     in_layers = []
     for L in LAYERS:
         in_layers.extend(L["claims"])

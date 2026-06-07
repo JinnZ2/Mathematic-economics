@@ -986,7 +986,8 @@ All equations reference specific, publicly available data sources with API endpo
 
 ### Companion folders
 
-- **`automation_scope_audit/`** — 33 falsifiable claims (C000-C032) about autonomous-trucking ROI, organized into 17 modules, each with a measurable threshold and single-sentence falsifier. Cross-references the 13 canonical equations above through `equations.yaml::automation_scope_audit_claims:`. See `automation_scope_audit/README.md`.
+- **`accounting/`** — domain-agnostic composable audit primitives with their own claim families (AA-1..5 atomic-accounting closure test, GM-1..5 GDP-metrology political-invariant test, SP-1..5 substrate-parity audit, TE-1..5 thermodynamic-exception detector, CC-1..6 cost-of-competition audit). Prefixes intentionally do not enter the C-series. See `accounting/CLAIMS.md`.
+- **`automation_scope_audit/`** — 84 falsifiable claims (C000-C083) about autonomous-trucking ROI, organized across 23 modules, each with a measurable threshold and single-sentence falsifier. Cross-references the 13 canonical equations above through `equations.yaml::automation_scope_audit_claims:`. See `automation_scope_audit/README.md`.
 - **`audit/`** — broader audit / accountability / certification framework. Includes `autonomous_freight_audit.py` (Class-1-corridor constraint layers), `efficiency_report_audit.py` (Six-Sigma audit on industry archetypes), and the field_system / scope_audit / metabolic / money-signal / investment-signal bridges.
 - **`calibration/`** — falsifiable diagnostic suite (5 dimensions, GREEN/YELLOW/RED/EXTINCT bands, 11 falsification tests).
 - **`core/`** — vendored TAF physical sub-models (fatigue, human-system-collapse, heat-leak).
