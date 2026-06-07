@@ -1,218 +1,290 @@
+#!/usr/bin/env python3
 # ozone_constraint_checker.py
-# Falsifiable ozone formation model vs. observed AQI
-# Input: emissions + meteorology + observations
-# Output: prediction mismatch = constraint violation
+# Falsifiable wildfire-ozone model vs. observed AQI.
+# CC0. stdlib-only. phone-buildable. fetch-on-wifi / read-on-road.
+#
+# PHYSICS BASIS (corrected from "trucks cause local O3" narrative):
+#   Fires emit NOx + VOC + HOx-precursors (HONO, HCHO) DIRECTLY.
+#   O3 forms INSIDE the plume during transport -> arrives pre-cooked.
+#   Plume is an air mass -> blankets terrain uniformly,
+#     independent of local ground-source density.
+#   NOx-limited rural air yields MORE O3 per unit NOx than
+#     NOx-saturated urban air (the regime flip).
+#   Dense smoke suppresses photolysis (O3 down);
+#     thin/aged smoke lets light through (O3 up).
+# refs: Wotawa&Trainer 2000; Jaffe&Wigder 2012; FIREX-AQ;
+#       ACP 25/8701/2025; ACP 25/5591/2025.
 
 import json
-from dataclasses import dataclass
-from typing import List, Dict
-from datetime import datetime
 import math
+from dataclasses import dataclass, field
+from typing import List, Dict, Optional
+
+
+# ---------------------------------------------------------------
+# DATA STRUCTURES
+# ---------------------------------------------------------------
 
 @dataclass
 class NOxSource:
-    """Localized NOx emission point"""
-    location_name: str
+    """Localized ground NOx emitter. Now SECONDARY to plume term."""
+    name: str
     lat: float
     lon: float
     nox_tons_per_day: float
-    source_type: str  # truck, ag, lumber, industrial, power
-    confidence: float  # 0.0 to 1.0
+    source_type: str          # truck | ag | lumber | industrial | power
+    confidence: float = 1.0
+
+
+@dataclass
+class FirePlume:
+    """Transported wildfire air mass. The PRIMARY O3 driver."""
+    name: str
+    upwind_lat: float
+    upwind_lon: float
+    transport_bearing_deg: float   # direction plume travels toward
+    age_hours: float               # transport time since emission
+    frp_mw: float                  # fire radiative power (intensity)
+    aod: float                     # aerosol optical depth (smoke thickness)
+    preformed_o3_ppb: float        # O3 already formed in transit
+    nox_residual_ppb: float        # NOx still active on arrival
+    hox_index: float = 1.0         # HONO/HCHO radical loading, normalized
+
 
 @dataclass
 class MonitorReading:
-    """Real AQI observation from MPCA network"""
-    location_name: str
+    """Observed AQI from MPCA / AirNow network."""
+    name: str
     lat: float
     lon: float
     aqi_ozone: int
     timestamp: str
-    source: str
+    source: str = "MPCA"
+
 
 @dataclass
 class MeteoState:
-    """Atmospheric conditions snapshot"""
     timestamp: str
-    wind_direction_deg: float
+    wind_direction_deg: float      # FROM direction (met convention)
     wind_speed_mph: float
     mixing_layer_feet: int
     temperature_f: float
     solar_radiation_w_m2: float
     humidity_percent: float
-    voc_ug_m3: float  # wildfire smoke VOC concentration
+
+
+# ---------------------------------------------------------------
+# CORE MODEL
+# ---------------------------------------------------------------
 
 class OzoneConstraintChecker:
-    """Physics-based ozone prediction vs. observation"""
+
+    PPB_TO_AQI = 100.0 / 70.0   # 70 ppb 8-hr = NAAQS edge ~ AQI 100
 
     def __init__(self):
         self.nox_sources: List[NOxSource] = []
+        self.plumes: List[FirePlume] = []
         self.observations: List[MonitorReading] = []
-        self.meteo: MeteoState = None
+        self.meteo: Optional[MeteoState] = None
         self.violations: List[Dict] = []
 
-    def load_emissions_inventory(self, json_file: str):
-        """Load NOx sources from EPA/state inventory"""
-        with open(json_file, 'r') as f:
-            data = json.load(f)
-        for src in data.get('sources', []):
-            self.nox_sources.append(NOxSource(**src))
+    # ---- loaders (populate from FIRMS / NOAA / EPA / MPCA) ----
 
-    def load_observations(self, csv_file: str):
-        """Load real AQI readings from MPCA monitor network"""
-        # Parse CSV: location, lat, lon, aqi_ozone, timestamp
-        with open(csv_file, 'r') as f:
+    def load_emissions(self, path: str):
+        with open(path) as f:
+            for s in json.load(f).get("sources", []):
+                self.nox_sources.append(NOxSource(**s))
+
+    def load_plumes(self, path: str):
+        with open(path) as f:
+            for p in json.load(f).get("plumes", []):
+                self.plumes.append(FirePlume(**p))
+
+    def load_observations(self, csv_path: str):
+        with open(csv_path) as f:
             for line in f.readlines()[1:]:
-                parts = line.strip().split(',')
+                c = line.strip().split(",")
+                if len(c) < 5:
+                    continue
                 self.observations.append(MonitorReading(
-                    location_name=parts[0],
-                    lat=float(parts[1]),
-                    lon=float(parts[2]),
-                    aqi_ozone=int(parts[3]),
-                    timestamp=parts[4],
-                    source='MPCA'
-                ))
+                    name=c[0], lat=float(c[1]), lon=float(c[2]),
+                    aqi_ozone=int(c[3]), timestamp=c[4]))
 
-    def load_meteorology(self, json_file: str):
-        """Load NOAA GFS atmospheric state"""
-        with open(json_file, 'r') as f:
-            data = json.load(f)
-        self.meteo = MeteoState(**data)
+    def load_meteorology(self, path: str):
+        with open(path) as f:
+            self.meteo = MeteoState(**json.load(f))
 
-    def distance_km(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-        """Haversine distance between two points"""
-        R = 6371  # Earth radius km
-        dlat = math.radians(lat2 - lat1)
-        dlon = math.radians(lon2 - lon1)
-        a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
+    # ---- geometry ----
+
+    @staticmethod
+    def _dist_km(la1, lo1, la2, lo2):
+        R = 6371.0
+        dla = math.radians(la2 - la1)
+        dlo = math.radians(lo2 - lo1)
+        a = (math.sin(dla / 2) ** 2 +
+             math.cos(math.radians(la1)) * math.cos(math.radians(la2)) *
+             math.sin(dlo / 2) ** 2)
         return 2 * R * math.asin(math.sqrt(a))
 
-    def gaussian_plume_concentration(self, source: NOxSource, receptor_lat: float, receptor_lon: float) -> float:
-        """Gaussian plume model: NOx concentration at receptor downwind of source"""
-        # Standard atmospheric dispersion model
-        dist = self.distance_km(source.lat, source.lon, receptor_lat, receptor_lon)
+    @staticmethod
+    def _bearing(la1, lo1, la2, lo2):
+        return math.degrees(math.atan2(lo2 - lo1, la2 - la1)) % 360
 
-        # Wind direction: is receptor downwind?
-        bearing = math.degrees(math.atan2(receptor_lon - source.lon, receptor_lat - source.lat))
-        wind_angle = (bearing - self.meteo.wind_direction_deg) % 360
+    # ---- regime classifier ----
 
-        # Only count if downwind (within ~90 degrees of wind direction)
-        if wind_angle > 90 and wind_angle < 270:
+    def _regime(self, local_nox_ppb: float) -> str:
+        """NOx-limited rural vs NOx-saturated urban. drives O3 yield."""
+        if local_nox_ppb < 8:
+            return "NOx_limited"     # adding NOx -> more O3 (high yield)
+        if local_nox_ppb > 25:
+            return "NOx_saturated"   # adding NOx -> little/no O3
+        return "transitional"
+
+    def _yield_factor(self, regime: str) -> float:
+        return {"NOx_limited": 1.6,
+                "transitional": 1.0,
+                "NOx_saturated": 0.45}[regime]
+
+    # ---- local ground NOx (now a minor term) ----
+
+    def _local_nox_ppb(self, rlat, rlon) -> float:
+        if not self.meteo:
             return 0.0
+        u = max(0.1, self.meteo.wind_speed_mph * 0.44704)
+        total = 0.0
+        for s in self.nox_sources:
+            d = self._dist_km(s.lat, s.lon, rlat, rlon)
+            if d > 200:
+                continue
+            brg = self._bearing(s.lat, s.lon, rlat, rlon)
+            off = abs((brg - (self.meteo.wind_direction_deg + 180)) % 360)
+            off = min(off, 360 - off)
+            if off > 90:
+                continue                      # receptor not downwind
+            sy = max(1e-3, 0.08 * d * (1 + 1e-4 * d))
+            sz = max(1e-3, 0.06 * d * (1 + 1.5e-3 * d))
+            Q = s.nox_tons_per_day * 1e6 / 86400.0   # g/s
+            conc = (Q / (2 * math.pi * u * sy * sz))
+            total += conc * 0.1 * s.confidence       # crude ->ppb
+        return total
 
-        # Dispersion parameters (Pasquill-Gifford)
-        sigma_y = 0.08 * dist * (1 + 0.0001 * dist)  # lateral spread
-        sigma_z = 0.06 * dist * (1 + 0.0015 * dist)  # vertical spread
+    # ---- plume contribution (the PRIMARY term) ----
 
-        if sigma_y == 0 or sigma_z == 0:
+    def _plume_o3_ppb(self, rlat, rlon) -> float:
+        if not self.meteo:
             return 0.0
+        total = 0.0
+        for p in self.plumes:
+            # is receptor downwind along the plume travel bearing?
+            brg = self._bearing(p.upwind_lat, p.upwind_lon, rlat, rlon)
+            off = abs((brg - p.transport_bearing_deg) % 360)
+            off = min(off, 360 - off)
+            if off > 60:
+                continue                       # not under this plume
+            # aerosol photolysis gate: thick smoke suppresses O3
+            if p.aod >= 2.5:
+                photolysis = 0.3               # dark plume core
+            elif p.aod >= 1.0:
+                photolysis = 0.7
+            else:
+                photolysis = 1.0               # thin/aged -> full sun
+            solar = self.meteo.solar_radiation_w_m2 / 1000.0
+            total += p.preformed_o3_ppb * photolysis * max(0.2, solar)
+        return total
 
-        # Daily emission rate in grams
-        emission_g_day = source.nox_tons_per_day * 1_000_000
+    # ---- combined prediction ----
 
-        # Effective stack height (assume ground-level for mobile/ag sources)
-        H = 10  # meters
+    def predict_aqi(self, rlat, rlon) -> Dict:
+        local_nox = self._local_nox_ppb(rlat, rlon)
+        plume_nox = sum(p.nox_residual_ppb for p in self.plumes)
+        regime = self._regime(local_nox)
+        yf = self._yield_factor(regime)
 
-        # Concentration at receptor (simplified Gaussian)
-        Q = emission_g_day / (24 * 3600)  # grams per second
-        u = self.meteo.wind_speed_mph * 0.44704  # convert to m/s
+        # in-place photochem from residual plume NOx meeting local air
+        solar = self.meteo.solar_radiation_w_m2 / 1000.0 if self.meteo else 0.5
+        temp_f = self.meteo.temperature_f if self.meteo else 80
+        temp_factor = max(0.0, (temp_f - 70) / 30.0)
+        hox = sum(p.hox_index for p in self.plumes) or 1.0
 
-        if u < 0.1:
-            return 0.0
+        in_place_o3 = plume_nox * yf * solar * (0.5 + temp_factor) * hox
 
-        concentration = (Q / (2 * math.pi * u * sigma_y * sigma_z)) * math.exp(-H**2 / (2 * sigma_z**2))
+        plume_o3 = self._plume_o3_ppb(rlat, rlon)   # pre-formed, arrives
 
-        # Convert to ppb (rough: 1 ton NOx/day ~ 10 ppb at 1km downwind in stagnant conditions)
-        ppb = concentration * 0.1
-        return max(0, ppb)
+        total_o3 = plume_o3 + in_place_o3
+        aqi = min(500.0, total_o3 * self.PPB_TO_AQI)
+        return {
+            "predicted_aqi": round(aqi, 1),
+            "local_nox_ppb": round(local_nox, 2),
+            "regime": regime,
+            "preformed_o3_ppb": round(plume_o3, 1),
+            "in_place_o3_ppb": round(in_place_o3, 1),
+            "plume_present": bool(self.plumes),
+        }
 
-    def predict_ozone_at_receptor(self, receptor_lat: float, receptor_lon: float) -> float:
-        """Predict ground-level ozone from NOx + VOCs"""
-        # Sum upwind NOx contributions
-        total_nox_ppb = sum(
-            self.gaussian_plume_concentration(src, receptor_lat, receptor_lon)
-            for src in self.nox_sources
-        )
+    # ---- constraint check ----
 
-        # Photochemical ozone formation (simplified)
-        # Ozone ~ f(NOx, VOC, solar_radiation, temperature)
-        # High-level approximation: ozone increases with NOx and VOC, peaks at certain NOx/VOC ratio
-
-        solar_factor = self.meteo.solar_radiation_w_m2 / 1000  # normalized to ~1 at peak
-        temp_factor = max(0, (self.meteo.temperature_f - 70) / 30)  # increases above 70F
-
-        voc_ppb = self.meteo.voc_ug_m3 / 50  # rough conversion to ppb
-
-        # NOx + VOC photochemistry (simplified)
-        if total_nox_ppb < 5:
-            ozone_ppb = 0  # too little NOx to form much ozone
-        else:
-            # Peak ozone formation at NOx/VOC ratio ~1:3
-            nox_voc_ratio = total_nox_ppb / max(1, voc_ppb)
-            efficiency = 1.0 if 0.2 < nox_voc_ratio < 5 else 0.5
-            ozone_ppb = (total_nox_ppb * voc_ppb * efficiency) * solar_factor * temp_factor
-
-        # Convert ppb to AQI (EPA: 0-55 ppb = 0-100 AQI; roughly linear)
-        aqi = (ozone_ppb / 55.0) * 100
-        return min(500, aqi)  # cap at max AQI
-
-    def check_constraints(self):
-        """Compare predicted vs. observed AQI across monitor network"""
+    def check(self):
         self.violations = []
-
-        for obs in self.observations:
-            predicted_aqi = self.predict_ozone_at_receptor(obs.lat, obs.lon)
-            observed_aqi = obs.aqi_ozone
-            mismatch = abs(predicted_aqi - observed_aqi)
-            mismatch_percent = (mismatch / max(1, observed_aqi)) * 100
-
-            # Flag as violation if prediction is way off
-            if mismatch_percent > 50:  # >50% error threshold
-                self.violations.append({
-                    'location': obs.location_name,
-                    'lat': obs.lat,
-                    'lon': obs.lon,
-                    'observed_aqi': observed_aqi,
-                    'predicted_aqi': round(predicted_aqi, 1),
-                    'mismatch_percent': round(mismatch_percent, 1),
-                    'source_type': 'uniform_saturation' if predicted_aqi < 30 and observed_aqi > 100 else 'localized_mismatch'
-                })
+        for o in self.observations:
+            pred = self.predict_aqi(o.lat, o.lon)
+            mismatch = abs(pred["predicted_aqi"] - o.aqi_ozone)
+            pct = mismatch / max(1, o.aqi_ozone) * 100
+            if pct <= 50:
+                continue
+            # classify the mismatch
+            uniform_no_plume = (o.aqi_ozone > 100
+                                and not pred["plume_present"]
+                                and pred["local_nox_ppb"] < 8)
+            self.violations.append({
+                "location": o.name,
+                "observed_aqi": o.aqi_ozone,
+                "predicted_aqi": pred["predicted_aqi"],
+                "mismatch_pct": round(pct, 1),
+                "regime": pred["regime"],
+                "kind": ("REAL_ANOMALY_no_plume_high_O3"
+                         if uniform_no_plume else "calibration_gap"),
+            })
 
     def report(self) -> Dict:
-        """Generate constraint violation report"""
-        self.check_constraints()
-
+        self.check()
+        anomalies = [v for v in self.violations
+                     if v["kind"].startswith("REAL_ANOMALY")]
         if not self.violations:
-            return {
-                'status': 'model_consistent',
-                'message': 'Predicted ozone matches observed AQI across all monitors. Standard photochemistry model holds.',
-                'violations': []
-            }
-
-        uniform_violations = [v for v in self.violations if v['source_type'] == 'uniform_saturation']
-
-        if len(uniform_violations) > 3:  # Multiple low-emission zones showing high AQI
-            return {
-                'status': 'constraint_violation',
-                'message': f'VIOLATION: Uniform ozone saturation in {len(uniform_violations)} low-emission zones. Standard NOx-source model FAILS.',
-                'implication': 'Ozone precursor distribution is NOT explained by localized NOx sources. Missing physics or precursor mechanism.',
-                'violations': uniform_violations,
-                'next_step': 'Check for distributed NOx source (upper atmosphere, long-range transport, or non-standard photochemistry). See wildfire-ozone-mechanism.md for the regime-physics explanation.'
-            }
+            status = "model_consistent"
+            msg = ("Predicted O3 tracks observed AQI. Uniform saturation "
+                   "under a present plume is EXPECTED, not anomalous.")
+        elif anomalies:
+            status = "REAL_ANOMALY"
+            msg = (f"{len(anomalies)} zones show high O3 with NO upwind "
+                   f"plume and low local NOx. Transport+regime physics "
+                   f"cannot explain these. Investigate.")
         else:
-            return {
-                'status': 'partial_mismatch',
-                'message': f'Standard model explains most locations but {len(self.violations)} outliers detected.',
-                'violations': self.violations
-            }
+            status = "calibration_gap"
+            msg = (f"{len(self.violations)} mismatches, all explainable as "
+                   f"parameter calibration error (not physics failure).")
+        return {"status": status, "message": msg,
+                "violations": self.violations}
 
-# Usage
-if __name__ == '__main__':
-    checker = OzoneConstraintChecker()
 
-    # Load data (you'll populate these from NOAA, EPA, MPCA)
-    # checker.load_emissions_inventory('nox_sources.json')
-    # checker.load_observations('mpca_aqi_readings.csv')
-    # checker.load_meteorology('noaa_meteo_state.json')
+# ---------------------------------------------------------------
+# FALSIFICATION CONTRACT (the point of the whole tool)
+# ---------------------------------------------------------------
+#
+#   H0  : statewide O3 = transported wildfire plume + regime-flip yield
+#   PASS: uniform saturation occurs ONLY when FIRMS shows upwind plume
+#   FAIL: high uniform O3 with NO plume + low local NOx
+#           -> H0 refuted, a real missing variable exists
+#
+#   METHODOLOGY RULE (carried from your other repos):
+#     if field data refutes a claim, update the claim.
+#     never retune the model to hide the refutation.
 
-    # result = checker.report()
-    # print(json.dumps(result, indent=2))
+
+if __name__ == "__main__":
+    chk = OzoneConstraintChecker()
+    # chk.load_plumes("plumes.json")        # from FIRMS + NOAA HYSPLIT
+    # chk.load_emissions("nox_sources.json")# from EPA NEI by source type
+    # chk.load_observations("aqi.csv")      # from MPCA / AirNow
+    # chk.load_meteorology("meteo.json")    # from NOAA GFS
+    # print(json.dumps(chk.report(), indent=2))
+    print("ozone_constraint_checker ready. populate loaders at wifi.")

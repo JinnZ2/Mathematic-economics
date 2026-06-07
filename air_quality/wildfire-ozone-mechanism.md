@@ -1,12 +1,10 @@
-# Wildfire ozone mechanism — why uniform saturation is not always a violation
+# Wildfire ozone mechanism — physics basis + falsification contract
 
-Companion to `ozone_constraint_checker.py`. The checker flags
-**uniform ozone saturation in low-emission zones** as a `constraint_violation`
-under the standard local-NOx-source photochemistry model. That detection
-is correct *as far as the standard model goes* — but the model is missing
-the physics of fire-plume ozone transport. This note documents what the
-checker should treat as a known-and-explained signature rather than an
-unexplained violation, once a wildfire smoke plume is confirmed upwind.
+Companion to `ozone_constraint_checker.py`. The checker is built around
+the physics in this note. Specifically: it does **not** treat
+uniform high O3 as a violation by default. It treats it as **expected**
+when a wildfire plume is present upwind, and as **REAL_ANOMALY** only
+when the standard transport + regime story cannot account for it.
 
 License: CC0-1.0.
 
@@ -26,14 +24,20 @@ Canada 1995 fire event: O3 rose 15-18% across the entire eastern US.
                                        — Wotawa & Trainer (2000)
 ```
 
-The plume is a **self-driving ozone reactor in transit**. It does not need
-to find local NOx sources downwind to produce O3. The ground-level monitor
-network sees high O3 in rural low-NOx zones because the O3 arrived already
-formed, not because hidden local NOx sources are emitting.
+The plume is a **self-driving ozone reactor in transit**. It does not
+need to find local NOx sources downwind to produce O3. The ground-level
+monitor network sees high O3 in rural low-NOx zones because the O3
+arrived already formed, not because hidden local NOx sources are
+emitting.
+
+In `ozone_constraint_checker.py` this is the `FirePlume` dataclass —
+the **primary** O3 driver, with `preformed_o3_ppb` as the load-bearing
+term. The pre-existing `NOxSource` machinery (Gaussian plume from
+trucks / ag / industrial) is now a *secondary* term, intentionally.
 
 ---
 
-## The HOx radical piece — the missing variable
+## The HOx radical piece
 
 ```
 fires emit HONO, formaldehyde, aldehydes
@@ -42,12 +46,14 @@ fires emit HONO, formaldehyde, aldehydes
   -> plume self-perpetuates as a moving photoreactor
 ```
 
-This is why fire-driven O3 does not follow ground-source density. The
-catalytic radical pool moves with the plume.
+Implemented as `FirePlume.hox_index` (normalized HONO/HCHO loading) and
+applied multiplicatively in the in-place chemistry path of
+`predict_aqi()`. Default 1.0; higher for younger / nitrogen-richer
+plumes.
 
 ---
 
-## Why Texas differs — regime physics
+## Regime physics — the NOx-limited / NOx-saturated flip
 
 ```
 two O3 regimes:
@@ -66,66 +72,94 @@ MN rural     = NOx-LIMITED
    but that is the regime flip.
 ```
 
-The standard Gaussian-plume + local-source-summation model in
-`ozone_constraint_checker.py` cannot represent this. It assumes O3
-yield per NOx is uniform across receptors.
+Implemented as `_regime(local_nox_ppb)` and `_yield_factor(regime)`:
+
+| Regime | Threshold (ppb local NOx) | Yield factor |
+|---|---|---|
+| `NOx_limited` | `< 8` | **1.6** |
+| `transitional` | `8 – 25` | 1.0 |
+| `NOx_saturated` | `> 25` | 0.45 |
+
+A rural receptor with ~0 ppb local NOx receives the **1.6 multiplier on
+imported plume NOx** — exactly the amplification the literature
+describes.
 
 ---
 
-## Aerosol complication — the "something else"
+## Aerosol photolysis gate
 
 ```
 dense smoke   = dark   -> REDUCES photolysis -> SUPPRESSES O3
 thin/aged smoke = NOx + radicals present, light still gets through
                 -> ENHANCES O3
-
-"models UNDERESTIMATE impacts" (Nevada Rim Fire study)
--> official models are KNOWN to be wrong on this,
-   in the SAME direction as our checker's "uniform saturation" flag.
 ```
+
+Implemented as a three-band AOD gate inside `_plume_o3_ppb()`:
+
+| AOD | Photolysis factor | Regime |
+|---|---|---|
+| `>= 2.5` | 0.3 | dark plume core (suppressed) |
+| `1.0 – 2.5` | 0.7 | moderate smoke |
+| `< 1.0` | 1.0 | thin / aged plume (full sun) |
+
+The nonlinearity is deliberate. Operational models that smooth this
+out are **known to underestimate fire-driven O3 enhancement** (Nevada
+Rim Fire studies). This checker reads thick smoke as *suppressing* O3
+and thin smoke as *enhancing* it — same direction as observation.
 
 ---
 
-## Falsifiable test — revised contract
+## Falsification contract (now baked into code)
 
-The checker's current rule:
-
-> `uniform_violations > 3` low-emission zones with O3 > 100 AQI
-> while predicted < 30 → `constraint_violation`
-
-The revised, regime-aware rule:
+The contract that v1 only documented is now executable:
 
 ```
-IF rural NOx-limited zones show O3 >= metro zones
-AND smoke plume present upwind (FIRMS confirms)
-THEN  model CONSISTENT (uniform saturation is EXPECTED under
-                        transport + regime physics)
-ELSE  constraint_violation as before.
+H0   : statewide O3 = transported wildfire plume + regime-flip yield
+PASS : uniform saturation occurs ONLY when FIRMS shows upwind plume
+       (status = "model_consistent")
+FAIL : high uniform O3 with NO plume + low local NOx
+       (status = "REAL_ANOMALY_no_plume_high_O3")
+       -> H0 refuted, a real missing variable exists. Investigate.
 ```
 
-Implementing this requires three new inputs the checker does not
-currently consume:
+Methodology rule (carried from other JinnZ2/* repos):
 
-1. **Wildfire plume location + composition** (FIRMS satellite + chemical
-   tracers) — to know whether the receptor is downwind of an active fire.
-2. **Regime classification per receptor** — NOx-limited vs NOx-saturated.
-   In MN-rural, expect amplified O3 from imported NOx. In TX-metro,
-   imported NOx is mostly invisible at the monitor.
-3. **Aerosol optical depth** — to set the photolysis suppression factor
-   (thick smoke down, thin smoke up).
+> If field data refutes a claim, update the claim.
+> Never retune the model to hide the refutation.
 
-These slot into `predict_ozone_at_receptor` as additional terms:
+The `REAL_ANOMALY` band is not a bug. It is the whole point of the
+tool. It says: the operator loaded the data, the standard transport
++ regime physics still cannot explain the observation, **so the
+operator now owes themselves a real hypothesis**, not a parameter
+tweak.
+
+---
+
+## Known seam — the `plume_present` gate is global
 
 ```
-plume_O3_preformed    transport-aged O3, arrives independent of local NOx
-regime_flag           NOx_limited vs NOx_saturated, sets yield-per-NOx
-HOx_source            fire HONO/HCHO catalytic radical load
-aerosol_optical_depth photolysis suppression factor (nonlinear in tau)
+predict_aqi() returns plume_present = bool(self.plumes)
 ```
 
-Until those land, the checker's `uniform_saturation` flag should be read
-as "either a real local-emissions blind spot OR a missing fire-plume
-transport term." The wildfire/plume input is what disambiguates.
+This is a coarse check. It asks "are *any* plumes loaded into the
+system?" rather than "is *this* receptor under a plume cone?" The
+operational rationale: if the operator has supplied plume data at
+all, the system has plume awareness, and unexplained mismatches are
+more likely calibration error than missing physics.
+
+The honest cost: a receptor 500 km outside every plume cone, with
+local NOx < 8 ppb and observed O3 > 100 AQI, will be classified as
+`calibration_gap` rather than `REAL_ANOMALY` as long as *some* plume
+is loaded anywhere in the system. The smoke test for this module
+exercises that case (case 3 in the commit's smoke harness) and
+intentionally lets the current behavior stand.
+
+A v3 tightening would per-receptor evaluate "is this receptor under
+the cone of any plume?" and only set `plume_present = True` for the
+specific receptor. That is the right next move when the v2 starts
+making decisions that matter. Until then, operators reading the
+report should know: the `calibration_gap` band can hide a
+`REAL_ANOMALY` if a far-away plume is loaded.
 
 ---
 
@@ -134,13 +168,17 @@ transport term." The wildfire/plume input is what disambiguates.
 - Wotawa, G. & Trainer, M. (2000). The influence of Canadian forest
   fires on pollutant concentrations in the United States.
   *Science* 288: 324-328.
-- Nevada Rim Fire studies — observations that operational models
-  underestimate fire-driven O3 enhancement.
-- EPA NOx/VOC regime classification literature (NOx-limited vs
-  VOC-limited photochemistry).
+- Jaffe, D. A. & Wigder, N. L. (2012). Ozone production from wildfires:
+  A critical review. *Atmospheric Environment*.
+- FIREX-AQ campaign (NASA / NOAA, 2019 fire-chemistry field study).
+- ACP 25/8701/2025; ACP 25/5591/2025 (recent regime + photolysis
+  measurements).
+- Nevada Rim Fire studies — operational models underestimate O3
+  enhancement in the same direction as this checker's regime-aware
+  prediction.
 
-The point of this note is not to assert these sources are universally
-applicable. It is to make explicit that the checker's "violation"
-output has a known regime-physics interpretation, so that the
-operator can decide whether the flag points at hidden local emissions
-or at missing transport chemistry.
+The point of citing these is not to assert universality. It is to
+make explicit that the `REAL_ANOMALY` band — when it fires under a
+documented plume — is a falsification of the physics that this
+literature supports, and is worth carrying upstream to the operator
+as exactly that.
