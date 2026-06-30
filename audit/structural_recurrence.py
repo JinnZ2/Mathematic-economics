@@ -55,6 +55,8 @@ MECHANISMS: Dict[str, str] = {
     "terms_unilateral":"holder sets terms without counterparty consent",
     "opacity":         "information access is closed to affected parties",
     "incentive_decays":"the counterparty's incentive erodes after capture",
+    "additionality_absent":   "payment lands on behavior that was already occurring",
+    "routed_via_intermediary":"value reaches the counterparty only through a gatekeeper",
     # --- reciprocal / mutualist vocabulary (the contrast set) ---
     "value_circulates":"value circulates among participants",
     "terms_mutual":    "terms are set by participant consent",
