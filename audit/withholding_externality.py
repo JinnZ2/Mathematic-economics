@@ -30,8 +30,7 @@ findings can register as harm at all under current accounting.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Callable
+from dataclasses import dataclass
 import math
 
 

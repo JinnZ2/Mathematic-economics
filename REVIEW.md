@@ -19,12 +19,13 @@ _Snapshot review of `JinnZ2/Mathematic-economics` on branch `claude/ai-externali
 
 ### 1. Inconsistencies
 
-> **Resolution note (follow-up commit):** findings **1.1** and **1.2** were
-> addressed. Root duplicate `Study_scope_audit.py` removed; `audit/study_scope_audit.py`
-> is the canonical version. README lines 4-5 updated to point at
-> `automation_scope_audit/CLAIM_TABLE.json` and
-> `automation_scope_audit/CLAIM_TABLE.fab.json`, which do exist. Findings
-> 1.3-1.5 remain open.
+> **Resolution note (follow-up commits):** findings **1.1**, **1.2**,
+> **1.3**, **1.4**, and **1.5** were addressed.
+> - 1.1: root `Study_scope_audit.py` removed; `audit/study_scope_audit.py` is canonical.
+> - 1.2: README lines 4-5 updated to point at `automation_scope_audit/CLAIM_TABLE{,.fab}.json`.
+> - 1.3: `CLAUDE.md` scope-note added explaining `audit/` is the de facto home for stdlib-only Python analytical modules including sanctuary modules like `coherence_playground.py`.
+> - 1.4: `epistemic_ledger.py` and `metrological_bounds.py` now listed under "Root-level Python modules" in `CLAUDE.md`.
+> - 1.5: `CLAUDE.md` §Structure additions lists the 12 previously-undocumented top-level directories.
 
 **1.1 — Capital-S Python filename at repo root violates the stated convention.**
 File: `/Study_scope_audit.py` (line 1 header comment reads `# STUDY_SCOPE_AUDIT`).
@@ -54,6 +55,14 @@ Files at repo root not mentioned in `CLAUDE.md` §Repository Structure: `epistem
 ---
 
 ### 2. Markdown information gaps
+
+> **Resolution note (follow-up commits):** 2.1, 2.2, 2.3, and 2.4
+> addressed. README gained a Quickstart block and a "Why this matters"
+> section (2.1). `CLAUDE.md` structure additions block resolved 2.2.
+> `CLAIMS_INDEX.md` landed at repo root pointing at the six existing
+> claim registers (2.3). `CLAUDE.md` §Recent audit-stack additions lists
+> the 20 modules and 2 essays landed on this branch (2.4).
+
 
 **2.1 — README does not tell a first-time visitor what to run first.**
 `README.md` lines 31-37 gives a "How to read" section for humans and AI, but the very first thing most readers want — *the one command that shows me this repo is real* — isn't there. `CLAUDE.md` §Build and Test says the modules are meant to be run directly (`python audit/…`), but the README does not surface that pattern.
@@ -91,6 +100,22 @@ The branch adds `audit/withholding_externality.py` through `audit/forensic_eroi.
 ---
 
 ### 3. Code audit
+
+> **Resolution note (follow-up commits):** 3.1 (see 1.1), 3.2, 3.3,
+> 3.4, and 3.6 addressed. 3.5 was a test-hygiene observation with no
+> module action.
+> - 3.2: removed unused imports from 5 audit modules
+>   (`withholding_externality`, `skill_substrate_decay`,
+>   `dependency_cascade_ledger`, `knowledge_decay_audit`,
+>   `continuance_dynamics`). All demos still pass.
+> - 3.3: `tests/test_audit_stack.py` lands 20 subprocess-based tests
+>   covering every audit-stack module landed this branch. `python -m
+>   unittest tests.test_audit_stack` runs green.
+> - 3.4: `Case.__post_init__` in `audit/structural_recurrence.py` now
+>   raises `ValueError` with an actionable message instead of
+>   `AssertionError`, so the check survives `python -O` and the error
+>   type is what callers expect.
+
 
 **3.1 — `Study_scope_audit.py` at root duplicates naming space with `audit/study_scope_audit.py` but the contents differ.**
 `diff -q` confirms different bytes. Whichever is stale will silently drift from the current version. See finding 1.1 for the fix.
@@ -151,6 +176,15 @@ File: `audit/withholding_externality.py`. `EXTERNALITY_DIMENSIONS` lists six `fo
 ---
 
 ### 4. Organizational structure suggestions
+
+> **Resolution note (follow-up commits):** 4.3 and 4.4 addressed.
+> 4.1 (split `audit/` into subdirectories) and 4.2 (relocate root
+> Python files) are deferred as separate high-churn changes that
+> would disrupt import paths and README pointers; they are better
+> handled as their own review-and-move branch under maintainer
+> judgment. 4.4 landed as a Contributor workflow section in
+> `CLAUDE.md`. 4.3 addressed via `tests/test_audit_stack.py`.
+
 
 **4.1 — Split `audit/` (67 files) by axis.**
 The directory has grown organically to 67 Python files spanning multiple concerns: meta-audits (`withholding_externality.py`, `self_measurement_compromise.py`), empirical trackers (`dependency_cascade_ledger.py`, `skill_substrate_decay.py`, `training_corpus_degradation.py`), trajectory tools (`scope_exemption_audit.py`, `feedback_coupling_audit.py`, `temporal_compression.py`), infrastructure bridges (`metabolic_bridge.py`, `money_signal_bridge.py`, `investment_signal_bridge.py`), industry-specific audits (`eroi_real_time_audit.py`, `refinery_stress_cascade_module.py`, `shale_well_thermodynamic_reality_module.py`), and now a sanctuary (`coherence_playground.py`).
@@ -224,6 +258,20 @@ The project's stated identity (see `README.md`, `metadata.json`) is a *falsifiab
 ---
 
 ### 6. Discoverability & crawler optimization
+
+> **Resolution note (follow-up commits):** 6.1, 6.3, and 6.4
+> addressed. 6.2 (YAML frontmatter on README) deliberately skipped
+> because the README's existing "public domain (CC0). Falsifiable
+> claims. Stdlib only." first line already serves the same crawler-
+> ranking function and adding frontmatter would displace it; if
+> desired, land as a follow-up.
+> - 6.1: `KEYWORDS.md` landed at repo root mirroring the CFF keywords
+>   plus module-level terms.
+> - 6.3: README §Why this matters block added directly under the
+>   summary section.
+> - 6.4: `.github/ISSUE_TEMPLATE/falsification_report.md` landed for
+>   anonymous falsification reports.
+
 
 **What already works well** (do not touch):
 - `CITATION.cff` is present at root and well-populated (109 lines, 10 book/article references, 19 keywords).
