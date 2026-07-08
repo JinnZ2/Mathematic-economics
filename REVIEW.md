@@ -217,6 +217,25 @@ The file has a §Working with This Repository section but no map for the branch 
 
 ### 5. Limitations mitigation checklist
 
+> **Resolution note (follow-up commits):** 5.1 addressed via
+> "Not a symbolic solver" non-goal in README. 5.2 and 5.5 landed
+> together as `CONTRACT_VERSION` 1.1.0 in `schemas/claim_contract.py`:
+> `CanonStatus` (5 states: mainstream / emerging / contested /
+> frontier / revolutionary) covers all three aspects of the
+> checklist's grounding concern (physics-violating,
+> physics-consistent-novel, empirically-contested). `Confidence`
+> (4 states: unverified / low / medium / high) makes the
+> probabilistic-fallback item schema-level. `Graduation`
+> (justification + provenance + passing_tests + validated flag) is
+> structurally required for FRONTIER and REVOLUTIONARY claims and
+> cannot be self-validated by the analyst; `Claim.is_validated()`
+> only returns True once an external process flips
+> `graduation.validated`. All additions are optional with defaults so
+> 1.0.0 callers continue to work; 27 tests in
+> `tests/test_claim_contract.py` cover the new surface plus the
+> pre-existing shape.
+
+
 The project's stated identity (see `README.md`, `metadata.json`) is a *falsifiable-claims / physics-grounded measurement framework* — not a general symbolic reasoner. I score each item against that identity.
 
 **5.1 — Symbolic–Subsymbolic Gap.**
