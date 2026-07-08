@@ -584,6 +584,7 @@ def compute_marginal_externality(
     model_generations_downstream: float,
     calibration_drift_rate: float,
     cascade_events_per_year: float,
+    monoculture_convergence_strength: float = 0.0,
     discount_rate: float = 0.0,
 ) -> dict[str, float]:
     """
@@ -594,8 +595,15 @@ def compute_marginal_externality(
     discount rate is exposed as a single parameter so its effect
     on each dimension is visible.
 
-    Returns a dict mapping dimension name -> contribution.
-    The total externality is the sum of values.
+    Returns a dict mapping dimension name -> contribution across all
+    six harm dimensions declared in `HarmDimension`. The total
+    externality is the sum of values.
+
+    `monoculture_convergence_strength` defaults to 0.0 so existing
+    callers that do not supply it produce delta_mono = 0 and behave
+    exactly as before this parameter was added. The
+    training_corpus_degradation module's supply_delta_mono_inputs()
+    provides a compatible dict for `**`-unpacking.
 
     This is a deliberately minimal model. The point is that each
     term is positive and measurable; refusal to measure is the
@@ -621,6 +629,10 @@ def compute_marginal_externality(
 
         "delta_calib":
             calibration_drift_rate * cascade_events_per_year
+            * time_horizon * df,
+
+        "delta_mono":
+            monoculture_convergence_strength * affected_population
             * time_horizon * df,
     }
 

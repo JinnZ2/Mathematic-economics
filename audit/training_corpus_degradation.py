@@ -462,11 +462,10 @@ def supply_delta_mono_inputs(
 ) -> dict[str, float]:
     """
     Translate the convergence-signal registry into a mean-strength
-    estimate for the delta_mono dimension. The meta-module's current
-    compute_marginal_externality() does not have a named delta_mono
-    parameter; this function exposes the strength for callers that
-    want to extend the meta-module or compute monoculture cost
-    separately.
+    estimate for the delta_mono dimension. The meta-module's
+    compute_marginal_externality() accepts this dict directly as
+    `**supply_delta_mono_inputs()` and returns `delta_mono` alongside
+    the other five dimensions.
     """
     return {
         "monoculture_convergence_strength":

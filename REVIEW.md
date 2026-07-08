@@ -19,6 +19,13 @@ _Snapshot review of `JinnZ2/Mathematic-economics` on branch `claude/ai-externali
 
 ### 1. Inconsistencies
 
+> **Resolution note (follow-up commit):** findings **1.1** and **1.2** were
+> addressed. Root duplicate `Study_scope_audit.py` removed; `audit/study_scope_audit.py`
+> is the canonical version. README lines 4-5 updated to point at
+> `automation_scope_audit/CLAIM_TABLE.json` and
+> `automation_scope_audit/CLAIM_TABLE.fab.json`, which do exist. Findings
+> 1.3-1.5 remain open.
+
 **1.1 — Capital-S Python filename at repo root violates the stated convention.**
 File: `/Study_scope_audit.py` (line 1 header comment reads `# STUDY_SCOPE_AUDIT`).
 `CLAUDE.md` line 262 declares: *"snake_case for variables, functions, and Python filenames (PEP 8; required so modules are importable by name)."* Under that rule this file cannot be imported as `import Study_scope_audit` without breaking future case-insensitive filesystem assumptions and IDE conventions.
@@ -137,10 +144,9 @@ if unknown:
 **3.5 — Floating-point equality in the coherence-playground demo assertions.**
 File: `audit/coherence_playground.py` lines 178-183. The `__main__` block uses `abs(s0.total - s1.total) < 1e-9` correctly, but a stricter external tester who uses `==` will hit precision (`0.7 - 0.2` is 0.499999...). This is a *test-hygiene* observation, not a defect — I hit it myself while verifying the module, then fixed my test. Note added because a downstream integration test will hit it too. **No action needed on the module itself.**
 
-**3.6 — `audit/withholding_externality.py` `compute_marginal_externality()` lacks a `delta_mono` term despite the module declaring six harm dimensions.**
-File: `audit/withholding_externality.py` `HarmDimension` enum lists SKILL, DEPENDENCY, CALIBRATION, PIPELINE, CORPUS, MONOCULTURE (6). `compute_marginal_externality()` returns only 5 keys: `delta_skill`, `delta_depend`, `delta_pipeline`, `delta_corpus`, `delta_calib`. The training-corpus module (landed later) exposes `supply_delta_mono_inputs()` but the meta-layer doesn't consume it.
-**Severity:** medium — documented API inconsistency between the enum and the computation. This is noted in `training_corpus_degradation.py`'s own docstring ("does not have a named delta_mono parameter"), so it's known but unresolved.
-**Fix:** either add `delta_mono` to `compute_marginal_externality()` (accepting a `monoculture_convergence_strength` argument), or drop `HarmDimension.MONOCULTURE` from the enum with a note.
+**3.6 — `audit/withholding_externality.py` `compute_marginal_externality()` lacks a `delta_mono` term despite the module declaring six harm dimensions.** *(RESOLVED in follow-up commit.)*
+File: `audit/withholding_externality.py`. `EXTERNALITY_DIMENSIONS` lists six `formal_symbol` values (`delta_skill`, `delta_depend`, `delta_calib`, `delta_pipeline`, `delta_corpus`, `delta_mono`) but the original `compute_marginal_externality()` returned only 5. (Note: the review's original text referenced a "HarmDimension enum" — that was a mis-name for `EXTERNALITY_DIMENSIONS`, corrected here.) The training-corpus module exposes `supply_delta_mono_inputs()` returning `{"monoculture_convergence_strength": ...}` but the meta-layer did not consume it.
+**Fix applied:** added `monoculture_convergence_strength: float = 0.0` parameter to `compute_marginal_externality()` and a matching `delta_mono` key in the returned dict. The default keeps 12-argument callers backward-compatible. `training_corpus_degradation.supply_delta_mono_inputs()` now composes into the meta-layer via `**` unpacking with no other changes. Stale note in `training_corpus_degradation.py` docstring also updated.
 
 ---
 

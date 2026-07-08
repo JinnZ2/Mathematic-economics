@@ -1,7 +1,8 @@
 **mathematic-economics** — public domain (CC0). Falsifiable claims. Stdlib only.
 
 See `GLOSSARY.md` for bridge vocabulary (terms used here ↔ academic terms).
-See `CLAIM_TABLE.json` (or `CLAIM_TABLE.fab.json`) for falsifiable claims
+See `automation_scope_audit/CLAIM_TABLE.json` (or
+`automation_scope_audit/CLAIM_TABLE.fab.json`) for falsifiable claims
 and test procedures.
 
 -----
