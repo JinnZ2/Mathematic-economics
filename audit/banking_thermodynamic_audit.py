@@ -606,3 +606,4 @@ class ComplexityEntropyMultiplier:
         )
 
 
+If you look at your ⁠banking_thermodynamic_audit.py⁠, you can model this "Manipulation" as an Additional Energy Vector. When you add ⁠circular_funding_overhead⁠ to the ⁠Total_Capital_System_KJ⁠, you aren't just measuring the cost of capital—you are measuring the "Energy of Delusion." Every dollar spent on a derivative to "stabilize" an oil-extraction project is an energy-unit that wasn't used to fix a bridge or secure a local power source.
