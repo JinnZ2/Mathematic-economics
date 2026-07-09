@@ -41,7 +41,7 @@ discrimination: ships a control -- reciprocal continuous line must NOT foreclose
 CC0. stdlib only. phone-buildable.
 """
 
-from dataclasses import dataclass, field as dfield
+from dataclasses import dataclass
 from typing import Callable, List
 import random
 import statistics

@@ -77,7 +77,11 @@ class Case:
 
     def __post_init__(self):
         unknown = set(self.mechanisms) - set(MECHANISMS)
-        assert not unknown, f"unknown mechanism ids: {unknown}"
+        if unknown:
+            raise ValueError(
+                f"unknown mechanism ids: {sorted(unknown)}. "
+                f"Add them to MECHANISMS before instantiating the Case."
+            )
 
 
 @dataclass(frozen=True)

@@ -36,9 +36,7 @@ Position in audit stack:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
 from datetime import date
-import math
 
 
 # =====================================================================

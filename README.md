@@ -1,7 +1,8 @@
 **mathematic-economics** — public domain (CC0). Falsifiable claims. Stdlib only.
 
 See `GLOSSARY.md` for bridge vocabulary (terms used here ↔ academic terms).
-See `CLAIM_TABLE.json` (or `CLAIM_TABLE.fab.json`) for falsifiable claims
+See `automation_scope_audit/CLAIM_TABLE.json` (or
+`automation_scope_audit/CLAIM_TABLE.fab.json`) for falsifiable claims
 and test procedures.
 
 -----
@@ -38,7 +39,43 @@ closer to mercantilism. (See Section: "Adam Smith Compliance")
 
 **What this framework does not do:**
 Prescribe policy, replace ethical reasoning, or claim completeness.
+Not a symbolic solver — this framework quantifies claims against
+data, it does not prove them.
 See Section "Limitations and Assumptions".
+
+-----
+
+## Quickstart
+
+    # meta-layer: full audit report as JSON (backward-compatible)
+    python audit/withholding_externality.py
+
+    # compression trajectory + composition-x-picker matrix
+    python audit/temporal_compression.py
+
+    # 11 falsification tests (must pass)
+    python calibration/test_calibration.py
+
+    # bridges (numpy-optional; skips gracefully if absent)
+    python tests/test_bridges.py
+
+    # full audit-stack smoke suite (20 modules)
+    python -m unittest tests.test_audit_stack
+
+See `CLAIMS_INDEX.md` for the falsifiable claim registries and
+`KEYWORDS.md` for search-optimized terms.
+
+-----
+
+## Why this matters
+
+Standard economic accounting cannot see cognitive-capital
+depreciation, externalized dependency cost, or corpus degradation
+as first-class depletion, so systems that deplete these substrates
+read as "efficient" until the substrate is gone. This framework
+provides the missing ledger: every claim is falsifiable, every
+measurement is scoped, and every module carries its own refutation
+protocol. Use it to make deferral commit to a number.
 
 -----
 

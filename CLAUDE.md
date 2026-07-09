@@ -96,6 +96,65 @@ Mathematic-economics/
 └── LICENSE                             # CC0 1.0
 ```
 
+### Structure additions since the diagram was drawn
+
+The diagram above is the original layout; the repository has grown.
+Additional top-level directories (not in the diagram) currently
+present:
+
+- `accounting/`                   -- Accounting-layer claims (`CLAIMS.md`)
+- `air_quality/`                  -- Domain audit
+- `automation_metrology/`         -- Automation instrument metrology
+- `automation_scope_audit/`       -- 84 falsifiable claims (C000-C083); see `CLAIM_TABLE.json` / `CLAIM_TABLE.fab.json`
+- `docs/`                         -- Includes `docs/economics/dynamic_cpi_r/`
+- `food_security/`                -- Domain audit
+- `rfl_engine/`                   -- (topical workspace)
+- `ringwoodite_earth_coupling/`   -- Earth-coupling claim table
+- `scripts/`                      -- Utility scripts
+- `solvability_audit/`            -- (topical workspace)
+- `substrate_accounting/`         -- Unified substrate claims
+- `tests/`                        -- Test suite (includes `test_audit_stack.py` covering the 20 audit-stack modules landed since 2026-06)
+- `vehicle_audit/`                -- Domain audit
+
+Root-level Python modules (referenced from `README.md` §Computational
+Specification):
+
+- `epistemic_ledger.py`      -- Audit verdict logging
+- `metrological_bounds.py`   -- Measurement validity constraints
+
+Root-level documents added since the diagram: `ARCHITECTURE.md`,
+`AUDIT_TASKS_HARDENING.md`, `CITATION.cff`, `CLAIM_TABLE_VERSIONING.md`,
+`CLAIM_UPDATE_PROCEDURE.md`, `CLAIMS_INDEX.md`, `DIFFERENTIAL_FRAME.md`,
+`FALSIFIABILITY_NOTICE.txt`, `GLOSSARY.md`, `KEYWORDS.md`,
+`PREDICTION_PROTOCOL.md`, `REVIEW.md`, `metadata.json`,
+`predictions_registry.jsonl`, plus the analysis essays
+`case-study-regenerative-feedstock-rule.md` and
+`neural-augmentation-cost-accounting.md`.
+
+### Scope of the `audit/` directory
+
+`audit/` has become the de facto home for **stdlib-only Python
+analytical modules** in this repo -- broader than "audit" strictly
+implies. It contains:
+
+- audit protocols proper (accountability, certification, incentives)
+- meta-audits (`withholding_externality.py`, `study_scope_audit.py`)
+- empirical trackers (`skill_substrate_decay.py`,
+  `dependency_cascade_ledger.py`, `training_corpus_degradation.py`)
+- trajectory-emitting analytical tools (`scope_exemption_audit.py`,
+  `feedback_coupling_audit.py`, `temporal_compression.py`,
+  `structural_recurrence.py`, `echo_collapse.py`,
+  `monoculture_collapse_predictor.py`, `substrate_scope_validator.py`,
+  `legacy_trap_detector.py`, `breadcrumb_preservation.py`,
+  `continuance_dynamics.py`, `forensic_eroi.py`)
+- infrastructure bridges (`metabolic_bridge.py`,
+  `money_signal_bridge.py`, `investment_signal_bridge.py`)
+- industry-specific audits (EROI, refinery, shale, oil-extraction,
+  banking, autonomous-freight)
+- sanctuary modules (`coherence_playground.py` -- explicitly NOT an
+  audit; kept here because it is stdlib-only Python and browsability
+  outweighs the naming precision)
+
 ## Languages and Dependencies
 
 **Primary languages:** Python 3.7+, Markdown
@@ -269,6 +328,46 @@ Scripts that import sibling modules (e.g. `system_audit` importing `field_system
 - **Space / orbital work:** Place in `Space-Kessler/`.
 - **Do not** introduce package management or build tooling unless explicitly requested — the repository is intentionally lightweight.
 - **Cross-repo material:** Several modules originated in [`JinnZ2/thermodynamic-accountability-framework`](https://github.com/JinnZ2/thermodynamic-accountability-framework) and [`JinnZ2/PhysicsGuard`](https://github.com/JinnZ2/PhysicsGuard) (both CC0). [`JinnZ2/metabolic-accounting`](https://github.com/JinnZ2/metabolic-accounting) is fieldlinked via `audit/metabolic_bridge.py` (defensive, not vendored). When porting more, keep the `License: CC0` headers intact so provenance is traceable.
+
+## Contributor workflow
+
+- Development branches follow the pattern `claude/<topic-slug>`. Land
+  one focused artifact per commit. Multi-file changes that hang
+  together (a case study + the vocab extension it needs, or a fix +
+  its verification) belong in one commit.
+- Land modules with a self-test in the `__main__` block that
+  exercises the module's own falsification / discrimination gates.
+  `tests/test_audit_stack.py` runs each as a subprocess so CI catches
+  regressions without requiring pytest-shaped tests.
+- When landing a new externality dimension / audit / bridge that
+  crosses the stable surface, follow `SURFACE.md` (bump the tag
+  minor for backward-compatible additions, major for breaking
+  changes; update `surface_version` in `equations.yaml` metadata).
+- Analytical essays: kebab-case markdown at repo root
+  (e.g. `ideology-thermodynamics.md`).
+- Python modules: snake_case filenames, PEP 8, stdlib-only unless
+  the module lives under `AI/` (PyTorch) or `data/` (numpy, pandas).
+
+### Recent audit-stack additions (branch `claude/ai-externality-economics-*`)
+
+The following 20 modules landed as an integrated audit-stack series.
+Meta-layer: `withholding_externality.py`. Empirical trackers filling
+the six delta_ dimensions: `skill_substrate_decay.py` (delta_skill),
+`dependency_cascade_ledger.py` (delta_depend),
+`training_corpus_degradation.py` (delta_corpus + delta_mono).
+Validation: `self_measurement_compromise.py`.
+Downstream survey: `economics_disruption_map.py`.
+Trajectory-emitting audits: `scope_exemption_audit.py`,
+`feedback_coupling_audit.py`, `monoculture_collapse_predictor.py`,
+`substrate_scope_validator.py`, `substrate_scope_envelopes.py`,
+`legacy_trap_detector.py`, `breadcrumb_preservation.py`,
+`temporal_compression.py`, `structural_recurrence.py`,
+`echo_collapse.py`, `continuance_dynamics.py`.
+Meta-audit: `knowledge_decay_audit.py`.
+Sanctuary: `coherence_playground.py`.
+Forensic: `forensic_eroi.py`.
+Companion essays: `neural-augmentation-cost-accounting.md`,
+`case-study-regenerative-feedstock-rule.md`.
 
 ## Stable surface tag
 
