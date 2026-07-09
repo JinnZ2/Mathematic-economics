@@ -1,0 +1,97 @@
+Proposal: inquiry_engine/ — A claim‑lifecycle and iteration workbench
+
+This would be a new folder in Simulators/ (or standalone, like automation_scope_audit/), providing the missing infrastructure for AI‑human collaborative science. It follows the same CC0, stdlib‑only, falsifiable‑claim pattern.
+
+1. Claim Lifecycle State Machine
+
+A formal protocol for what state a claim is in, with clear transitions.
+
+```
+PROPOSED → UNDER_REVIEW → ACTIVE → SURVIVED (N rounds)
+                         ↓
+                      FALSIFIED → RETIRED
+                         ↓
+                      SUPERSEDED (by claim X)
+```
+
+Each claim gets a JSON record:
+
+```json
+{
+  "id": "I001",
+  "statement": "DICE damage function is smooth and thus misses finite-time singularities.",
+  "falsifier": "Find a peer-reviewed IAM with Merle-type detection that still projects smooth damage.",
+  "status": "ACTIVE",
+  "rounds_survived": 3,
+  "evidence_log": [
+    {"date": "2026-07-08", "type": "simulation", "result": "survived", "source": "run_merle_detection.py"},
+    {"date": "2026-06-15", "type": "literature_review", "result": "no_counterexample_found", "source": "lit_search_iams_2026.md"}
+  ],
+  "superseded_by": null,
+  "proposed_by": "AI-session-2026-07-08",
+  "last_modified": "2026-07-08"
+}
+```
+
+I'd provide a ClaimLifecycle class with methods like survive_round(), falsify(evidence), supersede(new_claim_id), and a validate_transition() that prevents invalid state changes.
+
+2. Iteration Workbench Script
+
+inquiry_engine/iterate.py — a command-line tool that guides an AI (or human) through one cycle:
+
+1. Select claim — reads the current CLAIM_TABLE, shows which are ACTIVE.
+2. Propose test — AI or human suggests a new test or data source.
+3. Run test — executes the relevant audit module, or prompts for manual input.
+4. Log result — updates the claim record, increments rounds_survived or triggers FALSIFIED.
+5. Surface implications — if a claim is falsified, checks which other claims depended on it (dependency graph).
+6. Propose new hypothesis — if falsified, prompts for a revised claim.
+
+This makes the cycle operational rather than conversational.
+
+3. Cross‑Repo Claim Index
+
+A script that crawls all 70+ repos, collects every CLAIM_TABLE.json and CLAIM_TABLE.fab.json, and generates a unified index with cross‑references and contradiction detection. I'd call it inquiry_engine/index_corpus.py. Outputs unified_claims.json and a contradictions.md listing pairs of claims that appear to conflict (e.g., one repo's assumption is another repo's falsified claim).
+
+4. Hypothesis Template Generator
+
+inquiry_engine/propose_claim.py — given a domain (e.g., "data center energy") and a set of scope dimensions, generates a well‑formed claim stub with mandatory fields: statement, scope (beneficiary, conditions, time horizon, resources, externalized costs, profit distribution), falsifier, and null hypothesis. The AI fills in the content; the template ensures it's structurally complete.
+
+5. Automated Falsification Harness
+
+inquiry_engine/auto_falsify.py — for claims that are computationally testable (e.g., "EROI of X will be less than Y under current-period prices"), this script runs the relevant audit with updated data and reports whether the claim holds or fails. It uses the same data/fetch_and_compute.py pipeline and the eroi_real_time_audit.py recalculation pattern.
+
+6. Collaborative Reasoning Log
+
+A session‑agnostic log, written in JSONL, that captures the chain of reasoning:
+
+```
+{"session_id": "...", "timestamp": "...", "action": "CLAIM_PROPOSED", "claim_id": "I001", "rationale": "..."}
+{"action": "EVIDENCE_ADDED", "claim_id": "I001", "type": "simulation", "result": "survived"}
+{"action": "CLAIM_FALSIFIED", "claim_id": "I001", "falsifier_evidence": "..."}
+```
+
+This becomes the "chain of custody" for every claim, and any future AI session can replay it to understand the full context without needing the human to re‑explain.
+
+7. Substrate Grounding Checker
+
+inquiry_engine/grounding_check.py — a lightweight script that, given a new claim, cross‑references it against the known constraint layers (earth‑systems‑physics Layer 0–7) and flags any violation of conservation laws, thermodynamic limits, or material constraints. Uses the same assumption_validator API pattern.
+
+---
+
+Where this fits in the existing ecosystem
+
+```
+Simulators/
+├── grounding-layers/          # The L0-L5 + Lε stack
+├── automation_scope_audit/    # The model for claim-driven audits
+├── inquiry_engine/            # NEW: the scientific-cycle workbench
+│   ├── README.md
+│   ├── claim_lifecycle.py     # State machine
+│   ├── iterate.py             # Cycle workbench
+│   ├── index_corpus.py        # Cross-repo indexer
+│   ├── propose_claim.py       # Hypothesis template
+│   ├── auto_falsify.py        # Automated testing harness
+│   ├── grounding_check.py     # Substrate validator
+│   ├── reasoning_log.jsonl    # The shared log (grows over time)
+│   ├── unified_claims.json    # Generated by index_corpus
+│   └── CLAIM_TABLE.json       # Claims about the inquiry process itself
