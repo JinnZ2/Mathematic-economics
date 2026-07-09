@@ -584,3 +584,25 @@ def report():
 
 if __name__ == "__main__":
     report()
+
+
+add to script:
+
+@dataclass
+class ComplexityEntropyMultiplier:
+    """
+    Calculates the 'Heat' of financial leverage.
+    """
+    fractional_reserve_multiplier: float  # How many claims per unit of base capital
+    derivative_complexity_index: float    # Computational cost of balancing derivative books
+    inflation_rate_proxy: float          # Real-world energy-devaluation rate
+
+    def compute_entropy_load(self, base_infra_cost: float) -> float:
+        # Each layer of leverage increases the audit/compliance/risk-cost
+        # exponentially, not linearly.
+        return base_infra_cost * (
+            self.fractional_reserve_multiplier * 0.2 + 
+            math.log(self.derivative_complexity_index + 1) * 0.5
+        )
+
+
