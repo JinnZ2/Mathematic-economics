@@ -69,6 +69,28 @@ class Claims:
     cost_per_turnover: float = 5000.0              # hiring + training cost
     num_floor_workers: int = 20
 
+    # Provenance: where these numbers came from. "illustrative_default" means
+    # hypothesis-only. Replace with e.g. "measured_2025_q1" or "facility_XYZ_2024"
+    # when the Claims instance is populated from real records. Report prints it.
+    provenance: str = "illustrative_default"
+
+
+FALSIFIER = (
+    "STRUCTURAL CLAIM: temperature gap ΔT between shop floor and office produces "
+    "measurable waste, productivity loss, injuries, and turnover proportional to "
+    "the coefficients in Claims.\n"
+    "FALSIFIED IF, against real facility measurements:\n"
+    "  (a) waste reduction from a reduced-ΔT intervention is not significant "
+    "(p > 0.05 with adequate sample); OR\n"
+    "  (b) confounders (wages, shift length, PTO, etc.) explain the observed "
+    "variation after multivariate control -- run "
+    "accounting/unknown_variable_tester.py to check; OR\n"
+    "  (c) the assumed comfort band [60, 75]°F does not match your workforce "
+    "(e.g. workers acclimated to higher baseline show no productivity loss).\n"
+    "If (a),(b),(c) hold on real data, update the Claims coefficients or the "
+    "band; do not retune the audit."
+)
+
 # ----------------------------------------------------------------------
 # 2. GRADIENT MODEL
 # ----------------------------------------------------------------------
@@ -129,7 +151,9 @@ def compute_impacts(delta_T_F: float, claims: Claims) -> Dict:
         "extra_annual_turnovers": extra_turnovers,
         "extra_turnover_cost": extra_turnover_cost,
         "total_extra_annual_cost": (annual_waste_cost + annual_productivity_loss
-                                    + extra_turnover_cost)
+                                    + extra_turnover_cost),
+        "provenance": claims.provenance,
+        "falsifier": FALSIFIER,
     }
 
 # ----------------------------------------------------------------------
@@ -228,6 +252,8 @@ def run_simulated_experiment(claims: Claims,
         "Expected annual extra turnover cost difference: "
         f"${control['extra_turnover_cost'] - treatment['extra_turnover_cost']:,.2f}"
     )
+    results['provenance'] = claims.provenance
+    results['falsifier'] = FALSIFIER
 
     return results, control, treatment
 
@@ -253,14 +279,23 @@ def main():
                         help='Sample days for the A/B simulation (default: 30)')
     parser.add_argument('--seed', type=int, default=42,
                         help='Random seed for reproducibility (default: 42)')
+    parser.add_argument('--provenance', type=str, default='illustrative_default',
+                        help='Label for Claims data source (default: illustrative_default). '
+                             'Set to "measured_..." when using real facility data.')
     args = parser.parse_args()
 
     claims = Claims(
         office_temp_F=args.office_temp,
         num_floor_workers=args.workers,
         electricity_cost_per_kwh=args.electricity_rate,
+        provenance=args.provenance,
     )
 
+    print("=" * 70)
+    print(f"PROVENANCE: {claims.provenance}")
+    if claims.provenance == "illustrative_default":
+        print("  ⚠ Numbers below are derived from ILLUSTRATIVE DEFAULT coefficients.")
+        print("    Substitute measured facility data (Claims fields) to make figures real.")
     print("=" * 70)
     print("GRADIENT ANALYSIS: impacts as ΔT (floor − office) varies from 0 to 25°F")
     print("=" * 70)
@@ -310,6 +345,11 @@ def main():
     print("\n👉 To falsify a claim, increase noise, reduce sample size, or change coefficients "
           "until p > 0.05. That shows the minimum detectable effect for your facility.\n"
           "Replace the dummy data with real measurements from a real intervention to audit the truth.")
+
+    print("\n" + "=" * 70)
+    print("FALSIFICATION CONTRACT")
+    print("=" * 70)
+    print(FALSIFIER)
 
 if __name__ == "__main__":
     main()
