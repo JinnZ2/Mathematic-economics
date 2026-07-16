@@ -15,6 +15,7 @@ All assumptions are parameterised and annotated so any AI auditor can trace
 the logic, challenge the claims, and suggest better data.
 """
 
+import argparse
 import math
 import random
 import statistics
@@ -235,7 +236,31 @@ def run_simulated_experiment(claims: Claims,
 # ----------------------------------------------------------------------
 
 def main():
-    claims = Claims()
+    parser = argparse.ArgumentParser(
+        description="Falsifiable HVAC gradient audit -- gradient scan + A/B experiment simulation."
+    )
+    parser.add_argument('--delta_T', type=float, default=15.0,
+                        help='Control-scenario ΔT °F for the A/B experiment (default: 15)')
+    parser.add_argument('--treatment_delta_T', type=float, default=3.0,
+                        help='Treatment-scenario ΔT °F after intervention (default: 3)')
+    parser.add_argument('--office_temp', type=float, default=72.0,
+                        help='Office thermostat setpoint °F (default: 72)')
+    parser.add_argument('--workers', type=int, default=20,
+                        help='Number of floor workers (default: 20)')
+    parser.add_argument('--electricity_rate', type=float, default=0.12,
+                        help='Cost per kWh (default: 0.12)')
+    parser.add_argument('--sample_days', type=int, default=30,
+                        help='Sample days for the A/B simulation (default: 30)')
+    parser.add_argument('--seed', type=int, default=42,
+                        help='Random seed for reproducibility (default: 42)')
+    args = parser.parse_args()
+
+    claims = Claims(
+        office_temp_F=args.office_temp,
+        num_floor_workers=args.workers,
+        electricity_cost_per_kwh=args.electricity_rate,
+    )
+
     print("=" * 70)
     print("GRADIENT ANALYSIS: impacts as ΔT (floor − office) varies from 0 to 25°F")
     print("=" * 70)
@@ -249,16 +274,18 @@ def main():
               f"{r['turnover_rate']:8.2%} {r['total_extra_annual_cost']:12.0f}")
 
     print("\n" + "=" * 70)
-    print("EXPERIMENT SIMULATION (30-day A/B test, status quo vs. reduced ΔT)")
+    print(f"EXPERIMENT SIMULATION ({args.sample_days}-day A/B test, "
+          f"control ΔT={args.delta_T}°F vs. treatment ΔT={args.treatment_delta_T}°F)")
     print("=" * 70)
     exp_results, ctrl, trt = run_simulated_experiment(
         claims,
-        treatment_delta_T=3.0,   # floor spot cooling to 75°F while office is 72°F
-        control_delta_T=15.0,    # floor at 87°F, office at 72°F
-        sample_days=30,
+        treatment_delta_T=args.treatment_delta_T,
+        control_delta_T=args.delta_T,
+        sample_days=args.sample_days,
         noise_std_kwh=5.0,
         noise_std_productivity=0.02,
-        noise_std_injury=0.005
+        noise_std_injury=0.005,
+        rng_seed=args.seed,
     )
 
     print(f"\nControl period (ΔT={ctrl['delta_T_F']}°F, floor={ctrl['floor_temp_F']}°F):")
