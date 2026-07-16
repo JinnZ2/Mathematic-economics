@@ -20,10 +20,16 @@ Output:
 """
 
 import argparse
-import numpy as np
-from scipy import stats
+import random
+import statistics
 from dataclasses import dataclass
 from typing import Dict, Tuple
+
+# stdlib-only replacements for numpy.random + scipy.stats primitives.
+try:
+    from ._stdlib_stats import poisson, welch_t_greater
+except ImportError:
+    from _stdlib_stats import poisson, welch_t_greater
 
 # ----------------------------------------------------------------------
 # FALSIFIABLE CLAIMS – change these to match empirical evidence
@@ -113,7 +119,7 @@ def run_simulated_experiment(claims: Claims,
     a 30-day intervention (reducing ΔT) produces statistically significant
     improvements. Returns test results and the underlying impact dicts.
     """
-    rng = np.random.default_rng(seed)
+    rng = random.Random(seed)
     ctrl = compute_impacts(control_delta_T, claims)
     trt = compute_impacts(treatment_delta_T, claims)
 
@@ -130,26 +136,33 @@ def run_simulated_experiment(claims: Claims,
     # Generate noisy daily measurements
     noise_kwh = 5.0
     noise_prod = claims.base_daily_productivity_value * 0.02
-    control_kwh = rng.normal(true_kwh_ctrl, noise_kwh, sample_days)
-    treatment_kwh = rng.normal(true_kwh_trt, noise_kwh, sample_days)
-    control_prod = rng.normal(claims.base_daily_productivity_value * (1 - true_prod_loss_ctrl),
-                              noise_prod, sample_days)
-    treatment_prod = rng.normal(claims.base_daily_productivity_value * (1 - true_prod_loss_trt),
-                                noise_prod, sample_days)
-    control_inj = rng.poisson(daily_inj_rate_ctrl * claims.num_floor_workers, sample_days)
-    treatment_inj = rng.poisson(daily_inj_rate_trt * claims.num_floor_workers, sample_days)
+    control_kwh = [rng.gauss(true_kwh_ctrl, noise_kwh) for _ in range(sample_days)]
+    treatment_kwh = [rng.gauss(true_kwh_trt, noise_kwh) for _ in range(sample_days)]
+    control_prod = [rng.gauss(claims.base_daily_productivity_value * (1 - true_prod_loss_ctrl),
+                              noise_prod)
+                    for _ in range(sample_days)]
+    treatment_prod = [rng.gauss(claims.base_daily_productivity_value * (1 - true_prod_loss_trt),
+                                noise_prod)
+                      for _ in range(sample_days)]
+    control_inj = [poisson(rng, daily_inj_rate_ctrl * claims.num_floor_workers)
+                   for _ in range(sample_days)]
+    treatment_inj = [poisson(rng, daily_inj_rate_trt * claims.num_floor_workers)
+                     for _ in range(sample_days)]
 
-    # Statistical tests (one-sided where direction is predicted)
-    _, p_waste = stats.ttest_ind(control_kwh, treatment_kwh, alternative='greater')
-    _, p_prod = stats.ttest_ind(treatment_prod, control_prod, alternative='greater')
-    _, p_inj = stats.ttest_ind(control_inj, treatment_inj, alternative='greater')
+    # Welch two-sample t-test, one-sided
+    _, p_waste = welch_t_greater(control_kwh, treatment_kwh)
+    _, p_prod  = welch_t_greater(treatment_prod, control_prod)
+    _, p_inj   = welch_t_greater(control_inj, treatment_inj)
 
     results = {
         'waste_p': p_waste, 'prod_p': p_prod, 'inj_p': p_inj,
-        'waste_ctrl_mean': np.mean(control_kwh), 'waste_trt_mean': np.mean(treatment_kwh),
-        'prod_ctrl_mean': np.mean(control_prod), 'prod_trt_mean': np.mean(treatment_prod),
-        'inj_ctrl_mean': np.mean(control_inj), 'inj_trt_mean': np.mean(treatment_inj),
-        'turnover_annual_diff': ctrl['extra_turnover_cost'] - trt['extra_turnover_cost']
+        'waste_ctrl_mean': statistics.mean(control_kwh),
+        'waste_trt_mean':  statistics.mean(treatment_kwh),
+        'prod_ctrl_mean':  statistics.mean(control_prod),
+        'prod_trt_mean':   statistics.mean(treatment_prod),
+        'inj_ctrl_mean':   statistics.mean(control_inj),
+        'inj_trt_mean':    statistics.mean(treatment_inj),
+        'turnover_annual_diff': ctrl['extra_turnover_cost'] - trt['extra_turnover_cost'],
     }
     return results, ctrl, trt
 

@@ -15,11 +15,19 @@ All assumptions are parameterised and annotated so any AI auditor can trace
 the logic, challenge the claims, and suggest better data.
 """
 
-import numpy as np
-from scipy import stats
+import math
+import random
+import statistics
 from dataclasses import dataclass
 from typing import List, Dict
-import math
+
+# stdlib-only replacements for numpy.random + scipy.stats primitives.
+# Works both when this file is run as `python3 accounting/HVAC_gradient.py`
+# (sys.path[0] == accounting/) and when imported as `accounting.HVAC_gradient`.
+try:
+    from ._stdlib_stats import poisson, welch_t_greater
+except ImportError:
+    from _stdlib_stats import poisson, welch_t_greater
 
 # ----------------------------------------------------------------------
 # 1. FALSIFIABLE CLAIMS (each can be disproven with data)
@@ -144,7 +152,7 @@ def run_simulated_experiment(claims: Claims,
     match the claims above (at 95% confidence).  If the test fails to reject
     the null (p > 0.05), the claim is falsified *with this sample size*.
     """
-    rng = np.random.default_rng(rng_seed)
+    rng = random.Random(rng_seed)
 
     # ---- True effects according to claims ----
     control = compute_impacts(control_delta_T, claims)
@@ -166,46 +174,50 @@ def run_simulated_experiment(claims: Claims,
                                    claims.base_annual_injury_rate / claims.annual_work_days)
 
     # Generate noisy daily data
-    days = np.arange(sample_days)
     # kWh
-    control_kwh = rng.normal(true_waste_control, noise_std_kwh, sample_days)
-    treatment_kwh = rng.normal(true_waste_treatment, noise_std_kwh, sample_days)
+    control_kwh = [rng.gauss(true_waste_control, noise_std_kwh) for _ in range(sample_days)]
+    treatment_kwh = [rng.gauss(true_waste_treatment, noise_std_kwh) for _ in range(sample_days)]
     # Productivity (dollars per worker per day) – base minus loss + noise
     base_val = claims.base_daily_productivity_value
-    control_prod = rng.normal(base_val * (1 - true_prod_loss_control),
-                              base_val * noise_std_productivity, sample_days)
-    treatment_prod = rng.normal(base_val * (1 - true_prod_loss_treatment),
-                                base_val * noise_std_productivity, sample_days)
-    # Injuries (binary per worker per day? simulate total incidents per day using Poisson)
-    control_injuries = rng.poisson(daily_injury_rate_control * claims.num_floor_workers,
-                                   sample_days)
-    treatment_injuries = rng.poisson(daily_injury_rate_treatment * claims.num_floor_workers,
-                                     sample_days)
+    control_prod = [rng.gauss(base_val * (1 - true_prod_loss_control),
+                              base_val * noise_std_productivity)
+                    for _ in range(sample_days)]
+    treatment_prod = [rng.gauss(base_val * (1 - true_prod_loss_treatment),
+                                base_val * noise_std_productivity)
+                      for _ in range(sample_days)]
+    # Injuries per day (Poisson on lam = daily_rate * n_workers)
+    control_injuries = [poisson(rng, daily_injury_rate_control * claims.num_floor_workers)
+                        for _ in range(sample_days)]
+    treatment_injuries = [poisson(rng, daily_injury_rate_treatment * claims.num_floor_workers)
+                          for _ in range(sample_days)]
 
-    # ---- Statistical tests (two-sample t-test, one-sided where appropriate) ----
+    # ---- Statistical tests (Welch two-sample t-test, one-sided) ----
     results = {}
-    # 1. Waste difference
-    t_waste, p_waste = stats.ttest_ind(control_kwh, treatment_kwh, alternative='greater')
+    # 1. Waste difference (control > treatment)
+    t_waste, p_waste = welch_t_greater(control_kwh, treatment_kwh)
     results['waste'] = {
-        'mean_control': np.mean(control_kwh), 'mean_treatment': np.mean(treatment_kwh),
-        'diff_observed': np.mean(control_kwh) - np.mean(treatment_kwh),
-        'p_value': p_waste, 'reject_null': p_waste < 0.05
+        'mean_control': statistics.mean(control_kwh),
+        'mean_treatment': statistics.mean(treatment_kwh),
+        'diff_observed': statistics.mean(control_kwh) - statistics.mean(treatment_kwh),
+        'p_value': p_waste, 'reject_null': p_waste < 0.05,
     }
 
-    # 2. Productivity (greater value in treatment)
-    t_prod, p_prod = stats.ttest_ind(treatment_prod, control_prod, alternative='greater')
+    # 2. Productivity (treatment > control)
+    t_prod, p_prod = welch_t_greater(treatment_prod, control_prod)
     results['productivity'] = {
-        'mean_control': np.mean(control_prod), 'mean_treatment': np.mean(treatment_prod),
-        'diff_observed': np.mean(treatment_prod) - np.mean(control_prod),
-        'p_value': p_prod, 'reject_null': p_prod < 0.05
+        'mean_control': statistics.mean(control_prod),
+        'mean_treatment': statistics.mean(treatment_prod),
+        'diff_observed': statistics.mean(treatment_prod) - statistics.mean(control_prod),
+        'p_value': p_prod, 'reject_null': p_prod < 0.05,
     }
 
-    # 3. Injuries (fewer in treatment)
-    t_inj, p_inj = stats.ttest_ind(control_injuries, treatment_injuries, alternative='greater')
+    # 3. Injuries (control > treatment)
+    t_inj, p_inj = welch_t_greater(control_injuries, treatment_injuries)
     results['injuries'] = {
-        'mean_control': np.mean(control_injuries), 'mean_treatment': np.mean(treatment_injuries),
-        'diff_observed': np.mean(control_injuries) - np.mean(treatment_injuries),
-        'p_value': p_inj, 'reject_null': p_inj < 0.05
+        'mean_control': statistics.mean(control_injuries),
+        'mean_treatment': statistics.mean(treatment_injuries),
+        'diff_observed': statistics.mean(control_injuries) - statistics.mean(treatment_injuries),
+        'p_value': p_inj, 'reject_null': p_inj < 0.05,
     }
 
     # Turnover: simulated as total over the period? We'll do a 30-day rate test using Poisson
