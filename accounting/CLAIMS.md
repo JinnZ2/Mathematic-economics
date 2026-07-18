@@ -14,7 +14,7 @@ usable across the JinnZ2 substrate-primary toolchain.
 | Substrate parity | `SP-` | `substrate_parity_audit.py` | 5 |
 | Thermodynamic exception | `TE-` | `thermodynamic_exception_detector.py` | 5 |
 | Cost of competition | `CC-` | `cost_of_competition.py` | 6 |
-| Electron accounting | `EA-` | `electron_accounting.py` | 4 |
+| Electron accounting | `EA-` | `electron_accounting.py` | 5 |
 
 Two-letter `CC-` is structurally distinct from the global C-series
 (`C` + 3 digits) and lives in the accounting/ namespace.
@@ -135,15 +135,21 @@ accounting tops out before that boundary; EA is the extension.
 | **EA-1** | Electron count closes in every ledger window: `sum(in) - sum(out) - sum(stored) == 0` within tolerance. | Nonzero residual exceeding tolerance on real balanced-flow data. |
 | **EA-2** | Atomic-layer energy entries resolve to electron entries with no information loss: `resolve_down()` then `roll_up()` round-trip within tolerance. | Round-trip residual exceeding tolerance for a well-defined `(energy_j, volts, dir, src)` entry. |
 | **EA-3** | Dormant carrying cost is near zero: module imported but inactive performs no per-carrier work. Posting is always cheap; resolution defers to `close_window` when `active`. | Measured work scaling with entry count while `active=False`. |
-| **EA-4** | The ledger grammar (`dir`, `n_e`, `src`) is valid unchanged at quantum granularity (per-carrier, per-event posting). `n_e` may be 1. | Any quantum posting path that requires a unit change or a grammar extension. Status **stub**: `quantum_hook()` raises `NotImplementedError` until a real quantum load arrives. |
+| **EA-4** | The ledger grammar (`dir`, `n_e`, `src`) is valid unchanged at quantum granularity (per-carrier, per-event posting). `n_e` may be 1. `QuantumWindow.quantum_hook(event)` posts under the same grammar with a `subspace` tag added for post-selection. | Any quantum posting path that requires a unit change or a grammar extension. |
+| **EA-5** | Under subspace post-selection, relaxation costs **success rate**, not **accuracy**: residuals of accepted windows do not degrade as rejection rate rises. Rejected events are held aside (tallied as failed-to-close windows), never netted into the accepted balance. | Accepted-window residuals correlating with rejection rate on real or simulated relaxation (i.e., the accepted set's balance drifts as more events are rejected). |
 
 Worked demo (module self-test): balanced 3-post window
 (in=1.0e20, out=6.0e19, stored=4.0e19) → residual exactly 0 → EA-1
 closes; `resolve_down(3.6 MJ @ 400 V)` then `roll_up` → relative
 round-trip error 0.0 → EA-2 closes; dormant ledger posts an entry
 with zero resolution work → EA-3 structural check passes.
-Sanity anchors: Faraday = 96 485.33 C/mol (CODATA, exact derived);
-6.24e18 electrons per amp-second.
+`QuantumWindow(expected_subspace=1)` fed 6 in-subspace events
+(3 in + 2 out + 1 stored) plus 2 relaxed (subspace=0) events →
+EA-4 accepted-window closes exactly (grammar unchanged at n_e=1),
+EA-5 success_rate = 0.75 (2 of 8 rejected) while
+accepted_residual = 0.0 (relaxation cost success rate, not
+accuracy). Sanity anchors: Faraday = 96 485.33 C/mol (CODATA,
+exact derived); 6.24e18 electrons per amp-second.
 
 ## Test invariants
 

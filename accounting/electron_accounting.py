@@ -57,9 +57,20 @@ CLAIM_TABLE = [
         "id": "EA-4",
         "claim": "the ledger grammar is valid unchanged at quantum "
                  "granularity (per-carrier, per-event posting)",
-        "test": "quantum_hook posting path (stub — not yet built)",
+        "test": "quantum_hook posting path",
         "refuted_by": "any quantum posting requiring a unit change",
-        "status": "stub",
+        "status": "open",
+    },
+    {
+        "id": "EA-5",
+        "claim": "under subspace post-selection, relaxation costs "
+                 "success rate, not accuracy: residuals of accepted "
+                 "windows do not degrade as rejection rate rises",
+        "test": "QuantumWindow accept/reject split; residuals of "
+                "accepted set vs success_rate trajectory",
+        "refuted_by": "accepted-window residuals correlating with "
+                      "rejection rate on real or simulated relaxation",
+        "status": "open",
     },
 ]
 
@@ -160,11 +171,54 @@ def roll_up(electron_entry):
         "src": electron_entry["src"],
     }
 
-def quantum_hook(event):
-    """STUB (claim EA-4). Per-carrier, per-event posting path for
-    quantum loads (tunneling counts, single-carrier devices).
-    Grammar must hold unchanged: dir, n_e, src. n_e may be 1."""
-    raise NotImplementedError("build when a quantum load arrives")
+class QuantumWindow:
+    """Per-event posting path for quantum loads (claims EA-4, EA-5).
+    Grammar unchanged from Ledger: dir, n_e, src. n_e may be 1.
+
+    Post-selection = close_window run per-event:
+    each event carries the measured conserved quantity (subspace).
+    Event in expected subspace -> accepted, posts as a real count.
+    Event outside -> a window that failed to close: dropped from
+    the count, tallied. Relaxation therefore shows up as a falling
+    success rate, never a corrupted balance."""
+
+    def __init__(self, expected_subspace, ledger=None):
+        self.expected = expected_subspace
+        self.ledger = ledger if ledger is not None else Ledger(active=True)
+        self.accepted = 0
+        self.rejected = 0
+        self.success_trajectory = []  # per-batch success rates over time
+
+    def quantum_hook(self, event):
+        """event: {"dir", "n_e", "src", "subspace"}
+        subspace = measured conserved quantity for this event
+        (e.g. total excitation number). Returns True if accepted."""
+        if event["subspace"] == self.expected:
+            self.ledger.post(event["dir"], event["n_e"], event["src"])
+            self.accepted += 1
+            return True
+        self.rejected += 1  # failed-to-close window, not noise
+        return False
+
+    def close_batch(self):
+        """Close the accepted set as a ledger window and record the
+        batch success rate beside it. Two trajectories, one truth:
+        residuals say whether the count is right, success rate says
+        how much relaxation cost you."""
+        total = self.accepted + self.rejected
+        rate = self.accepted / total if total else None
+        window = self.ledger.close_window()
+        record = {
+            "t": window["t"],
+            "success_rate": rate,
+            "accepted": self.accepted,
+            "rejected": self.rejected,
+            "window": window,
+        }
+        self.success_trajectory.append(record)
+        self.accepted = 0
+        self.rejected = 0
+        return record
 
 
 # ---------------------------------------------------------------
@@ -194,6 +248,26 @@ def _selftest():
     d = Ledger(active=False)
     d.post("in", 1.0, "idle_check")
     out["EA-3_dormant_entries"] = len(d.entries)
+
+    # EA-4/EA-5: post-selection path — synthetic relaxation events
+    # 6 in-subspace balanced events + 2 leaked (relaxed) events.
+    qw = QuantumWindow(expected_subspace=1)
+    events = [
+        {"dir": "in", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "in", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "in", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "out", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "out", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "stored", "n_e": 1, "src": "carrier", "subspace": 1},
+        {"dir": "in", "n_e": 1, "src": "carrier", "subspace": 0},  # relaxed
+        {"dir": "out", "n_e": 1, "src": "carrier", "subspace": 0}, # relaxed
+    ]
+    for ev in events:
+        qw.quantum_hook(ev)
+    batch = qw.close_batch()
+    out["EA-4_grammar_holds"] = batch["window"]["closes"]
+    out["EA-5_success_rate"] = batch["success_rate"]
+    out["EA-5_accepted_residual"] = batch["window"]["rel_residual"]
 
     # sanity anchors
     out["faraday_C_per_mol"] = FARADAY

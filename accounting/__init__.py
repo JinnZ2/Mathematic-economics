@@ -11,7 +11,7 @@ mathematic-economics C-series:
   substrate_parity_audit              -> SP-1 .. SP-5
   thermodynamic_exception_detector    -> TE-1 .. TE-5
   cost_of_competition                 -> CC-1 .. CC-6
-  electron_accounting                 -> EA-1 .. EA-4
+  electron_accounting                 -> EA-1 .. EA-5
 
 These claim families are documented in `accounting/CLAIMS.md`.
 
