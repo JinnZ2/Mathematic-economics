@@ -2,7 +2,7 @@
 
 License: CC0 1.0 Universal.
 
-The `accounting/` package declares five composable falsifiable-audit
+The `accounting/` package declares six composable falsifiable-audit
 claim families with stable prefixes that **do not enter** the global
 mathematic-economics C-series. They are domain-agnostic primitives
 usable across the JinnZ2 substrate-primary toolchain.
@@ -14,6 +14,7 @@ usable across the JinnZ2 substrate-primary toolchain.
 | Substrate parity | `SP-` | `substrate_parity_audit.py` | 5 |
 | Thermodynamic exception | `TE-` | `thermodynamic_exception_detector.py` | 5 |
 | Cost of competition | `CC-` | `cost_of_competition.py` | 6 |
+| Electron accounting | `EA-` | `electron_accounting.py` | 4 |
 
 Two-letter `CC-` is structurally distinct from the global C-series
 (`C` + 3 digits) and lives in the accounting/ namespace.
@@ -118,6 +119,31 @@ across field-resonance / electrostatics / infrastructure) →
 competition closure 9.90, cooperation closure 30.00,
 **cost = 20.10** (STATUS RED); over 3 rounds with `lockin_tax=0.30`,
 cumulative loss = 120.82.
+
+## EA — Electron Accounting
+
+Sub-atomic ledger. Sits beside `atomic_accounting` and resolves BELOW
+it — lazy layer, dormant by default, activates only when an energy or
+quantum-precision load demands per-carrier granularity. The electron
+is the bridge unit because it is the same conserved carrier in
+classical drift current and in quantum tunneling: the ledger crosses
+the classical / quantum boundary with no unit change. Atomic-layer
+accounting tops out before that boundary; EA is the extension.
+
+| ID | Statement | Falsifier |
+|---|---|---|
+| **EA-1** | Electron count closes in every ledger window: `sum(in) - sum(out) - sum(stored) == 0` within tolerance. | Nonzero residual exceeding tolerance on real balanced-flow data. |
+| **EA-2** | Atomic-layer energy entries resolve to electron entries with no information loss: `resolve_down()` then `roll_up()` round-trip within tolerance. | Round-trip residual exceeding tolerance for a well-defined `(energy_j, volts, dir, src)` entry. |
+| **EA-3** | Dormant carrying cost is near zero: module imported but inactive performs no per-carrier work. Posting is always cheap; resolution defers to `close_window` when `active`. | Measured work scaling with entry count while `active=False`. |
+| **EA-4** | The ledger grammar (`dir`, `n_e`, `src`) is valid unchanged at quantum granularity (per-carrier, per-event posting). `n_e` may be 1. | Any quantum posting path that requires a unit change or a grammar extension. Status **stub**: `quantum_hook()` raises `NotImplementedError` until a real quantum load arrives. |
+
+Worked demo (module self-test): balanced 3-post window
+(in=1.0e20, out=6.0e19, stored=4.0e19) → residual exactly 0 → EA-1
+closes; `resolve_down(3.6 MJ @ 400 V)` then `roll_up` → relative
+round-trip error 0.0 → EA-2 closes; dormant ledger posts an entry
+with zero resolution work → EA-3 structural check passes.
+Sanity anchors: Faraday = 96 485.33 C/mol (CODATA, exact derived);
+6.24e18 electrons per amp-second.
 
 ## Test invariants
 
