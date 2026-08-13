@@ -15,11 +15,20 @@ All assumptions are parameterised and annotated so any AI auditor can trace
 the logic, challenge the claims, and suggest better data.
 """
 
-import numpy as np
-from scipy import stats
+import argparse
+import math
+import random
+import statistics
 from dataclasses import dataclass
 from typing import List, Dict
-import math
+
+# stdlib-only replacements for numpy.random + scipy.stats primitives.
+# Works both when this file is run as `python3 accounting/HVAC_gradient.py`
+# (sys.path[0] == accounting/) and when imported as `accounting.HVAC_gradient`.
+try:
+    from ._stdlib_stats import poisson, welch_t_greater
+except ImportError:
+    from _stdlib_stats import poisson, welch_t_greater
 
 # ----------------------------------------------------------------------
 # 1. FALSIFIABLE CLAIMS (each can be disproven with data)
@@ -59,6 +68,28 @@ class Claims:
     base_annual_turnover_rate: float = 0.15       # 15%
     cost_per_turnover: float = 5000.0              # hiring + training cost
     num_floor_workers: int = 20
+
+    # Provenance: where these numbers came from. "illustrative_default" means
+    # hypothesis-only. Replace with e.g. "measured_2025_q1" or "facility_XYZ_2024"
+    # when the Claims instance is populated from real records. Report prints it.
+    provenance: str = "illustrative_default"
+
+
+FALSIFIER = (
+    "STRUCTURAL CLAIM: temperature gap ΔT between shop floor and office produces "
+    "measurable waste, productivity loss, injuries, and turnover proportional to "
+    "the coefficients in Claims.\n"
+    "FALSIFIED IF, against real facility measurements:\n"
+    "  (a) waste reduction from a reduced-ΔT intervention is not significant "
+    "(p > 0.05 with adequate sample); OR\n"
+    "  (b) confounders (wages, shift length, PTO, etc.) explain the observed "
+    "variation after multivariate control -- run "
+    "accounting/unknown_variable_tester.py to check; OR\n"
+    "  (c) the assumed comfort band [60, 75]°F does not match your workforce "
+    "(e.g. workers acclimated to higher baseline show no productivity loss).\n"
+    "If (a),(b),(c) hold on real data, update the Claims coefficients or the "
+    "band; do not retune the audit."
+)
 
 # ----------------------------------------------------------------------
 # 2. GRADIENT MODEL
@@ -120,7 +151,9 @@ def compute_impacts(delta_T_F: float, claims: Claims) -> Dict:
         "extra_annual_turnovers": extra_turnovers,
         "extra_turnover_cost": extra_turnover_cost,
         "total_extra_annual_cost": (annual_waste_cost + annual_productivity_loss
-                                    + extra_turnover_cost)
+                                    + extra_turnover_cost),
+        "provenance": claims.provenance,
+        "falsifier": FALSIFIER,
     }
 
 # ----------------------------------------------------------------------
@@ -144,7 +177,7 @@ def run_simulated_experiment(claims: Claims,
     match the claims above (at 95% confidence).  If the test fails to reject
     the null (p > 0.05), the claim is falsified *with this sample size*.
     """
-    rng = np.random.default_rng(rng_seed)
+    rng = random.Random(rng_seed)
 
     # ---- True effects according to claims ----
     control = compute_impacts(control_delta_T, claims)
@@ -166,46 +199,50 @@ def run_simulated_experiment(claims: Claims,
                                    claims.base_annual_injury_rate / claims.annual_work_days)
 
     # Generate noisy daily data
-    days = np.arange(sample_days)
     # kWh
-    control_kwh = rng.normal(true_waste_control, noise_std_kwh, sample_days)
-    treatment_kwh = rng.normal(true_waste_treatment, noise_std_kwh, sample_days)
+    control_kwh = [rng.gauss(true_waste_control, noise_std_kwh) for _ in range(sample_days)]
+    treatment_kwh = [rng.gauss(true_waste_treatment, noise_std_kwh) for _ in range(sample_days)]
     # Productivity (dollars per worker per day) – base minus loss + noise
     base_val = claims.base_daily_productivity_value
-    control_prod = rng.normal(base_val * (1 - true_prod_loss_control),
-                              base_val * noise_std_productivity, sample_days)
-    treatment_prod = rng.normal(base_val * (1 - true_prod_loss_treatment),
-                                base_val * noise_std_productivity, sample_days)
-    # Injuries (binary per worker per day? simulate total incidents per day using Poisson)
-    control_injuries = rng.poisson(daily_injury_rate_control * claims.num_floor_workers,
-                                   sample_days)
-    treatment_injuries = rng.poisson(daily_injury_rate_treatment * claims.num_floor_workers,
-                                     sample_days)
+    control_prod = [rng.gauss(base_val * (1 - true_prod_loss_control),
+                              base_val * noise_std_productivity)
+                    for _ in range(sample_days)]
+    treatment_prod = [rng.gauss(base_val * (1 - true_prod_loss_treatment),
+                                base_val * noise_std_productivity)
+                      for _ in range(sample_days)]
+    # Injuries per day (Poisson on lam = daily_rate * n_workers)
+    control_injuries = [poisson(rng, daily_injury_rate_control * claims.num_floor_workers)
+                        for _ in range(sample_days)]
+    treatment_injuries = [poisson(rng, daily_injury_rate_treatment * claims.num_floor_workers)
+                          for _ in range(sample_days)]
 
-    # ---- Statistical tests (two-sample t-test, one-sided where appropriate) ----
+    # ---- Statistical tests (Welch two-sample t-test, one-sided) ----
     results = {}
-    # 1. Waste difference
-    t_waste, p_waste = stats.ttest_ind(control_kwh, treatment_kwh, alternative='greater')
+    # 1. Waste difference (control > treatment)
+    t_waste, p_waste = welch_t_greater(control_kwh, treatment_kwh)
     results['waste'] = {
-        'mean_control': np.mean(control_kwh), 'mean_treatment': np.mean(treatment_kwh),
-        'diff_observed': np.mean(control_kwh) - np.mean(treatment_kwh),
-        'p_value': p_waste, 'reject_null': p_waste < 0.05
+        'mean_control': statistics.mean(control_kwh),
+        'mean_treatment': statistics.mean(treatment_kwh),
+        'diff_observed': statistics.mean(control_kwh) - statistics.mean(treatment_kwh),
+        'p_value': p_waste, 'reject_null': p_waste < 0.05,
     }
 
-    # 2. Productivity (greater value in treatment)
-    t_prod, p_prod = stats.ttest_ind(treatment_prod, control_prod, alternative='greater')
+    # 2. Productivity (treatment > control)
+    t_prod, p_prod = welch_t_greater(treatment_prod, control_prod)
     results['productivity'] = {
-        'mean_control': np.mean(control_prod), 'mean_treatment': np.mean(treatment_prod),
-        'diff_observed': np.mean(treatment_prod) - np.mean(control_prod),
-        'p_value': p_prod, 'reject_null': p_prod < 0.05
+        'mean_control': statistics.mean(control_prod),
+        'mean_treatment': statistics.mean(treatment_prod),
+        'diff_observed': statistics.mean(treatment_prod) - statistics.mean(control_prod),
+        'p_value': p_prod, 'reject_null': p_prod < 0.05,
     }
 
-    # 3. Injuries (fewer in treatment)
-    t_inj, p_inj = stats.ttest_ind(control_injuries, treatment_injuries, alternative='greater')
+    # 3. Injuries (control > treatment)
+    t_inj, p_inj = welch_t_greater(control_injuries, treatment_injuries)
     results['injuries'] = {
-        'mean_control': np.mean(control_injuries), 'mean_treatment': np.mean(treatment_injuries),
-        'diff_observed': np.mean(control_injuries) - np.mean(treatment_injuries),
-        'p_value': p_inj, 'reject_null': p_inj < 0.05
+        'mean_control': statistics.mean(control_injuries),
+        'mean_treatment': statistics.mean(treatment_injuries),
+        'diff_observed': statistics.mean(control_injuries) - statistics.mean(treatment_injuries),
+        'p_value': p_inj, 'reject_null': p_inj < 0.05,
     }
 
     # Turnover: simulated as total over the period? We'll do a 30-day rate test using Poisson
@@ -215,6 +252,8 @@ def run_simulated_experiment(claims: Claims,
         "Expected annual extra turnover cost difference: "
         f"${control['extra_turnover_cost'] - treatment['extra_turnover_cost']:,.2f}"
     )
+    results['provenance'] = claims.provenance
+    results['falsifier'] = FALSIFIER
 
     return results, control, treatment
 
@@ -223,7 +262,40 @@ def run_simulated_experiment(claims: Claims,
 # ----------------------------------------------------------------------
 
 def main():
-    claims = Claims()
+    parser = argparse.ArgumentParser(
+        description="Falsifiable HVAC gradient audit -- gradient scan + A/B experiment simulation."
+    )
+    parser.add_argument('--delta_T', type=float, default=15.0,
+                        help='Control-scenario ΔT °F for the A/B experiment (default: 15)')
+    parser.add_argument('--treatment_delta_T', type=float, default=3.0,
+                        help='Treatment-scenario ΔT °F after intervention (default: 3)')
+    parser.add_argument('--office_temp', type=float, default=72.0,
+                        help='Office thermostat setpoint °F (default: 72)')
+    parser.add_argument('--workers', type=int, default=20,
+                        help='Number of floor workers (default: 20)')
+    parser.add_argument('--electricity_rate', type=float, default=0.12,
+                        help='Cost per kWh (default: 0.12)')
+    parser.add_argument('--sample_days', type=int, default=30,
+                        help='Sample days for the A/B simulation (default: 30)')
+    parser.add_argument('--seed', type=int, default=42,
+                        help='Random seed for reproducibility (default: 42)')
+    parser.add_argument('--provenance', type=str, default='illustrative_default',
+                        help='Label for Claims data source (default: illustrative_default). '
+                             'Set to "measured_..." when using real facility data.')
+    args = parser.parse_args()
+
+    claims = Claims(
+        office_temp_F=args.office_temp,
+        num_floor_workers=args.workers,
+        electricity_cost_per_kwh=args.electricity_rate,
+        provenance=args.provenance,
+    )
+
+    print("=" * 70)
+    print(f"PROVENANCE: {claims.provenance}")
+    if claims.provenance == "illustrative_default":
+        print("  ⚠ Numbers below are derived from ILLUSTRATIVE DEFAULT coefficients.")
+        print("    Substitute measured facility data (Claims fields) to make figures real.")
     print("=" * 70)
     print("GRADIENT ANALYSIS: impacts as ΔT (floor − office) varies from 0 to 25°F")
     print("=" * 70)
@@ -237,16 +309,18 @@ def main():
               f"{r['turnover_rate']:8.2%} {r['total_extra_annual_cost']:12.0f}")
 
     print("\n" + "=" * 70)
-    print("EXPERIMENT SIMULATION (30-day A/B test, status quo vs. reduced ΔT)")
+    print(f"EXPERIMENT SIMULATION ({args.sample_days}-day A/B test, "
+          f"control ΔT={args.delta_T}°F vs. treatment ΔT={args.treatment_delta_T}°F)")
     print("=" * 70)
     exp_results, ctrl, trt = run_simulated_experiment(
         claims,
-        treatment_delta_T=3.0,   # floor spot cooling to 75°F while office is 72°F
-        control_delta_T=15.0,    # floor at 87°F, office at 72°F
-        sample_days=30,
+        treatment_delta_T=args.treatment_delta_T,
+        control_delta_T=args.delta_T,
+        sample_days=args.sample_days,
         noise_std_kwh=5.0,
         noise_std_productivity=0.02,
-        noise_std_injury=0.005
+        noise_std_injury=0.005,
+        rng_seed=args.seed,
     )
 
     print(f"\nControl period (ΔT={ctrl['delta_T_F']}°F, floor={ctrl['floor_temp_F']}°F):")
@@ -271,6 +345,11 @@ def main():
     print("\n👉 To falsify a claim, increase noise, reduce sample size, or change coefficients "
           "until p > 0.05. That shows the minimum detectable effect for your facility.\n"
           "Replace the dummy data with real measurements from a real intervention to audit the truth.")
+
+    print("\n" + "=" * 70)
+    print("FALSIFICATION CONTRACT")
+    print("=" * 70)
+    print(FALSIFIER)
 
 if __name__ == "__main__":
     main()

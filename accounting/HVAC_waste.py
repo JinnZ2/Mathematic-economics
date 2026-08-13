@@ -39,6 +39,26 @@ SPOT_COMFORT_COST_PER_WORKER = 350  # dollars per year per worker (capital + ene
 # Number of floor workers who could benefit from redirected savings
 FLOOR_WORKERS = 20
 
+# Provenance: where the numeric assumptions came from. Default = hypothesis
+# only. Override at call time with e.g. "measured_facility_XYZ_2025" once real
+# records back the coefficients.
+PROVENANCE = "illustrative_default"
+
+FALSIFIER = (
+    "STRUCTURAL CLAIM: full HVAC on non-visitor days is waste that could "
+    "instead fund floor spot-comfort stations.\n"
+    "FALSIFIED IF, against real visitor logs / energy records / customer feedback:\n"
+    "  (a) unannounced visits are more frequent than FULL_HVAC_DAYS "
+    "(the buffer is undersized); OR\n"
+    "  (b) setback mode causes pipe damage, mold, or startup-overshoot cost "
+    "exceeding annual_waste on any real facility; OR\n"
+    "  (c) customer perception of a small temperature deviation on transition "
+    "days produces measurable revenue loss > annual_waste (test on a real "
+    "customer visit).\n"
+    "If any of (a),(b),(c) hold, update the assumption (SCHEDULED_VISITOR_DAYS, "
+    "SETBACK_COST_FACTOR, or the audit's scope); do not retune the ratio."
+)
+
 # =============================================================================
 # AUDIT CALCULATION ENGINE
 # Every step is commented and uses only elementary arithmetic.
@@ -46,10 +66,13 @@ FLOOR_WORKERS = 20
 
 def audit_hvac_waste(area_sqft, annual_cost_per_sqft, full_days,
                      setback_factor, spot_cost_per_worker, floor_workers,
-                     year=date.today().year):
+                     year=date.today().year,
+                     provenance=PROVENANCE):
     """
     Perform the waste audit and return a dictionary of results.
-    All monetary values are in dollars.
+    All monetary values are in dollars. `provenance` tags the inputs so a
+    downstream reader knows whether these numbers are illustrative_default or
+    measured.
     """
     # --- 1. Total current annual cost (running full HVAC 365 days) ---
     total_annual_cost = area_sqft * annual_cost_per_sqft
@@ -98,17 +121,29 @@ def audit_hvac_waste(area_sqft, annual_cost_per_sqft, full_days,
         "floor_investment": floor_investment,
         "remaining_savings": remaining_savings,
         "year": year,
+        "provenance": provenance,
+        "falsifier": FALSIFIER,
     }
 
 
 def format_report(results):
     """Generate a human- and AI-readable audit report."""
     r = results
+    provenance_banner = ""
+    if r.get('provenance') == "illustrative_default":
+        provenance_banner = (
+            f" PROVENANCE: {r.get('provenance', 'unstated')}\n"
+            f"   ⚠ Values below are derived from ILLUSTRATIVE DEFAULT inputs.\n"
+            f"     Substitute measured facility data to make figures real.\n"
+        )
+    else:
+        provenance_banner = f" PROVENANCE: {r.get('provenance', 'unstated')}\n"
+
     report = f"""
 ================================================================================
  HVAC CUSTOMER-READY OFFICE WASTE AUDIT – {r['year']}
 ================================================================================
- ASSUMPTIONS
+{provenance_banner} ASSUMPTIONS
    Office area:                          {r['area_sqft']:>8,} sq ft
    Annual HVAC cost per sq ft:           ${r['annual_cost_per_sqft']:>8.2f}
    Days requiring full HVAC (visits+buffer): {r['full_hvac_days']:>3} days
@@ -140,6 +175,10 @@ def format_report(results):
     ${r['annual_waste']:,.2f} every year.  With just-in-time HVAC, we keep the
     customer experience perfect on the 5 days that matter, slash overhead,
     and improve productivity & safety on the floor for free.”
+================================================================================
+
+ FALSIFICATION CONTRACT
+{r['falsifier']}
 ================================================================================
 """
     return report
