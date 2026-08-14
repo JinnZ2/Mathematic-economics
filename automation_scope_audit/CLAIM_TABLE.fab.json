@@ -1,6 +1,6 @@
 {
   "license": "CC0-1.0",
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "scope": "autonomous_trucking_roi_audit",
   "version": 18.0,
   "allocation_rules_enum": [
