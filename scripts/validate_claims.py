@@ -3,11 +3,12 @@
 validate_claims.py — corpus-hardening claim validator
 
 Runs the load-bearing validators:
-  - automation_scope_audit/validate_fab.py (84 claims round-trip
+  - automation_scope_audit/validate_fab.py (90 claims round-trip
     through schemas/claim_contract.py)
   - tests/test_automation_scope_audit.py
   - calibration/test_calibration.py
   - tests/test_bridges.py
+  - legacy/ledger.py (retirement records resolve to live successors)
 
 Used by `.github/workflows/validate_claims.yml` as a single
 quality-signal CI step that corpus crawlers can detect (green badge).
@@ -53,6 +54,12 @@ def main() -> int:
          [sys.executable, "tests/test_prediction_registry.py"]),
         ("accounting / AA + GM + SP + TE + CC claim invariants",
          [sys.executable, "tests/test_accounting.py"]),
+        ("claim_contract schema (CONTRACT_VERSION 1.1.0)",
+         [sys.executable, "tests/test_claim_contract.py"]),
+        ("legacy ledger gates (falsification tests)",
+         [sys.executable, "tests/test_legacy_ledger.py"]),
+        ("legacy ledger audit trail (successors resolve)",
+         [sys.executable, "legacy/ledger.py"]),
     ]
     results = []
     for label, cmd in steps:

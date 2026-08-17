@@ -8,7 +8,16 @@ needs_graduation() semantics.
 License: CC0
 """
 
+import os
+import sys
 import unittest
+
+# Same bootstrap as tests/test_bridges.py and tests/test_accounting.py, so
+# `python tests/test_claim_contract.py` works from the repo root without
+# PYTHONPATH. The repo is intentionally not packaged.
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
 from schemas.claim_contract import (
     CONTRACT_VERSION,

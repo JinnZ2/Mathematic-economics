@@ -51,7 +51,7 @@ jobs:
         run: python tests/test_bridges.py
 
   automation_scope_audit:
-    name: automation_scope_audit (33 falsifiable claims)
+    name: automation_scope_audit (90 falsifiable claims)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -66,3 +66,19 @@ jobs:
             --allow-missing-scope
       - name: Run scope_gate + cluster harness tests
         run: python tests/test_automation_scope_audit.py
+
+  legacy_ledger:
+    name: legacy ledger audit trail
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run ledger gate falsification tests
+        run: python tests/test_legacy_ledger.py
+      - name: Validate retirement records resolve to live successors
+        # Fails if a ledger entry points at a successor that no longer
+        # exists, or at a retained artifact that is missing. Keeps the
+        # audit trail from rotting silently as modules move.
+        run: python legacy/ledger.py

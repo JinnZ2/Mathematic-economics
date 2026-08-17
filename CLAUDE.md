@@ -63,8 +63,8 @@ Mathematic-economics/
 │   ├── tests/                          # 76 pytest tests
 │   ├── main.py, ai_interface.py, monoculture_detector.py
 │   └── PROVENANCE.md                   # Snapshot metadata and integration points
-├── tests/                              # Integration tests across the three PhysicsGuard bridges
-│   └── test_bridges.py                 # 10 unittest tests (6 always, 4 require numpy)
+├── tests/                              # Integration tests across the six upstream bridges
+│   └── test_bridges.py                 # 29 unittest tests (12 skip without numpy)
 ├── schemas/                            # Versioned data contracts for inter-module shapes
 │   ├── __init__.py
 │   └── field_system_contract.py        # Stable shape for field_system state / report
@@ -80,7 +80,6 @@ Mathematic-economics/
 │   └── economics/
 │       └── dynamic_cpi_r/              # Dynamic CPI-R estimator (the "-R" suffix is the metric name)
 │           ├── code/                   # Working module + validation script
-│           ├── drafts/                 # Earlier prototype fragments
 │           └── examples/               # Generated API payload
 ├── README.md                           # Core thesis with 13 equations and composite indices
 ├── SURFACE.md                          # Stable surface declaration for downstream pinning (tag: equations-v1)
@@ -102,16 +101,19 @@ The diagram above is the original layout; the repository has grown.
 Additional top-level directories (not in the diagram) currently
 present:
 
-- `accounting/`                   -- Accounting-layer claims (`CLAIMS.md`)
-- `air_quality/`                  -- Domain audit
+- `accounting/`                   -- Accounting-layer claims (`CLAIMS.md`) plus the HVAC / atomic / electron accounting modules
+- `air_quality/`                  -- Domain audit (ozone constraint checker + wildfire-ozone mechanism)
 - `automation_metrology/`         -- Automation instrument metrology
-- `automation_scope_audit/`       -- 84 falsifiable claims (C000-C083); see `CLAIM_TABLE.json` / `CLAIM_TABLE.fab.json`
+- `automation_scope_audit/`       -- 90 falsifiable claims (C000-C089); see `CLAIM_TABLE.json` / `CLAIM_TABLE.fab.json`
 - `docs/`                         -- Includes `docs/economics/dynamic_cpi_r/`
 - `food_security/`                -- Domain audit
-- `rfl_engine/`                   -- (topical workspace)
+- `iam_audit/`                    -- Claim-driven Integrated Assessment Model divergence audit with Merle blow-up detection (`run.py --compare dice ours`)
+- `inquiry_engine/`               -- Claim lifecycle machinery: `claim_lifecycle.py` (formal `ClaimState` state machine), `auto_falsify.py`, `grounding_check.py`, `index_corpus.py`
+- `legacy/`                       -- **Retired artifacts + the retirement ledger. See below and `legacy/README.md`.**
+- `rfl_engine/`                   -- RFL constraint geometry: cascade coupling to named reservoirs, `no_silent_zero` (a pinned zero is a CLAIM, not a default), survival kept separate from adequacy
 - `ringwoodite_earth_coupling/`   -- Earth-coupling claim table
-- `scripts/`                      -- Utility scripts
-- `solvability_audit/`            -- (topical workspace)
+- `scripts/`                      -- Utility scripts, incl. `validate_claims.py` (the single CI quality-signal entry point)
+- `solvability_audit/`            -- Audits whether a model *can* forecast, and explicitly does not forecast. Domain-silence (L0) decoupled from asserted-unbounded (L1)
 - `substrate_accounting/`         -- Unified substrate claims
 - `tests/`                        -- Test suite (includes `test_audit_stack.py` covering the 20 audit-stack modules landed since 2026-06)
 - `vehicle_audit/`                -- Domain audit
@@ -128,8 +130,44 @@ Root-level documents added since the diagram: `ARCHITECTURE.md`,
 `FALSIFIABILITY_NOTICE.txt`, `GLOSSARY.md`, `KEYWORDS.md`,
 `PREDICTION_PROTOCOL.md`, `REVIEW.md`, `metadata.json`,
 `predictions_registry.jsonl`, plus the analysis essays
+`addendum-4.md`, `ai-capex-thermodynamic-closure.md`,
 `case-study-regenerative-feedstock-rule.md` and
 `neural-augmentation-cost-accounting.md`.
+
+### Retiring a file: the `legacy/` ledger
+
+**Do not `git rm` a superseded module.** This repository runs on
+falsification (hypothesize -> run -> result -> edit the claim ->
+search for unknowns -> rerun), and deleting the previous version
+destroys the evidence that the revision happened. A superseded claim
+is not a disproven claim -- it is usually the fallback position if the
+successor is itself falsified. **That precedence still carries.**
+
+Retire instead:
+
+1. Move the file to `legacy/<original path>` with `git mv` (mirroring
+   where it lived, so provenance is readable from the path alone).
+2. Append a record to `legacy/LEDGER.jsonl` giving the verdict
+   (`SUPERSEDED` / `ABSORBED` / `REFRAMED` / `EXTRACTED` /
+   `RELOCATED` / `DISCARDED`), what you ran, what it showed, the
+   successor path(s), the **`precedence`** (what a future reader must
+   still honor), and the unknowns the retirement surfaced.
+3. Run `python legacy/ledger.py` -- it fails if a record points at a
+   successor that does not exist, if a retained artifact is missing,
+   if `precedence` is empty, or if an unknown is marked resolved
+   without stating how.
+
+`legacy/README.md` carries the full doctrine and the meaning of each
+verdict. `legacy/` is frozen: nothing there is maintained, imported,
+or collected by CI other than the ledger check itself, and it has no
+`__init__.py` by design. A live module importing from `legacy/` is a
+bug in that module.
+
+This is the file-level analog of two mechanisms the repo already has:
+per-claim versioning (`CLAIM_UPDATE_PROCEDURE.md`, whose step 8
+already says "resolve via an issue + PR, not by deleting the older
+version") and the `ClaimState` machine in
+`inquiry_engine/claim_lifecycle.py`.
 
 ### Scope of the `audit/` directory
 
@@ -164,7 +202,7 @@ implies. It contains:
 - `numpy` — numerical computing
 - `pandas` — data manipulation
 - `matplotlib` — visualization
-- `scipy` — used by `docs/economics/dynamic_cpi_r/drafts/dynamic_inflation_weight.py`
+- `scipy` — used only by the retired draft `legacy/docs/economics/dynamic_cpi_r/drafts/dynamic_inflation_weight.py`; no live module imports it
 - Standard library: `typing`, `dataclasses`, `enum`, `itertools`, `hashlib`, `json`, `re`, `collections`
 
 ## Key Python Modules
@@ -294,8 +332,11 @@ python calibration/self_audit.py         # repo audits itself
 # PhysicsGuard test suite (requires pytest)
 cd physics_guard && pytest tests/        # 76 tests
 
-# Integration tests for the three PhysicsGuard bridges
-python tests/test_bridges.py             # 10 tests (4 skip without numpy)
+# Integration tests for the six upstream bridges
+python tests/test_bridges.py             # 29 tests (12 skip without numpy)
+
+# Retirement-ledger audit trail
+python legacy/ledger.py                  # 9 gates over legacy/LEDGER.jsonl
 ```
 
 CI runs all three suites on push / PR via `.github/workflows/tests.yml`.

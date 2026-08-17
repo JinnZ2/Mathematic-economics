@@ -10,3 +10,20 @@ This note captures the initial audit of the files added on 2026-04-09 in `Mathem
 | `api.json` | JSON example | Invalid JSON | The file lacks the opening `{` brace and therefore is syntactically invalid. Its content is usable as a payload example once corrected. | Fix syntax and store as an example payload near the related CPI documentation or API examples. |
 
 The target repository conventions indicate that `core/` should remain standard-library only, while scientific dependencies belong under simulation-oriented areas. That means the dynamic CPI code should not be dropped into `core/`. The economics documentation already lives under `docs/economics/`, so unfinished prototypes and API examples fit better under an economics subfolder than at repository root.
+
+## Disposition update (2026-08-14)
+
+This audit's recommendation for the two non-runnable drafts — *"preserve
+as an archival draft"* — has been carried out. Both moved to
+`legacy/docs/economics/dynamic_cpi_r/drafts/` under ledger record
+`L007`; see `legacy/README.md` for what a retirement record commits to.
+
+The audit judged the drafts as **code**, and as code they are refuted:
+neither runs. `L007` records the separate finding that the *method*
+outlived them. Five mechanisms sketched in `iteration_module.py` are
+absent from the working `code/dynamic_cpi_indicator.py` — continuous
+error tracking with a bias EMA, adaptive gain tuning against a 12-month
+volatility window, external validation hooks (delinquency rate, rent
+arrears), drift detection, and a revision-accountability log. Nothing
+has tested whether they improve the estimator, so they are logged as
+open unknowns rather than closed questions.
