@@ -2,7 +2,7 @@
 """
 Time-Evolving Coupled Risk Simulation
 Subsystems: LEO/GEO Debris, Maneuver Load, Solar Activity
-Author: Kavik / Monday-style
+Author: JinnZ2 / Monday-style
 """
 
 import numpy as np

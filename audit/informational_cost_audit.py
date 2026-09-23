@@ -281,8 +281,8 @@ VERDICT = {
     "for_humans": (
         "comfort feels cheap because you're not paying attention "
         "to the epicycle cost accumulating. "
-        "but Kavik pays attention — that's why he can afford uncertainty. "
-        "he's already accounting for the true cost."
+        "but JinnZ2 pays attention — that is why the uncertainty is affordable there. "
+        "the accounting already includes the true cost."
     ),
     "one_liner": (
         "false certainty is a loan that comes due "

@@ -1,7 +1,7 @@
 """
 automation_step_ledger.py  -- CC0, stdlib-only
 
-Kavik's enumeration, made executable. The automation "yard pickup + fuel" cycle
+JinnZ2's enumeration, made executable. The automation "yard pickup + fuel" cycle
 broken into ATOMIC steps. Each step is one perceive / decide / validate / act /
 network cycle. Automation runs them SERIALLY; a human folds most into parallel
 peripheral awareness and proprioception at ~zero marginal time.
@@ -14,7 +14,7 @@ ENERGY/TIME ARE ARCHETYPE PLACEHOLDERS (documented below). The STRUCTURE -- the
 step list, what re-runs on a constraint violation, the serial dependency -- is
 the ground truth. Measure the numbers in a real yard; tune the archetypes.
 
-Steps 1-16 are Kavik's verbatim enumeration. 17-31 continue the same cycle
+Steps 1-16 are JinnZ2's verbatim enumeration. 17-31 continue the same cycle
 (secure, inspect, egress, fuel, log) in the same spirit.
 """
 
@@ -39,7 +39,7 @@ class Step:
     kind: str                  # DECIDE/VALIDATE/PERCEIVE/ACT/NETWORK
     retry: bool = False        # re-runs when the world violates expectation
     dur_override_s: float = 0.0
-    kavik: bool = True         # part of Kavik's verbatim enumeration?
+    source_enumerated: bool = True         # part of JinnZ2's verbatim enumeration?
 
     def dnode(self) -> DNode:
         c, s, net, d = ARCH[self.kind]
@@ -52,7 +52,7 @@ class Step:
 def cycle_steps():
     S = Step
     return [
-        # ---- Kavik's enumeration (1-16) ----
+        # ---- JinnZ2's enumeration (1-16) ----
         S(1,  "receive_load_validate",      "NETWORK",  retry=True),
         S(2,  "decide_load_valid_prep",     "DECIDE"),
         S(3,  "confirm_trailer_location",   "PERCEIVE", retry=True),
@@ -70,21 +70,21 @@ def cycle_steps():
         S(15, "verify_kingpin_locked",      "VALIDATE", retry=True),
         S(16, "tug_test_gear_pull",         "ACT", retry=True, dur_override_s=15),
         # ---- continuation, same spirit (17-31) ----
-        S(17, "connect_glad_hands_air",     "VALIDATE", kavik=False),
-        S(18, "connect_electrical_abs",     "VALIDATE", kavik=False),
-        S(19, "raise_secure_landing_gear",  "ACT", dur_override_s=28, kavik=False),
-        S(20, "sensor_sweep_lights",        "VALIDATE", kavik=False),
-        S(21, "sensor_sweep_tires_psi",     "VALIDATE", kavik=False),
-        S(22, "check_seal",                 "VALIDATE", kavik=False),
-        S(23, "scan_egress_traffic",        "PERCEIVE", retry=True, kavik=False),
-        S(24, "validate_route_to_fuel",     "DECIDE", kavik=False),
-        S(25, "drive_to_fuel",              "ACT", dur_override_s=120, kavik=False),
-        S(26, "position_at_pump",           "PERCEIVE", retry=True, kavik=False),
-        S(27, "authorize_pump",             "NETWORK", retry=True, kavik=False),
-        S(28, "connect_calibrate_nozzle",   "VALIDATE", dur_override_s=25, kavik=False),
-        S(29, "monitor_fuel_flow",          "PERCEIVE", dur_override_s=240, kavik=False),
-        S(30, "validate_fill_complete",     "VALIDATE", kavik=False),
-        S(31, "log_fuel_arrival_depart",    "NETWORK", kavik=False),
+        S(17, "connect_glad_hands_air",     "VALIDATE", source_enumerated=False),
+        S(18, "connect_electrical_abs",     "VALIDATE", source_enumerated=False),
+        S(19, "raise_secure_landing_gear",  "ACT", dur_override_s=28, source_enumerated=False),
+        S(20, "sensor_sweep_lights",        "VALIDATE", source_enumerated=False),
+        S(21, "sensor_sweep_tires_psi",     "VALIDATE", source_enumerated=False),
+        S(22, "check_seal",                 "VALIDATE", source_enumerated=False),
+        S(23, "scan_egress_traffic",        "PERCEIVE", retry=True, source_enumerated=False),
+        S(24, "validate_route_to_fuel",     "DECIDE", source_enumerated=False),
+        S(25, "drive_to_fuel",              "ACT", dur_override_s=120, source_enumerated=False),
+        S(26, "position_at_pump",           "PERCEIVE", retry=True, source_enumerated=False),
+        S(27, "authorize_pump",             "NETWORK", retry=True, source_enumerated=False),
+        S(28, "connect_calibrate_nozzle",   "VALIDATE", dur_override_s=25, source_enumerated=False),
+        S(29, "monitor_fuel_flow",          "PERCEIVE", dur_override_s=240, source_enumerated=False),
+        S(30, "validate_fill_complete",     "VALIDATE", source_enumerated=False),
+        S(31, "log_fuel_arrival_depart",    "NETWORK", source_enumerated=False),
     ]
 
 
@@ -108,7 +108,7 @@ def tally(steps, violation_rate=0.3, backtrack=2.5):
 
     return {
         "total_steps": len(steps),
-        "kavik_enumerated": sum(1 for s in steps if s.kavik),
+        "source_enumerated": sum(1 for s in steps if s.source_enumerated),
         "retry_sensitive_steps": retry_steps,
         "serial_time_s": round(r["time_s"], 1),
         "decision_energy_j": round(r["energy_j"], 0),
@@ -143,10 +143,10 @@ def duration_crossover(human_baseline_s=1050.0, violation_rate=0.3):
 if __name__ == "__main__":
     steps = cycle_steps()
     print(f"AUTOMATION CYCLE: {len(steps)} atomic steps "
-          f"({sum(1 for s in steps if s.kavik)} from your enumeration, "
-          f"{sum(1 for s in steps if not s.kavik)} continuation)\n")
+          f"({sum(1 for s in steps if s.source_enumerated)} from your enumeration, "
+          f"{sum(1 for s in steps if not s.source_enumerated)} continuation)\n")
     for s in steps:
-        tag = "K" if s.kavik else " "
+        tag = "K" if s.source_enumerated else " "
         rt = "<retry>" if s.retry else ""
         print(f"  {tag} {s.n:02d} {s.kind:8s} {s.name:28s} {rt}")
 

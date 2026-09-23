@@ -47,14 +47,14 @@ GPS_FAILURE_RATE = 0.25            # fraction of stops GPS db is stale/wrong
 #   HONESTY ON AUTOMATION TIME: the per-node durations in trailer_cycle() are
 #   ILLUSTRATIVE GUESSES, not measured. They are the weakest numbers here. Pass
 #   observed_automation_cycle_s (e.g. from watching a real yard) to override the
-#   tree and benchmark against GROUND TRUTH instead of a guess. Kavik's yard
-#   observation -- automation completes ~1 cycle per ~2 of his -- goes here.
+#   tree and benchmark against GROUND TRUTH instead of a guess. JinnZ2's yard
+#   observation -- automation completes ~1 cycle per ~2 of the operator's -- goes here.
 
 
 @dataclass
 class Operation:
     name: str
-    human_unencumbered_s: float    # Kavik's measured reality (fast, parallel)
+    human_unencumbered_s: float    # JinnZ2's measured reality (fast, parallel)
     tree: list                     # automation decision/validation tree
     has_dataentry: bool = False    # does the system force input here?
 
@@ -259,7 +259,7 @@ if __name__ == "__main__":
             print(f"  {k}: {val}")
     print(f"  >> {v1['verdict']}")
 
-    # Kavik's yard observation: automation completes ~1 cycle per ~2 of his.
+    # JinnZ2's yard observation: automation completes ~1 cycle per ~2 of the operator's.
     # baseline human unencumbered cycle ~1020 s -> observed automation ~2040 s.
     obs = 2040.0
     print(f"\n=== METROLOGY VERDICT (B) automation time = OBSERVED {obs:.0f}s ===")
