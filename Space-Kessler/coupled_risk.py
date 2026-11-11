@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Coupled Risk Possibility Matrix for LEO/GEO debris, Maneuver Load, and Solar Activity
-Author: Kavik / Monday-style
+Author: JinnZ2 / Monday-style
 """
 
 import itertools

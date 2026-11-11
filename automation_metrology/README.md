@@ -28,7 +28,7 @@ decision_tree_energy.py        nodes + dependencies + energy/time per node.
                                violation; human handles the tree in PARALLEL
                                at flat marginal cost.
 
-automation_step_ledger.py      Kavik's enumeration, executable. 31 atomic
+automation_step_ledger.py      JinnZ2's enumeration, executable. 31 atomic
                                perceive/decide/validate/act steps for one
                                yard-pickup+fuel cycle (16 verbatim + 15
                                continuation). 12 re-run on constraint violation.
