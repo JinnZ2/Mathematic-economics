@@ -11,7 +11,7 @@
 #   - survival (physical permission) kept SEPARATE from adequacy (explains
 #     a real observable). adequacy is a branch tag, never a flat kill.
 #
-# rule burned in (the thing Kavik caught by eye):
+# rule burned in (the thing JinnZ2 caught by eye):
 #   in a coupled system nothing sits at exactly 0. a "decoupled null" is
 #   almost always a mislabel of WHERE THE CHAIN TERMINATES. the honest null
 #   is the full chain ending at its real reservoir -- itself a nonzero coupling.
