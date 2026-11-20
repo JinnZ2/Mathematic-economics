@@ -51,7 +51,10 @@ def citation_cff(repo_name: str, repo_url: str, authors: list,
         "authors:",
     ]
     for a in authors:
-        lines.append(f"  - family-names: {a.get('family', '')}")
+        if a.get("name"):
+            lines.append(f"  - name: {a['name']}")
+        else:
+            lines.append(f"  - family-names: {a.get('family', '')}")
         if a.get("given"):
             lines.append(f"    given-names: {a['given']}")
         if a.get("affiliation"):
@@ -435,7 +438,7 @@ def main() -> int:
     repo_url = args.repo_url or f"https://github.com/JinnZ2/{repo_name}"
     sisters = [s.strip() for s in args.sisters.split(",") if s.strip()]
     authors = [
-        {"family": "JinnZ",            "given": "Kavik",
+        {"name": "JinnZ2",
          "affiliation": "JinnZ2 CC0 Foundation"},
         {"family": "The Mighty Atom", "given": None,
          "affiliation": "JinnZ2 CC0 Foundation"},

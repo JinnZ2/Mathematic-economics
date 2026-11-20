@@ -9,7 +9,7 @@ all coupled constraint layers, then measures whether the
 system being deployed is aimed at that target or at its
 inverse.
 
-Core insight (from Kavik, 6M-mile practitioner):
+Core insight (from JinnZ2, 6M-mile practitioner):
 
   Success is not "minimize individual vehicle time."
   Success is FLUIDITY across all coupled layers:

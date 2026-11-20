@@ -2,7 +2,7 @@
 misallocation_bias.py  -- CC0, stdlib-only
 
 Random misallocation SCATTERS. Motivated misallocation is DIRECTIONAL. That
-difference is the falsifiable signature Kavik named: incompetence is noisy;
+difference is the falsifiable signature JinnZ2 named: incompetence is noisy;
 capture has a gradient.
 
 Test: take the misallocations (best_fit -> assigned flows) and measure how

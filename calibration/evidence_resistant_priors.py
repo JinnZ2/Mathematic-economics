@@ -45,7 +45,7 @@ TRIGGERING_CASE = {
         "large hands or large overall body frame"
     ),
     "speaker": (
-        "Kavik, smaller frame, hands sized for the access geometry"
+        "JinnZ2, smaller frame, hands sized for the access geometry"
     ),
     "alternative_actor_proposed_by_model": (
         "Mighty Atom, 6'3\", hands described as 'fingers the size of "
