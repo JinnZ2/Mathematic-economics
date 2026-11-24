@@ -624,6 +624,50 @@
      }
     }
    }
+  },
+  {
+   "id": "A4",
+   "utc": "2026-11-24",
+   "title": "declare v1.3",
+   "declared_before_run": true,
+   "base": "branch governance-physics at f22db3b",
+   "1_fresh_calibration": {
+    "what": "flag rate of the lead test on pure noise at the threshold in force (0.038), on seeds never used before",
+    "design": "as amendment A1 (noise stress, 8 distinct event years), unchanged",
+    "seeds": "10000..11999 (2000 seeds; A1 used 0..199, A2 used 0..1999; no overlap)",
+    "report": "flagged / 2000 at 0.038, alpha, Wilson 95% interval; the same at 0.05 beside it",
+    "rule": "threshold 0.038 stays only if the 95% interval of alpha at 0.038 includes a value at or below 0.05 (its lower bound is <= 0.05). Otherwise 0.038 is withdrawn: no threshold is in force, every result is reported with flag = NOT CALIBRATED, and no replacement threshold is chosen in this version.",
+    "note": "the rule only asks whether 0.05 is ruled out from above; an interval lying wholly below 0.05 also keeps the threshold"
+   },
+   "2_tied_year_null": {
+    "why": "v1.2's null redraws as many DISTINCT years as there are events, while a country's events can share a year; the calibration never had shared years",
+    "null": "keep the tie structure. With k distinct event years carrying multiplicities m_1..m_k, each null draw takes k distinct eligible years and gives the multiplicities to them in random order. Statistic unchanged: mean lead-window stress over events, so a year with m events counts m times. With no shared year this is the v1.2 null, draw for draw.",
+    "calibration": "noise stress as A1. Events: 6 distinct years drawn from 1970..2023, multiplicities 2,2,1,1,1,1 (8 events). Seeds 20000..21999. Reported at thresholds 0.05 and 0.038 for (i) the v1.2 null applied to tied events, (ii) the tied-year null.",
+    "constants": "6 distinct years with two doubled: chosen, no external source",
+    "rule": "same as item 1, applied to the tied-year null at 0.038. Reported either way.",
+    "rerun": "IRN, IND, CHN, RUS under the tied-year null, printed beside the v1.2 results, which are kept as committed (series/test_result.json)"
+   },
+   "3_ucdp_basis": {
+    "party_basis": "as A3: state-based episode starts where the country's government is side A or side B; one-sided violence by the country's government (coalition actors not counted)",
+    "location_basis": "state-based episode starts (conflict id, start_date2) where the country is named in the dataset's 'location' field; one-sided violence where the country is named in 'location', any actor, one event per actor per unbroken run of active years, dated 1 January of the run's first year",
+    "difference": "party basis follows who fights, wherever; location basis follows where the incompatibility or the violence is located, whoever fights",
+    "run": "both; events per country under each; lead test (tied-year null, with the v1.2 null beside it) for every country-basis with at least 3 events with a full lead window. A country is listed if either basis reaches 3.",
+    "no_pick": "neither basis is preferred here; both are reported"
+   },
+   "4_driver_note": "every per-country test result carries: tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "5_licence_split": {
+    "rule": "files under CC0 hold only CC0 or own-derived content. Third-party content moves to table/third_party/*.json, each with its own license field; CC0 files keep a pointer, the status and own-derived counts",
+    "moved": {
+     "constitute.json": "quoted constitutional provisions; CC BY-NC 3.0",
+     "bgs.json": "mineral import-dependence ratios derived from BGS World Mineral Statistics; BGS terms: non-commercial academic and research use, permission needed to pass to third parties or for commercial use (permission note recorded)",
+     "rsf.json": "RSF score and rank; licence not stated on the page read. Moved under the same rule although the order names only Constitute and BGS",
+     "ucdp.json": "UCDP event rows (conflict ids, party names, dates); CC BY 4.0, attribution required, so not CC0. Moved under the same rule although the order names only Constitute and BGS"
+    },
+    "stays": "energy shares and balances computed here from Our World in Data (CC BY 4.0) stay as own-derived, with the attribution note they already carry",
+    "readme": "governance_physics/README.md lists the split"
+   },
+   "6_chain": "gp.py tables never overwrites a filled cell; gp.py series never overwrites filled minerals or events; one entry point (gp.py build OWID_CSV SOURCE_DIR) runs tables, series, fill, tests, report in that order",
+   "observer_slots": null
   }
  ]
 }
