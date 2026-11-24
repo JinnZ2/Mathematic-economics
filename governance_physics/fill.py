@@ -160,33 +160,69 @@ def constitute(src, man, isos, field):
 
 
 # ------------------------------------------------------------------- UCDP
+def _runs(years):
+    return [y for i, y in enumerate(years) if i == 0 or y - years[i - 1] > 1]
+
+
 def ucdp(src, man, isos):
+    """Both bases of amendment A4 item 3.  Returns ({basis: [events]}, {basis: {iso: counts}})."""
     acd = list(csv.DictReader(open(os.path.join(src, "ucdp/UcdpPrioConflict_v26_1.csv"), encoding="utf-8-sig")))
     one = list(csv.DictReader(open(os.path.join(src, "ucdp/OneSided_v26_1.csv"), encoding="utf-8-sig")))
-    events, notes = [], {}
+    split = lambda s: [p.strip() for p in s.split(",")]
+    events = {"party": [], "location": []}
+    notes = {"party": {}, "location": {}}
     for iso in isos:
         g = UCDP_GOV[iso]
+        loc = g[len("Government of "):]
+        # party basis: the government is side A or side B
         seen = set()
         for r in acd:
-            parties = [p.strip() for p in (r["side_a"] + "," + r["side_b"]).split(",")]
-            if g in parties and (r["conflict_id"], r["start_date2"]) not in seen:
+            if g in split(r["side_a"] + "," + r["side_b"]) and (r["conflict_id"], r["start_date2"]) not in seen:
                 seen.add((r["conflict_id"], r["start_date2"]))
-                events.append({"iso3": iso, "date": r["start_date2"], "kind": "conflict",
-                               "what": "state-based conflict episode start; UCDP conflict_id %s; %s vs %s"
-                                       % (r["conflict_id"], r["side_a"], r["side_b"]),
-                               "source": "UCDP/PRIO Armed Conflict Dataset v26.1"})
+                events["party"].append({"iso3": iso, "date": r["start_date2"], "kind": "conflict",
+                                        "what": "state-based conflict episode start; UCDP conflict_id %s; %s vs %s; "
+                                                "location %s" % (r["conflict_id"], r["side_a"], r["side_b"],
+                                                                 r["location"]),
+                                        "source": "UCDP/PRIO Armed Conflict Dataset v26.1"})
         years = sorted({int(r["year"]) for r in one if r["actor_name"] == g})
-        coalition = sorted({int(r["year"]) for r in one
-                            if r["actor_name"] != g and g in [p.strip() for p in r["actor_name"].split(",")]})
-        for i, y in enumerate(years):
-            if i == 0 or y - years[i - 1] > 1:
-                events.append({"iso3": iso, "date": "%d-01-01" % y, "kind": "conflict",
-                               "what": "one-sided violence, first year of an unbroken run of active years; "
-                                       "actor %s" % g,
-                               "source": "UCDP One-sided Violence Dataset v26.1"})
-        notes[iso] = {"state_based_episode_starts": len(seen), "one_sided_active_years": len(years),
-                      "one_sided_coalition_years_not_counted": coalition}
-    events.sort(key=lambda e: (e["iso3"], e["date"], e["what"]))
+        coalition = sorted({int(r["year"]) for r in one if r["actor_name"] != g and g in split(r["actor_name"])})
+        for y in _runs(years):
+            events["party"].append({"iso3": iso, "date": "%d-01-01" % y, "kind": "conflict",
+                                    "what": "one-sided violence, first year of an unbroken run of active years; "
+                                            "actor %s" % g,
+                                    "source": "UCDP One-sided Violence Dataset v26.1"})
+        notes["party"][iso] = {"state_based_episode_starts": len(seen), "one_sided_run_starts": len(_runs(years)),
+                               "one_sided_active_years": len(years),
+                               "one_sided_coalition_years_not_counted": coalition}
+        # location basis: the country is named in the dataset's location field
+        seen_l = set()
+        for r in acd:
+            if loc in split(r["location"]) and (r["conflict_id"], r["start_date2"]) not in seen_l:
+                seen_l.add((r["conflict_id"], r["start_date2"]))
+                events["location"].append({"iso3": iso, "date": r["start_date2"], "kind": "conflict",
+                                           "what": "state-based conflict episode start; UCDP conflict_id %s; %s vs "
+                                                   "%s; location %s" % (r["conflict_id"], r["side_a"], r["side_b"],
+                                                                        r["location"]),
+                                           "source": "UCDP/PRIO Armed Conflict Dataset v26.1"})
+        actors = {}
+        for r in one:
+            if loc in split(r["location"]):
+                actors.setdefault(r["actor_name"], set()).add(int(r["year"]))
+        n_runs = 0
+        for actor in sorted(actors):
+            for y in _runs(sorted(actors[actor])):
+                n_runs += 1
+                events["location"].append({"iso3": iso, "date": "%d-01-01" % y, "kind": "conflict",
+                                           "what": "one-sided violence located in the country, first year of an "
+                                                   "unbroken run of active years; actor %s" % actor,
+                                           "source": "UCDP One-sided Violence Dataset v26.1"})
+        notes["location"][iso] = {"location_name": loc, "state_based_episode_starts": len(seen_l),
+                                  "one_sided_run_starts": n_runs, "one_sided_actors": len(actors)}
+        both = seen & seen_l
+        notes["party"][iso]["state_based_also_on_location_basis"] = len(both)
+        notes["location"][iso]["state_based_also_on_party_basis"] = len(both)
+    for b in events:
+        events[b].sort(key=lambda e: (e["iso3"], e["date"], e["what"]))
     return events, notes
 
 
@@ -333,7 +369,10 @@ def main(src):
         "record": "dated policy / conflict events; no causal tags",
         "rule": "each event: {iso3, date, kind: policy|conflict, what, source}. No cause, no effect, no label.",
         "event_rule": [a for a in d["amendments"] if a["id"] == "A3"][0]["sources"]["ucdp"]["event_rule"],
-        "status": "MEASURED", "events": events, "per_country": enotes,
+        "status": "MEASURED", "events": events["party"], "per_country": enotes["party"],
+        "basis": "party (as A3). The location basis of amendment A4 item 3 is under events_location.",
+        "events_location": events["location"], "per_country_location": enotes["location"],
+        "basis_definitions": [a for a in d["amendments"] if a["id"] == "A4"][0]["3_ucdp_basis"],
         "policy_events": void("policy events stay VOID: no single dated source"),
         "source": "%s ; %s" % (tag(man, "ucdp/UcdpPrioConflict_v26_1.csv"), tag(man, "ucdp/OneSided_v26_1.csv")),
         "licence_note": "UCDP data, CC BY 4.0"})
@@ -350,7 +389,11 @@ def main(src):
         row = fn["countries"][iso]
         print("%-4s %-10s %-10s %-10s %-10s %d" % (iso, *(row[f]["status"] for f in
               ("candidate_filter", "economic_rules_set_by", "dissent_cost", "critical_minerals")),
-              sum(e["iso3"] == iso for e in events)))
+              sum(e["iso3"] == iso for e in events["party"])))
+    print("events per country   party basis   location basis")
+    for iso in isos:
+        print("%-4s                 %5d          %5d" % (iso, sum(e["iso3"] == iso for e in events["party"]),
+                                                          sum(e["iso3"] == iso for e in events["location"])))
     print("same-basis mineral lines:", same)
 
 
@@ -367,6 +410,7 @@ def selftest():
     ok.append(("one sub-cell filled -> field filled, VOID part listed", c["void_parts"] == ["b"]))
     me = open(os.path.abspath(__file__)).read()
     ok.append(("this file never names the descriptive-names table", ("lab" + "els.json") not in me))
+    ok.append(("run starts: 2001,2002,2005 -> 2001 and 2005", _runs([2001, 2002, 2005]) == [2001, 2005]))
     ok.append(("text extraction strips markup", _text("<p>a &amp; <b>b</b></p>") == "a & b"))
     bad = 0
     for name, good in ok:

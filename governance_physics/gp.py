@@ -213,6 +213,7 @@ def lead_test_tied(stress, event_years, window=3, draws=1000, seed=20261124, min
     rng = random.Random(seed)
     null = sorted(stat(rng.sample(eligible, len(distinct))) for _ in range(draws))
     return {"state": "RUN", "null": "tied-year (A4)", "n_events": len(ev), "n_distinct_years": len(distinct),
+            "n_eligible_years": len(eligible),
             "multiplicities": mult, "observed": obs, "null_mean": sum(null) / len(null),
             "null_p05": null[int(0.05 * (len(null) - 1))], "null_p95": null[int(0.95 * (len(null) - 1))],
             "share_null_ge_observed": sum(x >= obs for x in null) / len(null),
@@ -287,6 +288,59 @@ def cmd_test13():
                      r["flag"]))
         else:
             print(iso, r["state"], r["reason"])
+    return res
+
+
+def load_events():
+    """{basis: [events]} for the two UCDP bases of amendment A4 item 3."""
+    e = _load("events/events.json")
+    return {"party": e.get("events", []), "location": e.get("events_location", [])}
+
+
+def cmd_test_basis():
+    """A4 item 3: both UCDP bases, tied-year null, v1.2 null beside it."""
+    d = declared()["test"]
+    series = _load("series/energy.json")["countries"]
+    ev_all = load_events()
+    cal = _load("series/calibration_tied.json")
+    thr = flag_threshold() if cal["threshold_stays_for_tied_null"] else None
+    res = {}
+    for iso in sorted(series):
+        st = stress_changes(series[iso])
+        res[iso] = {"driver_note": DRIVER_NOTE}
+        for basis in ("party", "location"):
+            ev = [int(e["date"][:4]) for e in ev_all[basis] if e["iso3"] == iso]
+            r = lead_test_tied(st, ev, d["lead_window_years"])
+            r["n_events_in_file"] = len(ev)
+            if r["state"] == "RUN":
+                r["flag_threshold"] = thr
+                r["flag"] = (r["share_null_ge_observed"] <= thr) if thr is not None else "NOT CALIBRATED"
+                r["alpha_beside_flag"] = cal["tied_year_null"]["at_threshold"]
+                if r["n_events"] > r["n_eligible_years"]:
+                    r["v1.2_null_beside"] = {"state": "NOT COMPUTABLE", "reason": "more events (%d) than eligible "
+                                             "years (%d): the v1.2 null cannot draw that many distinct years"
+                                             % (r["n_events"], r["n_eligible_years"])}
+                else:
+                    o = lead_test(st, ev, d["lead_window_years"])
+                    r["v1.2_null_beside"] = {k: o[k] for k in ("null_p05", "null_p95", "share_null_ge_observed")}
+                r["years_free_in_null"] = r["n_eligible_years"] - r["n_distinct_years"]
+            res[iso][basis] = r
+    _write("series/test_result_basis.json", {
+        "record": "lead test on both UCDP bases (A4 item 3), tied-year null",
+        "run_rule": "a country-basis runs with at least 3 events with a full lead window; a country is "
+                    "listed as tested if either basis runs", "countries": res})
+    print("iso  basis     in file  full window  distinct  eligible  tied p  v1.2-null p  flag")
+    for iso, rr in res.items():
+        for basis in ("party", "location"):
+            r = rr[basis]
+            if r["state"] == "RUN":
+                o = r["v1.2_null_beside"].get("share_null_ge_observed")
+                print("%s  %-8s %7d %11d %9d %9d   %.3f   %-11s  %s"
+                      % (iso, basis, r["n_events_in_file"], r["n_events"], r["n_distinct_years"],
+                         r["n_eligible_years"], r["share_null_ge_observed"],
+                         "%.3f" % o if o is not None else "not comput.", r["flag"]))
+            else:
+                print("%s  %-8s %7d %11d   NOT RUN (fewer than 3)" % (iso, basis, r["n_events_in_file"], r["n_events"]))
     return res
 
 
@@ -728,6 +782,8 @@ if __name__ == "__main__":
                       % (name, r["threshold"], r["flagged"], r["seeds"], r["alpha"], r["wilson95"][0],
                          r["wilson95"][1]))
         print("threshold stays for tied null:", c["threshold_stays_for_tied_null"])
+    elif a == ["testbasis"]:
+        cmd_test_basis()
     elif a == ["test13"]:
         cmd_test13()
     elif a == ["calibrate", "fresh"]:

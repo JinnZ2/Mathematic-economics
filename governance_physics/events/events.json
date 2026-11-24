@@ -1,4 +1,12 @@
 {
+ "basis": "party (as A3). The location basis of amendment A4 item 3 is under events_location.",
+ "basis_definitions": {
+  "difference": "party basis follows who fights, wherever; location basis follows where the incompatibility or the violence is located, whoever fights",
+  "location_basis": "state-based episode starts (conflict id, start_date2) where the country is named in the dataset's 'location' field; one-sided violence where the country is named in 'location', any actor, one event per actor per unbroken run of active years, dated 1 January of the run's first year",
+  "no_pick": "neither basis is preferred here; both are reported",
+  "party_basis": "as A3: state-based episode starts where the country's government is side A or side B; one-sided violence by the country's government (coalition actors not counted)",
+  "run": "both; events per country under each; lead test (tied-year null, with the v1.2 null beside it) for every country-basis with at least 3 events with a full lead window. A country is listed if either basis reaches 3."
+ },
  "event_rule": "conflict events only. State-based: one event per conflict EPISODE in which the country's government is a primary party (side A or side B), dated at the episode start date (start_date2); a conflict id counts once per episode start. One-sided: one event per actor that is the country's government, dated 1 January of the first year of each unbroken run of active years. kind = conflict. No cause, no effect, no label.",
  "events": [
   {
@@ -27,112 +35,112 @@
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 202; Government of China vs PLA"
+   "what": "state-based conflict episode start; UCDP conflict_id 202; Government of China vs PLA; location China"
   },
   {
    "date": "1947-02-28",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 217; Government of China vs Taiwanese insurgents"
+   "what": "state-based conflict episode start; UCDP conflict_id 217; Government of China vs Taiwanese insurgents; location China"
   },
   {
    "date": "1949-10-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan"
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
   },
   {
    "date": "1950-10-07",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet"
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
   },
   {
    "date": "1954-12-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan"
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
   },
   {
    "date": "1956-05-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet"
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
   },
   {
    "date": "1958-12-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan"
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
   },
   {
    "date": "1959-03-10",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet"
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
   },
   {
    "date": "1962-11-21",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "1967-01-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "1969-02-28",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 304; Government of China vs Government of Myanmar (Burma)"
+   "what": "state-based conflict episode start; UCDP conflict_id 304; Government of China vs Government of Myanmar (Burma); location China, Myanmar (Burma)"
   },
   {
    "date": "1969-03-02",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union)"
+   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union); location China, Russia (Soviet Union)"
   },
   {
    "date": "1974-01-20",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam)"
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
   },
   {
    "date": "1978-12-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam)"
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
   },
   {
    "date": "1983-12-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam)"
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
   },
   {
    "date": "1986-12-31",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam)"
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
   },
   {
    "date": "1989-01-01",
@@ -153,140 +161,140 @@
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 11349; Government of China vs ETIM"
+   "what": "state-based conflict episode start; UCDP conflict_id 11349; Government of China vs ETIM; location China"
   },
   {
    "date": "2020-08-30",
    "iso3": "CHN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "1948-09-13",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 226; Government of Hyderabad vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 226; Government of Hyderabad vs Government of India; location Hyderabad, India"
   },
   {
    "date": "1948-09-18",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI; location India"
   },
   {
    "date": "1948-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1956-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC"
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC; location India"
   },
   {
    "date": "1961-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC"
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC; location India"
   },
   {
    "date": "1962-11-21",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "1964-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1966-09-01",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 296; Government of India vs MNF"
+   "what": "state-based conflict episode start; UCDP conflict_id 296; Government of India vs MNF; location India"
   },
   {
    "date": "1967-01-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "1969-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI-ML"
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI-ML; location India"
   },
   {
    "date": "1971-12-03",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1979-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs TNV"
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs TNV; location India"
   },
   {
    "date": "1982-07-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA"
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA; location India"
   },
   {
    "date": "1983-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 351; Government of India vs Sikh insurgents"
+   "what": "state-based conflict episode start; UCDP conflict_id 351; Government of India vs Sikh insurgents; location India"
   },
   {
    "date": "1984-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1987-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1989-03-16",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs ABSU"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs ABSU; location India"
   },
   {
    "date": "1989-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1990-01-01",
@@ -300,35 +308,35 @@
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 364; Government of India vs Kashmir insurgents"
+   "what": "state-based conflict episode start; UCDP conflict_id 364; Government of India vs Kashmir insurgents; location India"
   },
   {
    "date": "1990-11-30",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA"
+   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA; location India"
   },
   {
    "date": "1991-07-16",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG"
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG; location India"
   },
   {
    "date": "1992-08-05",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM"
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM; location India"
   },
   {
    "date": "1992-10-12",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF"
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF; location India"
   },
   {
    "date": "1993-01-01",
@@ -342,84 +350,84 @@
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF"
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF; location India"
   },
   {
    "date": "1994-06-28",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1994-07-23",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
   },
   {
    "date": "1994-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA"
+   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA; location India"
   },
   {
    "date": "1996-04-03",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG"
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG; location India"
   },
   {
    "date": "1996-10-28",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
   },
   {
    "date": "1996-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "1997-06-10",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF, NLFT"
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF, NLFT; location India"
   },
   {
    "date": "1998-12-31",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA"
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA; location India"
   },
   {
    "date": "1999-09-26",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs NLFT"
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs NLFT; location India"
   },
   {
    "date": "2000-09-13",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM"
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM; location India"
   },
   {
    "date": "2001-08-04",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
   },
   {
    "date": "2002-01-01",
@@ -433,189 +441,189 @@
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF"
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF; location India"
   },
   {
    "date": "2008-12-04",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 434; Government of India vs PULF"
+   "what": "state-based conflict episode start; UCDP conflict_id 434; Government of India vs PULF; location India"
   },
   {
    "date": "2009-06-11",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB - RD"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB - RD; location India"
   },
   {
    "date": "2012-11-15",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA"
+   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA; location India"
   },
   {
    "date": "2013-10-04",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "2013-12-11",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB-S"
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB-S; location India"
   },
   {
    "date": "2014-07-01",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA"
+   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA; location India"
   },
   {
    "date": "2015-06-04",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW"
+   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW; location India"
   },
   {
    "date": "2020-08-30",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India"
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
   },
   {
    "date": "2025-05-07",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan"
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
   },
   {
    "date": "2025-07-14",
    "iso3": "IND",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW"
+   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW; location India"
   },
   {
    "date": "1946-05-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1946-12-16",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 206; Government of Iran vs Republic of Azerbaijan"
+   "what": "state-based conflict episode start; UCDP conflict_id 206; Government of Iran vs Republic of Azerbaijan; location Iran"
   },
   {
    "date": "1966-12-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1974-02-10",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq"
+   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq; location Iran, Iraq"
   },
   {
    "date": "1979-05-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 339; Government of Iran vs APCO"
+   "what": "state-based conflict episode start; UCDP conflict_id 339; Government of Iran vs APCO; location Iran"
   },
   {
    "date": "1979-12-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1979-12-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "1980-09-23",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq"
+   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq; location Iran, Iraq"
   },
   {
    "date": "1986-12-31",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "1990-07-10",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1991-04-03",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "1993-04-09",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "1993-09-12",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1996-07-28",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "1997-02-18",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "1999-11-25",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
   },
   {
    "date": "2005-01-01",
@@ -629,7 +637,7 @@
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK; location Iran"
   },
   {
    "date": "2009-01-01",
@@ -643,35 +651,35 @@
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "2017-06-11",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 14268; Government of Iran vs IS"
+   "what": "state-based conflict episode start; UCDP conflict_id 14268; Government of Iran vs IS; location Iran"
   },
   {
    "date": "2018-04-29",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 14609; Government of Iran vs Government of Israel"
+   "what": "state-based conflict episode start; UCDP conflict_id 14609; Government of Iran vs Government of Israel; location Iran, Israel"
   },
   {
    "date": "2018-07-20",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK; location Iran"
   },
   {
    "date": "2018-08-11",
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI"
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
   },
   {
    "date": "2019-01-01",
@@ -685,70 +693,70 @@
    "iso3": "IRN",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs Jaish al-Adl"
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs Jaish al-Adl; location Iran"
   },
   {
    "date": "1946-06-30",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 212; Government of Russia (Soviet Union) vs BDPS"
+   "what": "state-based conflict episode start; UCDP conflict_id 212; Government of Russia (Soviet Union) vs BDPS; location Russia (Soviet Union)"
   },
   {
    "date": "1946-12-31",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 210; Government of Russia (Soviet Union) vs Forest Brothers"
+   "what": "state-based conflict episode start; UCDP conflict_id 210; Government of Russia (Soviet Union) vs Forest Brothers; location Russia (Soviet Union)"
   },
   {
    "date": "1946-12-31",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 211; Government of Russia (Soviet Union) vs LNPA, LTS(p)A"
+   "what": "state-based conflict episode start; UCDP conflict_id 211; Government of Russia (Soviet Union) vs LNPA, LTS(p)A; location Russia (Soviet Union)"
   },
   {
    "date": "1946-12-31",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 213; Government of Russia (Soviet Union) vs UPA"
+   "what": "state-based conflict episode start; UCDP conflict_id 213; Government of Russia (Soviet Union) vs UPA; location Russia (Soviet Union)"
   },
   {
    "date": "1956-10-23",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 250; Government of Hungary vs Government of Russia (Soviet Union)"
+   "what": "state-based conflict episode start; UCDP conflict_id 250; Government of Hungary vs Government of Russia (Soviet Union); location Hungary, Russia (Soviet Union)"
   },
   {
    "date": "1969-03-02",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union)"
+   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union); location China, Russia (Soviet Union)"
   },
   {
    "date": "1979-12-27",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 431; Government of Afghanistan vs Government of Russia (Soviet Union)"
+   "what": "state-based conflict episode start; UCDP conflict_id 431; Government of Afghanistan vs Government of Russia (Soviet Union); location Afghanistan, Russia (Soviet Union)"
   },
   {
    "date": "1990-01-23",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 377; Government of Russia (Soviet Union) vs APF"
+   "what": "state-based conflict episode start; UCDP conflict_id 377; Government of Russia (Soviet Union) vs APF; location Russia (Soviet Union)"
   },
   {
    "date": "1990-08-31",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 376; Government of Russia (Soviet Union) vs Republic of Armenia"
+   "what": "state-based conflict episode start; UCDP conflict_id 376; Government of Russia (Soviet Union) vs Republic of Armenia; location Russia (Soviet Union)"
   },
   {
    "date": "1991-01-01",
@@ -762,14 +770,14 @@
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs Parliamentary Forces"
+   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs Parliamentary Forces; location Russia (Soviet Union)"
   },
   {
    "date": "1994-11-26",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria"
+   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria; location Russia (Soviet Union)"
   },
   {
    "date": "1995-01-01",
@@ -790,28 +798,28 @@
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria"
+   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria; location Russia (Soviet Union)"
   },
   {
    "date": "1999-09-02",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 414; Government of Russia (Soviet Union) vs Wahhabi movement of the Buinaksk district"
+   "what": "state-based conflict episode start; UCDP conflict_id 414; Government of Russia (Soviet Union) vs Wahhabi movement of the Buinaksk district; location Russia (Soviet Union)"
   },
   {
    "date": "2007-11-28",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 432; Government of Russia (Soviet Union) vs Forces of the Caucasus Emirate"
+   "what": "state-based conflict episode start; UCDP conflict_id 432; Government of Russia (Soviet Union) vs Forces of the Caucasus Emirate; location Russia (Soviet Union)"
   },
   {
    "date": "2015-08-01",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS"
+   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS; location Russia (Soviet Union)"
   },
   {
    "date": "2022-01-01",
@@ -825,77 +833,1458 @@
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13243; Government of Russia (Soviet Union) vs Government of Ukraine"
+   "what": "state-based conflict episode start; UCDP conflict_id 13243; Government of Russia (Soviet Union) vs Government of Ukraine; location Russia (Soviet Union), Ukraine"
   },
   {
    "date": "2023-06-01",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs LSR, RDK, Wagner"
+   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs LSR, RDK, Wagner; location Russia (Soviet Union)"
   },
   {
    "date": "2024-06-23",
    "iso3": "RUS",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS"
+   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS; location Russia (Soviet Union)"
   },
   {
    "date": "1950-10-30",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 238; Government of United States of America vs Puerto Rican Nationalist Party"
+   "what": "state-based conflict episode start; UCDP conflict_id 238; Government of United States of America vs Puerto Rican Nationalist Party; location United States of America"
   },
   {
    "date": "1983-10-25",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 350; Government of Grenada vs Government of United States of America"
+   "what": "state-based conflict episode start; UCDP conflict_id 350; Government of Grenada vs Government of United States of America; location Grenada, United States of America"
   },
   {
    "date": "1989-12-23",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 368; Government of Panama vs Government of United States of America"
+   "what": "state-based conflict episode start; UCDP conflict_id 368; Government of Panama vs Government of United States of America; location Panama, United States of America"
   },
   {
    "date": "2001-09-11",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida "
+   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida ; location United States of America"
   },
   {
    "date": "2001-10-07",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 13692; Government of Afghanistan vs Government of United Kingdom, Government of United States of America"
+   "what": "state-based conflict episode start; UCDP conflict_id 13692; Government of Afghanistan vs Government of United Kingdom, Government of United States of America; location Afghanistan, United Kingdom, United States of America"
   },
   {
    "date": "2003-03-23",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 420; Government of Australia, Government of United Kingdom, Government of United States of America vs Government of Iraq"
+   "what": "state-based conflict episode start; UCDP conflict_id 420; Government of Australia, Government of United Kingdom, Government of United States of America vs Government of Iraq; location Australia, Iraq, United Kingdom, United States of America"
   },
   {
    "date": "2019-07-31",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida "
+   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida ; location United States of America"
   },
   {
    "date": "2024-02-03",
    "iso3": "USA",
    "kind": "conflict",
    "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
-   "what": "state-based conflict episode start; UCDP conflict_id 16099; Government of United Kingdom, Government of United States of America vs Government of Yemen (North Yemen)"
+   "what": "state-based conflict episode start; UCDP conflict_id 16099; Government of United Kingdom, Government of United States of America vs Government of Yemen (North Yemen); location United Kingdom, United States of America, Yemen (North Yemen)"
+  }
+ ],
+ "events_location": [
+  {
+   "date": "1993-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Brazil"
+  },
+  {
+   "date": "1999-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Brazil"
+  },
+  {
+   "date": "2005-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Brazil"
+  },
+  {
+   "date": "2019-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor PCC"
+  },
+  {
+   "date": "2021-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Comando Vermelho"
+  },
+  {
+   "date": "2022-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Bonde do Maluco"
+  },
+  {
+   "date": "2022-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor PCC"
+  },
+  {
+   "date": "2023-01-01",
+   "iso3": "BRA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Bonde dos 40"
+  },
+  {
+   "date": "1946-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 202; Government of China vs PLA; location China"
+  },
+  {
+   "date": "1947-02-28",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 217; Government of China vs Taiwanese insurgents; location China"
+  },
+  {
+   "date": "1949-10-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
+  },
+  {
+   "date": "1950-10-07",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
+  },
+  {
+   "date": "1954-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
+  },
+  {
+   "date": "1956-05-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
+  },
+  {
+   "date": "1958-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 232; Government of China vs Government of Taiwan; location China, Taiwan"
+  },
+  {
+   "date": "1959-03-10",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 236; Government of China vs Tibet; location China"
+  },
+  {
+   "date": "1962-11-21",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "1967-01-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "1969-02-28",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 304; Government of China vs Government of Myanmar (Burma); location China, Myanmar (Burma)"
+  },
+  {
+   "date": "1969-03-02",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union); location China, Russia (Soviet Union)"
+  },
+  {
+   "date": "1974-01-20",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
+  },
+  {
+   "date": "1978-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
+  },
+  {
+   "date": "1983-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
+  },
+  {
+   "date": "1986-12-31",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 334; Government of China vs Government of Vietnam (North Vietnam); location China, Vietnam (North Vietnam)"
+  },
+  {
+   "date": "1989-01-01",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of China"
+  },
+  {
+   "date": "2008-01-01",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of China"
+  },
+  {
+   "date": "2008-08-10",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 11349; Government of China vs ETIM; location China"
+  },
+  {
+   "date": "2020-08-30",
+   "iso3": "CHN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "1948-09-13",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 226; Government of Hyderabad vs Government of India; location Hyderabad, India"
+  },
+  {
+   "date": "1948-09-18",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI; location India"
+  },
+  {
+   "date": "1948-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1956-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC; location India"
+  },
+  {
+   "date": "1961-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NNC; location India"
+  },
+  {
+   "date": "1962-11-21",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "1964-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1966-09-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 296; Government of India vs MNF; location India"
+  },
+  {
+   "date": "1967-01-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "1969-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs CPI-ML; location India"
+  },
+  {
+   "date": "1971-12-03",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1979-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs TNV; location India"
+  },
+  {
+   "date": "1982-07-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA; location India"
+  },
+  {
+   "date": "1983-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 351; Government of India vs Sikh insurgents; location India"
+  },
+  {
+   "date": "1984-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1987-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1989-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NSCN-IM"
+  },
+  {
+   "date": "1989-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Sikh insurgents"
+  },
+  {
+   "date": "1989-03-16",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs ABSU; location India"
+  },
+  {
+   "date": "1989-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1990-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ABSU"
+  },
+  {
+   "date": "1990-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of India"
+  },
+  {
+   "date": "1990-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Kashmir insurgents"
+  },
+  {
+   "date": "1990-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor PWG"
+  },
+  {
+   "date": "1990-02-12",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 364; Government of India vs Kashmir insurgents; location India"
+  },
+  {
+   "date": "1990-11-30",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA; location India"
+  },
+  {
+   "date": "1991-07-16",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG; location India"
+  },
+  {
+   "date": "1992-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor MCC"
+  },
+  {
+   "date": "1992-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "1992-08-05",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM; location India"
+  },
+  {
+   "date": "1992-10-12",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF; location India"
+  },
+  {
+   "date": "1993-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ATTF"
+  },
+  {
+   "date": "1993-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of India"
+  },
+  {
+   "date": "1993-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Kashmir insurgents"
+  },
+  {
+   "date": "1993-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NSCN-IM"
+  },
+  {
+   "date": "1993-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF; location India"
+  },
+  {
+   "date": "1994-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "1994-06-28",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1994-07-23",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
+  },
+  {
+   "date": "1994-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 365; Government of India vs ULFA; location India"
+  },
+  {
+   "date": "1995-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Kashmir insurgents"
+  },
+  {
+   "date": "1996-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor BLTF"
+  },
+  {
+   "date": "1996-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NLFT"
+  },
+  {
+   "date": "1996-04-03",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 227; Government of India vs PWG; location India"
+  },
+  {
+   "date": "1996-10-28",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
+  },
+  {
+   "date": "1996-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "1997-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ATTF"
+  },
+  {
+   "date": "1997-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "1997-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Ranvir Sena"
+  },
+  {
+   "date": "1997-06-10",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs ATTF, NLFT; location India"
+  },
+  {
+   "date": "1998-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Al-Umma"
+  },
+  {
+   "date": "1998-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor BLTF"
+  },
+  {
+   "date": "1998-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NLFT"
+  },
+  {
+   "date": "1998-12-31",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs PLA; location India"
+  },
+  {
+   "date": "1999-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor MCC"
+  },
+  {
+   "date": "1999-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Ranvir Sena"
+  },
+  {
+   "date": "1999-09-26",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 335; Government of India vs NLFT; location India"
+  },
+  {
+   "date": "2000-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "2000-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ULFA"
+  },
+  {
+   "date": "2000-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor UPDS"
+  },
+  {
+   "date": "2000-09-13",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 251; Government of India vs NSCN-IM; location India"
+  },
+  {
+   "date": "2001-08-04",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB; location India"
+  },
+  {
+   "date": "2002-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of India"
+  },
+  {
+   "date": "2002-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor VHP"
+  },
+  {
+   "date": "2003-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ATTF"
+  },
+  {
+   "date": "2003-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor HPC"
+  },
+  {
+   "date": "2003-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Lashkar-e-Taiba"
+  },
+  {
+   "date": "2003-07-21",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 347; Government of India vs UNLF; location India"
+  },
+  {
+   "date": "2004-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor KRA"
+  },
+  {
+   "date": "2004-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "2004-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ULFA"
+  },
+  {
+   "date": "2005-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor CPI-Maoist"
+  },
+  {
+   "date": "2005-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor DHD"
+  },
+  {
+   "date": "2005-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Indian Mujahideen"
+  },
+  {
+   "date": "2006-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ULFA"
+  },
+  {
+   "date": "2007-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor HuJI"
+  },
+  {
+   "date": "2007-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Lashkar-e-Taiba"
+  },
+  {
+   "date": "2008-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor DHD - BW"
+  },
+  {
+   "date": "2008-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Indian Mujahideen"
+  },
+  {
+   "date": "2008-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB"
+  },
+  {
+   "date": "2008-12-04",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 434; Government of India vs PULF; location India"
+  },
+  {
+   "date": "2009-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor ULFA"
+  },
+  {
+   "date": "2009-06-11",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB - RD; location India"
+  },
+  {
+   "date": "2010-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB - RD"
+  },
+  {
+   "date": "2010-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor PCPA"
+  },
+  {
+   "date": "2011-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Indian Mujahideen"
+  },
+  {
+   "date": "2012-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor PLFI"
+  },
+  {
+   "date": "2012-11-15",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA; location India"
+  },
+  {
+   "date": "2013-10-04",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "2013-12-11",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 421; Government of India vs NDFB-S; location India"
+  },
+  {
+   "date": "2014-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor NDFB-S"
+  },
+  {
+   "date": "2014-07-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 11342; Government of India vs GNLA; location India"
+  },
+  {
+   "date": "2015-06-04",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW; location India"
+  },
+  {
+   "date": "2017-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Kashmir insurgents"
+  },
+  {
+   "date": "2020-08-30",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 274; Government of China vs Government of India; location China, India"
+  },
+  {
+   "date": "2021-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2025-01-01",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Kashmir insurgents"
+  },
+  {
+   "date": "2025-05-07",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 218; Government of India vs Government of Pakistan; location India, Pakistan"
+  },
+  {
+   "date": "2025-07-14",
+   "iso3": "IND",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13653; Government of India vs UNLFW; location India"
+  },
+  {
+   "date": "1946-05-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1946-12-16",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 206; Government of Iran vs Republic of Azerbaijan; location Iran"
+  },
+  {
+   "date": "1966-12-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1974-02-10",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq; location Iran, Iraq"
+  },
+  {
+   "date": "1979-05-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 339; Government of Iran vs APCO; location Iran"
+  },
+  {
+   "date": "1979-12-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1979-12-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "1980-09-23",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 324; Government of Iran vs Government of Iraq; location Iran, Iraq"
+  },
+  {
+   "date": "1986-12-31",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "1990-07-10",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1991-04-03",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "1993-04-09",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "1993-09-12",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1996-07-28",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "1997-02-18",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "1999-11-25",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs MEK; location Iran"
+  },
+  {
+   "date": "2005-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Iran"
+  },
+  {
+   "date": "2005-08-07",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK; location Iran"
+  },
+  {
+   "date": "2009-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Iran"
+  },
+  {
+   "date": "2009-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Jondullah"
+  },
+  {
+   "date": "2016-09-07",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "2017-06-11",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 14268; Government of Iran vs IS; location Iran"
+  },
+  {
+   "date": "2018-04-29",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 14609; Government of Iran vs Government of Israel; location Iran, Israel"
+  },
+  {
+   "date": "2018-07-20",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs PJAK; location Iran"
+  },
+  {
+   "date": "2018-08-11",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 205; Government of Iran vs KDPI; location Iran"
+  },
+  {
+   "date": "2019-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Iran"
+  },
+  {
+   "date": "2023-12-15",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 338; Government of Iran vs Jaish al-Adl; location Iran"
+  },
+  {
+   "date": "2024-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2025-01-01",
+   "iso3": "IRN",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Afghanistan"
+  },
+  {
+   "date": "1946-06-30",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 212; Government of Russia (Soviet Union) vs BDPS; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1946-12-31",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 210; Government of Russia (Soviet Union) vs Forest Brothers; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1946-12-31",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 211; Government of Russia (Soviet Union) vs LNPA, LTS(p)A; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1946-12-31",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 213; Government of Russia (Soviet Union) vs UPA; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1956-10-23",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 250; Government of Hungary vs Government of Russia (Soviet Union); location Hungary, Russia (Soviet Union)"
+  },
+  {
+   "date": "1969-03-02",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 305; Government of China vs Government of Russia (Soviet Union); location China, Russia (Soviet Union)"
+  },
+  {
+   "date": "1979-12-27",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 431; Government of Afghanistan vs Government of Russia (Soviet Union); location Afghanistan, Russia (Soviet Union)"
+  },
+  {
+   "date": "1990-01-23",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 377; Government of Russia (Soviet Union) vs APF; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1990-08-31",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 376; Government of Russia (Soviet Union) vs Republic of Armenia; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1991-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Russia (Soviet Union)"
+  },
+  {
+   "date": "1993-10-03",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs Parliamentary Forces; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1994-11-26",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1995-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Russia (Soviet Union)"
+  },
+  {
+   "date": "1999-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Chechen Republic of Ichkeria"
+  },
+  {
+   "date": "1999-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Russia (Soviet Union)"
+  },
+  {
+   "date": "1999-08-11",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 401; Government of Russia (Soviet Union) vs Chechen Republic of Ichkeria; location Russia (Soviet Union)"
+  },
+  {
+   "date": "1999-09-02",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 414; Government of Russia (Soviet Union) vs Wahhabi movement of the Buinaksk district; location Russia (Soviet Union)"
+  },
+  {
+   "date": "2003-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Chechen Republic of Ichkeria"
+  },
+  {
+   "date": "2004-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Gazotan Murdash"
+  },
+  {
+   "date": "2007-11-28",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 432; Government of Russia (Soviet Union) vs Forces of the Caucasus Emirate; location Russia (Soviet Union)"
+  },
+  {
+   "date": "2010-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Forces of the Caucasus Emirate"
+  },
+  {
+   "date": "2013-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Forces of the Caucasus Emirate"
+  },
+  {
+   "date": "2015-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2015-08-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS; location Russia (Soviet Union)"
+  },
+  {
+   "date": "2018-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2022-02-24",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13243; Government of Russia (Soviet Union) vs Government of Ukraine; location Russia (Soviet Union), Ukraine"
+  },
+  {
+   "date": "2023-06-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 399; Government of Russia (Soviet Union) vs LSR, RDK, Wagner; location Russia (Soviet Union)"
+  },
+  {
+   "date": "2024-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2024-06-23",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13588; Government of Russia (Soviet Union) vs IS; location Russia (Soviet Union)"
+  },
+  {
+   "date": "2025-01-01",
+   "iso3": "RUS",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor Government of Russia (Soviet Union)"
+  },
+  {
+   "date": "1950-10-30",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 238; Government of United States of America vs Puerto Rican Nationalist Party; location United States of America"
+  },
+  {
+   "date": "1983-10-25",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 350; Government of Grenada vs Government of United States of America; location Grenada, United States of America"
+  },
+  {
+   "date": "1989-12-23",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 368; Government of Panama vs Government of United States of America; location Panama, United States of America"
+  },
+  {
+   "date": "2001-01-01",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor al-Qaida "
+  },
+  {
+   "date": "2001-09-11",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida ; location United States of America"
+  },
+  {
+   "date": "2001-10-07",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 13692; Government of Afghanistan vs Government of United Kingdom, Government of United States of America; location Afghanistan, United Kingdom, United States of America"
+  },
+  {
+   "date": "2003-03-23",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 420; Government of Australia, Government of United Kingdom, Government of United States of America vs Government of Iraq; location Australia, Iraq, United Kingdom, United States of America"
+  },
+  {
+   "date": "2015-01-01",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2017-01-01",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP One-sided Violence Dataset v26.1",
+   "what": "one-sided violence located in the country, first year of an unbroken run of active years; actor IS"
+  },
+  {
+   "date": "2019-07-31",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 418; Government of United States of America vs al-Qaida ; location United States of America"
+  },
+  {
+   "date": "2024-02-03",
+   "iso3": "USA",
+   "kind": "conflict",
+   "source": "UCDP/PRIO Armed Conflict Dataset v26.1",
+   "what": "state-based conflict episode start; UCDP conflict_id 16099; Government of United Kingdom, Government of United States of America vs Government of Yemen (North Yemen); location United Kingdom, United States of America, Yemen (North Yemen)"
   }
  ],
  "licence_note": "UCDP data, CC BY 4.0",
@@ -903,31 +2292,43 @@
   "BRA": {
    "one_sided_active_years": 3,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 3,
+   "state_based_also_on_location_basis": 0,
    "state_based_episode_starts": 0
   },
   "CHE": {
    "one_sided_active_years": 0,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 0,
+   "state_based_also_on_location_basis": 0,
    "state_based_episode_starts": 0
   },
   "CHN": {
    "one_sided_active_years": 2,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 2,
+   "state_based_also_on_location_basis": 18,
    "state_based_episode_starts": 18
   },
   "IND": {
    "one_sided_active_years": 3,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 3,
+   "state_based_also_on_location_basis": 46,
    "state_based_episode_starts": 46
   },
   "IRN": {
    "one_sided_active_years": 6,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 3,
+   "state_based_also_on_location_basis": 23,
    "state_based_episode_starts": 23
   },
   "NOR": {
    "one_sided_active_years": 0,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 0,
+   "state_based_also_on_location_basis": 0,
    "state_based_episode_starts": 0
   },
   "RUS": {
@@ -936,11 +2337,73 @@
     2024,
     2025
    ],
+   "one_sided_run_starts": 4,
+   "state_based_also_on_location_basis": 18,
    "state_based_episode_starts": 18
   },
   "USA": {
    "one_sided_active_years": 0,
    "one_sided_coalition_years_not_counted": [],
+   "one_sided_run_starts": 0,
+   "state_based_also_on_location_basis": 8,
+   "state_based_episode_starts": 8
+  }
+ },
+ "per_country_location": {
+  "BRA": {
+   "location_name": "Brazil",
+   "one_sided_actors": 5,
+   "one_sided_run_starts": 8,
+   "state_based_also_on_party_basis": 0,
+   "state_based_episode_starts": 0
+  },
+  "CHE": {
+   "location_name": "Switzerland",
+   "one_sided_actors": 0,
+   "one_sided_run_starts": 0,
+   "state_based_also_on_party_basis": 0,
+   "state_based_episode_starts": 0
+  },
+  "CHN": {
+   "location_name": "China",
+   "one_sided_actors": 1,
+   "one_sided_run_starts": 2,
+   "state_based_also_on_party_basis": 18,
+   "state_based_episode_starts": 18
+  },
+  "IND": {
+   "location_name": "India",
+   "one_sided_actors": 29,
+   "one_sided_run_starts": 53,
+   "state_based_also_on_party_basis": 46,
+   "state_based_episode_starts": 46
+  },
+  "IRN": {
+   "location_name": "Iran",
+   "one_sided_actors": 4,
+   "one_sided_run_starts": 6,
+   "state_based_also_on_party_basis": 23,
+   "state_based_episode_starts": 23
+  },
+  "NOR": {
+   "location_name": "Norway",
+   "one_sided_actors": 0,
+   "one_sided_run_starts": 0,
+   "state_based_also_on_party_basis": 0,
+   "state_based_episode_starts": 0
+  },
+  "RUS": {
+   "location_name": "Russia (Soviet Union)",
+   "one_sided_actors": 5,
+   "one_sided_run_starts": 12,
+   "state_based_also_on_party_basis": 18,
+   "state_based_episode_starts": 18
+  },
+  "USA": {
+   "location_name": "United States of America",
+   "one_sided_actors": 2,
+   "one_sided_run_starts": 3,
+   "state_based_also_on_party_basis": 8,
    "state_based_episode_starts": 8
   }
  },
