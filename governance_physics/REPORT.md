@@ -31,7 +31,7 @@ citizen_override         source not read in this run (not reachable from this ru
 surveillance_decided_by  source not read in this run (open); no value typed from memory
 dissent_cost             source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
 critical_minerals        source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-chokepoints              source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
+chokepoints              source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)
 ```
 
 ## energy_base: latest year with both production and consumption in the source
@@ -104,6 +104,27 @@ The events file is empty (no event source was read), so the test did not run for
 country. Its code was checked on synthetic series only: a planted three-year lead is
 flagged, and pure noise is flagged at about the nominal rate (see the self-test).
 
+Calibration (amendment A1): on 200 pure-noise seeds the test flagged 16, alpha = 0.080
+(95% interval 0.050 to 0.126; nominal 0.05). alpha is above nominal: yes. The interval
+excludes nominal: no. A fix is PROPOSED as amendment A2 in DECLARED.json and is not applied.
+
+## Source origin
+
+single source = consistent scale, shared frame. Origins are declaration metadata,
+marked in DECLARED.json as model knowledge, not fetched.
+
+```text
+candidate_filter         Comparative Constitutions Project (Constitute) / United States / university project
+economic_rules_set_by    Comparative Constitutions Project (Constitute) / United States / university project; each country's central bank / the country itself / state institution
+citizen_override         Free Law Project (CourtListener) / United States / non-profit; national referendum registers / the country itself / state institution
+surveillance_decided_by  no source declared
+dissent_cost             Reporters Without Borders (RSF) / France / non-profit; Committee to Protect Journalists (CPJ) / United States / non-profit
+energy_base              Our World in Data (Global Change Data Lab) / United Kingdom / non-profit; Energy Institute, Statistical Review of World Energy (upstream of the file) / United Kingdom / professional membership body
+critical_minerals        U.S. Geological Survey / United States / government agency; International Energy Agency / France (intergovernmental) / intergovernmental; UN Comtrade / intergovernmental (United Nations) / intergovernmental
+chokepoints              U.S. Energy Information Administration / United States / government agency
+events                   Uppsala Conflict Data Program (UCDP) / Sweden / university programme
+```
+
 ## Provenance
 
 Declaration: `DECLARED.json`, committed before any table or series.
@@ -111,5 +132,7 @@ Energy source: github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c44140
 That file is the legacy Our World in Data energy release (CC BY 4.0), built on the Energy
 Institute Statistical Review; its own README says it is no longer updated and that the
 primary-energy method has since changed. It is not copied here; only derived shares are.
+A current release was looked for on GitHub on 2026-11-24 and not found there; the host
+that carries it refused the connection.
 Every other source named in the declaration was not reachable from this run and nothing
 was typed in its place.

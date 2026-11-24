@@ -7,6 +7,7 @@ License: CC0-1.0.  Standard library only.
     python governance_physics/gp.py series  OWID_CSV   # series/*.json, events/events.json
     python governance_physics/gp.py test               # the declared lead test
     python governance_physics/gp.py report             # REPORT.md
+    python governance_physics/gp.py calibrate          # amendment A1: alpha on 200 noise seeds
     python governance_physics/gp.py                    # self-test (no data needed)
 
 Everything this file does is fixed in DECLARED.json, which was committed
@@ -116,8 +117,8 @@ def build_functional(series):
         for field, spec in d["fields"].items():
             if field == "energy_base":
                 continue
-            row[field] = void("source not read in this run (%s); no value typed from memory"
-                              % spec["source_state"])
+            row[field] = void("source not read in this run (%s); no value typed from memory%s"
+                              % (spec["source_state"], "; " + spec["note"] if spec.get("note") else ""))
         val = {}
         for f in FUELS:
             best = None
@@ -189,6 +190,23 @@ def lead_test(stress, event_years, window=3, draws=1000, seed=20261124, min_even
             "null_p05": null[int(0.05 * (len(null) - 1))], "null_p95": null[int(0.95 * (len(null) - 1))],
             "share_null_ge_observed": sum(x >= obs for x in null) / len(null),
             "effect": obs - sum(null) / len(null)}
+
+
+def calibrate(seeds=200):
+    """Amendment A1: false-flag rate of the lead test on pure noise."""
+    flags = []
+    for seed in range(seeds):
+        r = random.Random(seed)
+        stress = {y: r.gauss(0, 0.01) for y in range(1960, 2025)}
+        events = sorted(r.sample(range(1970, 2024), 8))
+        flags.append(lead_test(stress, events, seed=seed)["share_null_ge_observed"] <= 0.05)
+    k, n, z = sum(flags), seeds, 1.96
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return {"seeds": n, "flagged": k, "alpha": p, "wilson95": [round(centre - half, 4), round(centre + half, 4)],
+            "nominal": 0.05, "above_nominal": p > 0.05,
+            "interval_excludes_nominal": centre - half > 0.05}
 
 
 # --------------------------------------------------------------- similarity
@@ -264,8 +282,8 @@ def cmd_series(path):
                                            "No cause, no effect, no label.",
                                    "events": [],
                                    "status": "VOID",
-                                   "reason": "no event source read in this run (%s); no event typed from memory"
-                                             % d["events"]["source_state"]})
+                                   "reason": "no event source read in this run (%s); no event typed from memory; %s"
+                                             % (d["events"]["source_state"], d["events"]["note"])})
     print("wrote series/energy.json, series/minerals.json, events/events.json")
 
 
@@ -289,6 +307,7 @@ def cmd_report():
     lb = _load("table/labels.json")
     test = _load("series/test_result.json")["countries"]
     series = _load("series/energy.json")["countries"]
+    cal = _load("series/calibration.json")["result"]
     isos = [c["iso3"] for c in d["countries"]]
     fields = list(d["fields"])
     L = ["# governance-physics: report", "",
@@ -354,12 +373,29 @@ def cmd_report():
     L += ["```", "", "The events file is empty (no event source was read), so the test did not run for any",
           "country. Its code was checked on synthetic series only: a planted three-year lead is",
           "flagged, and pure noise is flagged at about the nominal rate (see the self-test).",
-          "", "## Provenance", "",
+          "", "Calibration (amendment A1): on %d pure-noise seeds the test flagged %d, alpha = %.3f"
+          % (cal["seeds"], cal["flagged"], cal["alpha"]),
+          "(95%% interval %.3f to %.3f; nominal 0.05). alpha is above nominal: %s. The interval"
+          % (cal["wilson95"][0], cal["wilson95"][1], "yes" if cal["above_nominal"] else "no"),
+          "excludes nominal: %s. A fix is PROPOSED as amendment A2 in DECLARED.json and is not applied."
+          % ("yes" if cal["interval_excludes_nominal"] else "no"),
+          "", "## Source origin", "",
+          "single source = consistent scale, shared frame. Origins are declaration metadata,",
+          "marked in DECLARED.json as model knowledge, not fetched.", "", "```text"]
+    for f in fields:
+        so = d["fields"][f]["source_origin"]
+        L.append("%-24s %s" % (f, "; ".join("%s / %s / %s" % (s["org"], s["country"], s["funding_type"])
+                                             for s in so) or "no source declared"))
+    L.append("%-24s %s" % ("events", "; ".join("%s / %s / %s" % (s["org"], s["country"], s["funding_type"])
+                                                for s in d["events"]["source_origin"])))
+    L += ["```", "", "## Provenance", "",
           "Declaration: `DECLARED.json`, committed before any table or series.",
           "Energy source: %s." % owid_source(),
           "That file is the legacy Our World in Data energy release (CC BY 4.0), built on the Energy",
           "Institute Statistical Review; its own README says it is no longer updated and that the",
           "primary-energy method has since changed. It is not copied here; only derived shares are.",
+          "A current release was looked for on GitHub on 2026-11-24 and not found there; the host",
+          "that carries it refused the connection.",
           "Every other source named in the declaration was not reachable from this run and nothing",
           "was typed in its place.", ""]
     with open(os.path.join(HERE, "REPORT.md"), "w") as f:
@@ -415,5 +451,10 @@ if __name__ == "__main__":
         cmd_test()
     elif a == ["report"]:
         cmd_report()
+    elif a == ["calibrate"]:
+        c = calibrate()
+        _write("series/calibration.json", {"record": "lead-test calibration, amendment A1", "result": c,
+                                            "design": declared()["amendments"][0]["calibration"]})
+        print("alpha = %d / %d = %.3f" % (c["flagged"], c["seeds"], c["alpha"]))
     else:
         raise SystemExit(__doc__)

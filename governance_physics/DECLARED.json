@@ -64,57 +64,162 @@
    "asks": "mechanism that decides who may stand as a candidate for national office; is the deciding body elected? y/n",
    "source_type": "primary legal text (constitution, electoral statute), one per country",
    "source": "constituteproject.org (constitution texts)",
-   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "source_origin": [
+    {
+     "org": "Comparative Constitutions Project (Constitute)",
+     "country": "United States",
+     "funding_type": "university project",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame"
   },
   "economic_rules_set_by": {
    "asks": "body that sets monetary and fiscal rules; elected? y/n",
    "source_type": "primary legal text (constitution, central bank statute)",
    "source": "constituteproject.org; each central bank's statute",
-   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "source_origin": [
+    {
+     "org": "Comparative Constitutions Project (Constitute)",
+     "country": "United States",
+     "funding_type": "university project",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "each country's central bank",
+     "country": "the country itself",
+     "funding_type": "state institution",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame"
   },
   "citizen_override": {
    "asks": "cases where a citizen vote or citizen-initiated rule worked, and cases where one was overruled, as counts with each case named (example given in the order: Montana corporate spending ban, American Tradition Partnership v. Bullock, 2012)",
    "source_type": "court records and official referendum records",
    "source": "courtlistener.com and national referendum registers",
    "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
-   "open": "no single cross-country register is declared; counts depend on the search rule, which must be declared before any case is counted"
+   "open": "no single cross-country register is declared; counts depend on the search rule, which must be declared before any case is counted",
+   "source_origin": [
+    {
+     "org": "Free Law Project (CourtListener)",
+     "country": "United States",
+     "funding_type": "non-profit",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "national referendum registers",
+     "country": "the country itself",
+     "funding_type": "state institution",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame"
   },
   "surveillance_decided_by": {
    "asks": "body that authorises state surveillance; public vote? y/n",
    "source_type": "primary legal text (statute)",
    "source": "NOT DECLARED: no single cross-country source chosen",
-   "source_state": "open"
+   "source_state": "open",
+   "source_origin": [],
+   "source_origin_note": "single source = consistent scale, shared frame; no source declared, so no origin recorded"
   },
   "dissent_cost": {
    "asks": "measured cost of dissent, same sources all countries",
    "source_type": "published annual counts and one published index",
    "source": "RSF World Press Freedom Index (rsf.org), score as published; CPJ annual prison census (cpj.org), journalists imprisoned on 1 December",
-   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "source_origin": [
+    {
+     "org": "Reporters Without Borders (RSF)",
+     "country": "France",
+     "funding_type": "non-profit",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "Committee to Protect Journalists (CPJ)",
+     "country": "United States",
+     "funding_type": "non-profit",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame"
   },
   "energy_base": {
    "asks": "net import / export share by fuel, by year",
    "source_type": "one cross-country energy statistics file",
    "source": "github.com/owid/energy-data, owid-energy-data.csv (legacy release; built on the Energy Institute Statistical Review)",
    "source_state": "reachable (public git read)",
-   "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0."
+   "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+   "source_origin": [
+    {
+     "org": "Our World in Data (Global Change Data Lab)",
+     "country": "United Kingdom",
+     "funding_type": "non-profit",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "Energy Institute, Statistical Review of World Energy (upstream of the file)",
+     "country": "United Kingdom",
+     "funding_type": "professional membership body",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame",
+   "release_note": "the file read is the LEGACY Our World in Data energy release (its README: no longer updated; the primary-energy method has since changed). Current release checked 2026-11-24: not on GitHub. github.com/owid/energy-data has one branch (master, the legacy file) and its README points the current files only at catalog.ourworldindata.org, which the proxy refused (CONNECT 403, 2026-11-24T17:06:38Z). Nothing added beside the legacy file."
   },
   "critical_minerals": {
    "asks": "import dependence and processing share",
    "source_type": "one cross-country minerals statistics source",
    "source": "NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
-   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "source_origin": [
+    {
+     "org": "U.S. Geological Survey",
+     "country": "United States",
+     "funding_type": "government agency",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "International Energy Agency",
+     "country": "France (intergovernmental)",
+     "funding_type": "intergovernmental",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    },
+    {
+     "org": "UN Comtrade",
+     "country": "intergovernmental (United Nations)",
+     "funding_type": "intergovernmental",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame"
   },
   "chokepoints": {
    "asks": "shipping / route dependencies",
    "source_type": "one cross-country trade-route source",
    "source": "NOT DECLARED. EIA World Oil Transit Chokepoints gives flows per chokepoint, not per-country dependence",
-   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "source_origin": [
+    {
+     "org": "U.S. Energy Information Administration",
+     "country": "United States",
+     "funding_type": "government agency",
+     "basis": "model knowledge, not fetched; verify when the host is reachable"
+    }
+   ],
+   "source_origin_note": "single source = consistent scale, shared frame",
+   "note": "stays VOID: needs trade-flow data (Comtrade blocked)"
   }
  },
  "labels_table": {
   "file": "table/labels.json",
   "holds": "self-labels and labels-by-others, each with source and date",
-  "source_state": "no label source reachable in this run"
+  "source_state": "no label source reachable in this run",
+  "source_origin": [],
+  "source_origin_note": "single source = consistent scale, shared frame; no label source declared, so no origin recorded"
  },
  "series": {
   "energy": "annual net import share and balance by fuel, 2000 to latest year in the source, per country",
@@ -123,7 +228,17 @@
  "events": {
   "holds": "dated policy / conflict events with source; no causal tags",
   "source": "NOT DECLARED for policy events; UCDP (ucdp.uu.se) is a candidate for conflict events",
-  "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+  "source_origin": [
+   {
+    "org": "Uppsala Conflict Data Program (UCDP)",
+    "country": "Sweden",
+    "funding_type": "university programme",
+    "basis": "model knowledge, not fetched; verify when the host is reachable"
+   }
+  ],
+  "source_origin_note": "single source = consistent scale, shared frame",
+  "note": "policy events stay VOID: no single dated source"
  },
  "test": {
   "declared_before_run": true,
@@ -145,5 +260,36 @@
  "report": {
   "file": "REPORT.md",
   "holds": "filled vs VOID per field per country; similarity matrix on functional fields only; test results. No verdicts on regimes."
- }
+ },
+ "amendments": [
+  {
+   "id": "A1",
+   "utc": "2026-11-24",
+   "title": "lead-test calibration + source origin",
+   "declared_before_run": true,
+   "calibration": {
+    "what": "false-flag rate (alpha) of the lead test on pure noise",
+    "design": "200 seeds (0..199). Per seed: stress = independent Gaussian noise, sd 0.01, years 1960..2024; 8 event years drawn without replacement from 1970..2023; lead test as declared (3-year window, 1000 draws). A seed flags when share_null_ge_observed <= 0.05.",
+    "report": "alpha = flagged seeds / 200, with the count",
+    "rule": "if alpha > 0.05: report it and propose a fix as a separate declared amendment. Do not apply the fix.",
+    "result_file": "series/calibration.json"
+   },
+   "source_origin": "every source entry carries source_origin {org, country, funding_type} and the note 'single source = consistent scale, shared frame'. These are declaration metadata, not table values; each is marked as model knowledge, not fetched. The no_recall rule still governs every table, series and event value.",
+   "stays_void": "chokepoints (needs trade-flow data; Comtrade blocked) and policy events (no single dated source)",
+   "energy": "legacy release noted; current release looked for on GitHub and not found there"
+  },
+  {
+   "id": "A2",
+   "utc": "2026-11-24",
+   "title": "lead-test false-flag rate",
+   "status": "PROPOSED, NOT APPLIED",
+   "why": "amendment A1's calibration returned alpha above the nominal 0.05 (see series/calibration.json). At 200 seeds the 95% interval still includes 0.05, so 200 seeds cannot say whether the test over-flags or the excess is seed noise.",
+   "proposal": [
+    "step 1: rerun the same calibration at 2000 seeds, design otherwise unchanged",
+    "step 2, only if the 2000-seed 95% interval excludes 0.05: lower the flag threshold on share_null_ge_observed from 0.05 to the largest value whose calibrated alpha is at most 0.05, and record the new threshold with its calibration",
+    "step 3: until A2 is decided, any real flag from the lead test is reported together with the A1 alpha"
+   ],
+   "not_done": "none of these steps has been run or applied"
+  }
+ ]
 }

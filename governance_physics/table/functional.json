@@ -8,7 +8,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -74,7 +74,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -140,7 +140,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -206,7 +206,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -272,7 +272,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -338,7 +338,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -404,7 +404,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null
@@ -470,7 +470,7 @@
     "value": null
    },
    "chokepoints": {
-    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)",
     "source": null,
     "status": "VOID",
     "value": null

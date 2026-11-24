@@ -1,0 +1,22 @@
+{
+ "design": {
+  "design": "200 seeds (0..199). Per seed: stress = independent Gaussian noise, sd 0.01, years 1960..2024; 8 event years drawn without replacement from 1970..2023; lead test as declared (3-year window, 1000 draws). A seed flags when share_null_ge_observed <= 0.05.",
+  "report": "alpha = flagged seeds / 200, with the count",
+  "result_file": "series/calibration.json",
+  "rule": "if alpha > 0.05: report it and propose a fix as a separate declared amendment. Do not apply the fix.",
+  "what": "false-flag rate (alpha) of the lead test on pure noise"
+ },
+ "record": "lead-test calibration, amendment A1",
+ "result": {
+  "above_nominal": true,
+  "alpha": 0.08,
+  "flagged": 16,
+  "interval_excludes_nominal": false,
+  "nominal": 0.05,
+  "seeds": 200,
+  "wilson95": [
+   0.0498,
+   0.126
+  ]
+ }
+}

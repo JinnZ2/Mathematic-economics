@@ -1,6 +1,6 @@
 {
  "events": [],
- "reason": "no event source read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no event typed from memory",
+ "reason": "no event source read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no event typed from memory; policy events stay VOID: no single dated source",
  "record": "dated policy / conflict events; no causal tags",
  "rule": "each event: {iso3, date, kind: policy|conflict, what, source}. No cause, no effect, no label.",
  "status": "VOID"
