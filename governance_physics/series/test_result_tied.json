@@ -1,0 +1,195 @@
+{
+ "countries": {
+  "BRA": {
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "n_events": 1,
+   "reason": "fewer than 3 dated events with a full lead window (1)",
+   "state": "NOT RUN"
+  },
+  "CHE": {
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "CHN": {
+   "alpha_beside_flag": {
+    "alpha": 0.0365,
+    "flagged": 73,
+    "seeds": 2000,
+    "threshold": 0.038,
+    "wilson95": [
+     0.0291,
+     0.0456
+    ]
+   },
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "effect": -0.001741027444444456,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "multiplicities": [
+    2,
+    1
+   ],
+   "n_distinct_years": 2,
+   "n_events": 3,
+   "null": "tied-year (A4)",
+   "null_mean": 0.02562736077777778,
+   "null_p05": 0.011563666666666686,
+   "null_p95": 0.03969544444444444,
+   "observed": 0.023886333333333325,
+   "share_null_ge_observed": 0.542,
+   "state": "RUN",
+   "v1.2": {
+    "flag": false,
+    "n_events": 3,
+    "null_mean": 0.025521328222222226,
+    "null_p05": 0.015158333333333341,
+    "null_p95": 0.03620866666666666,
+    "observed": 0.023886333333333325,
+    "share_null_ge_observed": 0.598
+   }
+  },
+  "IND": {
+   "alpha_beside_flag": {
+    "alpha": 0.0365,
+    "flagged": 73,
+    "seeds": 2000,
+    "threshold": 0.038,
+    "wilson95": [
+     0.0291,
+     0.0456
+    ]
+   },
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "effect": 0.0012457410000000085,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "multiplicities": [
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    2
+   ],
+   "n_distinct_years": 8,
+   "n_events": 10,
+   "null": "tied-year (A4)",
+   "null_mean": 0.02715959233333333,
+   "null_p05": 0.021362399999999997,
+   "null_p95": 0.03236,
+   "observed": 0.028405333333333338,
+   "share_null_ge_observed": 0.376,
+   "state": "RUN",
+   "v1.2": {
+    "flag": false,
+    "n_events": 10,
+    "null_mean": 0.027428318266666665,
+    "null_p05": 0.023059766666666662,
+    "null_p95": 0.031488233333333324,
+    "observed": 0.028405333333333338,
+    "share_null_ge_observed": 0.354
+   }
+  },
+  "IRN": {
+   "alpha_beside_flag": {
+    "alpha": 0.0365,
+    "flagged": 73,
+    "seeds": 2000,
+    "threshold": 0.038,
+    "wilson95": [
+     0.0291,
+     0.0456
+    ]
+   },
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "effect": -0.020978340733333337,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "multiplicities": [
+    2,
+    1,
+    1,
+    1,
+    3,
+    1,
+    1
+   ],
+   "n_distinct_years": 7,
+   "n_events": 10,
+   "null": "tied-year (A4)",
+   "null_mean": 0.03360767406666667,
+   "null_p05": 0.014901199999999998,
+   "null_p95": 0.05395766666666667,
+   "observed": 0.012629333333333334,
+   "share_null_ge_observed": 0.976,
+   "state": "RUN",
+   "v1.2": {
+    "flag": false,
+    "n_events": 10,
+    "null_mean": 0.03276451876666666,
+    "null_p05": 0.0201458,
+    "null_p95": 0.045059166666666664,
+    "observed": 0.012629333333333334,
+    "share_null_ge_observed": 1.0
+   }
+  },
+  "NOR": {
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "RUS": {
+   "alpha_beside_flag": {
+    "alpha": 0.0365,
+    "flagged": 73,
+    "seeds": 2000,
+    "threshold": 0.038,
+    "wilson95": [
+     0.0291,
+     0.0456
+    ]
+   },
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "effect": 0.005706699499999995,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "multiplicities": [
+    1,
+    1,
+    2,
+    1,
+    1
+   ],
+   "n_distinct_years": 5,
+   "n_events": 6,
+   "null": "tied-year (A4)",
+   "null_mean": 0.012816300500000002,
+   "null_p05": 0.005495833333333334,
+   "null_p95": 0.022864388888888892,
+   "observed": 0.018522999999999998,
+   "share_null_ge_observed": 0.153,
+   "state": "RUN",
+   "v1.2": {
+    "flag": false,
+    "n_events": 6,
+    "null_mean": 0.012883549000000003,
+    "null_p05": 0.006086388888888895,
+    "null_p95": 0.020571000000000002,
+    "observed": 0.018522999999999998,
+    "share_null_ge_observed": 0.101
+   }
+  },
+  "USA": {
+   "driver_note": "tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), so the test does not cover those drivers",
+   "n_events": 2,
+   "reason": "fewer than 3 dated events with a full lead window (2)",
+   "state": "NOT RUN"
+  }
+ },
+ "record": "lead test under the tied-year null (A4 item 2), party-basis events as in v1.2"
+}

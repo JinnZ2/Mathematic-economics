@@ -1,0 +1,50 @@
+{
+ "design": "noise stress as A1; 6 distinct event years from 1970..2023 with multiplicities 2,2,1,1,1,1 (8 events); seeds 20000..21999",
+ "record": "calibration with shared-year events, amendment A4 item 2",
+ "rule": "threshold stays for the tied-year null only if the 95% interval of its alpha at the threshold includes a value at or below 0.05",
+ "threshold_stays_for_tied_null": true,
+ "tied_year_null": {
+  "at_0.05": {
+   "alpha": 0.0485,
+   "flagged": 97,
+   "seeds": 2000,
+   "threshold": 0.05,
+   "wilson95": [
+    0.0399,
+    0.0588
+   ]
+  },
+  "at_threshold": {
+   "alpha": 0.0365,
+   "flagged": 73,
+   "seeds": 2000,
+   "threshold": 0.038,
+   "wilson95": [
+    0.0291,
+    0.0456
+   ]
+  }
+ },
+ "v1.2_null_on_tied_events": {
+  "at_0.05": {
+   "alpha": 0.095,
+   "flagged": 190,
+   "seeds": 2000,
+   "threshold": 0.05,
+   "wilson95": [
+    0.0829,
+    0.1086
+   ]
+  },
+  "at_threshold": {
+   "alpha": 0.081,
+   "flagged": 162,
+   "seeds": 2000,
+   "threshold": 0.038,
+   "wilson95": [
+    0.0698,
+    0.0938
+   ]
+  }
+ }
+}

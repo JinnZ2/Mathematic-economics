@@ -192,6 +192,104 @@ def lead_test(stress, event_years, window=3, draws=1000, seed=20261124, min_even
             "effect": obs - sum(null) / len(null)}
 
 
+def lead_test_tied(stress, event_years, window=3, draws=1000, seed=20261124, min_events=3):
+    """Amendment A4 item 2.  Null that keeps the tie structure: k distinct event
+    years with multiplicities m_1..m_k; each draw takes k distinct eligible years
+    and gives them the multiplicities in random order.  A year with m events
+    counts m times, in the observed statistic and in every draw.  With no shared
+    year this makes the same draws as lead_test."""
+    eligible = [y for y in stress if all(stress.get(k) is not None for k in range(y - window, y))]
+    ev = sorted(e for e in event_years if e in eligible)
+    if len(ev) < min_events:
+        return {"state": "NOT RUN", "reason": "fewer than %d dated events with a full lead window (%d)"
+                % (min_events, len(ev)), "n_events": len(ev)}
+    distinct = sorted(set(ev))
+    mult = [ev.count(y) for y in distinct]
+
+    def stat(years):
+        return sum(m * sum(stress[k] for k in range(y - window, y)) / window
+                   for y, m in zip(years, mult)) / len(ev)
+    obs = stat(distinct)
+    rng = random.Random(seed)
+    null = sorted(stat(rng.sample(eligible, len(distinct))) for _ in range(draws))
+    return {"state": "RUN", "null": "tied-year (A4)", "n_events": len(ev), "n_distinct_years": len(distinct),
+            "multiplicities": mult, "observed": obs, "null_mean": sum(null) / len(null),
+            "null_p05": null[int(0.05 * (len(null) - 1))], "null_p95": null[int(0.95 * (len(null) - 1))],
+            "share_null_ge_observed": sum(x >= obs for x in null) / len(null),
+            "effect": obs - sum(null) / len(null)}
+
+
+TIED_SEEDS = range(20000, 22000)       # amendment A4 item 2
+TIED_MULT = (2, 2, 1, 1, 1, 1)
+
+
+def tied_noise_pvalues(seeds=TIED_SEEDS):
+    """Noise stress as A1; 6 distinct event years, two of them doubled (8 events).
+    Returns (p under the v1.2 null, p under the tied-year null) per seed."""
+    old, new = [], []
+    for seed in seeds:
+        r = random.Random(seed)
+        stress = {y: r.gauss(0, 0.01) for y in range(1960, 2025)}
+        years = r.sample(range(1970, 2024), len(TIED_MULT))
+        events = sorted(y for y, m in zip(years, TIED_MULT) for _ in range(m))
+        old.append(lead_test(stress, events, seed=seed)["share_null_ge_observed"])
+        new.append(lead_test_tied(stress, events, seed=seed)["share_null_ge_observed"])
+    return old, new
+
+
+def calibrate_tied():
+    thr = _load("series/calibration_2000.json")["threshold_in_force"]
+    old, new = tied_noise_pvalues()
+    out = {"record": "calibration with shared-year events, amendment A4 item 2",
+           "design": "noise stress as A1; 6 distinct event years from 1970..2023 with multiplicities "
+                     "2,2,1,1,1,1 (8 events); seeds %d..%d" % (TIED_SEEDS[0], TIED_SEEDS[-1]),
+           "v1.2_null_on_tied_events": {"at_0.05": rate(old, 0.05), "at_threshold": rate(old, thr)},
+           "tied_year_null": {"at_0.05": rate(new, 0.05), "at_threshold": rate(new, thr)},
+           "rule": "threshold stays for the tied-year null only if the 95% interval of its alpha at the "
+                   "threshold includes a value at or below 0.05"}
+    out["threshold_stays_for_tied_null"] = out["tied_year_null"]["at_threshold"]["wilson95"][0] <= 0.05
+    return out
+
+
+DRIVER_NOTE = ("tested driver = energy_base only; critical_minerals and chokepoints have no series (VOID), "
+               "so the test does not cover those drivers")
+
+
+def cmd_test13():
+    """v1.3: the v1.2 countries again under the tied-year null, beside the v1.2 results as committed."""
+    d = declared()["test"]
+    series = _load("series/energy.json")["countries"]
+    events = _load("events/events.json")["events"]
+    v12 = _load("series/test_result.json")["countries"]
+    cal = _load("series/calibration_tied.json")
+    thr = flag_threshold() if cal["threshold_stays_for_tied_null"] else None
+    res = {}
+    for iso in sorted(series):
+        ev = [int(e["date"][:4]) for e in events if e["iso3"] == iso]
+        r = lead_test_tied(stress_changes(series[iso]), ev, d["lead_window_years"])
+        r["driver_note"] = DRIVER_NOTE
+        if r["state"] == "RUN":
+            r["flag_threshold"] = thr
+            r["flag"] = (r["share_null_ge_observed"] <= thr) if thr is not None else "NOT CALIBRATED"
+            r["alpha_beside_flag"] = cal["tied_year_null"]["at_threshold"]
+            r["v1.2"] = {k: v12[iso].get(k) for k in ("n_events", "observed", "null_mean", "null_p05", "null_p95",
+                                                      "share_null_ge_observed", "flag")}
+        res[iso] = r
+    _write("series/test_result_tied.json", {"record": "lead test under the tied-year null (A4 item 2), "
+                                                      "party-basis events as in v1.2", "countries": res})
+    print("iso  n  distinct  v1.2 p  tied p  v1.2 null 5..95        tied null 5..95        flag")
+    for iso, r in res.items():
+        if r["state"] == "RUN":
+            o = r["v1.2"]
+            print("%s %3d %5d     %.3f   %.3f   %+.4f..%+.4f   %+.4f..%+.4f   %s"
+                  % (iso, r["n_events"], r["n_distinct_years"], o["share_null_ge_observed"],
+                     r["share_null_ge_observed"], o["null_p05"], o["null_p95"], r["null_p05"], r["null_p95"],
+                     r["flag"]))
+        else:
+            print(iso, r["state"], r["reason"])
+    return res
+
+
 def noise_pvalues(seeds):
     """seeds: a count (seeds 0..n-1, as A1 and A2) or an iterable of seeds (A4)."""
     out = []
@@ -572,6 +670,21 @@ def selftest():
     body = src[src.index("def similarity("):src.index("# ------------------------------------------------------------------- output")]
     ok.append(("similarity() never names the labels table", "labels" not in body.split('"""')[2]))
     ok.append(("VOID cell carries a reason and no value", void("x") == {"value": None, "source": None, "status": "VOID", "reason": "x"}))
+    # tied-year null: with no shared year it is the v1.2 null, draw for draw
+    rr = random.Random(5)
+    st = {y: rr.gauss(0, 0.01) for y in range(1960, 2025)}
+    e0 = [1975, 1988, 1999, 2010]
+    t0, t1 = lead_test(st, e0), lead_test_tied(st, e0)
+    ok.append(("tied null = v1.2 null when no year is shared",
+               abs(t0["share_null_ge_observed"] - t1["share_null_ge_observed"]) < 1e-12
+               and abs(t0["null_p95"] - t1["null_p95"]) < 1e-12))
+    e1 = [1975, 1975, 1988, 1999]
+    t2 = lead_test_tied(st, e1)
+    w = lambda y: sum(st[k] for k in range(y - 3, y)) / 3
+    ok.append(("tied null: a year with 2 events counts twice",
+               abs(t2["observed"] - (2 * w(1975) + w(1988) + w(1999)) / 4) < 1e-15
+               and t2["multiplicities"] == [2, 1, 1] and t2["n_distinct_years"] == 3))
+    ok.append(("wilson interval, known answer 50/100", wilson(50, 100) == [0.4038, 0.5962]))
     for name, good in ok:
         print("%s  %s" % ("PASS" if good else "FAIL", name))
     print("checks: %d   failed: %d" % (len(ok), sum(not g for _, g in ok)))
@@ -605,6 +718,18 @@ if __name__ == "__main__":
         print("alpha = %d / %d = %.4f   95%% interval %.4f to %.4f   excludes 0.05: %s"
               % (c["flagged"], c["seeds"], c["alpha"], c["wilson95"][0], c["wilson95"][1],
                  c["interval_excludes_nominal"]))
+    elif a == ["calibrate", "tied"]:
+        c = calibrate_tied()
+        _write("series/calibration_tied.json", c)
+        for name in ("v1.2_null_on_tied_events", "tied_year_null"):
+            for k in ("at_0.05", "at_threshold"):
+                r = c[name][k]
+                print("%-26s threshold %.3f: flagged %3d / %d  alpha %.4f  95%% interval %.4f to %.4f"
+                      % (name, r["threshold"], r["flagged"], r["seeds"], r["alpha"], r["wilson95"][0],
+                         r["wilson95"][1]))
+        print("threshold stays for tied null:", c["threshold_stays_for_tied_null"])
+    elif a == ["test13"]:
+        cmd_test13()
     elif a == ["calibrate", "fresh"]:
         c = calibrate_fresh()
         _write("series/calibration_fresh.json", c)
