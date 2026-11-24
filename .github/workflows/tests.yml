@@ -11,8 +11,8 @@ jobs:
     name: calibration falsification tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Run calibration tests (unittest)
@@ -26,8 +26,8 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.x"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install pytest
@@ -39,8 +39,8 @@ jobs:
     name: PhysicsGuard <-> Math-Econ bridge tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Install bridge-test deps
@@ -54,8 +54,8 @@ jobs:
     name: automation_scope_audit (90 falsifiable claims)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Validate CLAIM_TABLE.fab.json against claim_contract
@@ -71,8 +71,8 @@ jobs:
     name: legacy ledger audit trail
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Run ledger gate falsification tests
