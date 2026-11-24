@@ -1,0 +1,60 @@
+{
+ "licences": {
+  "bgs": "copyright NERC; non-commercial academic and research use (BGS mineral statistics terms page)",
+  "constitute": "CC BY-NC 3.0 (stated on the site's about page)",
+  "rsf": "not stated on the index page read; score and rank quoted with attribution",
+  "ucdp": "CC BY 4.0 (stated on the downloads page)"
+ },
+ "manifest": {
+  "bgs_Exports.json": {
+   "sha256": "c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "url": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data",
+   "utc": "2026-11-24T17:17:12Z"
+  },
+  "bgs_Imports.json": {
+   "sha256": "90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750",
+   "url": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data",
+   "utc": "2026-11-24T17:17:09Z"
+  },
+  "bgs_Production.json": {
+   "sha256": "da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb",
+   "url": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data",
+   "utc": "2026-11-24T17:17:08Z"
+  },
+  "const/": {
+   "combined_rule": "sha256 over, for each file in name order: file name, NUL, file bytes",
+   "combined_sha256": "f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+   "files": 56,
+   "url": "https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en",
+   "utc_first": "2026-11-24T17:19:45Z",
+   "utc_last": "2026-11-24T17:21:02Z"
+  },
+  "const_list.json": {
+   "sha256": "e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066",
+   "url": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en",
+   "utc": "2026-11-24T17:17:41Z"
+  },
+  "rsf_2026.csv": {
+   "sha256": "65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "url": "https://rsf.org/sites/default/files/import_classement/2026.csv",
+   "utc": "2026-11-24T17:17:38Z"
+  },
+  "ucdp/OneSided_v26_1.csv": {
+   "sha256": "603a9f8eb084b025b3097cc797012e0a533abe8b2089c7169e16688cd40a1d5c",
+   "url": "https://ucdp.uu.se/downloads/nsos/ucdp-onesided-261-csv.zip",
+   "utc": "2026-11-24T17:15:54Z",
+   "zip_sha256": "ecd346fdb72d23bf75aee0845a610e5f81f35caf76991ec875089070b1f39a8f"
+  },
+  "ucdp/UcdpPrioConflict_v26_1.csv": {
+   "sha256": "2aea044f1bcae7b050bb6c79fb796743e787edeed3b90e74e146cfc4e5b05447",
+   "url": "https://ucdp.uu.se/downloads/ucdpprio/ucdp-prio-acd-261-csv.zip",
+   "utc": "2026-11-24T17:15:53Z",
+   "zip_sha256": "5f951743222964674a446e32a5a871077b29bd13349588d85fc59953d89c878a"
+  }
+ },
+ "not_read": {
+  "cpj": "CPJ 1 December census count not read: the site's per-country endpoint takes a 'year' filter that is not documented, and it returns a total for 2026 before 1 December 2026, so it is not established to be the 1 December snapshot. Not used. Probed 2026-11-24.",
+  "v-dem": "V-Dem file not read: the download on v-dem.net is behind a form that requires an email address, a gender field and approval of personal-data processing. Not submitted on the owner's behalf; owner decision. Form seen 2026-11-24."
+ },
+ "record": "sources read by fill.py: URL, fetch time, sha256"
+}
