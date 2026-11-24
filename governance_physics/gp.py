@@ -193,8 +193,9 @@ def lead_test(stress, event_years, window=3, draws=1000, seed=20261124, min_even
 
 
 def noise_pvalues(seeds):
+    """seeds: a count (seeds 0..n-1, as A1 and A2) or an iterable of seeds (A4)."""
     out = []
-    for seed in range(seeds):
+    for seed in (range(seeds) if isinstance(seeds, int) else seeds):
         r = random.Random(seed)
         stress = {y: r.gauss(0, 0.01) for y in range(1960, 2025)}
         events = sorted(r.sample(range(1970, 2024), 8))
@@ -214,11 +215,46 @@ def calibrated_threshold(pvals, target=0.05):
 
 def flag_threshold():
     """The threshold in force: 0.05 as first declared, or the calibrated one
-    once series/calibration_2000.json records it (amendment A2)."""
+    once series/calibration_2000.json records it (amendment A2).  Amendment A4:
+    if the fresh-seed check withdrew it, None (no threshold in force)."""
+    try:
+        fresh = _load("series/calibration_fresh.json")
+        if not fresh["threshold_stays"]:
+            return None
+    except (IOError, OSError, KeyError):
+        pass
     try:
         return _load("series/calibration_2000.json")["threshold_in_force"]
     except (IOError, OSError, KeyError):
         return 0.05
+
+
+def wilson(k, n, z=1.96):
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return [round(centre - half, 4), round(centre + half, 4)]
+
+
+def rate(pvals, thr):
+    k = sum(p <= thr for p in pvals)
+    return {"threshold": thr, "flagged": k, "seeds": len(pvals), "alpha": k / len(pvals),
+            "wilson95": wilson(k, len(pvals))}
+
+
+FRESH_SEEDS = range(10000, 12000)      # amendment A4 item 1; A1 used 0..199, A2 0..1999
+
+
+def calibrate_fresh():
+    thr = _load("series/calibration_2000.json")["threshold_in_force"]
+    pv = noise_pvalues(FRESH_SEEDS)
+    at = rate(pv, thr)
+    return {"record": "fresh-seed check of the threshold in force, amendment A4 item 1",
+            "design": "as amendment A1; seeds %d..%d, none used before" % (FRESH_SEEDS[0], FRESH_SEEDS[-1]),
+            "at_threshold": at, "at_0.05": rate(pv, 0.05),
+            "rule": "threshold stays only if the 95% interval of alpha at the threshold includes a value "
+                    "at or below 0.05 (lower bound <= 0.05)",
+            "threshold_stays": at["wilson95"][0] <= 0.05}
 
 
 def calibrate(seeds=200):
@@ -569,6 +605,14 @@ if __name__ == "__main__":
         print("alpha = %d / %d = %.4f   95%% interval %.4f to %.4f   excludes 0.05: %s"
               % (c["flagged"], c["seeds"], c["alpha"], c["wilson95"][0], c["wilson95"][1],
                  c["interval_excludes_nominal"]))
+    elif a == ["calibrate", "fresh"]:
+        c = calibrate_fresh()
+        _write("series/calibration_fresh.json", c)
+        for k in ("at_threshold", "at_0.05"):
+            r = c[k]
+            print("threshold %.3f: flagged %d / %d  alpha %.4f  95%% interval %.4f to %.4f"
+                  % (r["threshold"], r["flagged"], r["seeds"], r["alpha"], r["wilson95"][0], r["wilson95"][1]))
+        print("threshold stays:", c["threshold_stays"])
     elif a == ["calibrate"]:
         c = calibrate()
         _write("series/calibration.json", {"record": "lead-test calibration, amendment A1", "result": c,

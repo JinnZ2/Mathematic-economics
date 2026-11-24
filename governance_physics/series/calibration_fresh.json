@@ -1,0 +1,26 @@
+{
+ "at_0.05": {
+  "alpha": 0.0635,
+  "flagged": 127,
+  "seeds": 2000,
+  "threshold": 0.05,
+  "wilson95": [
+   0.0536,
+   0.075
+  ]
+ },
+ "at_threshold": {
+  "alpha": 0.0495,
+  "flagged": 99,
+  "seeds": 2000,
+  "threshold": 0.038,
+  "wilson95": [
+   0.0408,
+   0.0599
+  ]
+ },
+ "design": "as amendment A1; seeds 10000..11999, none used before",
+ "record": "fresh-seed check of the threshold in force, amendment A4 item 1",
+ "rule": "threshold stays only if the 95% interval of alpha at the threshold includes a value at or below 0.05 (lower bound <= 0.05)",
+ "threshold_stays": true
+}
