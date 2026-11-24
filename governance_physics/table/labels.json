@@ -1,0 +1,119 @@
+{
+ "countries": {
+  "BRA": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHE": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHN": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IND": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IRN": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "NOR": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "RUS": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "USA": {
+   "labels_by_others": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "self_labels": {
+    "reason": "no label source read in this run (no label source reachable in this run); no label typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  }
+ },
+ "license": "CC0-1.0",
+ "record": "governance-physics labels table",
+ "rule": "self-labels and labels-by-others live in table/labels.json only. They are never joined into table/functional.json and never used as a field value or a grouping key."
+}

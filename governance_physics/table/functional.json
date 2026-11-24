@@ -1,0 +1,535 @@
+{
+ "countries": {
+  "BRA": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": 0.664231,
+      "net_import_share": 0.798244,
+      "year": 2024
+     },
+     "gas": {
+      "balance": 0.157288,
+      "net_import_share": 0.271822,
+      "year": 2024
+     },
+     "oil": {
+      "balance": -0.194573,
+      "net_import_share": -0.483155,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHE": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": 1.0,
+      "net_import_share": 1.0,
+      "year": 2016
+     },
+     "gas": {
+      "balance": 1.0,
+      "net_import_share": 1.0,
+      "year": 2016
+     },
+     "oil": {
+      "balance": 1.0,
+      "net_import_share": 1.0,
+      "year": 2016
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHN": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": -0.012455,
+      "net_import_share": -0.025224,
+      "year": 2024
+     },
+     "gas": {
+      "balance": 0.272418,
+      "net_import_share": 0.428189,
+      "year": 2024
+     },
+     "oil": {
+      "balance": 0.567146,
+      "net_import_share": 0.723794,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IND": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": 0.119761,
+      "net_import_share": 0.213905,
+      "year": 2024
+     },
+     "gas": {
+      "balance": 0.369542,
+      "net_import_share": 0.539657,
+      "year": 2024
+     },
+     "oil": {
+      "balance": 0.77576,
+      "net_import_share": 0.873722,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IRN": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": 0.009995,
+      "net_import_share": 0.019792,
+      "year": 2016
+     },
+     "gas": {
+      "balance": -0.034471,
+      "net_import_share": -0.071404,
+      "year": 2024
+     },
+     "oil": {
+      "balance": -0.446007,
+      "net_import_share": -1.610155,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "NOR": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": 0.149934,
+      "net_import_share": 0.260769,
+      "year": 2016
+     },
+     "gas": {
+      "balance": -0.942212,
+      "net_import_share": -32.609453,
+      "year": 2024
+     },
+     "oil": {
+      "balance": -0.805461,
+      "net_import_share": -8.280694,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "RUS": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": -0.417336,
+      "net_import_share": -1.432512,
+      "year": 2024
+     },
+     "gas": {
+      "balance": -0.138081,
+      "net_import_share": -0.320404,
+      "year": 2024
+     },
+     "oil": {
+      "balance": -0.483912,
+      "net_import_share": -1.875312,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "USA": {
+   "candidate_filter": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "chokepoints": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "citizen_override": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "critical_minerals": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "dissent_cost": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "economic_rules_set_by": {
+    "reason": "source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "energy_base": {
+    "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+    "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+    "status": "DERIVED",
+    "value": {
+     "coal": {
+      "balance": -0.146246,
+      "net_import_share": -0.342596,
+      "year": 2024
+     },
+     "gas": {
+      "balance": -0.067592,
+      "net_import_share": -0.144985,
+      "year": 2024
+     },
+     "oil": {
+      "balance": -0.001427,
+      "net_import_share": -0.002858,
+      "year": 2024
+     }
+    }
+   },
+   "surveillance_decided_by": {
+    "reason": "source not read in this run (open); no value typed from memory",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  }
+ },
+ "license": "CC0-1.0",
+ "note": "energy_base is derived from Our World in Data (CC BY 4.0), built on the Energy Institute Statistical Review; those terms apply to the underlying figures.",
+ "record": "governance-physics functional table"
+}
