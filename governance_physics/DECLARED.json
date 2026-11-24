@@ -1,0 +1,149 @@
+{
+ "record": "governance-physics declaration",
+ "license": "CC0-1.0",
+ "credit": "co-authored (Kavik + Claude)",
+ "declared_utc": "2026-11-24",
+ "status": "PROPOSED",
+ "observer_slots": null,
+ "purpose": "Same functional fields for every country; labels in their own column. Look for physical oscillations (energy, resources) under the labels, and what they end up deciding. Labels are data, never a field value.",
+ "countries": [
+  {
+   "name": "United States",
+   "iso3": "USA"
+  },
+  {
+   "name": "China",
+   "iso3": "CHN"
+  },
+  {
+   "name": "Iran",
+   "iso3": "IRN"
+  },
+  {
+   "name": "Russia",
+   "iso3": "RUS"
+  },
+  {
+   "name": "India",
+   "iso3": "IND"
+  },
+  {
+   "name": "Brazil",
+   "iso3": "BRA"
+  },
+  {
+   "name": "Switzerland",
+   "iso3": "CHE"
+  },
+  {
+   "name": "Norway",
+   "iso3": "NOR"
+  }
+ ],
+ "rules": {
+  "same_basis": "same field, same source type, same caveat scale for every country. A field is filled for a country only from the source declared for that field; a source that covers some countries and not others leaves the uncovered ones VOID.",
+  "void": "unmeasured -> VOID + reason. A VOID is never read as zero, as 'no', or as a match.",
+  "no_recall": "no value is typed from model memory. A value enters only from bytes fetched in a run, with URL or repository commit, and sha256.",
+  "no_index": "no index score is invented here. A published index may be recorded as its publisher's number under dissent_cost, named as theirs.",
+  "labels": "self-labels and labels-by-others live in table/labels.json only. They are never joined into table/functional.json and never used as a field value or a grouping key.",
+  "no_verdicts": "no verdict on any regime; no ranking of countries; events carry no causal tag."
+ },
+ "cell_shape": {
+  "value": "the reading, or null",
+  "source": "URL or repo@commit + sha256, or null",
+  "status": "MEASURED | DERIVED | VOID",
+  "reason": "required when status is VOID"
+ },
+ "caveat_scale": {
+  "MEASURED": "read directly from a fetched source in this run",
+  "DERIVED": "computed here from MEASURED values by a stated formula",
+  "VOID": "not measured; reason stated"
+ },
+ "fields": {
+  "candidate_filter": {
+   "asks": "mechanism that decides who may stand as a candidate for national office; is the deciding body elected? y/n",
+   "source_type": "primary legal text (constitution, electoral statute), one per country",
+   "source": "constituteproject.org (constitution texts)",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  },
+  "economic_rules_set_by": {
+   "asks": "body that sets monetary and fiscal rules; elected? y/n",
+   "source_type": "primary legal text (constitution, central bank statute)",
+   "source": "constituteproject.org; each central bank's statute",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  },
+  "citizen_override": {
+   "asks": "cases where a citizen vote or citizen-initiated rule worked, and cases where one was overruled, as counts with each case named (example given in the order: Montana corporate spending ban, American Tradition Partnership v. Bullock, 2012)",
+   "source_type": "court records and official referendum records",
+   "source": "courtlistener.com and national referendum registers",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z",
+   "open": "no single cross-country register is declared; counts depend on the search rule, which must be declared before any case is counted"
+  },
+  "surveillance_decided_by": {
+   "asks": "body that authorises state surveillance; public vote? y/n",
+   "source_type": "primary legal text (statute)",
+   "source": "NOT DECLARED: no single cross-country source chosen",
+   "source_state": "open"
+  },
+  "dissent_cost": {
+   "asks": "measured cost of dissent, same sources all countries",
+   "source_type": "published annual counts and one published index",
+   "source": "RSF World Press Freedom Index (rsf.org), score as published; CPJ annual prison census (cpj.org), journalists imprisoned on 1 December",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  },
+  "energy_base": {
+   "asks": "net import / export share by fuel, by year",
+   "source_type": "one cross-country energy statistics file",
+   "source": "github.com/owid/energy-data, owid-energy-data.csv (legacy release; built on the Energy Institute Statistical Review)",
+   "source_state": "reachable (public git read)",
+   "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0."
+  },
+  "critical_minerals": {
+   "asks": "import dependence and processing share",
+   "source_type": "one cross-country minerals statistics source",
+   "source": "NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  },
+  "chokepoints": {
+   "asks": "shipping / route dependencies",
+   "source_type": "one cross-country trade-route source",
+   "source": "NOT DECLARED. EIA World Oil Transit Chokepoints gives flows per chokepoint, not per-country dependence",
+   "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+  }
+ },
+ "labels_table": {
+  "file": "table/labels.json",
+  "holds": "self-labels and labels-by-others, each with source and date",
+  "source_state": "no label source reachable in this run"
+ },
+ "series": {
+  "energy": "annual net import share and balance by fuel, 2000 to latest year in the source, per country",
+  "minerals": "annual import dependence per country: VOID until a source is declared"
+ },
+ "events": {
+  "holds": "dated policy / conflict events with source; no causal tags",
+  "source": "NOT DECLARED for policy events; UCDP (ucdp.uu.se) is a candidate for conflict events",
+  "source_state": "not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z"
+ },
+ "test": {
+  "declared_before_run": true,
+  "question": "do resource-stress changes lead policy / conflict events beyond a shuffled-date null?",
+  "stress_change": "per country and year t: the largest year-on-year rise in net import balance across oil, gas and coal, max_f(balance_f[t] - balance_f[t-1]). Balance is used, not the unbounded share, so one exporter year cannot dominate.",
+  "lead_window_years": 3,
+  "statistic": "mean stress_change over the lead window (years e-3 .. e-1) across a country's events",
+  "null": "event years redrawn uniformly without replacement from the same country's series years that have a full lead window; 1000 draws; seed 20261124",
+  "report": "per country: observed statistic, null mean, null 5th and 95th percentile, share of null draws >= observed, n events. No pooled verdict.",
+  "refusals": "a country with fewer than 3 dated events -> NOT RUN (too few events). No events file -> NOT RUN.",
+  "constants": "3-year window, 1000 draws, minimum 3 events: chosen, no external source"
+ },
+ "similarity": {
+  "scope": "functional fields only; labels never enter",
+  "rule": "per pair of countries, per field filled for both: a distance in 0..1; similarity = 1 - mean distance over shared filled fields; pairs with no shared filled field -> VOID",
+  "energy_base_distance": "mean over fuels available for both of |balance_i - balance_j| / 2, latest common year",
+  "note": "a similarity over one filled field is that field's similarity, not a country similarity"
+ },
+ "report": {
+  "file": "REPORT.md",
+  "holds": "filled vs VOID per field per country; similarity matrix on functional fields only; test results. No verdicts on regimes."
+ }
+}
