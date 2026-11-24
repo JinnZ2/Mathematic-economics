@@ -1,0 +1,1118 @@
+{
+ "attribution": "Constitute, Comparative Constitutions Project (constituteproject.org)",
+ "countries": {
+  "BRA": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Brazil_2017",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Brazil's Constitution of 1988 with Amendments through 2017",
+     "topics": {
+      "hogrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s400",
+         "quote": "The following positions are restricted to native born Brazilians: President and Vice-President of the Republic;",
+         "quote_cut": false,
+         "quote_full_chars": 111,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER III. NATIONALITY > Art 12 > \u00a73\u00b0"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s457",
+         "quote": "Conditions for eligibility, according to the law, are the following: Brazilian nationality; full exercise of political rights; voter registration; electoral domicile in the district; party affiliation; minimum age of: thirty-five years for President and Vice-President of the Republic and Senator; thirty years for Governor and Lieutenant Governor of a State and the Federal District; twenty-one year",
+         "quote_cut": true,
+         "quote_full_chars": 547,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Persons that cannot register to vote and illiterates are not eligible.",
+         "quote_cut": false,
+         "quote_full_chars": 70,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Spouses and relatives by blood or marriage up to the second degree or by adoption, of the President of the Republic, Governor of a State, Territory, or the Federal District, or a Prefect, or those replacing them during the six months preceding the election, are ineligible in the jurisdictional territory of the incumbent, unless they already hold elective office and are candidates for re-election.",
+         "quote_cut": false,
+         "quote_full_chars": 399,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Complementary law shall establish other cases of ineligibility and periods for which it shall remain in force, in order to protect administrative probity, morality for the exercise of the mandate (considering the past life of the candidate), and the normality and legitimacy of elections from the influence of economic power or abuse from holding an office, position or job in the direct or indirect ",
+         "quote_cut": true,
+         "quote_full_chars": 415,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        }
+       ],
+       "sections_tagged": 5,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s457",
+         "quote": "Conditions for eligibility, according to the law, are the following: Brazilian nationality; full exercise of political rights; voter registration; electoral domicile in the district; party affiliation; minimum age of: thirty-five years for President and Vice-President of the Republic and Senator; thirty years for Governor and Lieutenant Governor of a State and the Federal District; twenty-one year",
+         "quote_cut": true,
+         "quote_full_chars": 547,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Persons that cannot register to vote and illiterates are not eligible.",
+         "quote_cut": false,
+         "quote_full_chars": 70,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Complementary law shall establish other cases of ineligibility and periods for which it shall remain in force, in order to protect administrative probity, morality for the exercise of the mandate (considering the past life of the candidate), and the normality and legitimacy of elections from the influence of economic power or abuse from holding an office, position or job in the direct or indirect ",
+         "quote_cut": true,
+         "quote_full_chars": 415,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s457",
+         "quote": "Conditions for eligibility, according to the law, are the following: Brazilian nationality; full exercise of political rights; voter registration; electoral domicile in the district; party affiliation; minimum age of: thirty-five years for President and Vice-President of the Republic and Senator; thirty years for Governor and Lieutenant Governor of a State and the Federal District; twenty-one year",
+         "quote_cut": true,
+         "quote_full_chars": 547,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Persons that cannot register to vote and illiterates are not eligible.",
+         "quote_cut": false,
+         "quote_full_chars": 70,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s433",
+         "quote": "Complementary law shall establish other cases of ineligibility and periods for which it shall remain in force, in order to protect administrative probity, morality for the exercise of the mandate (considering the past life of the candidate), and the normality and legitimacy of elections from the influence of economic power or abuse from holding an office, position or job in the direct or indirect ",
+         "quote_cut": true,
+         "quote_full_chars": 415,
+         "where": "TITLE II. FUNDAMENTAL RIGHTS AND GUARANTEES > CHAPTER IV. POLITICAL RIGHTS > Art 14"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Brazil_2017",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Brazil's Constitution of 1988 with Amendments through 2017",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s1393",
+         "quote": "The Federal Senate has exclusive power: to give its prior approval, by secret ballot, after public hearing, on selection of: president and directors of the Central Bank;",
+         "quote_cut": false,
+         "quote_full_chars": 169,
+         "where": "TITLE IV. ORGANIZATION OF THE BRANCHES > CHAPTER I. THE LEGISLATIVE BRANCH > SECTION IV. The Federal Senate > Art 52 > III"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s1850",
+         "quote": "The President of the Republic has the exclusive powers to: appoint, after approval by the Federal Senate, the Ministers of the Supreme Federal Tribunal and Superior Tribunals, Governors of the Territories, Procurator-General of the Republic, president and directors of the Central Bank and other civil servants, when determined by law;",
+         "quote_cut": false,
+         "quote_full_chars": 335,
+         "where": "TITLE IV. ORGANIZATION OF THE BRANCHES > CHAPTER II. THE EXECUTIVE BRANCH > SECTION II. Powers of the President of the Republic > Art 84"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s3444",
+         "quote": "Art 164 The power of the Union to issue currency shall be exercised exclusively through the Central Bank. The Central Bank is prohibited from directly or indirectly granting loans to the National Treasury and to any agency or entity that is not a financial institution. In order to regulate the money supply or interest rates, the Central Bank may purchase and sell securities issued by the National ",
+         "quote_cut": true,
+         "quote_full_chars": 710,
+         "where": "TITLE VI. TAXATION AND BUDGET > CHAPTER II. PUBLIC FINANCE > SECTION I. General Rules"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s1613",
+         "quote": "The President of the Republic shall have exclusive power to initiate the following laws: laws that deal with: administrative and judicial organization, tax and budgetary matters, public services and administrative personnel of the Territories;",
+         "quote_cut": false,
+         "quote_full_chars": 243,
+         "where": "TITLE IV. ORGANIZATION OF THE BRANCHES > CHAPTER I. THE LEGISLATIVE BRANCH > SECTION VIII. The Legislative Process > Subsection III. The Laws > Art 61 > The President of the Republic shall have exclusive power to initiate the following laws: > II"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s1850",
+         "quote": "The President of the Republic has the exclusive powers to: submit to the National Congress the multi-year plan, the draft of the law of budgetary directives and the budget proposals provided for in this Constitution;",
+         "quote_cut": false,
+         "quote_full_chars": 216,
+         "where": "TITLE IV. ORGANIZATION OF THE BRANCHES > CHAPTER II. THE EXECUTIVE BRANCH > SECTION II. Powers of the President of the Republic > Art 84"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Brazil_2017?lang=en#s3491",
+         "quote": "Art 166 Bills regarding the multi-year plan, budgetary directives, annual budgets and additional credits shall be examined by both Chambers of the National Congress in accordance with their common internal rules. A permanent Joint Committee of Senators and Deputies shall be responsible for: examining and issuing its opinion on the bills referred to in this article and on annual accounts submitted ",
+         "quote_cut": true,
+         "quote_full_chars": 6042,
+         "where": "TITLE VI. TAXATION AND BUDGET > CHAPTER II. PUBLIC FINANCE > SECTION II. Budgets"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "CHE": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Switzerland_2014",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Switzerland's Constitution of 1999 with Amendments through 2014",
+     "topics": {
+      "hogrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1225",
+         "quote": "Art 136. Political rights All Swiss citizens over the age of eighteen, unless they lack legal capacity due to mental illness or mental incapacity, have political rights in federal matters. All citizens have the same political rights and duties. They may participate in elections to the National Council and in federal popular votes, and launch or sign popular initiatives and requests for referendums",
+         "quote_cut": true,
+         "quote_full_chars": 420,
+         "where": "Title Four. The People and the Cantons > Chapter 1. General Provisions"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1311",
+         "quote": "Art 143. Eligibility for election Any person eligible to vote may be elected to the National Council, the Federal Council or the Federal Supreme Court.",
+         "quote_cut": false,
+         "quote_full_chars": 151,
+         "where": "Title Five. Federal Authorities > Chapter 1. General Provisions"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1520",
+         "quote": "They are elected for a term of office of four years. Any Swiss citizen eligible for election to the National Council may be elected to the Federal Council.",
+         "quote_cut": false,
+         "quote_full_chars": 155,
+         "where": "Title Five. Federal Authorities > Chapter 3. Federal Council and Federal Administration > Section 1. Organisation and Procedure > Art 175. Composition and election"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1520",
+         "quote": "In electing the Federal Council, care must be taken to ensure that the various geographical and language regions of the country are appropriately represented.",
+         "quote_cut": false,
+         "quote_full_chars": 158,
+         "where": "Title Five. Federal Authorities > Chapter 3. Federal Council and Federal Administration > Section 1. Organisation and Procedure > Art 175. Composition and election"
+        }
+       ],
+       "sections_tagged": 4,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1225",
+         "quote": "Art 136. Political rights All Swiss citizens over the age of eighteen, unless they lack legal capacity due to mental illness or mental incapacity, have political rights in federal matters. All citizens have the same political rights and duties. They may participate in elections to the National Council and in federal popular votes, and launch or sign popular initiatives and requests for referendums",
+         "quote_cut": true,
+         "quote_full_chars": 420,
+         "where": "Title Four. The People and the Cantons > Chapter 1. General Provisions"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1311",
+         "quote": "Art 143. Eligibility for election Any person eligible to vote may be elected to the National Council, the Federal Council or the Federal Supreme Court.",
+         "quote_cut": false,
+         "quote_full_chars": 151,
+         "where": "Title Five. Federal Authorities > Chapter 1. General Provisions"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Switzerland_2014",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Switzerland's Constitution of 1999 with Amendments through 2014",
+     "topics": {
+      "balbudgt": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1130",
+         "quote": "The Confederation shall maintain its income and expenditure in balance over time.",
+         "quote_cut": false,
+         "quote_full_chars": 81,
+         "where": "Title Three. Confederation, Cantons and Communes > Chapter 3. Financial System > Art 126. Financial management"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s788",
+         "quote": "Art 99. Monetary policy The Confederation is responsible for money and currency; the Confederation has the exclusive right to issue coins and banknotes. The Swiss National Bank, as an independent central bank, shall pursue a monetary policy that serves the overall interests of the country; it shall be administered with the cooperation and under the supervision of the Confederation. The Swiss Natio",
+         "quote_cut": true,
+         "quote_full_chars": 625,
+         "where": "Title Three. Confederation, Cantons and Communes > Chapter 2. Powers > Section 7. The Economy"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s797",
+         "quote": "Art 100. Economic policy The Confederation shall take measures to achieve balanced economic development, and in particular to prevent and combat unemployment and inflation. It shall take account of economic development in individual regions of the country. It shall cooperate with the Cantons and the business community. In the field of money and banking, in foreign economic affairs and in the field",
+         "quote_cut": true,
+         "quote_full_chars": 1275,
+         "where": "Title Three. Confederation, Cantons and Communes > Chapter 2. Powers > Section 7. The Economy"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1131",
+         "quote": "Art 126. Financial management The Confederation shall maintain its income and expenditure in balance over time. The ceiling for total expenditure that is to be approved in the budget is based on the expected income after taking account of the economic situation. Exceptional financial requirements may justify an appropriate increase in the ceiling in terms of paragraph 2. The Federal Assembly shall",
+         "quote_cut": true,
+         "quote_full_chars": 689,
+         "where": "Title Three. Confederation, Cantons and Communes > Chapter 3. Financial System"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1374",
+         "quote": "Provision shall be made by the law to ensure that in the event of disagreement between the Councils decisions are made on: the budget or any amendment to it.",
+         "quote_cut": false,
+         "quote_full_chars": 157,
+         "where": "Title Five. Federal Authorities > Chapter 2. Federal Assembly > Section 2. Procedure > Art 156. Separate proceedings > 3"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1402",
+         "quote": "However, the consent of an absolute majority of the members of each of the two Councils is required for: an increase in overall expenditure in the case of extraordinary financial requirements in terms of Article 126 paragraph 3.",
+         "quote_cut": false,
+         "quote_full_chars": 228,
+         "where": "Title Five. Federal Authorities > Chapter 2. Federal Assembly > Section 2. Procedure > Art 159. Quorum and required majority > 3"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1467",
+         "quote": "Art 167. Finance The Federal Assembly determines the expenditure of the Confederation, adopt the budget and approve the federal accounts.",
+         "quote_cut": false,
+         "quote_full_chars": 137,
+         "where": "Title Five. Federal Authorities > Chapter 2. Federal Assembly > Section 3. Powers"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Switzerland_2014?lang=en#s1565",
+         "quote": "The Federal Council draws up the financial plan and the draft budget and prepare the federal accounts.",
+         "quote_cut": false,
+         "quote_full_chars": 102,
+         "where": "Title Five. Federal Authorities > Chapter 3. Federal Council and Federal Administration > Section 2. Powers > Art 183. Finances"
+        }
+       ],
+       "sections_tagged": 5,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "CHN": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "China_2018",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "China (People\u2019s Republic of)'s Constitution of 1982 with Amendments through 2018",
+     "topics": {
+      "hogrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/China_2018?lang=en#s346",
+         "quote": "Citizens of the People's Republic of China who have the right to vote and to stand for election and who have reached the age of 45 are eligible for election as President or Vice-President of the People's Republic of China.",
+         "quote_cut": false,
+         "quote_full_chars": 222,
+         "where": "CHAPTER III. THE STRUCTURE OF THE STATE > Section 2. The President of the People's Republic of China > Article 79"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "China_2018",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "China (People\u2019s Republic of)'s Constitution of 1982 with Amendments through 2018",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/China_2018?lang=en#s215",
+         "quote": "The National People's Congress exercises the following functions and powers: To examine and approve the state budget and the report on its implementation;",
+         "quote_cut": false,
+         "quote_full_chars": 154,
+         "where": "CHAPTER III. THE STRUCTURE OF THE STATE > Section 1. The National People's Congress > Article 62"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/China_2018?lang=en#s274",
+         "quote": "The Standing Committee of the National People's Congress exercises the following functions and powers: To examine and approve, when the National People's Congress is not in session, partial adjustments to the plan for national economic and social development and to the state budget that prove necessary in the course of their implementation;",
+         "quote_cut": false,
+         "quote_full_chars": 342,
+         "where": "CHAPTER III. THE STRUCTURE OF THE STATE > Section 1. The National People's Congress > Article 67"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/China_2018?lang=en#s378",
+         "quote": "The State Council exercises the following functions and powers: To draw up and implement the plan for national economic and social development and the state budget;",
+         "quote_cut": false,
+         "quote_full_chars": 164,
+         "where": "CHAPTER III. THE STRUCTURE OF THE STATE > Section 3. The State Council > Article 89"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "IND": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "India_2023",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "India's Constitution of 1949 with Amendments through 2023",
+     "topics": {
+      "hogrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s618",
+         "quote": "A Minister who for any period of six consecutive months is not a member of either House of Parliament shall at the expiration of that period cease to be a Minister.",
+         "quote_cut": false,
+         "quote_full_chars": 164,
+         "where": "PART V. THE UNION > CHAPTER I. THE EXECUTIVE > Council of Ministers > 75. Other provisions as to Ministers"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s718",
+         "quote": "84. Qualification for membership of Parliament A person shall not be qualified to be chosen to fill a seat in Parliament unless he- is a citizen of India, and makes and subscribes before some person authorised in that behalf by the Election Commission an oath or affirmation according to the form set out for the purpose in the Third Schedule; is, in the case of a seat in the Council of States, not ",
+         "quote_cut": true,
+         "quote_full_chars": 640,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > General"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s834",
+         "quote": "102. Disqualifications for membership A person shall be disqualified for being chosen as, and for being, a member of either House of Parliament- if he holds any office of profit under the Government of India or the Government of any State, other than an office declared by Parliament by law not to disqualify its holder; if he is of unsound mind and stands so declared by a competent court; if he is ",
+         "quote_cut": true,
+         "quote_full_chars": 1037,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Disqualifications of Members"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s489",
+         "quote": "58. Qualifications for election as President No person shall be eligible for election as President unless he- is a citizen of India, has completed the age of thirty-five years, and is qualified for election as a member of the House of the People A person shall not be eligible for election as President if he holds any office of profit under the Government of India or the Government of any State or ",
+         "quote_cut": true,
+         "quote_full_chars": 750,
+         "where": "PART V. THE UNION > CHAPTER I. THE EXECUTIVE > The President and Vice-President"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s718",
+         "quote": "84. Qualification for membership of Parliament A person shall not be qualified to be chosen to fill a seat in Parliament unless he- is a citizen of India, and makes and subscribes before some person authorised in that behalf by the Election Commission an oath or affirmation according to the form set out for the purpose in the Third Schedule; is, in the case of a seat in the Council of States, not ",
+         "quote_cut": true,
+         "quote_full_chars": 640,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > General"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s834",
+         "quote": "102. Disqualifications for membership A person shall be disqualified for being chosen as, and for being, a member of either House of Parliament- if he holds any office of profit under the Government of India or the Government of any State, other than an office declared by Parliament by law not to disqualify its holder; if he is of unsound mind and stands so declared by a competent court; if he is ",
+         "quote_cut": true,
+         "quote_full_chars": 1037,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Disqualifications of Members"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s718",
+         "quote": "84. Qualification for membership of Parliament A person shall not be qualified to be chosen to fill a seat in Parliament unless he- is a citizen of India, and makes and subscribes before some person authorised in that behalf by the Election Commission an oath or affirmation according to the form set out for the purpose in the Third Schedule; is, in the case of a seat in the Council of States, not ",
+         "quote_cut": true,
+         "quote_full_chars": 640,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > General"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s834",
+         "quote": "102. Disqualifications for membership A person shall be disqualified for being chosen as, and for being, a member of either House of Parliament- if he holds any office of profit under the Government of India or the Government of any State, other than an office declared by Parliament by law not to disqualify its holder; if he is of unsound mind and stands so declared by a competent court; if he is ",
+         "quote_cut": true,
+         "quote_full_chars": 1037,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Disqualifications of Members"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s718",
+         "quote": "84. Qualification for membership of Parliament A person shall not be qualified to be chosen to fill a seat in Parliament unless he- is a citizen of India, and makes and subscribes before some person authorised in that behalf by the Election Commission an oath or affirmation according to the form set out for the purpose in the Third Schedule; is, in the case of a seat in the Council of States, not ",
+         "quote_cut": true,
+         "quote_full_chars": 640,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > General"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s834",
+         "quote": "102. Disqualifications for membership A person shall be disqualified for being chosen as, and for being, a member of either House of Parliament- if he holds any office of profit under the Government of India or the Government of any State, other than an office declared by Parliament by law not to disqualify its holder; if he is of unsound mind and stands so declared by a competent court; if he is ",
+         "quote_cut": true,
+         "quote_full_chars": 1037,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Disqualifications of Members"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "India_2023",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "India's Constitution of 1949 with Amendments through 2023",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s907",
+         "quote": "109. Special procedure in respect of Money Bills A Money Bill shall not be introduced in the Council of States. After a Money Bill has been passed by the House of the People it shall be transmitted to the Council of States for its recommendations and the Council of States shall within a period of fourteen days from the date of its receipt of the Bill return the Bill to the House of the People with",
+         "quote_cut": true,
+         "quote_full_chars": 1443,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Legislative Procedure"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/India_2023?lang=en#s945",
+         "quote": "112. Annual financial statement The President shall in respect of every financial year cause to be laid before both the Houses of Parliament a statement of the estimated receipts and expenditure of the Government of India for that year, in this Part referred to as the \"annual financial statement\". The estimates of expenditure embodied in the annual financial statement shall show separately- the su",
+         "quote_cut": true,
+         "quote_full_chars": 2053,
+         "where": "PART V. THE UNION > CHAPTER II. PARLIAMENT > Procedure in Financial Matters"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "IRN": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Iran_1989",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Iran (Islamic Republic of)'s Constitution of 1979 with Amendments through 1989",
+     "topics": {
+      "hogrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Iran_1989?lang=en#s436",
+         "quote": "The President must be elected from among religious and political personalities possessing the following qualifications:",
+         "quote_cut": false,
+         "quote_full_chars": 119,
+         "where": "CHAPTER IX. The Executive Power > SECTION 1. The Presidency > Article 115"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Iran_1989?lang=en#s378",
+         "quote": "Article 109 Following are the essential qualifications and conditions for the Leader: scholarship, as required for performing the functions of muftiin different fields of fiqh. Justice and piety, as required for the leadership of the Islamic Ummah. right political and social perspicacity, prudence, courage, administrative facilities and adequate capability for leadership. In case of multiplicity o",
+         "quote_cut": true,
+         "quote_full_chars": 563,
+         "where": "CHAPTER VIII. The Leader or Leadership Council"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Iran_1989?lang=en#s257",
+         "quote": "The qualifications of voters and candidates, as well as the nature of election, will be specified by law.",
+         "quote_cut": false,
+         "quote_full_chars": 105,
+         "where": "CHAPTER VI. The Legislative Power > SECTION 1. The Islamic Consultative Assembly > Article 62"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Iran_1989",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Iran (Islamic Republic of)'s Constitution of 1979 with Amendments through 1989",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Iran_1989?lang=en#s235",
+         "quote": "Article 52 The annual budget of the country will be drawn up by the government, in the manner specified by law, and submitted to the Islamic Consultative Assembly for discussion and approval. Any change in the figures contained in the budget will be in accordance with the procedures prescribed by law.",
+         "quote_cut": false,
+         "quote_full_chars": 302,
+         "where": "CHAPTER IV. Economy and Financial Affairs"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "NOR": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Norway_2016",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Norway's Constitution of 1814 with Amendments through 2016",
+     "topics": {
+      "hogrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s34",
+         "quote": "Article 12 The King himself chooses a Council from among Norwegian citizens who are entitled to vote. This Council shall consist of a Prime Minister and at least seven other Members. The King apportions the business among the Members of the Council of State, as he deems appropriate. Under extraordinary circumstances, besides the ordinary Members of the Council of State, the King may summon other N",
+         "quote_cut": true,
+         "quote_full_chars": 602,
+         "where": "B. THE EXECUTIVE POWER, THE KING, THE ROYAL FAMILY AND RELIGION"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s131",
+         "quote": "Article 50 Those entitled to vote are Norwegian citizens, men and women, who, at the latest in the year when the election is held, have completed their 18th year. The extent, however, to which Norwegian citizens, who on Election Day are resident outside the Realm but who satisfy the aforementioned conditions, are entitled to vote shall be determined by law. Rules may be laid down by law concerning",
+         "quote_cut": true,
+         "quote_full_chars": 579,
+         "where": "C. Rights of citizens and the Legislative Power"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s139",
+         "quote": "Article 53 The right to vote is lost by persons: sentenced for criminal offences, in accordance with the relevant provisions laid down by law; entering the service of a foreign power without the consent of the Government.",
+         "quote_cut": false,
+         "quote_full_chars": 221,
+         "where": "C. Rights of citizens and the Legislative Power"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s10",
+         "quote": "Article 4 The King shall at all times profess the Evangelical-Lutheran religion.",
+         "quote_cut": false,
+         "quote_full_chars": 80,
+         "where": "B. THE EXECUTIVE POWER, THE KING, THE ROYAL FAMILY AND RELIGION"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s14",
+         "quote": "Article 6 The order of succession is lineal, so that only a child born in lawful wedlock of the Queen or King, or of one who is herself or himself entitled to the succession may succeed, and so that the nearest line shall take precedence over the more remote and the elder in the line over the younger. An unborn child shall also be included among those entitled to the succession and shall immediate",
+         "quote_cut": true,
+         "quote_full_chars": 1194,
+         "where": "B. THE EXECUTIVE POWER, THE KING, THE ROYAL FAMILY AND RELIGION"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s131",
+         "quote": "Article 50 Those entitled to vote are Norwegian citizens, men and women, who, at the latest in the year when the election is held, have completed their 18th year. The extent, however, to which Norwegian citizens, who on Election Day are resident outside the Realm but who satisfy the aforementioned conditions, are entitled to vote shall be determined by law. Rules may be laid down by law concerning",
+         "quote_cut": true,
+         "quote_full_chars": 579,
+         "where": "C. Rights of citizens and the Legislative Power"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s139",
+         "quote": "Article 53 The right to vote is lost by persons: sentenced for criminal offences, in accordance with the relevant provisions laid down by law; entering the service of a foreign power without the consent of the Government.",
+         "quote_cut": false,
+         "quote_full_chars": 221,
+         "where": "C. Rights of citizens and the Legislative Power"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s169",
+         "quote": "Article 61 No one may be elected as a representative unless he or she is entitled to vote.",
+         "quote_cut": false,
+         "quote_full_chars": 90,
+         "where": "C. Rights of citizens and the Legislative Power"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s170",
+         "quote": "Officials who are employed in government ministries, except however State Secretaries and political advisers, may not be elected as representatives. The same applies to Members of the Supreme Court and officials employed in the diplomatic or consular services.",
+         "quote_cut": false,
+         "quote_full_chars": 260,
+         "where": "C. Rights of citizens and the Legislative Power > Article 62"
+        }
+       ],
+       "sections_tagged": 4,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Norway_2016",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Norway's Constitution of 1814 with Amendments through 2016",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Norway_2016?lang=en#s92",
+         "quote": "Article 33 Norges Bank is the central bank of Norway.",
+         "quote_cut": false,
+         "quote_full_chars": 53,
+         "where": "B. THE EXECUTIVE POWER, THE KING, THE ROYAL FAMILY AND RELIGION"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "RUS": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Russia_2014",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Russian Federation's Constitution of 1993 with Amendments through 2014",
+     "topics": {
+      "hogrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s543",
+         "quote": "Any citizen of the Russian Federation not younger than 35 years of age who has resided in the Russian Federation on a permanent basis for not less than 10 years may be elected President of the Russian Federation.",
+         "quote_cut": false,
+         "quote_full_chars": 212,
+         "where": "SECTION ONE > CHAPTER 4. THE PRESIDENT OF THE RUSSIAN FEDERATION > Article 81"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s676",
+         "quote": "Any citizen of the Russian Federation who has reached 21 years of age and who has the right to participate in elections may be elected deputy of the State Duma.",
+         "quote_cut": false,
+         "quote_full_chars": 160,
+         "where": "SECTION ONE > CHAPTER 5. THE FEDERAL ASSEMBLY > Article 97"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s671",
+         "quote": "The procedure for forming the Council of Federation and the procedure for electing deputies to the State Duma shall be established by federal laws.",
+         "quote_cut": false,
+         "quote_full_chars": 147,
+         "where": "SECTION ONE > CHAPTER 5. THE FEDERAL ASSEMBLY > Article 96"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "Russia_2014",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "Russian Federation's Constitution of 1993 with Amendments through 2014",
+     "topics": {
+      "balbudgt": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Balanced budget"
+      },
+      "bank": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s495",
+         "quote": "The monetary unit in the Russian Federation shall be the rouble. Money emission shall be carried out exclusively by the Central Bank of the Russian Federation. The introduction and emission of other currencies in Russia shall not be permitted.",
+         "quote_cut": false,
+         "quote_full_chars": 243,
+         "where": "SECTION ONE > CHAPTER 3. THE FEDERAL STRUCTURE > Article 75"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s495",
+         "quote": "Protecting and ensuring the stability of the rouble shall be the principal function of the Central Bank of the Russian Federation, which it shall fulfil independently of other State governmental bodies.",
+         "quote_cut": false,
+         "quote_full_chars": 202,
+         "where": "SECTION ONE > CHAPTER 3. THE FEDERAL STRUCTURE > Article 75"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s559",
+         "quote": "The President of the Russian Federation: shall nominate to the State Duma a candidate for appointment to the post of Chairman of the Central Bank of the Russian Federation; shall raise before the State Duma the issue of relieving the Chairman of the Central Bank of the Russian Federation of his post;",
+         "quote_cut": false,
+         "quote_full_chars": 301,
+         "where": "SECTION ONE > CHAPTER 4. THE PRESIDENT OF THE RUSSIAN FEDERATION > Article 83"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s741",
+         "quote": "The following shall be within the jurisdiction of the State Duma: appointment and dismissal of the Chairman of the Central Bank of the Russian Federation;",
+         "quote_cut": false,
+         "quote_full_chars": 154,
+         "where": "SECTION ONE > CHAPTER 5. THE FEDERAL ASSEMBLY > Article 103 > 1"
+        }
+       ],
+       "sections_tagged": 4,
+       "topic": "Central bank"
+      },
+      "budget": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s763",
+         "quote": "Bills on the introduction or cancellation of taxes, on exemption from taxes, on the issue of State loans, on changes in the financial obligations of the State, and other bills envisaging expenses to be covered from the federal budget may be submitted only upon a resolution of the Government of the Russian Federation.",
+         "quote_cut": false,
+         "quote_full_chars": 318,
+         "where": "SECTION ONE > CHAPTER 5. THE FEDERAL ASSEMBLY > Article 104"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s782",
+         "quote": "Federal laws adopted by the State Duma on the following issues must compulsorily be examined by the Council of Federation: the federal budget;",
+         "quote_cut": false,
+         "quote_full_chars": 142,
+         "where": "SECTION ONE > CHAPTER 5. THE FEDERAL ASSEMBLY > Article 106"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/Russia_2014?lang=en#s841",
+         "quote": "The Government of the Russian Federation: shall develop and submit to the State Duma a federal budget and provide for its implementation; shall submit to the State Duma a report on the implementation of the federal budget; and shall submit to the State Duma annual reports on the results of its work, including on issues raised by the State Duma;",
+         "quote_cut": false,
+         "quote_full_chars": 346,
+         "where": "SECTION ONE > CHAPTER 6. THE GOVERNMENT OF THE RUSSIAN FEDERATION > Article 114 > 1"
+        }
+       ],
+       "sections_tagged": 3,
+       "topic": "Budget bills"
+      }
+     }
+    }
+   }
+  },
+  "USA": {
+   "candidate_filter": {
+    "note": "quoted text as tagged by the source; a topic with 0 tagged sections is 'not tagged', not 'absent in law'. Quotes cut at 400 characters where marked.",
+    "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c",
+    "status": "MEASURED",
+    "value": {
+     "constitution": "United_States_of_America_1992",
+     "elected": {
+      "reason": "not read: the y/n is recorded only where a quoted provision states how the deciding body is chosen, and no mechanical rule for that reading was declared; needs a reader",
+      "source": null,
+      "status": "VOID",
+      "value": null
+     },
+     "title": "United States of America's Constitution of 1789 with Amendments through 1992",
+     "topics": {
+      "hogrest": {
+       "provisions": [],
+       "sections_tagged": 0,
+       "topic": "Eligibility for head of government"
+      },
+      "hosrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/United_States_of_America_1992?lang=en#s69",
+         "quote": "No Person except a natural born Citizen, or a Citizen of the United States, at the time of the Adoption of this Constitution, shall be eligible to the Office of President; neither shall any person be eligible to that Office who shall not have attained to the Age of thirty five Years, and been fourteen Years a Resident within the United States.",
+         "quote_cut": false,
+         "quote_full_chars": 345,
+         "where": "Article II > Section 1"
+        }
+       ],
+       "sections_tagged": 1,
+       "topic": "Eligibility for head of state"
+      },
+      "lhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/United_States_of_America_1992?lang=en#s7",
+         "quote": "No Person shall be a Representative who shall not have attained to the Age of twenty five Years, and been seven Years a Citizen of the United States, and who shall not, when elected, be an Inhabitant of that State in which he shall be chosen.",
+         "quote_cut": false,
+         "quote_full_chars": 242,
+         "where": "Article I > Section 2"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/United_States_of_America_1992?lang=en#s175",
+         "quote": "Section 3 No person shall be a Senator or Representative in Congress, or elector of President and Vice President, or hold any office, civil or military, under the United States, or under any State, who, having previously taken an oath, as a member of Congress, or as an officer of the United States, or as a member of any State legislature, or as an executive or judicial officer of any State, to sup",
+         "quote_cut": true,
+         "quote_full_chars": 637,
+         "where": "Additional Amendments > Amendment XIV"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for first chamber"
+      },
+      "uhrest": {
+       "provisions": [
+        {
+         "link": "https://www.constituteproject.org/constitution/United_States_of_America_1992?lang=en#s13",
+         "quote": "No Person shall be a Senator who shall not have attained to the Age of thirty Years, and been nine Years a Citizen of the United States, and who shall not, when elected, be an Inhabitant of that State for which he shall be chosen.",
+         "quote_cut": false,
+         "quote_full_chars": 230,
+         "where": "Article I > Section 3"
+        },
+        {
+         "link": "https://www.constituteproject.org/constitution/United_States_of_America_1992?lang=en#s175",
+         "quote": "Section 3 No person shall be a Senator or Representative in Congress, or elector of President and Vice President, or hold any office, civil or military, under the United States, or under any State, who, having previously taken an oath, as a member of Congress, or as an officer of the United States, or as a member of any State legislature, or as an executive or judicial officer of any State, to sup",
+         "quote_cut": true,
+         "quote_full_chars": 637,
+         "where": "Additional Amendments > Amendment XIV"
+        }
+       ],
+       "sections_tagged": 2,
+       "topic": "Eligibility for second chamber"
+      }
+     }
+    }
+   },
+   "economic_rules_set_by": {
+    "reason": "Constitute tags no section of United_States_of_America_1992 with the declared topics (bank, budget, balbudgt). No tagged section is not the same as no rule in law.",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  }
+ },
+ "holds": "quoted constitutional provisions as tagged by the source",
+ "license": "CC BY-NC 3.0 Unported",
+ "license_stated_at": "https://www.constituteproject.org/content/about",
+ "not_cc0": true,
+ "record": "quoted provisions, Constitute",
+ "source": "https://www.constituteproject.org/service/constitutions?in_force=true&lang=en fetched 2026-11-24T17:17:41Z sha256:e679c2b91782feea54471d48bc7ea5996a8558d01254fe780b82711d70a1c066 ; sections: https://www.constituteproject.org/service/sectionstopicsearch?key=<topic>&cons_id=<constitution>&lang=en fetched 2026-11-24T17:19:45Z to 2026-11-24T17:21:02Z combined sha256:f6a1b404c221c60604d9c683c2660fc3ebb92886d6bb22f194f2e6dc02cdb06c"
+}

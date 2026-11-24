@@ -1,10 +1,4 @@
 {
- "licences": {
-  "bgs": "copyright NERC; non-commercial academic and research use (BGS mineral statistics terms page)",
-  "constitute": "CC BY-NC 3.0 (stated on the site's about page)",
-  "rsf": "not stated on the index page read; score and rank quoted with attribution",
-  "ucdp": "CC BY 4.0 (stated on the downloads page)"
- },
  "manifest": {
   "bgs_Exports.json": {
    "sha256": "c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
@@ -56,5 +50,11 @@
   "cpj": "CPJ 1 December census count not read: the site's per-country endpoint takes a 'year' filter that is not documented, and it returns a total for 2026 before 1 December 2026, so it is not established to be the 1 December snapshot. Not used. Probed 2026-11-24.",
   "v-dem": "V-Dem file not read: the download on v-dem.net is behind a form that requires an email address, a gender field and approval of personal-data processing. Not submitted on the owner's behalf; owner decision. Form seen 2026-11-24."
  },
- "record": "sources read by fill.py: URL, fetch time, sha256"
+ "record": "sources read by fill.py: URL, fetch time, sha256",
+ "third_party_files": {
+  "bgs.json": "BGS mineral statistics terms: copyright NERC; adapt and use for non-commercial academic and research purposes",
+  "constitute.json": "CC BY-NC 3.0 Unported",
+  "rsf.json": "NOT STATED on the page read (rsf.org/en/index); all rights assumed reserved by the source",
+  "ucdp.json": "CC BY 4.0"
+ }
 }

@@ -9,6 +9,10 @@ SOURCE_DIR holds the files fetched from the declared hosts plus manifest.json
 not in this tree.  Every file is checked against the manifest and the pinned
 hashes below before anything is read.
 
+Third-party content (quotes, scores, ratios, event rows) is written only under
+table/third_party/, each file with its own license field.  The CC0 files get a
+pointer, the status and own-derived counts (amendment A4 item 5).
+
 Reads: DECLARED.json and the source files.  It reads no other table in this
 folder except table/functional.json, which it rewrites cell by cell.  The
 descriptive-names table is never opened here (asserted in the self-test).
@@ -326,6 +330,40 @@ def _write(rel, obj):
         f.write(json.dumps(obj, indent=1, sort_keys=True) + "\n")
 
 
+TP = "table/third_party/"
+LICENSES = {
+    "constitute": {"license": "CC BY-NC 3.0 Unported", "license_stated_at": "https://www.constituteproject.org/content/about",
+                   "attribution": "Constitute, Comparative Constitutions Project (constituteproject.org)",
+                   "holds": "quoted constitutional provisions as tagged by the source"},
+    "bgs": {"license": "BGS mineral statistics terms: copyright NERC; adapt and use for non-commercial academic "
+                       "and research purposes",
+            "permission_note": "passing the tables to a third party or any commercial use needs permission from "
+                               "NERC or the original copyright owner (BGS Intellectual Property Rights section, "
+                               "ipr@bgs.ac.uk). No permission has been asked. Only derived ratios are held here, "
+                               "no source tonnage.",
+            "license_stated_at": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/"
+                                 "bgs-mineral-statistics-terms-and-conditions-ipr/",
+            "attribution": "British Geological Survey, World Mineral Statistics (c) UKRI / NERC",
+            "holds": "import-dependence ratios derived from the source tables"},
+    "rsf": {"license": "NOT STATED on the page read (rsf.org/en/index); all rights assumed reserved by the source",
+            "attribution": "Reporters Without Borders, World Press Freedom Index 2026",
+            "holds": "score and rank as published"},
+    "ucdp": {"license": "CC BY 4.0", "license_stated_at": "https://ucdp.uu.se/downloads/",
+             "attribution": "Uppsala Conflict Data Program: UCDP/PRIO Armed Conflict Dataset v26.1 and UCDP "
+                            "One-sided Violence Dataset v26.1",
+             "holds": "event rows built from the source (conflict ids, party names, dates)"},
+}
+
+
+def pointer(name, path, cell, own):
+    """What a CC0 file keeps of a third-party cell: where it is, its status, own-derived counts."""
+    if cell["status"] == "VOID":
+        return cell
+    return {"value": {"ref": "%s%s.json#%s" % (TP, name, path), "own_counts": own},
+            "source": "third-party content, see ref", "status": cell["status"],
+            "license": LICENSES[name]["license"]}
+
+
 def main(src):
     man = load_sources(src)
     d = json.load(open(os.path.join(HERE, "DECLARED.json")))
@@ -335,65 +373,83 @@ def main(src):
         constitute(src, man, isos, "economic_rules_set_by")
     events, enotes = ucdp(src, man, isos)
     mser, mcell, span, same = bgs(src, man, isos)
+    os.makedirs(os.path.join(HERE, TP), exist_ok=True)
+
+    def tagged(c):
+        return {k: t["sections_tagged"] for k, t in c["value"]["topics"].items()}
     for iso in isos:
         row = fn["countries"][iso]
-        row["candidate_filter"] = combine({"constitute": cf[iso], "v-dem": void(VDEM_VOID)},
-                                          "two sources, kept apart")
-        row["economic_rules_set_by"] = combine({"constitute": er[iso],
-                                                "central_bank_statute": void("no source declared in A3; not read")},
-                                               "constitutional text only")
-        row["dissent_cost"] = combine({"rsf": r[iso], "cpj": void(CPJ_VOID), "v-dem": void(VDEM_VOID)},
-                                      "three sources, kept apart, never averaged")
+        row["candidate_filter"] = combine(
+            {"constitute": pointer("constitute", "countries/%s/candidate_filter" % iso, cf[iso],
+                                   None if cf[iso]["status"] == "VOID" else {"sections_tagged": tagged(cf[iso])}),
+             "v-dem": void(VDEM_VOID)}, "two sources, kept apart")
+        row["economic_rules_set_by"] = combine(
+            {"constitute": pointer("constitute", "countries/%s/economic_rules_set_by" % iso, er[iso],
+                                   None if er[iso]["status"] == "VOID" else {"sections_tagged": tagged(er[iso])}),
+             "central_bank_statute": void("no source declared in A3; not read")}, "constitutional text only")
+        row["dissent_cost"] = combine(
+            {"rsf": pointer("rsf", "countries/%s" % iso, r[iso], {"edition": 2026}),
+             "cpj": void(CPJ_VOID), "v-dem": void(VDEM_VOID)}, "three sources, kept apart, never averaged")
         row["surveillance_decided_by"] = void(VDEM_VOID + " The only declared source for this field is V-Dem.")
-        row["critical_minerals"] = mcell[iso]
+        m = mcell[iso]
+        row["critical_minerals"] = pointer(
+            "bgs", "cells/%s" % iso, m,
+            None if m["status"] == "VOID" else
+            {"commodities_with_a_value": sorted(m["value"]["import_dependence"]),
+             "latest_year": {c: v["year"] for c, v in m["value"]["import_dependence"].items()},
+             "void_commodities": m["value"]["void_commodities"]})
         row["citizen_override"] = void("stays VOID (A3): no source declared; CourtListener not reachable")
         row["chokepoints"] = void("stays VOID: needs trade-flow data; no source declared in A3")
-    fn["note"] = (fn["note"].split(" THIRD-PARTY:")[0] + " THIRD-PARTY: filled cells quote or derive from RSF, "
-                  "Constitute (CC BY-NC 3.0), UCDP (CC BY 4.0) and BGS (copyright NERC; non-commercial "
-                  "research use). Those terms apply to those cells; CC0 covers the structure and the code.")
+    fn["note"] = (fn["note"].split(" THIRD-PARTY:")[0] + " THIRD-PARTY: this file holds no third-party content. "
+                  "Cells filled from RSF, Constitute and BGS hold a pointer into table/third_party/, where each "
+                  "file carries its own license field.")
     _write("table/functional.json", fn)
+    bsrc = "; ".join(tag(man, "bgs_%s.json" % t) for t in ("Production", "Imports", "Exports"))
+    _write(TP + "constitute.json", dict(LICENSES["constitute"], record="quoted provisions, Constitute",
+           not_cc0=True, source="%s ; sections: %s fetched %s to %s combined sha256:%s"
+           % (tag(man, "const_list.json"), man["const/"]["url"], man["const/"]["utc_first"],
+              man["const/"]["utc_last"], man["const/"]["combined_sha256"]),
+           countries={iso: {"candidate_filter": cf[iso], "economic_rules_set_by": er[iso]} for iso in isos}))
+    _write(TP + "rsf.json", dict(LICENSES["rsf"], record="RSF index score and rank", not_cc0=True,
+                                 source=tag(man, "rsf_2026.csv"), countries=r))
+    _write(TP + "bgs.json", dict(LICENSES["bgs"], record="mineral import dependence derived from BGS tables",
+           not_cc0=True, source=bsrc, formula="(imports - exports) / (production + imports - exports)",
+           cells=mcell, series=mser))
+    _write(TP + "ucdp.json", dict(LICENSES["ucdp"], record="conflict events built from UCDP rows", not_cc0=True,
+           source="%s ; %s" % (tag(man, "ucdp/UcdpPrioConflict_v26_1.csv"), tag(man, "ucdp/OneSided_v26_1.csv")),
+           events=events))
+    filled_years = {iso: {c: sum(v["import_dependence"] is not None for v in k["years"].values())
+                          for c, k in mser[iso].items() if "years" in k} for iso in isos}
     _write("series/minerals.json", {
         "record": "annual mineral import dependence, per country per commodity",
+        "status": "DERIVED", "ref": TP + "bgs.json#series", "license": LICENSES["bgs"]["license"],
         "formula": "(imports - exports) / (production + imports - exports)",
         "same_basis_rule": "computed only on a line where production, imports and exports carry the "
                            "identical (commodity, sub-line, unit) in the source; otherwise VOID",
-        "same_basis_lines": [{"commodity": k[0], "sub_line": k[1], "unit": k[2]} for k in same],
+        "same_basis_commodities": sorted({k[0] for k in same}),
         "source_year_span": span,
-        "source": "; ".join(tag(man, "bgs_%s.json" % t) for t in ("Production", "Imports", "Exports")),
-        "licence_note": "derived ratios only; no source tonnage is copied here. BGS World Mineral Statistics, "
-                        "copyright NERC; BGS terms allow adapting and using the tables for non-commercial "
-                        "academic and research purposes",
         "processing_share": void("the source response carries no world total line"),
-        "countries": mser})
+        "own_counts": {"years_with_a_value": filled_years},
+        "note": "the ratios are in the third-party file; this CC0 file holds the rule and counts only"})
     _write("events/events.json", {
         "record": "dated policy / conflict events; no causal tags",
         "rule": "each event: {iso3, date, kind: policy|conflict, what, source}. No cause, no effect, no label.",
-        "event_rule": [a for a in d["amendments"] if a["id"] == "A3"][0]["sources"]["ucdp"]["event_rule"],
-        "status": "MEASURED", "events": events["party"], "per_country": enotes["party"],
-        "basis": "party (as A3). The location basis of amendment A4 item 3 is under events_location.",
-        "events_location": events["location"], "per_country_location": enotes["location"],
+        "status": "MEASURED", "ref": TP + "ucdp.json#events", "license": LICENSES["ucdp"]["license"],
         "basis_definitions": [a for a in d["amendments"] if a["id"] == "A4"][0]["3_ucdp_basis"],
+        "own_counts": {"party": enotes["party"], "location": enotes["location"]},
         "policy_events": void("policy events stay VOID: no single dated source"),
-        "source": "%s ; %s" % (tag(man, "ucdp/UcdpPrioConflict_v26_1.csv"), tag(man, "ucdp/OneSided_v26_1.csv")),
-        "licence_note": "UCDP data, CC BY 4.0"})
+        "note": "the event rows are in the third-party file; this CC0 file holds the rule and counts only"})
     _write("series/fill_sources.json", {
         "record": "sources read by fill.py: URL, fetch time, sha256", "manifest": man,
         "not_read": {"v-dem": VDEM_VOID, "cpj": CPJ_VOID},
-        "licences": {"rsf": "not stated on the index page read; score and rank quoted with attribution",
-                     "constitute": "CC BY-NC 3.0 (stated on the site's about page)",
-                     "ucdp": "CC BY 4.0 (stated on the downloads page)",
-                     "bgs": "copyright NERC; non-commercial academic and research use (BGS mineral "
-                            "statistics terms page)"}})
-    print("%-4s %-10s %-10s %-10s %-10s %s" % ("iso", "cand.filt", "econ.rules", "dissent", "minerals", "events"))
+        "third_party_files": {k + ".json": v["license"] for k, v in LICENSES.items()}})
+    print("%-4s %-10s %-10s %-10s %-10s %-12s %s" % ("iso", "cand.filt", "econ.rules", "dissent", "minerals",
+                                                     "ev. party", "ev. location"))
     for iso in isos:
         row = fn["countries"][iso]
-        print("%-4s %-10s %-10s %-10s %-10s %d" % (iso, *(row[f]["status"] for f in
+        print("%-4s %-10s %-10s %-10s %-10s %-12d %d" % (iso, *(row[f]["status"] for f in
               ("candidate_filter", "economic_rules_set_by", "dissent_cost", "critical_minerals")),
-              sum(e["iso3"] == iso for e in events["party"])))
-    print("events per country   party basis   location basis")
-    for iso in isos:
-        print("%-4s                 %5d          %5d" % (iso, sum(e["iso3"] == iso for e in events["party"]),
-                                                          sum(e["iso3"] == iso for e in events["location"])))
+              sum(e["iso3"] == iso for e in events["party"]), sum(e["iso3"] == iso for e in events["location"])))
     print("same-basis mineral lines:", same)
 
 
@@ -411,6 +467,11 @@ def selftest():
     me = open(os.path.abspath(__file__)).read()
     ok.append(("this file never names the descriptive-names table", ("lab" + "els.json") not in me))
     ok.append(("run starts: 2001,2002,2005 -> 2001 and 2005", _runs([2001, 2002, 2005]) == [2001, 2005]))
+    p = pointer("rsf", "countries/X", {"value": {"score": 1}, "source": "s", "status": "MEASURED"}, {"edition": 1})
+    ok.append(("a pointer cell carries no third-party value", "score" not in json.dumps(p) and p["value"]["ref"]
+               == "table/third_party/rsf.json#countries/X" and p["license"].startswith("NOT STATED")))
+    ok.append(("a VOID cell passes through a pointer unchanged", pointer("rsf", "x", void("r"), None) == void("r")))
+    ok.append(("every third-party file has a license", all(v["license"] for v in LICENSES.values())))
     ok.append(("text extraction strips markup", _text("<p>a &amp; <b>b</b></p>") == "a & b"))
     bad = 0
     for name, good in ok:

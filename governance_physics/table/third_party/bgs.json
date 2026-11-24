@@ -1,0 +1,1282 @@
+{
+ "attribution": "British Geological Survey, World Mineral Statistics (c) UKRI / NERC",
+ "cells": {
+  "BRA": {
+   "formula": "(imports - exports) / (production + imports - exports)",
+   "note": "latest year with all three terms; trade lines in the source end in 2018",
+   "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "status": "DERIVED",
+   "value": {
+    "import_dependence": {
+     "graphite": {
+      "import_dependence": -0.243052,
+      "year": 2002
+     }
+    },
+    "processing_share": {
+     "reason": "the source response carries no world total line; declared rule: no world total -> VOID",
+     "source": null,
+     "status": "VOID",
+     "value": null
+    },
+    "void_commodities": [
+     "lithium",
+     "cobalt",
+     "rare earths",
+     "nickel",
+     "copper"
+    ]
+   }
+  },
+  "CHE": {
+   "reason": "no commodity-year has production, imports and exports on one same-basis line for this country in the source",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "CHN": {
+   "formula": "(imports - exports) / (production + imports - exports)",
+   "note": "latest year with all three terms; trade lines in the source end in 2018",
+   "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "status": "DERIVED",
+   "value": {
+    "import_dependence": {
+     "graphite": {
+      "import_dependence": -0.321393,
+      "year": 2002
+     }
+    },
+    "processing_share": {
+     "reason": "the source response carries no world total line; declared rule: no world total -> VOID",
+     "source": null,
+     "status": "VOID",
+     "value": null
+    },
+    "void_commodities": [
+     "lithium",
+     "cobalt",
+     "rare earths",
+     "nickel",
+     "copper"
+    ]
+   }
+  },
+  "IND": {
+   "formula": "(imports - exports) / (production + imports - exports)",
+   "note": "latest year with all three terms; trade lines in the source end in 2018",
+   "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "status": "DERIVED",
+   "value": {
+    "import_dependence": {
+     "graphite": {
+      "import_dependence": 0.017545,
+      "year": 2002
+     }
+    },
+    "processing_share": {
+     "reason": "the source response carries no world total line; declared rule: no world total -> VOID",
+     "source": null,
+     "status": "VOID",
+     "value": null
+    },
+    "void_commodities": [
+     "lithium",
+     "cobalt",
+     "rare earths",
+     "nickel",
+     "copper"
+    ]
+   }
+  },
+  "IRN": {
+   "reason": "no commodity-year has production, imports and exports on one same-basis line for this country in the source",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "NOR": {
+   "formula": "(imports - exports) / (production + imports - exports)",
+   "note": "latest year with all three terms; trade lines in the source end in 2018",
+   "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "status": "DERIVED",
+   "value": {
+    "import_dependence": {
+     "graphite": {
+      "import_dependence": -6.918969,
+      "year": 2002
+     }
+    },
+    "processing_share": {
+     "reason": "the source response carries no world total line; declared rule: no world total -> VOID",
+     "source": null,
+     "status": "VOID",
+     "value": null
+    },
+    "void_commodities": [
+     "lithium",
+     "cobalt",
+     "rare earths",
+     "nickel",
+     "copper"
+    ]
+   }
+  },
+  "RUS": {
+   "formula": "(imports - exports) / (production + imports - exports)",
+   "note": "latest year with all three terms; trade lines in the source end in 2018",
+   "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874",
+   "status": "DERIVED",
+   "value": {
+    "import_dependence": {
+     "graphite": {
+      "import_dependence": 0.385926,
+      "year": 2002
+     }
+    },
+    "processing_share": {
+     "reason": "the source response carries no world total line; declared rule: no world total -> VOID",
+     "source": null,
+     "status": "VOID",
+     "value": null
+    },
+    "void_commodities": [
+     "lithium",
+     "cobalt",
+     "rare earths",
+     "nickel",
+     "copper"
+    ]
+   }
+  },
+  "USA": {
+   "reason": "no commodity-year has production, imports and exports on one same-basis line for this country in the source",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  }
+ },
+ "formula": "(imports - exports) / (production + imports - exports)",
+ "holds": "import-dependence ratios derived from the source tables",
+ "license": "BGS mineral statistics terms: copyright NERC; adapt and use for non-commercial academic and research purposes",
+ "license_stated_at": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/bgs-mineral-statistics-terms-and-conditions-ipr/",
+ "not_cc0": true,
+ "permission_note": "passing the tables to a third party or any commercial use needs permission from NERC or the original copyright owner (BGS Intellectual Property Rights section, ipr@bgs.ac.uk). No permission has been asked. Only derived ratios are held here, no source tonnage.",
+ "record": "mineral import dependence derived from BGS tables",
+ "series": {
+  "BRA": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": -0.332435
+     },
+     "2001": {
+      "import_dependence": -0.262218
+     },
+     "2002": {
+      "import_dependence": -0.243052
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHE": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2001": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2002": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "CHN": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": -0.252562
+     },
+     "2001": {
+      "import_dependence": -0.279419
+     },
+     "2002": {
+      "import_dependence": -0.321393
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IND": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": -0.024212
+     },
+     "2001": {
+      "import_dependence": 0.011666
+     },
+     "2002": {
+      "import_dependence": 0.017545
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "IRN": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2001": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2002": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, exports"
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "NOR": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": null,
+      "void_reason": "denominator zero or negative"
+     },
+     "2001": {
+      "import_dependence": -22.558442
+     },
+     "2002": {
+      "import_dependence": -6.918969
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "RUS": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": 0.190825
+     },
+     "2001": {
+      "import_dependence": 0.282272
+     },
+     "2002": {
+      "import_dependence": 0.385926
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  },
+  "USA": {
+   "cobalt": {
+    "reason": "no same-basis line: the source reports cobalt production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "copper": {
+    "reason": "no same-basis line: the source reports copper production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "graphite": {
+    "line": {
+     "commodity": "graphite",
+     "sub_line": "\u2014",
+     "unit": "tonnes (metric)"
+    },
+    "years": {
+     "2000": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2001": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2002": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production"
+     },
+     "2003": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2004": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2005": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2006": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2007": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2008": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2009": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2010": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2011": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2012": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2013": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2014": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2015": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2016": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2017": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2018": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2019": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2020": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2021": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2022": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2023": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     },
+     "2024": {
+      "import_dependence": null,
+      "void_reason": "missing in source: production, imports, exports"
+     }
+    }
+   },
+   "lithium": {
+    "reason": "no same-basis line: the source reports lithium production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "nickel": {
+    "reason": "no same-basis line: the source reports nickel production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   },
+   "rare earths": {
+    "reason": "no same-basis line: the source reports rare earths production and trade under different lines (production by mine / refinery output, trade by product form), so the three terms are not the same quantity",
+    "source": null,
+    "status": "VOID",
+    "value": null
+   }
+  }
+ },
+ "source": "https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Production&response=data fetched 2026-11-24T17:17:08Z sha256:da8e6ecae15faf85e800839fca2b15e16a193a85ba0c7ed1d93f54fc88602ccb; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Imports&response=data fetched 2026-11-24T17:17:09Z sha256:90eed698669fdfc484b2789716d0f8a89e5b792e02fd8ddef6b1192267413750; https://www.bgs.ac.uk/wp-json/bgsfeed/v1/minerals/items?year=2000-01-01T00:00:00.000Z/2026-01-01T00:00:00.000Z&country_trans=USA%China%Iran%Russia%India%Brazil%Switzerland%Norway&bgs_commodity_trans=<16 commodity lines of the six declared commodities, joined by %>&bgs_statistic_type_trans=Exports&response=data fetched 2026-11-24T17:17:12Z sha256:c301d4cd875159ebeb66fe434735a5efd6a3016e274701048958242ec4aac874"
+}

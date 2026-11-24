@@ -1,0 +1,98 @@
+{
+ "attribution": "Reporters Without Borders, World Press Freedom Index 2026",
+ "countries": {
+  "BRA": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 52,
+    "ranked_countries": 180,
+    "score": 66.37
+   }
+  },
+  "CHE": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 8,
+    "ranked_countries": 180,
+    "score": 84.83
+   }
+  },
+  "CHN": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 178,
+    "ranked_countries": 180,
+    "score": 13.85
+   }
+  },
+  "IND": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 157,
+    "ranked_countries": 180,
+    "score": 31.96
+   }
+  },
+  "IRN": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 177,
+    "ranked_countries": 180,
+    "score": 17.45
+   }
+  },
+  "NOR": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 1,
+    "ranked_countries": 180,
+    "score": 92.72
+   }
+  },
+  "RUS": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 172,
+    "ranked_countries": 180,
+    "score": 23.15
+   }
+  },
+  "USA": {
+   "note": "score and rank as published; an index built by the source, not a count",
+   "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2",
+   "status": "MEASURED",
+   "value": {
+    "edition": 2026,
+    "rank": 64,
+    "ranked_countries": 180,
+    "score": 62.61
+   }
+  }
+ },
+ "holds": "score and rank as published",
+ "license": "NOT STATED on the page read (rsf.org/en/index); all rights assumed reserved by the source",
+ "not_cc0": true,
+ "record": "RSF index score and rank",
+ "source": "https://rsf.org/sites/default/files/import_classement/2026.csv fetched 2026-11-24T17:17:38Z sha256:65ec7bd9b9740e0f51e9b4eea585030b2226c1a96938ec06a4cbbdbd2639aae2"
+}

@@ -33,7 +33,6 @@ economic_rules_set_by    constitute             filled for 7 of 7 filled countri
 dissent_cost             cpj                    filled for 0 of 8 filled countries
 dissent_cost             rsf                    filled for 8 of 8 filled countries
 dissent_cost             v-dem                  filled for 0 of 8 filled countries
-critical_minerals        processing_share       filled for 0 of 5 filled countries
 ```
 
 VOID reasons, per field (countries sharing a reason are grouped):
@@ -142,14 +141,109 @@ IND   p 0.354  flag no     threshold 0.038  alpha at threshold 0.0490 (in-sample
 4 countries ran, 0 flagged. With 4 tests at alpha 0.0490 each, about 0.20 flags are expected
 from noise alone. No pooled verdict is made.
 
-Limits of this run: the null redraws distinct years, while a country's events can share a
-year (counts above); the calibration did not cover that case. The stress series is energy
-only. Conflict events only.
+Limits of the v1.2 run above: its null redraws distinct years, while a country's events can
+share a year (counts above). The tied-year null below (amendment A4) covers that case.
 
 Calibration: amendment A1, 200 pure-noise seeds, flagged 16 at 0.05, alpha = 0.080 (95% interval
 0.050 to 0.126). Amendment A2 step 1, 2000 seeds: flagged 121, alpha = 0.0605 (95% interval 0.0509 to
 0.0718); the interval excludes 0.05, so A2 step 2 applies: threshold in force 0.038, alpha at
 that threshold 0.0490, read on the same 2000 seeds.
+
+## v1.3 (amendment A4, declared before any of it was run)
+
+Tested driver = energy_base only. critical_minerals and chokepoints have no series (VOID),
+so no test below covers those drivers, for any country.
+
+### Fresh-seed check of the threshold
+
+```text
+as amendment A1; seeds 10000..11999, none used before
+threshold 0.038  flagged  99 / 2000  alpha 0.0495  95% interval 0.0408 to 0.0599
+threshold 0.050  flagged 127 / 2000  alpha 0.0635  95% interval 0.0536 to 0.0750
+rule: threshold stays only if the 95% interval of alpha at the threshold includes a value at or below 0.05 (lower bound <= 0.05)
+threshold stays: yes
+```
+
+### Tied-year null
+
+Each null draw keeps the tie structure of the events (a year with m events counts m times).
+Calibration on noise with shared-year events:
+
+```text
+noise stress as A1; 6 distinct event years from 1970..2023 with multiplicities 2,2,1,1,1,1 (8 events); seeds 20000..21999
+v1.2_null_on_tied_events   threshold 0.050  flagged 190 / 2000  alpha 0.0950  95% interval 0.0829 to 0.1086
+v1.2_null_on_tied_events   threshold 0.038  flagged 162 / 2000  alpha 0.0810  95% interval 0.0698 to 0.0938
+tied_year_null             threshold 0.050  flagged  97 / 2000  alpha 0.0485  95% interval 0.0399 to 0.0588
+tied_year_null             threshold 0.038  flagged  73 / 2000  alpha 0.0365  95% interval 0.0291 to 0.0456
+threshold stays for the tied-year null: yes
+```
+
+The four v1.2 tests again, party basis, tied-year null beside the v1.2 result:
+
+```text
+iso   n  distinct   v1.2 p  v1.2 null 5..95       tied p  tied null 5..95       flag (tied)
+CHN    3     2      0.598   +0.0152..+0.0362    0.542   +0.0116..+0.0397    no
+IRN   10     7      1.000   +0.0201..+0.0451    0.976   +0.0149..+0.0540    no
+RUS    6     5      0.101   +0.0061..+0.0206    0.153   +0.0055..+0.0229    no
+IND   10     8      0.354   +0.0231..+0.0315    0.376   +0.0214..+0.0324    no
+```
+
+### UCDP coding: party basis vs location basis
+
+party: the country's government is side A or side B (state-based), or is the actor (one-sided).
+location: the country is named in the dataset's location field, any actor.
+Neither basis is preferred here.
+
+```text
+iso   state-based episode starts        one-sided run starts     events in file
+      party  location  in both          party  location          party  location
+USA       8        8        8              0        3              8       11
+CHN      18       18       18              2        2             20       20
+IRN      23       23       23              3        6             26       29
+RUS      18       18       18              4       12             22       30
+IND      46       46       46              3       53             49       99
+BRA       0        0        0              3        8              3        8
+CHE       0        0        0              0        0              0        0
+NOR       0        0        0              0        0              0        0
+```
+
+State-based episode starts are the same set on both bases for every country: yes.
+The two bases differ only in one-sided violence: the location basis adds runs by actors
+other than the country's government.
+
+Lead test on each country-basis with at least 3 events with a full lead window (tied-year null;
+the v1.2 null beside it):
+
+```text
+iso  basis     in file  full window  distinct yrs  eligible yrs  tied p  v1.2-null p   flag
+USA  party          8           2   NOT RUN (fewer than 3)
+USA  location      11           4             4            22   0.319   0.319         no
+CHN  party         20           3             2            22   0.542   0.598         no
+CHN  location      20           3             2            22   0.542   0.598         no
+IRN  party         26          10             7            22   0.976   1.000         no
+IRN  location      29          13             9            22   0.997   1.000         no
+RUS  party         22           6             5            22   0.153   0.101         no
+RUS  location      30          12            10            22   0.028   0.000         yes
+IND  party         49          10             8            22   0.376   0.354         no
+IND  location      99          31            16            22   0.901   not computable  no
+BRA  party          3           1   NOT RUN (fewer than 3)
+BRA  location       8           6             5            22   0.791   0.806         no
+CHE  party          0           0   NOT RUN (fewer than 3)
+CHE  location       0           0   NOT RUN (fewer than 3)
+NOR  party          0           0   NOT RUN (fewer than 3)
+NOR  location       0           0   NOT RUN (fewer than 3)
+```
+
+10 country-basis tests ran, 1 flagged. Alpha beside every flag: 0.0365 at threshold 0.038 (95% interval
+0.0291 to 0.0456, tied-year calibration). With 10 tests about 0.36 flags are expected from noise
+alone. The tests are not independent: the two bases of one country share most events, and
+where no location-only event has a full window they are the same test. No pooled verdict.
+A flag is a reading of this one test on this one basis. It is not a finding about a country.
+
+Limits: the calibration used 8 events on 6 years; the real tests have other tie patterns.
+Where events fill most eligible years the null has little room to move (eligible minus
+distinct years is the room). The v1.2 null cannot run when events outnumber eligible years.
+One-sided events are dated 1 January of the run's first year, so only the year is used.
 
 ## Source origin
 
@@ -191,8 +285,10 @@ primary-energy method has since changed. It is not copied here; only derived sha
 A current release was looked for on GitHub on 2026-11-24 and not found there; the host
 that carries it refused the connection.
 Filled since (amendment A3, `fill.py`): RSF, Constitute, UCDP and BGS, each with URL, fetch
-time and sha256 in `series/fill_sources.json`. Their files are not copied here. Those cells
-carry the sources' own terms (Constitute CC BY-NC 3.0; UCDP CC BY 4.0; BGS copyright NERC,
-non-commercial research use; RSF terms not stated on the page read); CC0 covers the
-structure and the code. V-Dem and CPJ were not read; the reasons are in the VOID cells.
+time and sha256 in `series/fill_sources.json`. Their source files are not copied here.
+Licence split (amendment A4): quotes, scores, ratios and event rows from those sources are
+only in `table/third_party/*.json`, each with its own license field (Constitute CC BY-NC
+3.0; UCDP CC BY 4.0; BGS non-commercial research use, permission note; RSF not stated).
+The CC0 files hold pointers, statuses and own-derived counts. See `README.md`.
+V-Dem and CPJ were not read; the reasons are in the VOID cells.
 Every source not reachable from this run stays VOID and nothing was typed in its place.

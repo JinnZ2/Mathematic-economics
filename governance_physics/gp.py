@@ -3,7 +3,8 @@ apart, resource series beside them, one declared lead test.
 
 License: CC0-1.0.  Standard library only.
 
-    python governance_physics/gp.py tables  OWID_CSV   # table/functional.json, table/labels.json
+    python governance_physics/gp.py build OWID_CSV SOURCE_DIR   # the whole chain: tables, series, fill, tests, report
+    python governance_physics/gp.py tables  OWID_CSV   # table/functional.json, table/labels.json (keeps filled cells)
     python governance_physics/gp.py series  OWID_CSV   # series/*.json, events/events.json
     python governance_physics/gp.py test               # the declared lead test
     python governance_physics/gp.py report             # REPORT.md
@@ -260,7 +261,7 @@ def cmd_test13():
     """v1.3: the v1.2 countries again under the tied-year null, beside the v1.2 results as committed."""
     d = declared()["test"]
     series = _load("series/energy.json")["countries"]
-    events = _load("events/events.json")["events"]
+    events = load_events()["party"]
     v12 = _load("series/test_result.json")["countries"]
     cal = _load("series/calibration_tied.json")
     thr = flag_threshold() if cal["threshold_stays_for_tied_null"] else None
@@ -293,8 +294,10 @@ def cmd_test13():
 
 def load_events():
     """{basis: [events]} for the two UCDP bases of amendment A4 item 3."""
-    e = _load("events/events.json")
-    return {"party": e.get("events", []), "location": e.get("events_location", [])}
+    try:
+        return _load("table/third_party/ucdp.json")["events"]
+    except (IOError, OSError):
+        return {"party": [], "location": []}
 
 
 def cmd_test_basis():
@@ -469,9 +472,44 @@ def _load(rel):
         return json.load(f)
 
 
+def _filled(rel):
+    """True if the file exists and fill.py has put a non-VOID status on it (A4 item 6)."""
+    try:
+        return _load(rel).get("status", "VOID") != "VOID"
+    except (IOError, OSError):
+        return False
+
+
+def cmd_build(owid_path, source_dir):
+    """Single entry point (A4 item 6): tables -> series -> fill -> tests -> report.
+    Calibration is not rerun here; it has its own commands and its results are read from series/."""
+    import fill
+    cmd_tables(owid_path)
+    cmd_series(owid_path)
+    fill.main(source_dir)
+    cmd_test()
+    cmd_test13()
+    cmd_test_basis()
+    cmd_report()
+
+
 def cmd_tables(path):
     series = energy_series(read_owid(path))
-    _write("table/functional.json", build_functional(series))
+    table = build_functional(series)
+    kept = 0
+    try:                                   # A4 item 6: never overwrite a cell already there
+        old = _load("table/functional.json")
+        for iso, row in old["countries"].items():
+            for field, cell in row.items():
+                if field != "energy_base" and iso in table["countries"]:
+                    table["countries"][iso][field] = cell
+                    kept += cell["status"] != "VOID"
+        if "THIRD-PARTY:" in old.get("note", ""):
+            table["note"] = old["note"]
+    except (IOError, OSError):
+        pass
+    _write("table/functional.json", table)
+    print("kept %d filled cells from the existing table" % kept)
     _write("table/labels.json", build_labels())
     print("wrote table/functional.json and table/labels.json")
 
@@ -485,11 +523,13 @@ def cmd_series(path):
                                    "licence_note": "derived from Our World in Data (CC BY 4.0), built on the Energy "
                                                    "Institute Statistical Review; a null is a blank in the source",
                                    "countries": series})
-    _write("series/minerals.json", {"record": "annual mineral import dependence",
+    if not _filled("series/minerals.json"):
+        _write("series/minerals.json", {"record": "annual mineral import dependence",
                                      "countries": {c["iso3"]: void("no minerals source declared or read: %s"
                                                                    % d["fields"]["critical_minerals"]["source"])
                                                    for c in d["countries"]}})
-    _write("events/events.json", {"record": "dated policy / conflict events; no causal tags",
+    if not _filled("events/events.json"):
+        _write("events/events.json", {"record": "dated policy / conflict events; no causal tags",
                                    "rule": "each event: {iso3, date, kind: policy|conflict, what, source}. "
                                            "No cause, no effect, no label.",
                                    "events": [],
@@ -502,7 +542,7 @@ def cmd_series(path):
 def cmd_test():
     d = declared()["test"]
     series = _load("series/energy.json")["countries"]
-    events = _load("events/events.json")["events"]
+    events = load_events()["party"]
     thr = flag_threshold()
     c2 = _load("series/calibration_2000.json")
     alpha = {"at_threshold_in_force": c2["alpha_at_threshold_in_force"], "threshold_in_force": thr,
@@ -528,6 +568,89 @@ def cmd_test():
         print(iso, r["state"], r.get("reason", "") or "n %d p %.3f flag %s (threshold %.3f, alpha %.4f)"
               % (r["n_events"], r["share_null_ge_observed"], r["flag"], thr, alpha["at_threshold_in_force"]))
     return res
+
+
+def _v13_lines(isos):
+    fresh = _load("series/calibration_fresh.json")
+    tied = _load("series/calibration_tied.json")
+    t13 = _load("series/test_result_tied.json")["countries"]
+    tb = _load("series/test_result_basis.json")["countries"]
+    cnt = _load("events/events.json")["own_counts"]
+    f = lambda r: "threshold %.3f  flagged %3d / %d  alpha %.4f  95%% interval %.4f to %.4f" % (
+        r["threshold"], r["flagged"], r["seeds"], r["alpha"], r["wilson95"][0], r["wilson95"][1])
+    L = ["", "## v1.3 (amendment A4, declared before any of it was run)", "",
+         "Tested driver = energy_base only. critical_minerals and chokepoints have no series (VOID),",
+         "so no test below covers those drivers, for any country.", "",
+         "### Fresh-seed check of the threshold", "", "```text",
+         fresh["design"], f(fresh["at_threshold"]), f(fresh["at_0.05"]),
+         "rule: " + fresh["rule"], "threshold stays: %s" % ("yes" if fresh["threshold_stays"] else "no"),
+         "```", "", "### Tied-year null", "",
+         "Each null draw keeps the tie structure of the events (a year with m events counts m times).",
+         "Calibration on noise with shared-year events:", "", "```text", tied["design"]]
+    for name in ("v1.2_null_on_tied_events", "tied_year_null"):
+        for k in ("at_0.05", "at_threshold"):
+            L.append("%-26s %s" % (name, f(tied[name][k])))
+    L += ["threshold stays for the tied-year null: %s" % ("yes" if tied["threshold_stays_for_tied_null"] else "no"),
+          "```", "", "The four v1.2 tests again, party basis, tied-year null beside the v1.2 result:", "",
+          "```text", "iso   n  distinct   v1.2 p  v1.2 null 5..95       tied p  tied null 5..95       flag (tied)"]
+    for i in isos:
+        r = t13[i]
+        if r["state"] == "RUN":
+            o = r["v1.2"]
+            L.append("%-4s %3d %5d      %.3f   %+.4f..%+.4f    %.3f   %+.4f..%+.4f    %s"
+                     % (i, r["n_events"], r["n_distinct_years"], o["share_null_ge_observed"], o["null_p05"],
+                        o["null_p95"], r["share_null_ge_observed"], r["null_p05"], r["null_p95"],
+                        "yes" if r["flag"] is True else "no" if r["flag"] is False else r["flag"]))
+    L += ["```", "", "### UCDP coding: party basis vs location basis", "",
+          "party: the country's government is side A or side B (state-based), or is the actor (one-sided).",
+          "location: the country is named in the dataset's location field, any actor.",
+          "Neither basis is preferred here.", "", "```text",
+          "iso   state-based episode starts        one-sided run starts     events in file",
+          "      party  location  in both          party  location          party  location"]
+    for i in isos:
+        p, l = cnt["party"][i], cnt["location"][i]
+        L.append("%-4s %6d %8d %8d %14d %8d %14d %8d"
+                 % (i, p["state_based_episode_starts"], l["state_based_episode_starts"],
+                    p["state_based_also_on_location_basis"], p["one_sided_run_starts"], l["one_sided_run_starts"],
+                    p["state_based_episode_starts"] + p["one_sided_run_starts"],
+                    l["state_based_episode_starts"] + l["one_sided_run_starts"]))
+    same = all(cnt["party"][i]["state_based_episode_starts"] == cnt["location"][i]["state_based_episode_starts"]
+               == cnt["party"][i]["state_based_also_on_location_basis"] for i in isos)
+    L += ["```", "",
+          "State-based episode starts are the same set on both bases for every country: %s." % ("yes" if same else "no"),
+          "The two bases differ only in one-sided violence: the location basis adds runs by actors",
+          "other than the country's government.", "",
+          "Lead test on each country-basis with at least 3 events with a full lead window (tied-year null;",
+          "the v1.2 null beside it):", "", "```text",
+          "iso  basis     in file  full window  distinct yrs  eligible yrs  tied p  v1.2-null p   flag"]
+    ran = flags = 0
+    for i in isos:
+        for b in ("party", "location"):
+            r = tb[i][b]
+            if r["state"] != "RUN":
+                L.append("%-4s %-8s %7d %11d   NOT RUN (fewer than 3)" % (i, b, r["n_events_in_file"], r["n_events"]))
+                continue
+            ran += 1
+            flags += r["flag"] is True
+            o = r["v1.2_null_beside"].get("share_null_ge_observed")
+            L.append("%-4s %-8s %7d %11d %13d %13d   %.3f   %-12s  %s"
+                     % (i, b, r["n_events_in_file"], r["n_events"], r["n_distinct_years"], r["n_eligible_years"],
+                        r["share_null_ge_observed"], "%.3f" % o if o is not None else "not computable",
+                        "yes" if r["flag"] is True else "no" if r["flag"] is False else r["flag"]))
+    a = tied["tied_year_null"]["at_threshold"]
+    L += ["```", "",
+          "%d country-basis tests ran, %d flagged. Alpha beside every flag: %.4f at threshold %.3f (95%% interval"
+          % (ran, flags, a["alpha"], a["threshold"]),
+          "%.4f to %.4f, tied-year calibration). With %d tests about %.2f flags are expected from noise"
+          % (a["wilson95"][0], a["wilson95"][1], ran, ran * a["alpha"]),
+          "alone. The tests are not independent: the two bases of one country share most events, and",
+          "where no location-only event has a full window they are the same test. No pooled verdict.",
+          "A flag is a reading of this one test on this one basis. It is not a finding about a country.",
+          "", "Limits: the calibration used 8 events on 6 years; the real tests have other tie patterns.",
+          "Where events fill most eligible years the null has little room to move (eligible minus",
+          "distinct years is the room). The v1.2 null cannot run when events outnumber eligible years.",
+          "One-sided events are dated 1 January of the run's first year, so only the year is used."]
+    return L
 
 
 def cmd_report():
@@ -646,9 +769,8 @@ def cmd_report():
           % (len(ran), sum(test[i]["flag"] for i in ran), len(ran), c2["alpha_at_threshold_in_force"],
              len(ran) * c2["alpha_at_threshold_in_force"]),
           "from noise alone. No pooled verdict is made.",
-          "", "Limits of this run: the null redraws distinct years, while a country's events can share a",
-          "year (counts above); the calibration did not cover that case. The stress series is energy",
-          "only. Conflict events only.",
+          "", "Limits of the v1.2 run above: its null redraws distinct years, while a country's events can",
+          "share a year (counts above). The tied-year null below (amendment A4) covers that case.",
           "", "Calibration: amendment A1, %d pure-noise seeds, flagged %d at 0.05, alpha = %.3f (95%% interval"
           % (cal["seeds"], cal["flagged"], cal["alpha"]),
           "%.3f to %.3f). Amendment A2 step 1, %d seeds: flagged %d, alpha = %.4f (95%% interval %.4f to"
@@ -657,7 +779,9 @@ def cmd_report():
           "%.4f); the interval excludes 0.05, so A2 step 2 applies: threshold in force %.3f, alpha at"
           % (c2["result"]["wilson95"][1], c2["threshold_in_force"]),
           "that threshold %.4f, read on the same 2000 seeds." % c2["alpha_at_threshold_in_force"],
-          "", "## Source origin", "",
+          ]
+    L += _v13_lines(isos)
+    L += ["", "## Source origin", "",
           "single source = consistent scale, shared frame. VERIFIED = read from the org's own page",
           "(URL, fetch time and quote in DECLARED.json). NOT_VERIFIED = host not reachable; the entry",
           "is model knowledge, flagged.", "", "```text"]
@@ -684,10 +808,12 @@ def cmd_report():
           "A current release was looked for on GitHub on 2026-11-24 and not found there; the host",
           "that carries it refused the connection.",
           "Filled since (amendment A3, `fill.py`): RSF, Constitute, UCDP and BGS, each with URL, fetch",
-          "time and sha256 in `series/fill_sources.json`. Their files are not copied here. Those cells",
-          "carry the sources' own terms (Constitute CC BY-NC 3.0; UCDP CC BY 4.0; BGS copyright NERC,",
-          "non-commercial research use; RSF terms not stated on the page read); CC0 covers the",
-          "structure and the code. V-Dem and CPJ were not read; the reasons are in the VOID cells.",
+          "time and sha256 in `series/fill_sources.json`. Their source files are not copied here.",
+          "Licence split (amendment A4): quotes, scores, ratios and event rows from those sources are",
+          "only in `table/third_party/*.json`, each with its own license field (Constitute CC BY-NC",
+          "3.0; UCDP CC BY 4.0; BGS non-commercial research use, permission note; RSF not stated).",
+          "The CC0 files hold pointers, statuses and own-derived counts. See `README.md`.",
+          "V-Dem and CPJ were not read; the reasons are in the VOID cells.",
           "Every source not reachable from this run stays VOID and nothing was typed in its place.", ""]
     with open(os.path.join(HERE, "REPORT.md"), "w") as f:
         f.write("\n".join(L))
@@ -753,6 +879,8 @@ if __name__ == "__main__":
         cmd_tables(a[1])
     elif a[0] == "series" and len(a) == 2:
         cmd_series(a[1])
+    elif a[0] == "build" and len(a) == 3:
+        cmd_build(a[1], a[2])
     elif a == ["test"]:
         cmd_test()
     elif a == ["report"]:
