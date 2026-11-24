@@ -68,9 +68,24 @@
    "source_origin": [
     {
      "org": "Comparative Constitutions Project (Constitute)",
-     "country": "United States",
-     "funding_type": "university project",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "country": "United States (two US universities named; the page does not name a country)",
+     "funding_type": "university project; seeded by a corporate grant (Google Ideas, now Jigsaw), further support from the Indigo Trust and IC2",
+     "basis": "verified from the org's own pages (URL + fetch time below)",
+     "declared_before_verification": {
+      "country": "United States",
+      "funding_type": "university project",
+      "basis": "model knowledge, not fetched; verify when the host is reachable"
+     },
+     "status": "VERIFIED",
+     "evidence": [
+      {
+       "url": "https://www.constituteproject.org/content/about",
+       "fetched_utc": "2026-11-24T17:12:07Z",
+       "page_sha256": "9e20e5a5ef77eec63d9ff56a2dbb0665fb98090bd9a41a1e8921e48732e806a1",
+       "quote": "Constitute is a product of the Comparative Constitutions Project at the University of Texas at Austin and the University of Chicago, directed by Zachary Elkins and Tom Ginsburg. It was seeded with a grant from Google Ideas (now Jigsaw ), with additional financial support from the Indigo Trust and IC2 ."
+      }
+     ],
+     "differs_from_declared": "yes: declared 'university project' only. The org's page names a Google Ideas (Jigsaw) seed grant and two other funders."
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame"
@@ -83,15 +98,31 @@
    "source_origin": [
     {
      "org": "Comparative Constitutions Project (Constitute)",
-     "country": "United States",
-     "funding_type": "university project",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "country": "United States (two US universities named; the page does not name a country)",
+     "funding_type": "university project; seeded by a corporate grant (Google Ideas, now Jigsaw), further support from the Indigo Trust and IC2",
+     "basis": "verified from the org's own pages (URL + fetch time below)",
+     "declared_before_verification": {
+      "country": "United States",
+      "funding_type": "university project",
+      "basis": "model knowledge, not fetched; verify when the host is reachable"
+     },
+     "status": "VERIFIED",
+     "evidence": [
+      {
+       "url": "https://www.constituteproject.org/content/about",
+       "fetched_utc": "2026-11-24T17:12:07Z",
+       "page_sha256": "9e20e5a5ef77eec63d9ff56a2dbb0665fb98090bd9a41a1e8921e48732e806a1",
+       "quote": "Constitute is a product of the Comparative Constitutions Project at the University of Texas at Austin and the University of Chicago, directed by Zachary Elkins and Tom Ginsburg. It was seeded with a grant from Google Ideas (now Jigsaw ), with additional financial support from the Indigo Trust and IC2 ."
+      }
+     ],
+     "differs_from_declared": "yes: declared 'university project' only. The org's page names a Google Ideas (Jigsaw) seed grant and two other funders."
     },
     {
      "org": "each country's central bank",
      "country": "the country itself",
      "funding_type": "state institution",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: no single page; one institution per country, none fetched. Stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame"
@@ -107,13 +138,15 @@
      "org": "Free Law Project (CourtListener)",
      "country": "United States",
      "funding_type": "non-profit",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: free.law -> CONNECT_refused_403 at 2026-11-24T17:15:15Z; www.courtlistener.com -> CONNECT_refused_403 at 2026-11-24T17:15:15Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     },
     {
      "org": "national referendum registers",
      "country": "the country itself",
      "funding_type": "state institution",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: no single page; one register per country, none fetched. Stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame"
@@ -135,14 +168,74 @@
     {
      "org": "Reporters Without Borders (RSF)",
      "country": "France",
-     "funding_type": "non-profit",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "funding_type": "non-profit; funded by public donations and memberships, French and international public subsidies, private sponsorships, album sales",
+     "basis": "verified from the org's own pages (URL + fetch time below)",
+     "declared_before_verification": {
+      "country": "France",
+      "funding_type": "non-profit",
+      "basis": "model knowledge, not fetched; verify when the host is reachable"
+     },
+     "status": "VERIFIED",
+     "evidence": [
+      {
+       "url": "https://rsf.org/en/who-are-we",
+       "fetched_utc": "2026-11-24T17:12:06Z",
+       "page_sha256": "0b8e8555f858adcd452236ac4fc51122339d0363da1819073ae019b9e28152c2",
+       "quote": "Reporters Without Borders (RWB) is an international non-profit organisation governed by principles of democratic governance."
+      },
+      {
+       "url": "https://rsf.org/en/who-are-we",
+       "fetched_utc": "2026-11-24T17:12:06Z",
+       "page_sha256": "0b8e8555f858adcd452236ac4fc51122339d0363da1819073ae019b9e28152c2",
+       "quote": "Recognised as a public interest organisation in France since 1995"
+      },
+      {
+       "url": "https://rsf.org/en/who-are-we",
+       "fetched_utc": "2026-11-24T17:12:06Z",
+       "page_sha256": "0b8e8555f858adcd452236ac4fc51122339d0363da1819073ae019b9e28152c2",
+       "quote": "1 international headquarter (Paris)"
+      },
+      {
+       "url": "https://rsf.org/en/finance-and-supports",
+       "fetched_utc": "2026-11-24T17:14:23Z",
+       "page_sha256": "38ca8b4b454c3cd7c14333096f5da7164d6cc250d370231c7f3cca6f93152960",
+       "quote": "French and international public subsidies"
+      }
+     ],
+     "differs_from_declared": "yes: declared 'non-profit' only. The org's page lists French and international public subsidies among its funding; shares by type are shown as a chart on the page and were not read."
     },
     {
      "org": "Committee to Protect Journalists (CPJ)",
      "country": "United States",
-     "funding_type": "non-profit",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "funding_type": "501(c)3 non-profit; individuals, corporations, foundations; states it accepts no government funding",
+     "basis": "verified from the org's own pages (URL + fetch time below)",
+     "declared_before_verification": {
+      "country": "United States",
+      "funding_type": "non-profit",
+      "basis": "model knowledge, not fetched; verify when the host is reachable"
+     },
+     "status": "VERIFIED",
+     "evidence": [
+      {
+       "url": "https://cpj.org/about/",
+       "fetched_utc": "2026-11-24T17:12:07Z",
+       "page_sha256": "aae3e55e12adf9afb771cf902216fac7b5c4a31bc9388967dad75d01136183d8",
+       "quote": "CPJ is a 501(c)3 non-profit."
+      },
+      {
+       "url": "https://cpj.org/about/faq/",
+       "fetched_utc": "2026-11-24T17:14:05Z",
+       "page_sha256": "f74ddab22d0fad0f3dc7c3f290646d63408dccceb73a1930ddde06b9ba8eb794",
+       "quote": "CPJ is funded solely by contributions from individuals, corporations, and foundations. CPJ does not accept government funding."
+      },
+      {
+       "url": "https://cpj.org/about/",
+       "fetched_utc": "2026-11-24T17:12:07Z",
+       "page_sha256": "aae3e55e12adf9afb771cf902216fac7b5c4a31bc9388967dad75d01136183d8",
+       "quote": "New York, NY 10108"
+      }
+     ],
+     "differs_from_declared": "no (detail added: corporate and foundation donors; no government funding, by its own statement)"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame"
@@ -158,13 +251,15 @@
      "org": "Our World in Data (Global Change Data Lab)",
      "country": "United Kingdom",
      "funding_type": "non-profit",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: ourworldindata.org -> CONNECT_refused_403 at 2026-11-24T17:15:13Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     },
     {
      "org": "Energy Institute, Statistical Review of World Energy (upstream of the file)",
      "country": "United Kingdom",
      "funding_type": "professional membership body",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: www.energyinst.org -> CONNECT_refused_403 at 2026-11-24T17:15:14Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame",
@@ -180,19 +275,22 @@
      "org": "U.S. Geological Survey",
      "country": "United States",
      "funding_type": "government agency",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: www.usgs.gov -> CONNECT_refused_403 at 2026-11-24T17:15:14Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     },
     {
      "org": "International Energy Agency",
      "country": "France (intergovernmental)",
      "funding_type": "intergovernmental",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: www.iea.org -> CONNECT_refused_403 at 2026-11-24T17:15:14Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     },
     {
      "org": "UN Comtrade",
      "country": "intergovernmental (United Nations)",
      "funding_type": "intergovernmental",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: comtradeplus.un.org -> CONNECT_refused_403 at 2026-11-24T17:15:14Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame"
@@ -207,7 +305,8 @@
      "org": "U.S. Energy Information Administration",
      "country": "United States",
      "funding_type": "government agency",
-     "basis": "model knowledge, not fetched; verify when the host is reachable"
+     "basis": "model knowledge, not fetched; NOT VERIFIED: www.eia.gov -> CONNECT_refused_403 at 2026-11-24T17:15:14Z. Host not allowed in this environment. Origin stays model knowledge, flagged.",
+     "status": "NOT_VERIFIED"
     }
    ],
    "source_origin_note": "single source = consistent scale, shared frame",
@@ -339,8 +438,35 @@
       {
        "org": "V-Dem Institute, University of Gothenburg",
        "country": "Sweden",
-       "funding_type": "university institute, grant-funded",
-       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       "funding_type": "university institute; funders page lists private foundations and public research funders (names on the page include Knut and Alice Wallenberg Foundation, Riksbankens Jubileumsfond, European Research Council, Swedish Research Council, National Science Foundation, European Commission, Research Council of Norway, Volkswagen Stiftung); list not exhaustive here",
+       "basis": "verified from the org's own pages (URL + fetch time below)",
+       "declared_before_verification": {
+        "country": "Sweden",
+        "funding_type": "university institute, grant-funded",
+        "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       },
+       "status": "VERIFIED",
+       "evidence": [
+        {
+         "url": "https://www.v-dem.net/about/v-dem-project/",
+         "fetched_utc": "2026-11-24T17:12:09Z",
+         "page_sha256": "c7b91cdb7ce925089f8b710fce452fd9159c08f939594df5ce16e138e740fc59",
+         "quote": "The Headquarters is based at the V-Dem Institute at the Department of Political Science, University of Gothenburg, Sweden."
+        },
+        {
+         "url": "https://www.v-dem.net/about/funders/",
+         "fetched_utc": "2026-11-24T17:14:06Z",
+         "page_sha256": "7c7c53add0d2f8816627a8045408b75e110d395646b6e617b8cbc38a7cc810c7",
+         "quote": "While V-Dem accepts contributions from a wide range of sources, we value our academic freedom and integrity deeply."
+        },
+        {
+         "url": "https://www.v-dem.net/about/funders/",
+         "fetched_utc": "2026-11-24T17:14:06Z",
+         "page_sha256": "7c7c53add0d2f8816627a8045408b75e110d395646b6e617b8cbc38a7cc810c7",
+         "quote": "Host Institution University of Gothenburg"
+        }
+       ],
+       "differs_from_declared": "no (detail added: funder names; the page mixes government research councils, the European Commission and private foundations)"
       }
      ]
     },
@@ -367,8 +493,29 @@
       {
        "org": "British Geological Survey (UK Research and Innovation / NERC)",
        "country": "United Kingdom",
-       "funding_type": "government research body",
-       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       "funding_type": "public research centre under UKRI-NERC; about half public core funding, the remainder commissioned research from public and private sectors",
+       "basis": "verified from the org's own pages (URL + fetch time below)",
+       "declared_before_verification": {
+        "country": "United Kingdom",
+        "funding_type": "government research body",
+        "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       },
+       "status": "VERIFIED",
+       "evidence": [
+        {
+         "url": "https://www.bgs.ac.uk/about-bgs/",
+         "fetched_utc": "2026-11-24T17:12:11Z",
+         "page_sha256": "2ace1733e0b0438ba46655690ca3fd58c78a82214d39a35ceffd629d296e4a73",
+         "quote": "We are part of UK Research and Innovation (UKRI) and a research centre under the Natural Environment Research Council (NERC), with an independent BGS Board created in 2018."
+        },
+        {
+         "url": "https://www.bgs.ac.uk/about-bgs/",
+         "fetched_utc": "2026-11-24T17:12:11Z",
+         "page_sha256": "2ace1733e0b0438ba46655690ca3fd58c78a82214d39a35ceffd629d296e4a73",
+         "quote": "about 50 per cent of which comes from UKRI-NERC\u2019s National Capability funding, with the remainder coming from commissioned research from the public and private sectors."
+        }
+       ],
+       "differs_from_declared": "partly: declared 'government research body'. The org's page states about half of turnover is commissioned research, some of it from the private sector."
       }
      ]
     },
@@ -381,9 +528,31 @@
      "source_origin": [
       {
        "org": "Uppsala Conflict Data Program, Uppsala University",
-       "country": "Sweden",
-       "funding_type": "university programme, grant-funded",
-       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       "country": "Sweden (funder is the Swedish Research Council; the page does not name a country for the university)",
+       "funding_type": "university programme; funded through DEMSCORE, a Swedish Research Council national research infrastructure grant",
+       "basis": "verified from the org's own pages (URL + fetch time below)",
+       "declared_before_verification": {
+        "country": "Sweden",
+        "funding_type": "university programme, grant-funded",
+        "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+       },
+       "status": "VERIFIED",
+       "evidence": [
+        {
+         "url": "https://ucdp.uu.se/downloads/",
+         "fetched_utc": "2026-11-24T17:15:16Z",
+         "page_sha256": "db03b5cc3756df5b50dc297069eaa4a1eec08ecd0826924f17cfffcd0cfbe1e5",
+         "quote": "Uppsala University Department of Peace and Conflict Research UCDP Uppsala Conflict Data Program"
+        },
+        {
+         "url": "https://ucdp.uu.se/downloads/",
+         "fetched_utc": "2026-11-24T17:15:16Z",
+         "page_sha256": "db03b5cc3756df5b50dc297069eaa4a1eec08ecd0826924f17cfffcd0cfbe1e5",
+         "quote": "UCDP is part of and funded by DEMSCORE, national research infrastructure grant 2021-00162 from the Swedish Research Council."
+        }
+       ],
+       "differs_from_declared": "no (detail added: named funder is a state research council)",
+       "note": "ucdp.uu.se/about is a script-rendered page with no text in the fetched HTML; the downloads page on the same host carries the statement. The university's own site (www.uu.se) is not an allowed host."
       }
      ]
     },
@@ -412,7 +581,49 @@
    },
    "source_origin_note": "single source = consistent scale, shared frame",
    "filling_rule": "the filling step reads the declared sources and DECLARED.json only. It never opens table/labels.json.",
-   "stays_void": "citizen_override (no declared source reachable), chokepoints, policy events, labels"
+   "stays_void": "citizen_override (no declared source reachable), chokepoints, policy events, labels",
+   "step3_verify_origins": {
+    "utc": "2026-11-24",
+    "rule": "an origin is VERIFIED only from the org's own page, with a quote that is present in the fetched bytes (asserted by the script that wrote this). Declared values are kept under declared_before_verification. Verification reads funding statements only; it reads no country data.",
+    "unreachable_probe": {
+     "ourworldindata.org": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:13Z"
+     },
+     "www.energyinst.org": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:14Z"
+     },
+     "www.usgs.gov": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:14Z"
+     },
+     "www.iea.org": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:14Z"
+     },
+     "comtradeplus.un.org": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:14Z"
+     },
+     "www.eia.gov": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:14Z"
+     },
+     "free.law": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:15Z"
+     },
+     "www.courtlistener.com": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:15Z"
+     },
+     "www.uu.se": {
+      "result": "CONNECT_refused_403",
+      "utc": "2026-11-24T17:15:15Z"
+     }
+    }
+   }
   }
  ]
 }
