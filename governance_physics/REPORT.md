@@ -9,29 +9,41 @@ No verdict on any regime is made here and no country is ranked.
 
 ```text
 field                    USA  CHN  IRN  RUS  IND  BRA  CHE  NOR
-candidate_filter         V    V    V    V    V    V    V    V  
-economic_rules_set_by    V    V    V    V    V    V    V    V  
+candidate_filter         ok   ok   ok   ok   ok   ok   ok   ok 
+economic_rules_set_by    V    ok   ok   ok   ok   ok   ok   ok 
 citizen_override         V    V    V    V    V    V    V    V  
 surveillance_decided_by  V    V    V    V    V    V    V    V  
-dissent_cost             V    V    V    V    V    V    V    V  
+dissent_cost             ok   ok   ok   ok   ok   ok   ok   ok 
 energy_base              ok   ok   ok   ok   ok   ok   ok   ok 
-critical_minerals        V    V    V    V    V    V    V    V  
+critical_minerals        V    ok   V    ok   ok   ok   V    ok 
 chokepoints              V    V    V    V    V    V    V    V  
 
-ok = filled, V = VOID.  filled 8 of 64 cells.
+ok = filled, V = VOID.  filled 36 of 64 cells.
 labels table: 0 of 16 label cells filled.
 ```
 
-VOID reasons, one per field (the same for every country):
+A filled cell can still hold VOID parts (one source read, another not). Sources per
+filled field, with the parts left VOID:
 
 ```text
-candidate_filter         source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-economic_rules_set_by    source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-citizen_override         source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-surveillance_decided_by  source not read in this run (open); no value typed from memory
-dissent_cost             source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-critical_minerals        source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory
-chokepoints              source not read in this run (not reachable from this run: proxy refused CONNECT (403), probed 2026-11-24T16:58:18Z); no value typed from memory; stays VOID: needs trade-flow data (Comtrade blocked)
+candidate_filter         constitute             filled for 8 of 8 filled countries
+candidate_filter         v-dem                  filled for 0 of 8 filled countries
+economic_rules_set_by    central_bank_statute   filled for 0 of 7 filled countries
+economic_rules_set_by    constitute             filled for 7 of 7 filled countries
+dissent_cost             cpj                    filled for 0 of 8 filled countries
+dissent_cost             rsf                    filled for 8 of 8 filled countries
+dissent_cost             v-dem                  filled for 0 of 8 filled countries
+critical_minerals        processing_share       filled for 0 of 5 filled countries
+```
+
+VOID reasons, per field (countries sharing a reason are grouped):
+
+```text
+economic_rules_set_by    [USA] constitute: Constitute tags no section of United_States_of_America_1992 with the declared topics (bank, budget, balbudgt). No tagged section is not the same as no rule in law.; central_bank_statute: no source declared in A3; not read
+citizen_override         [USA CHN IRN RUS IND BRA CHE NOR] stays VOID (A3): no source declared; CourtListener not reachable
+surveillance_decided_by  [USA CHN IRN RUS IND BRA CHE NOR] V-Dem file not read: the download on v-dem.net is behind a form that requires an email address, a gender field and approval of personal-data processing. Not submitted on the owner's behalf; owner decision. Form seen 2026-11-24. The only declared source for this field is V-Dem.
+critical_minerals        [USA IRN CHE] no commodity-year has production, imports and exports on one same-basis line for this country in the source
+chokepoints              [USA CHN IRN RUS IND BRA CHE NOR] stays VOID: needs trade-flow data; no source declared in A3
 ```
 
 ## energy_base: latest year with both production and consumption in the source
@@ -67,8 +79,10 @@ NOR   2000-2025   oil 25 of 26   gas 25 of 26   coal 17 of 26
 ## Similarity on functional fields only
 
 Labels never enter. A pair's similarity is taken over the fields filled for both.
-Only energy_base is filled, so every number below is energy-balance similarity and
-nothing else. It is not a country similarity.
+A distance is declared only for energy_base; the fields filled since hold quoted text,
+an index score or one mineral ratio and have no declared distance, so they do not enter.
+Every number below is energy-balance similarity and nothing else. It is not a country
+similarity.
 
 ```text
       USA    CHN    IRN    RUS    IND    BRA    CHE    NOR
@@ -90,39 +104,81 @@ Comparisons that fall back to an older year: coal 2016, gas 2016, oil 2016.
 do resource-stress changes lead policy / conflict events beyond a shuffled-date null?
 
 ```text
-USA   NOT RUN  fewer than 3 dated events with a full lead window (0)
-CHN   NOT RUN  fewer than 3 dated events with a full lead window (0)
-IRN   NOT RUN  fewer than 3 dated events with a full lead window (0)
-RUS   NOT RUN  fewer than 3 dated events with a full lead window (0)
-IND   NOT RUN  fewer than 3 dated events with a full lead window (0)
-BRA   NOT RUN  fewer than 3 dated events with a full lead window (0)
+USA   NOT RUN  fewer than 3 dated events with a full lead window (2)
+CHN   RUN  n 3  observed +0.0239  null mean +0.0255  null 5..95 +0.0152..+0.0362  share null >= obs 0.598
+IRN   RUN  n 10  observed +0.0126  null mean +0.0328  null 5..95 +0.0201..+0.0451  share null >= obs 1.000
+RUS   RUN  n 6  observed +0.0185  null mean +0.0129  null 5..95 +0.0061..+0.0206  share null >= obs 0.101
+IND   RUN  n 10  observed +0.0284  null mean +0.0274  null 5..95 +0.0231..+0.0315  share null >= obs 0.354
+BRA   NOT RUN  fewer than 3 dated events with a full lead window (1)
 CHE   NOT RUN  fewer than 3 dated events with a full lead window (0)
 NOR   NOT RUN  fewer than 3 dated events with a full lead window (0)
 ```
 
-The events file is empty (no event source was read), so the test did not run for any
-country. Its code was checked on synthetic series only: a planted three-year lead is
-flagged (self-test); the pure-noise flag rate is the calibration below.
+Events: UCDP conflict episode starts and one-sided-violence run starts, as declared in
+amendment A3. Policy events stay VOID. Events in the file, and events with a full 3-year
+lead window in the energy series:
 
-Calibration (amendment A1): on 200 pure-noise seeds the test flagged 16, alpha = 0.080
-(95% interval 0.050 to 0.126; nominal 0.05). alpha is above nominal: yes. The interval
-excludes nominal: no. A fix is PROPOSED as amendment A2 in DECLARED.json and is not applied.
+```text
+USA   in file   8   with full lead window   2
+CHN   in file  20   with full lead window   3   (1 share a year with another event)
+IRN   in file  26   with full lead window  10   (3 share a year with another event)
+RUS   in file  22   with full lead window   6   (1 share a year with another event)
+IND   in file  49   with full lead window  10   (2 share a year with another event)
+BRA   in file   3   with full lead window   1
+CHE   in file   0   with full lead window   0
+NOR   in file   0   with full lead window   0
+```
+
+Flags, each with the calibrated alpha beside it. A flag is share null >= observed at or
+below the threshold in force. It is a reading of this one test, not a finding about a country.
+
+```text
+CHN   p 0.598  flag no     threshold 0.038  alpha at threshold 0.0490 (in-sample, 2000 noise seeds)
+IRN   p 1.000  flag no     threshold 0.038  alpha at threshold 0.0490 (in-sample, 2000 noise seeds)
+RUS   p 0.101  flag no     threshold 0.038  alpha at threshold 0.0490 (in-sample, 2000 noise seeds)
+IND   p 0.354  flag no     threshold 0.038  alpha at threshold 0.0490 (in-sample, 2000 noise seeds)
+```
+
+4 countries ran, 0 flagged. With 4 tests at alpha 0.0490 each, about 0.20 flags are expected
+from noise alone. No pooled verdict is made.
+
+Limits of this run: the null redraws distinct years, while a country's events can share a
+year (counts above); the calibration did not cover that case. The stress series is energy
+only. Conflict events only.
+
+Calibration: amendment A1, 200 pure-noise seeds, flagged 16 at 0.05, alpha = 0.080 (95% interval
+0.050 to 0.126). Amendment A2 step 1, 2000 seeds: flagged 121, alpha = 0.0605 (95% interval 0.0509 to
+0.0718); the interval excludes 0.05, so A2 step 2 applies: threshold in force 0.038, alpha at
+that threshold 0.0490, read on the same 2000 seeds.
 
 ## Source origin
 
-single source = consistent scale, shared frame. Origins are declaration metadata,
-marked in DECLARED.json as model knowledge, not fetched.
+single source = consistent scale, shared frame. VERIFIED = read from the org's own page
+(URL, fetch time and quote in DECLARED.json). NOT_VERIFIED = host not reachable; the entry
+is model knowledge, flagged.
 
 ```text
-candidate_filter         Comparative Constitutions Project (Constitute) / United States / university project
-economic_rules_set_by    Comparative Constitutions Project (Constitute) / United States / university project; each country's central bank / the country itself / state institution
-citizen_override         Free Law Project (CourtListener) / United States / non-profit; national referendum registers / the country itself / state institution
+candidate_filter         VERIFIED     Comparative Constitutions Project (Constitute) / United States (two US universities named; the page does not name a country) / university project; seeded by a corporate grant (Google Ideas, now Jigsaw), further support from the Indigo Trust and IC2
+                                      differs: yes: declared 'university project' only. The org's page names a Google Ideas (Jigsaw) seed grant and two other funders.
+economic_rules_set_by    VERIFIED     Comparative Constitutions Project (Constitute) / United States (two US universities named; the page does not name a country) / university project; seeded by a corporate grant (Google Ideas, now Jigsaw), further support from the Indigo Trust and IC2
+                                      differs: yes: declared 'university project' only. The org's page names a Google Ideas (Jigsaw) seed grant and two other funders.
+economic_rules_set_by    NOT_VERIFIED each country's central bank / the country itself / state institution
+citizen_override         NOT_VERIFIED Free Law Project (CourtListener) / United States / non-profit
+citizen_override         NOT_VERIFIED national referendum registers / the country itself / state institution
 surveillance_decided_by  no source declared
-dissent_cost             Reporters Without Borders (RSF) / France / non-profit; Committee to Protect Journalists (CPJ) / United States / non-profit
-energy_base              Our World in Data (Global Change Data Lab) / United Kingdom / non-profit; Energy Institute, Statistical Review of World Energy (upstream of the file) / United Kingdom / professional membership body
-critical_minerals        U.S. Geological Survey / United States / government agency; International Energy Agency / France (intergovernmental) / intergovernmental; UN Comtrade / intergovernmental (United Nations) / intergovernmental
-chokepoints              U.S. Energy Information Administration / United States / government agency
-events                   Uppsala Conflict Data Program (UCDP) / Sweden / university programme
+dissent_cost             VERIFIED     Reporters Without Borders (RSF) / France / non-profit; funded by public donations and memberships, French and international public subsidies, private sponsorships, album sales
+                                      differs: yes: declared 'non-profit' only. The org's page lists French and international public subsidies among its funding; shares by type are shown as a chart on the page and were not read.
+dissent_cost             VERIFIED     Committee to Protect Journalists (CPJ) / United States / 501(c)3 non-profit; individuals, corporations, foundations; states it accepts no government funding
+energy_base              NOT_VERIFIED Our World in Data (Global Change Data Lab) / United Kingdom / non-profit
+energy_base              NOT_VERIFIED Energy Institute, Statistical Review of World Energy (upstream of the file) / United Kingdom / professional membership body
+critical_minerals        NOT_VERIFIED U.S. Geological Survey / United States / government agency
+critical_minerals        NOT_VERIFIED International Energy Agency / France (intergovernmental) / intergovernmental
+critical_minerals        NOT_VERIFIED UN Comtrade / intergovernmental (United Nations) / intergovernmental
+chokepoints              NOT_VERIFIED U.S. Energy Information Administration / United States / government agency
+A3 v-dem                 VERIFIED     V-Dem Institute, University of Gothenburg / Sweden / university institute; funders page lists private foundations and public research funders (names on the page include Knut and Alice Wallenberg Foundation, Riksbankens Jubileumsfond, European Research Council, Swedish Research Council, National Science Foundation, European Commission, Research Council of Norway, Volkswagen Stiftung); list not exhaustive here
+A3 bgs                   VERIFIED     British Geological Survey (UK Research and Innovation / NERC) / United Kingdom / public research centre under UKRI-NERC; about half public core funding, the remainder commissioned research from public and private sectors
+                                      differs: partly: declared 'government research body'. The org's page states about half of turnover is commissioned research, some of it from the private sector.
+A3 ucdp                  VERIFIED     Uppsala Conflict Data Program, Uppsala University / Sweden (funder is the Swedish Research Council; the page does not name a country for the university) / university programme; funded through DEMSCORE, a Swedish Research Council national research infrastructure grant
 ```
 
 ## Provenance
@@ -134,5 +190,9 @@ Institute Statistical Review; its own README says it is no longer updated and th
 primary-energy method has since changed. It is not copied here; only derived shares are.
 A current release was looked for on GitHub on 2026-11-24 and not found there; the host
 that carries it refused the connection.
-Every other source named in the declaration was not reachable from this run and nothing
-was typed in its place.
+Filled since (amendment A3, `fill.py`): RSF, Constitute, UCDP and BGS, each with URL, fetch
+time and sha256 in `series/fill_sources.json`. Their files are not copied here. Those cells
+carry the sources' own terms (Constitute CC BY-NC 3.0; UCDP CC BY 4.0; BGS copyright NERC,
+non-commercial research use; RSF terms not stated on the page read); CC0 covers the
+structure and the code. V-Dem and CPJ were not read; the reasons are in the VOID cells.
+Every source not reachable from this run stays VOID and nothing was typed in its place.

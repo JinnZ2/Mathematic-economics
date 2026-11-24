@@ -1,43 +1,164 @@
 {
  "countries": {
   "BRA": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "n_events": 1,
+   "n_events_in_file": 3,
+   "reason": "fewer than 3 dated events with a full lead window (1)",
    "state": "NOT RUN"
   },
   "CHE": {
    "n_events": 0,
+   "n_events_in_file": 0,
    "reason": "fewer than 3 dated events with a full lead window (0)",
    "state": "NOT RUN"
   },
   "CHN": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
-   "state": "NOT RUN"
+   "alpha_beside_flag": {
+    "at_0.05_on_2000_seeds": 0.0605,
+    "at_0.05_on_200_seeds": 0.08,
+    "at_threshold_in_force": 0.049,
+    "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)",
+    "threshold_in_force": 0.038,
+    "wilson95_on_2000_seeds": [
+     0.0509,
+     0.0718
+    ]
+   },
+   "effect": -0.0016349948888889007,
+   "event_years_used": [
+    2008,
+    2008,
+    2020
+   ],
+   "events_sharing_a_year": 1,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "n_events": 3,
+   "n_events_in_file": 20,
+   "null_mean": 0.025521328222222226,
+   "null_p05": 0.015158333333333341,
+   "null_p95": 0.03620866666666666,
+   "observed": 0.023886333333333325,
+   "share_null_ge_observed": 0.598,
+   "state": "RUN"
   },
   "IND": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
-   "state": "NOT RUN"
+   "alpha_beside_flag": {
+    "at_0.05_on_2000_seeds": 0.0605,
+    "at_0.05_on_200_seeds": 0.08,
+    "at_threshold_in_force": 0.049,
+    "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)",
+    "threshold_in_force": 0.038,
+    "wilson95_on_2000_seeds": [
+     0.0509,
+     0.0718
+    ]
+   },
+   "effect": 0.0009770150666666734,
+   "event_years_used": [
+    2008,
+    2009,
+    2012,
+    2013,
+    2013,
+    2014,
+    2015,
+    2020,
+    2025,
+    2025
+   ],
+   "events_sharing_a_year": 2,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "n_events": 10,
+   "n_events_in_file": 49,
+   "null_mean": 0.027428318266666665,
+   "null_p05": 0.023059766666666662,
+   "null_p95": 0.031488233333333324,
+   "observed": 0.028405333333333338,
+   "share_null_ge_observed": 0.354,
+   "state": "RUN"
   },
   "IRN": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
-   "state": "NOT RUN"
+   "alpha_beside_flag": {
+    "at_0.05_on_2000_seeds": 0.0605,
+    "at_0.05_on_200_seeds": 0.08,
+    "at_threshold_in_force": 0.049,
+    "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)",
+    "threshold_in_force": 0.038,
+    "wilson95_on_2000_seeds": [
+     0.0509,
+     0.0718
+    ]
+   },
+   "effect": -0.020135185433333327,
+   "event_years_used": [
+    2005,
+    2005,
+    2009,
+    2016,
+    2017,
+    2018,
+    2018,
+    2018,
+    2019,
+    2023
+   ],
+   "events_sharing_a_year": 3,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "n_events": 10,
+   "n_events_in_file": 26,
+   "null_mean": 0.03276451876666666,
+   "null_p05": 0.0201458,
+   "null_p95": 0.045059166666666664,
+   "observed": 0.012629333333333334,
+   "share_null_ge_observed": 1.0,
+   "state": "RUN"
   },
   "NOR": {
    "n_events": 0,
+   "n_events_in_file": 0,
    "reason": "fewer than 3 dated events with a full lead window (0)",
    "state": "NOT RUN"
   },
   "RUS": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
-   "state": "NOT RUN"
+   "alpha_beside_flag": {
+    "at_0.05_on_2000_seeds": 0.0605,
+    "at_0.05_on_200_seeds": 0.08,
+    "at_threshold_in_force": 0.049,
+    "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)",
+    "threshold_in_force": 0.038,
+    "wilson95_on_2000_seeds": [
+     0.0509,
+     0.0718
+    ]
+   },
+   "effect": 0.005639450999999995,
+   "event_years_used": [
+    2007,
+    2015,
+    2022,
+    2022,
+    2023,
+    2024
+   ],
+   "events_sharing_a_year": 1,
+   "flag": false,
+   "flag_threshold": 0.038,
+   "n_events": 6,
+   "n_events_in_file": 22,
+   "null_mean": 0.012883549000000003,
+   "null_p05": 0.006086388888888895,
+   "null_p95": 0.020571000000000002,
+   "observed": 0.018522999999999998,
+   "share_null_ge_observed": 0.101,
+   "state": "RUN"
   },
   "USA": {
-   "n_events": 0,
-   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "n_events": 2,
+   "n_events_in_file": 8,
+   "reason": "fewer than 3 dated events with a full lead window (2)",
    "state": "NOT RUN"
   }
  },

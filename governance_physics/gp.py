@@ -315,13 +315,30 @@ def cmd_test():
     d = declared()["test"]
     series = _load("series/energy.json")["countries"]
     events = _load("events/events.json")["events"]
+    thr = flag_threshold()
+    c2 = _load("series/calibration_2000.json")
+    alpha = {"at_threshold_in_force": c2["alpha_at_threshold_in_force"], "threshold_in_force": thr,
+             "at_0.05_on_2000_seeds": c2["result"]["alpha"], "wilson95_on_2000_seeds": c2["result"]["wilson95"],
+             "at_0.05_on_200_seeds": _load("series/calibration.json")["result"]["alpha"],
+             "note": c2["note"]}
     res = {}
     for iso in sorted(series):
         ev = [int(e["date"][:4]) for e in events if e["iso3"] == iso]
-        res[iso] = lead_test(stress_changes(series[iso]), ev, d["lead_window_years"])
+        r = lead_test(stress_changes(series[iso]), ev, d["lead_window_years"])
+        r["n_events_in_file"] = len(ev)
+        if r["state"] == "RUN":
+            st = stress_changes(series[iso])
+            used = sorted(e for e in ev if all(st.get(k) is not None for k in range(e - 3, e)) and e in st)
+            r["event_years_used"] = used
+            r["events_sharing_a_year"] = len(used) - len(set(used))
+            r["flag_threshold"] = thr
+            r["flag"] = r["share_null_ge_observed"] <= thr
+            r["alpha_beside_flag"] = alpha
+        res[iso] = r
     _write("series/test_result.json", {"record": "lead test, as declared", "declared": d, "countries": res})
     for iso, r in res.items():
-        print(iso, r["state"], r.get("reason", ""))
+        print(iso, r["state"], r.get("reason", "") or "n %d p %.3f flag %s (threshold %.3f, alpha %.4f)"
+              % (r["n_events"], r["share_null_ge_observed"], r["flag"], thr, alpha["at_threshold_in_force"]))
     return res
 
 
@@ -348,10 +365,27 @@ def cmd_report():
           "labels table: %d of %d label cells filled."
           % (sum(lb["countries"][i][k]["status"] != "VOID" for i in isos for k in lb["countries"][i]),
              2 * len(isos)), "```", "",
-          "VOID reasons, one per field (the same for every country):", "", "```text"]
+          "A filled cell can still hold VOID parts (one source read, another not). Sources per",
+          "filled field, with the parts left VOID:", "", "```text"]
     for f in fields:
-        if fn["countries"][isos[0]][f]["status"] == "VOID":
-            L.append("%-24s %s" % (f, fn["countries"][isos[0]][f]["reason"]))
+        parts = {}
+        for i in isos:
+            c = fn["countries"][i][f]
+            if c["status"] != "VOID" and isinstance(c.get("value"), dict):
+                for k, v in c["value"].items():
+                    if isinstance(v, dict) and "status" in v:
+                        parts.setdefault(k, []).append(i if v["status"] != "VOID" else None)
+        for k, got in parts.items():
+            n = sum(g is not None for g in got)
+            L.append("%-24s %-22s filled for %d of %d filled countries" % (f, k, n, len(got)))
+    L += ["```", "", "VOID reasons, per field (countries sharing a reason are grouped):", "", "```text"]
+    for f in fields:
+        rs = {}
+        for i in isos:
+            if fn["countries"][i][f]["status"] == "VOID":
+                rs.setdefault(fn["countries"][i][f]["reason"], []).append(i)
+        for reason, who in rs.items():
+            L.append("%-24s [%s] %s" % (f, " ".join(who), reason))
     L += ["```", "", "## energy_base: latest year with both production and consumption in the source", "",
           "net import share = (consumption - production) / consumption; positive = net importer.",
           "balance = (consumption - production) / (consumption + production), bounded -1..1.", "", "```text",
@@ -371,8 +405,10 @@ def cmd_report():
             "%s %d of %d" % (f, sum(series[i][str(y)][f]["balance"] is not None for y in ys), len(ys)) for f in FUELS))
     L += ["```", "", "## Similarity on functional fields only", "",
           "Labels never enter. A pair's similarity is taken over the fields filled for both.",
-          "Only energy_base is filled, so every number below is energy-balance similarity and",
-          "nothing else. It is not a country similarity.", "", "```text", "      " + "    ".join(isos)]
+          "A distance is declared only for energy_base; the fields filled since hold quoted text,",
+          "an index score or one mineral ratio and have no declared distance, so they do not enter.",
+          "Every number below is energy-balance similarity and nothing else. It is not a country",
+          "similarity.", "", "```text", "      " + "    ".join(isos)]
     sim = similarity(fn, series)
     for i in isos:
         row = []
@@ -394,24 +430,63 @@ def cmd_report():
                  "  n %d  observed %+.4f  null mean %+.4f  null 5..95 %+.4f..%+.4f  share null >= obs %.3f"
                  % (r["n_events"], r["observed"], r["null_mean"], r["null_p05"], r["null_p95"],
                     r["share_null_ge_observed"]))))
-    L += ["```", "", "The events file is empty (no event source was read), so the test did not run for any",
-          "country. Its code was checked on synthetic series only: a planted three-year lead is",
-          "flagged (self-test); the pure-noise flag rate is the calibration below.",
-          "", "Calibration (amendment A1): on %d pure-noise seeds the test flagged %d, alpha = %.3f"
+    ev = _load("events/events.json")
+    c2 = _load("series/calibration_2000.json")
+    L += ["```", "", "Events: UCDP conflict episode starts and one-sided-violence run starts, as declared in",
+          "amendment A3. Policy events stay VOID. Events in the file, and events with a full 3-year",
+          "lead window in the energy series:", "", "```text"]
+    for i in isos:
+        r = test[i]
+        L.append("%-5s in file %3d   with full lead window %3d%s"
+                 % (i, r.get("n_events_in_file", 0), r["n_events"],
+                    "   (%d share a year with another event)" % r["events_sharing_a_year"]
+                    if r.get("events_sharing_a_year") else ""))
+    L += ["```", "", "Flags, each with the calibrated alpha beside it. A flag is share null >= observed at or",
+          "below the threshold in force. It is a reading of this one test, not a finding about a country.",
+          "", "```text"]
+    ran = [i for i in isos if test[i]["state"] == "RUN"]
+    for i in ran:
+        r = test[i]
+        a = r["alpha_beside_flag"]
+        L.append("%-5s p %.3f  flag %-5s  threshold %.3f  alpha at threshold %.4f (in-sample, 2000 noise seeds)"
+                 % (i, r["share_null_ge_observed"], "yes" if r["flag"] else "no", r["flag_threshold"],
+                    a["at_threshold_in_force"]))
+    if not ran:
+        L.append("no country ran")
+    L += ["```", "",
+          "%d countries ran, %d flagged. With %d tests at alpha %.4f each, about %.2f flags are expected"
+          % (len(ran), sum(test[i]["flag"] for i in ran), len(ran), c2["alpha_at_threshold_in_force"],
+             len(ran) * c2["alpha_at_threshold_in_force"]),
+          "from noise alone. No pooled verdict is made.",
+          "", "Limits of this run: the null redraws distinct years, while a country's events can share a",
+          "year (counts above); the calibration did not cover that case. The stress series is energy",
+          "only. Conflict events only.",
+          "", "Calibration: amendment A1, %d pure-noise seeds, flagged %d at 0.05, alpha = %.3f (95%% interval"
           % (cal["seeds"], cal["flagged"], cal["alpha"]),
-          "(95%% interval %.3f to %.3f; nominal 0.05). alpha is above nominal: %s. The interval"
-          % (cal["wilson95"][0], cal["wilson95"][1], "yes" if cal["above_nominal"] else "no"),
-          "excludes nominal: %s. A fix is PROPOSED as amendment A2 in DECLARED.json and is not applied."
-          % ("yes" if cal["interval_excludes_nominal"] else "no"),
+          "%.3f to %.3f). Amendment A2 step 1, %d seeds: flagged %d, alpha = %.4f (95%% interval %.4f to"
+          % (cal["wilson95"][0], cal["wilson95"][1], c2["result"]["seeds"], c2["result"]["flagged"],
+             c2["result"]["alpha"], c2["result"]["wilson95"][0]),
+          "%.4f); the interval excludes 0.05, so A2 step 2 applies: threshold in force %.3f, alpha at"
+          % (c2["result"]["wilson95"][1], c2["threshold_in_force"]),
+          "that threshold %.4f, read on the same 2000 seeds." % c2["alpha_at_threshold_in_force"],
           "", "## Source origin", "",
-          "single source = consistent scale, shared frame. Origins are declaration metadata,",
-          "marked in DECLARED.json as model knowledge, not fetched.", "", "```text"]
+          "single source = consistent scale, shared frame. VERIFIED = read from the org's own page",
+          "(URL, fetch time and quote in DECLARED.json). NOT_VERIFIED = host not reachable; the entry",
+          "is model knowledge, flagged.", "", "```text"]
+    a3 = [a for a in d["amendments"] if a["id"] == "A3"][0]
+    def _so(name, so):
+        for s in so:
+            L.append("%-24s %-12s %s / %s / %s" % (name, s.get("status", "NOT_VERIFIED"), s["org"], s["country"],
+                                                    s["funding_type"]))
+            if s.get("differs_from_declared", "no")[:2] != "no":
+                L.append("%-24s %-12s differs: %s" % ("", "", s["differs_from_declared"]))
     for f in fields:
-        so = d["fields"][f]["source_origin"]
-        L.append("%-24s %s" % (f, "; ".join("%s / %s / %s" % (s["org"], s["country"], s["funding_type"])
-                                             for s in so) or "no source declared"))
-    L.append("%-24s %s" % ("events", "; ".join("%s / %s / %s" % (s["org"], s["country"], s["funding_type"])
-                                                for s in d["events"]["source_origin"])))
+        if d["fields"][f]["source_origin"]:
+            _so(f, d["fields"][f]["source_origin"])
+        else:
+            L.append("%-24s no source declared" % f)
+    for k in ("v-dem", "bgs", "ucdp"):
+        _so("A3 " + k, a3["sources"][k]["source_origin"])
     L += ["```", "", "## Provenance", "",
           "Declaration: `DECLARED.json`, committed before any table or series.",
           "Energy source: %s." % owid_source(),
@@ -420,8 +495,12 @@ def cmd_report():
           "primary-energy method has since changed. It is not copied here; only derived shares are.",
           "A current release was looked for on GitHub on 2026-11-24 and not found there; the host",
           "that carries it refused the connection.",
-          "Every other source named in the declaration was not reachable from this run and nothing",
-          "was typed in its place.", ""]
+          "Filled since (amendment A3, `fill.py`): RSF, Constitute, UCDP and BGS, each with URL, fetch",
+          "time and sha256 in `series/fill_sources.json`. Their files are not copied here. Those cells",
+          "carry the sources' own terms (Constitute CC BY-NC 3.0; UCDP CC BY 4.0; BGS copyright NERC,",
+          "non-commercial research use; RSF terms not stated on the page read); CC0 covers the",
+          "structure and the code. V-Dem and CPJ were not read; the reasons are in the VOID cells.",
+          "Every source not reachable from this run stays VOID and nothing was typed in its place.", ""]
     with open(os.path.join(HERE, "REPORT.md"), "w") as f:
         f.write("\n".join(L))
     print("wrote REPORT.md: filled %d of %d" % (filled, len(isos) * len(fields)))
