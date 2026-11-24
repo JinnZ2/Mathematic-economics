@@ -291,6 +291,128 @@
    ],
    "not_done": "nothing in A2 is outstanding",
    "outcome": "see series/calibration_2000.json: alpha at 2000 seeds, its 95% interval, whether step 2 applied, the threshold in force and the alpha at that threshold. The lead test flags a country only when share_null_ge_observed is at or below the threshold in force. Not applied and noted as an alternative: the (k+1)/(n+1) permutation p-value."
+  },
+  {
+   "id": "A3",
+   "utc": "2026-11-24",
+   "title": "declare A3 sources",
+   "declared_before_fetch": true,
+   "before_fetch_note": "declared before any data is fetched from these hosts. Only each host's front page was requested earlier, to see whether it answers; no data page, file or about page had been read.",
+   "rule_unchanged": "same field, same source, same caveat scale for every country. A value is filled only if the source carries it for that country; otherwise VOID + reason. No tag, commodity or definition is swapped after seeing the data: a declared item missing from the file is VOID.",
+   "sources": {
+    "v-dem": {
+     "host": "v-dem.net",
+     "file": "V-Dem country-year dataset, latest version on the site (the 'Full+Others' file if the digital-society indicators are only there)",
+     "note": "expert-coded: each number is a model estimate from country-expert ratings, not a count",
+     "value_taken": "the point estimate as published (the plain tag), latest year in the file, with the year recorded. No rescaling, no combination of tags into a score.",
+     "fields": {
+      "candidate_filter": {
+       "tags": [
+        "v2elrstrct",
+        "v2psparban",
+        "v2psbars",
+        "v2elembaut"
+       ],
+       "reads": "candidate restriction by group; party ban; barriers to parties; election management body autonomy"
+      },
+      "surveillance_decided_by": {
+       "tags": [
+        "v2smgovsmmon",
+        "v2smgovfilprc",
+        "v2smarrest"
+       ],
+       "reads": "digital-society indicators: government social media monitoring; government internet filtering in practice; arrests for political content",
+       "limit": "these read surveillance PRACTICE. They do not say which body decides or whether a public vote exists; those two parts of the field stay VOID."
+      },
+      "dissent_cost": {
+       "tags": [
+        "v2meharjrn",
+        "v2csreprss",
+        "v2clkill",
+        "v2cltort"
+       ],
+       "reads": "harassment of journalists; civil-society repression; freedom from political killings; freedom from torture",
+       "role": "second source beside RSF and CPJ; kept in its own sub-cell, never averaged with them"
+      }
+     },
+     "source_origin": [
+      {
+       "org": "V-Dem Institute, University of Gothenburg",
+       "country": "Sweden",
+       "funding_type": "university institute, grant-funded",
+       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+      }
+     ]
+    },
+    "bgs": {
+     "host": "bgs.ac.uk",
+     "file": "British Geological Survey, World Mineral Statistics: production, imports and exports by country and year",
+     "fields": {
+      "critical_minerals": {
+       "commodities": [
+        "lithium",
+        "cobalt",
+        "rare earths",
+        "graphite",
+        "nickel",
+        "copper"
+       ],
+       "commodities_note": "chosen, no external source",
+       "import_dependence": "(imports - exports) / (production + imports - exports), per commodity per year, same unit within a commodity; a missing term -> VOID for that commodity-year; a zero or negative denominator -> VOID",
+       "processing_share": "country refined (or processed) production / world total of the same line, where the source reports a refined line and a world total; otherwise VOID",
+       "series": "annual, 2000 to latest, into series/minerals.json"
+      }
+     },
+     "source_origin": [
+      {
+       "org": "British Geological Survey (UK Research and Innovation / NERC)",
+       "country": "United Kingdom",
+       "funding_type": "government research body",
+       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+      }
+     ]
+    },
+    "ucdp": {
+     "host": "ucdp.uu.se",
+     "file": "UCDP/PRIO Armed Conflict Dataset (state-based) and UCDP One-sided Violence Dataset, latest versions",
+     "event_rule": "conflict events only. State-based: one event per conflict EPISODE in which the country's government is a primary party (side A or side B), dated at the episode start date (start_date2); a conflict id counts once per episode start. One-sided: one event per actor that is the country's government, dated 1 January of the first year of each unbroken run of active years. kind = conflict. No cause, no effect, no label.",
+     "limit": "episode starts are dated events; ongoing years are not events. Secondary (supporting) parties are not counted.",
+     "window": "events from 2004 onward can have a full 3-year lead window in a series that starts in 2000 (the first stress change is 2001)",
+     "source_origin": [
+      {
+       "org": "Uppsala Conflict Data Program, Uppsala University",
+       "country": "Sweden",
+       "funding_type": "university programme, grant-funded",
+       "basis": "model knowledge, not fetched; to be verified from the org's own about / funding page (step 3)"
+      }
+     ]
+    },
+    "rsf": {
+     "host": "rsf.org",
+     "file": "World Press Freedom Index, latest edition",
+     "value_taken": "global score and rank as published, with the edition year",
+     "field": "dissent_cost"
+    },
+    "cpj": {
+     "host": "cpj.org",
+     "file": "annual prison census",
+     "value_taken": "number of journalists imprisoned on 1 December of the latest census year, per country",
+     "field": "dissent_cost"
+    },
+    "constitute": {
+     "host": "constituteproject.org",
+     "file": "constitution in force, English text",
+     "fields": [
+      "candidate_filter",
+      "economic_rules_set_by"
+     ],
+     "value_taken": "the provision text, quoted, with article reference, found by the site's own topic index: eligibility for head of state / head of government / legislature (candidate_filter); central bank and budget provisions (economic_rules_set_by)",
+     "limit": "the 'elected? y/n' part is recorded only where the quoted provision itself states how the deciding body is chosen; it is not inferred. Otherwise that part is VOID."
+    }
+   },
+   "source_origin_note": "single source = consistent scale, shared frame",
+   "filling_rule": "the filling step reads the declared sources and DECLARED.json only. It never opens table/labels.json.",
+   "stays_void": "citizen_override (no declared source reachable), chokepoints, policy events, labels"
   }
  ]
 }
