@@ -372,7 +372,7 @@ def cmd_report():
                     r["share_null_ge_observed"]))))
     L += ["```", "", "The events file is empty (no event source was read), so the test did not run for any",
           "country. Its code was checked on synthetic series only: a planted three-year lead is",
-          "flagged, and pure noise is flagged at about the nominal rate (see the self-test).",
+          "flagged (self-test); the pure-noise flag rate is the calibration below.",
           "", "Calibration (amendment A1): on %d pure-noise seeds the test flagged %d, alpha = %.3f"
           % (cal["seeds"], cal["flagged"], cal["alpha"]),
           "(95%% interval %.3f to %.3f; nominal 0.05). alpha is above nominal: %s. The interval"

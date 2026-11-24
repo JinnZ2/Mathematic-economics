@@ -102,7 +102,7 @@ NOR   NOT RUN  fewer than 3 dated events with a full lead window (0)
 
 The events file is empty (no event source was read), so the test did not run for any
 country. Its code was checked on synthetic series only: a planted three-year lead is
-flagged, and pure noise is flagged at about the nominal rate (see the self-test).
+flagged (self-test); the pure-noise flag rate is the calibration below.
 
 Calibration (amendment A1): on 200 pure-noise seeds the test flagged 16, alpha = 0.080
 (95% interval 0.050 to 0.126; nominal 0.05). alpha is above nominal: yes. The interval
