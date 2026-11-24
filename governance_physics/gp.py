@@ -192,21 +192,45 @@ def lead_test(stress, event_years, window=3, draws=1000, seed=20261124, min_even
             "effect": obs - sum(null) / len(null)}
 
 
-def calibrate(seeds=200):
-    """Amendment A1: false-flag rate of the lead test on pure noise."""
-    flags = []
+def noise_pvalues(seeds):
+    out = []
     for seed in range(seeds):
         r = random.Random(seed)
         stress = {y: r.gauss(0, 0.01) for y in range(1960, 2025)}
         events = sorted(r.sample(range(1970, 2024), 8))
-        flags.append(lead_test(stress, events, seed=seed)["share_null_ge_observed"] <= 0.05)
+        out.append(lead_test(stress, events, seed=seed)["share_null_ge_observed"])
+    return out
+
+
+def calibrated_threshold(pvals, target=0.05):
+    """Amendment A2 step 2: the largest threshold on share_null_ge_observed
+    whose false-flag rate on the calibration seeds is at most target."""
+    best = None
+    for t in sorted(set(pvals)):
+        if sum(p <= t for p in pvals) / len(pvals) <= target:
+            best = t
+    return best
+
+
+def flag_threshold():
+    """The threshold in force: 0.05 as first declared, or the calibrated one
+    once series/calibration_2000.json records it (amendment A2)."""
+    try:
+        return _load("series/calibration_2000.json")["threshold_in_force"]
+    except (IOError, OSError, KeyError):
+        return 0.05
+
+
+def calibrate(seeds=200):
+    """Amendment A1: false-flag rate of the lead test on pure noise."""
+    flags = [p <= 0.05 for p in noise_pvalues(seeds)]
     k, n, z = sum(flags), seeds, 1.96
     p = k / n
     centre = (p + z * z / (2 * n)) / (1 + z * z / n)
     half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
     return {"seeds": n, "flagged": k, "alpha": p, "wilson95": [round(centre - half, 4), round(centre + half, 4)],
             "nominal": 0.05, "above_nominal": p > 0.05,
-            "interval_excludes_nominal": centre - half > 0.05}
+            "interval_excludes_nominal": centre - half > 0.05 or centre + half < 0.05}
 
 
 # --------------------------------------------------------------- similarity
@@ -451,6 +475,21 @@ if __name__ == "__main__":
         cmd_test()
     elif a == ["report"]:
         cmd_report()
+    elif a == ["calibrate", "2000"]:
+        c = calibrate(2000)
+        pv = noise_pvalues(2000)
+        thr = calibrated_threshold(pv) if c["interval_excludes_nominal"] and c["above_nominal"] else 0.05
+        _write("series/calibration_2000.json", {
+            "record": "lead-test calibration, amendment A2", "result": c,
+            "design": "as amendment A1, 2000 seeds (0..1999)",
+            "step_2_applies": bool(c["interval_excludes_nominal"] and c["above_nominal"]),
+            "threshold_in_force": thr,
+            "alpha_at_threshold_in_force": sum(p <= thr for p in pv) / len(pv),
+            "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)"})
+        print("threshold in force %.3f ; alpha at that threshold %.4f" % (thr, sum(p <= thr for p in pv) / len(pv)))
+        print("alpha = %d / %d = %.4f   95%% interval %.4f to %.4f   excludes 0.05: %s"
+              % (c["flagged"], c["seeds"], c["alpha"], c["wilson95"][0], c["wilson95"][1],
+                 c["interval_excludes_nominal"]))
     elif a == ["calibrate"]:
         c = calibrate()
         _write("series/calibration.json", {"record": "lead-test calibration, amendment A1", "result": c,

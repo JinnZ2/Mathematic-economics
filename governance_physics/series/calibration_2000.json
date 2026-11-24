@@ -1,0 +1,20 @@
+{
+ "alpha_at_threshold_in_force": 0.049,
+ "design": "as amendment A1, 2000 seeds (0..1999)",
+ "note": "threshold and its alpha are read on the same 2000 seeds (in-sample)",
+ "record": "lead-test calibration, amendment A2",
+ "result": {
+  "above_nominal": true,
+  "alpha": 0.0605,
+  "flagged": 121,
+  "interval_excludes_nominal": true,
+  "nominal": 0.05,
+  "seeds": 2000,
+  "wilson95": [
+   0.0509,
+   0.0718
+  ]
+ },
+ "step_2_applies": true,
+ "threshold_in_force": 0.038
+}

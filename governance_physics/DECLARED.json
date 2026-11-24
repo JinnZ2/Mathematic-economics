@@ -282,14 +282,15 @@
    "id": "A2",
    "utc": "2026-11-24",
    "title": "lead-test false-flag rate",
-   "status": "PROPOSED, NOT APPLIED",
+   "status": "STEP 1 RUN 2026-11-24; step 2 applied per its own rule; step 3 in force",
    "why": "amendment A1's calibration returned alpha above the nominal 0.05 (see series/calibration.json). At 200 seeds the 95% interval still includes 0.05, so 200 seeds cannot say whether the test over-flags or the excess is seed noise.",
    "proposal": [
     "step 1: rerun the same calibration at 2000 seeds, design otherwise unchanged",
     "step 2, only if the 2000-seed 95% interval excludes 0.05: lower the flag threshold on share_null_ge_observed from 0.05 to the largest value whose calibrated alpha is at most 0.05, and record the new threshold with its calibration",
     "step 3: until A2 is decided, any real flag from the lead test is reported together with the A1 alpha"
    ],
-   "not_done": "none of these steps has been run or applied"
+   "not_done": "nothing in A2 is outstanding",
+   "outcome": "see series/calibration_2000.json: alpha at 2000 seeds, its 95% interval, whether step 2 applied, the threshold in force and the alpha at that threshold. The lead test flags a country only when share_null_ge_observed is at or below the threshold in force. Not applied and noted as an alternative: the (k+1)/(n+1) permutation p-value."
   }
  ]
 }
