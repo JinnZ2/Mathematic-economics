@@ -1,0 +1,53 @@
+{
+ "countries": {
+  "BRA": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "CHE": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "CHN": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "IND": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "IRN": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "NOR": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "RUS": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  },
+  "USA": {
+   "reason": "no minerals source declared or read: NOT DECLARED. USGS Mineral Commodity Summaries reports net import reliance for the United States only, which breaks the same-basis rule; IEA critical minerals data and UN Comtrade are candidates",
+   "source": null,
+   "status": "VOID",
+   "value": null
+  }
+ },
+ "record": "annual mineral import dependence"
+}

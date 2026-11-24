@@ -192,8 +192,10 @@ def lead_test(stress, event_years, window=3, draws=1000, seed=20261124, min_even
 
 
 # --------------------------------------------------------------- similarity
-def similarity(functional):
-    """Functional fields only.  This function is never given the labels table."""
+def similarity(functional, series):
+    """Functional fields only.  This function is never given the labels table.
+    energy_base is compared per fuel at the latest year where BOTH countries
+    have a balance, as declared; a fuel with no common year is left out."""
     isos = sorted(functional["countries"])
     out = {}
     for i in isos:
@@ -206,13 +208,20 @@ def similarity(functional):
                 if a[field]["status"] == "VOID" or b[field]["status"] == "VOID":
                     continue
                 if field == "energy_base":
-                    ds = [abs(a[field]["value"][f]["balance"] - b[field]["value"][f]["balance"]) / 2.0
-                          for f in FUELS
-                          if a[field]["value"][f]["balance"] is not None and b[field]["value"][f]["balance"] is not None]
+                    ds, yrs = [], {}
+                    for f in FUELS:
+                        common = [y for y in series[i] if y in series[j]
+                                  and series[i][y][f]["balance"] is not None
+                                  and series[j][y][f]["balance"] is not None]
+                        if common:
+                            y = max(common, key=int)
+                            ds.append(abs(series[i][y][f]["balance"] - series[j][y][f]["balance"]) / 2.0)
+                            yrs[f] = int(y)
                     if ds:
                         dists[field] = sum(ds) / len(ds)
+                        years_used = yrs
             out["%s-%s" % (i, j)] = ({"similarity": round(1 - sum(dists.values()) / len(dists), 4),
-                                      "fields_used": sorted(dists)} if dists else
+                                      "fields_used": sorted(dists), "energy_years": years_used} if dists else
                                      {"similarity": None, "fields_used": [], "reason": "no shared filled field"})
     return out
 
@@ -321,7 +330,7 @@ def cmd_report():
           "Labels never enter. A pair's similarity is taken over the fields filled for both.",
           "Only energy_base is filled, so every number below is energy-balance similarity and",
           "nothing else. It is not a country similarity.", "", "```text", "      " + "    ".join(isos)]
-    sim = similarity(fn)
+    sim = similarity(fn, series)
     for i in isos:
         row = []
         for j in isos:
@@ -331,6 +340,10 @@ def cmd_report():
                 k = sim["%s-%s" % tuple(sorted((i, j)))]
                 row.append("%6s" % ("VOID" if k["similarity"] is None else "%.3f" % k["similarity"]))
         L.append("%-5s %s" % (i, " ".join(row)))
+    old = sorted({"%s %d" % (f, y) for k in sim.values() if k["similarity"] is not None
+                  for f, y in k["energy_years"].items() if y < max(int(x) for x in series[isos[0]]) - 1})
+    L += ["", "Each fuel is compared at the latest year both countries have a balance.",
+          "Comparisons that fall back to an older year: %s." % (", ".join(old) or "none")]
     L += ["```", "", "## Lead test (declared before any run)", "", d["test"]["question"], "", "```text"]
     for i in isos:
         r = test[i]
@@ -338,7 +351,10 @@ def cmd_report():
                  "  n %d  observed %+.4f  null mean %+.4f  null 5..95 %+.4f..%+.4f  share null >= obs %.3f"
                  % (r["n_events"], r["observed"], r["null_mean"], r["null_p05"], r["null_p95"],
                     r["share_null_ge_observed"]))))
-    L += ["```", "", "## Provenance", "",
+    L += ["```", "", "The events file is empty (no event source was read), so the test did not run for any",
+          "country. Its code was checked on synthetic series only: a planted three-year lead is",
+          "flagged, and pure noise is flagged at about the nominal rate (see the self-test).",
+          "", "## Provenance", "",
           "Declaration: `DECLARED.json`, committed before any table or series.",
           "Energy source: %s." % owid_source(),
           "That file is the legacy Our World in Data energy release (CC BY 4.0), built on the Energy",

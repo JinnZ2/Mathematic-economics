@@ -1,0 +1,56 @@
+{
+ "countries": {
+  "BRA": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "CHE": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "CHN": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "IND": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "IRN": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "NOR": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "RUS": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  },
+  "USA": {
+   "n_events": 0,
+   "reason": "fewer than 3 dated events with a full lead window (0)",
+   "state": "NOT RUN"
+  }
+ },
+ "declared": {
+  "constants": "3-year window, 1000 draws, minimum 3 events: chosen, no external source",
+  "declared_before_run": true,
+  "lead_window_years": 3,
+  "null": "event years redrawn uniformly without replacement from the same country's series years that have a full lead window; 1000 draws; seed 20261124",
+  "question": "do resource-stress changes lead policy / conflict events beyond a shuffled-date null?",
+  "refusals": "a country with fewer than 3 dated events -> NOT RUN (too few events). No events file -> NOT RUN.",
+  "report": "per country: observed statistic, null mean, null 5th and 95th percentile, share of null draws >= observed, n events. No pooled verdict.",
+  "statistic": "mean stress_change over the lead window (years e-3 .. e-1) across a country's events",
+  "stress_change": "per country and year t: the largest year-on-year rise in net import balance across oil, gas and coal, max_f(balance_f[t] - balance_f[t-1]). Balance is used, not the unbounded share, so one exporter year cannot dominate."
+ },
+ "record": "lead test, as declared"
+}

@@ -1,0 +1,4809 @@
+{
+ "countries": {
+  "BRA": {
+   "2000": {
+    "coal": {
+     "balance": 0.657614,
+     "consumption_twh": 151.181,
+     "net_import_share": 0.793446,
+     "production_twh": 31.227
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.10969
+    },
+    "gas": {
+     "balance": 0.11455,
+     "consumption_twh": 97.045,
+     "net_import_share": 0.205554,
+     "production_twh": 77.097
+    },
+    "oil": {
+     "balance": 0.169436,
+     "consumption_twh": 1098.586,
+     "net_import_share": 0.289773,
+     "production_twh": 780.245
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": 0.694653,
+     "consumption_twh": 148.788,
+     "net_import_share": 0.819817,
+     "production_twh": 26.809
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.1033
+    },
+    "gas": {
+     "balance": 0.218869,
+     "consumption_twh": 122.862,
+     "net_import_share": 0.359135,
+     "production_twh": 78.738
+    },
+    "oil": {
+     "balance": 0.150393,
+     "consumption_twh": 1105.891,
+     "net_import_share": 0.261463,
+     "production_twh": 816.741
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": 0.657164,
+     "consumption_twh": 144.01,
+     "net_import_share": 0.793119,
+     "production_twh": 29.793
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.09564
+    },
+    "gas": {
+     "balance": 0.208237,
+     "consumption_twh": 145.163,
+     "net_import_share": 0.344695,
+     "production_twh": 95.126
+    },
+    "oil": {
+     "balance": 0.082825,
+     "consumption_twh": 1079.309,
+     "net_import_share": 0.15298,
+     "production_twh": 914.196
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 0.692031,
+     "consumption_twh": 149.419,
+     "net_import_share": 0.817988,
+     "production_twh": 27.196
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.09486
+    },
+    "gas": {
+     "balance": 0.222456,
+     "consumption_twh": 162.473,
+     "net_import_share": 0.36395,
+     "production_twh": 103.341
+    },
+    "oil": {
+     "balance": 0.046236,
+     "consumption_twh": 1039.934,
+     "net_import_share": 0.088385,
+     "production_twh": 948.019
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": 0.664837,
+     "consumption_twh": 156.657,
+     "net_import_share": 0.798681,
+     "production_twh": 31.538
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.08798
+    },
+    "gas": {
+     "balance": 0.259275,
+     "consumption_twh": 193.225,
+     "net_import_share": 0.411784,
+     "production_twh": 113.658
+    },
+    "oil": {
+     "balance": 0.066921,
+     "consumption_twh": 1075.881,
+     "net_import_share": 0.125447,
+     "production_twh": 940.915
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": 0.640837,
+     "consumption_twh": 151.085,
+     "net_import_share": 0.78111,
+     "production_twh": 33.071
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0883
+    },
+    "gas": {
+     "balance": 0.283268,
+     "consumption_twh": 201.271,
+     "net_import_share": 0.441479,
+     "production_twh": 112.414
+    },
+    "oil": {
+     "balance": 0.02794,
+     "consumption_twh": 1094.343,
+     "net_import_share": 0.05436,
+     "production_twh": 1034.854
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": 0.636933,
+     "consumption_twh": 148.974,
+     "net_import_share": 0.778203,
+     "production_twh": 33.042
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.08936
+    },
+    "gas": {
+     "balance": 0.296839,
+     "consumption_twh": 211.698,
+     "net_import_share": 0.457789,
+     "production_twh": 114.785
+    },
+    "oil": {
+     "balance": 0.012321,
+     "consumption_twh": 1120.918,
+     "net_import_share": 0.024342,
+     "production_twh": 1093.633
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": 0.645477,
+     "consumption_twh": 157.872,
+     "net_import_share": 0.784547,
+     "production_twh": 34.014
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.08023
+    },
+    "gas": {
+     "balance": 0.307078,
+     "consumption_twh": 218.016,
+     "net_import_share": 0.469869,
+     "production_twh": 115.577
+    },
+    "oil": {
+     "balance": 0.029251,
+     "consumption_twh": 1175.956,
+     "net_import_share": 0.05684,
+     "production_twh": 1109.115
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": 0.617511,
+     "consumption_twh": 160.132,
+     "net_import_share": 0.763533,
+     "production_twh": 37.866
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.08352
+    },
+    "gas": {
+     "balance": 0.281859,
+     "consumption_twh": 256.609,
+     "net_import_share": 0.439766,
+     "production_twh": 143.761
+    },
+    "oil": {
+     "balance": 0.031968,
+     "consumption_twh": 1228.893,
+     "net_import_share": 0.061956,
+     "production_twh": 1152.756
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": 0.569856,
+     "consumption_twh": 129.207,
+     "net_import_share": 0.725998,
+     "production_twh": 35.403
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.07899
+    },
+    "gas": {
+     "balance": 0.254715,
+     "consumption_twh": 206.686,
+     "net_import_share": 0.406012,
+     "production_twh": 122.769
+    },
+    "oil": {
+     "balance": -0.0028,
+     "consumption_twh": 1225.733,
+     "net_import_share": -0.005615,
+     "production_twh": 1232.616
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": 0.682115,
+     "consumption_twh": 168.198,
+     "net_import_share": 0.81102,
+     "production_twh": 31.786
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06295
+    },
+    "gas": {
+     "balance": 0.294764,
+     "consumption_twh": 275.768,
+     "net_import_share": 0.455318,
+     "production_twh": 150.206
+    },
+    "oil": {
+     "balance": 0.004411,
+     "consumption_twh": 1309.879,
+     "net_import_share": 0.008783,
+     "production_twh": 1298.374
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": 0.699164,
+     "consumption_twh": 179.673,
+     "net_import_share": 0.822951,
+     "production_twh": 31.811
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06323
+    },
+    "gas": {
+     "balance": 0.229396,
+     "consumption_twh": 274.834,
+     "net_import_share": 0.373185,
+     "production_twh": 172.27
+    },
+    "oil": {
+     "balance": 0.017134,
+     "consumption_twh": 1372.37,
+     "net_import_share": 0.03369,
+     "production_twh": 1326.135
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": 0.679355,
+     "consumption_twh": 177.8,
+     "net_import_share": 0.809066,
+     "production_twh": 33.948
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06792
+    },
+    "gas": {
+     "balance": 0.243157,
+     "consumption_twh": 325.765,
+     "net_import_share": 0.391193,
+     "production_twh": 198.328
+    },
+    "oil": {
+     "balance": 0.051235,
+     "consumption_twh": 1447.965,
+     "net_import_share": 0.097476,
+     "production_twh": 1306.823
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": 0.639326,
+     "consumption_twh": 191.647,
+     "net_import_share": 0.779986,
+     "production_twh": 42.165
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06599
+    },
+    "gas": {
+     "balance": 0.272378,
+     "consumption_twh": 383.828,
+     "net_import_share": 0.42814,
+     "production_twh": 219.496
+    },
+    "oil": {
+     "balance": 0.078061,
+     "consumption_twh": 1498.018,
+     "net_import_share": 0.144818,
+     "production_twh": 1281.078
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": 0.659385,
+     "consumption_twh": 203.77,
+     "net_import_share": 0.794734,
+     "production_twh": 41.827
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.05411
+    },
+    "gas": {
+     "balance": 0.270421,
+     "consumption_twh": 406.555,
+     "net_import_share": 0.425719,
+     "production_twh": 233.477
+    },
+    "oil": {
+     "balance": 0.039347,
+     "consumption_twh": 1540.811,
+     "net_import_share": 0.075715,
+     "production_twh": 1424.148
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": 0.716895,
+     "consumption_twh": 204.981,
+     "net_import_share": 0.835107,
+     "production_twh": 33.8
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.05591
+    },
+    "gas": {
+     "balance": 0.28666,
+     "consumption_twh": 429.365,
+     "net_import_share": 0.445588,
+     "production_twh": 238.045
+    },
+    "oil": {
+     "balance": -0.027523,
+     "consumption_twh": 1455.043,
+     "net_import_share": -0.056603,
+     "production_twh": 1537.403
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 0.71199,
+     "consumption_twh": 185.15,
+     "net_import_share": 0.831769,
+     "production_twh": 31.148
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06582
+    },
+    "gas": {
+     "balance": 0.211795,
+     "consumption_twh": 370.879,
+     "net_import_share": 0.349556,
+     "production_twh": 241.236
+    },
+    "oil": {
+     "balance": -0.070828,
+     "consumption_twh": 1379.58,
+     "net_import_share": -0.152454,
+     "production_twh": 1589.903
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": 0.770367,
+     "consumption_twh": 195.275,
+     "net_import_share": 0.870291,
+     "production_twh": 25.329
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0581
+    },
+    "gas": {
+     "balance": 0.161241,
+     "consumption_twh": 376.32,
+     "net_import_share": 0.277705,
+     "production_twh": 271.814
+    },
+    "oil": {
+     "balance": -0.088613,
+     "consumption_twh": 1388.852,
+     "net_import_share": -0.194457,
+     "production_twh": 1658.924
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": 0.748668,
+     "consumption_twh": 190.979,
+     "net_import_share": 0.856272,
+     "production_twh": 27.449
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.05497
+    },
+    "gas": {
+     "balance": 0.175722,
+     "consumption_twh": 358.908,
+     "net_import_share": 0.298918,
+     "production_twh": 251.624
+    },
+    "oil": {
+     "balance": -0.107552,
+     "consumption_twh": 1317.631,
+     "net_import_share": -0.241027,
+     "production_twh": 1635.215
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": 0.75428,
+     "consumption_twh": 179.512,
+     "net_import_share": 0.859931,
+     "production_twh": 25.144
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.03792
+    },
+    "gas": {
+     "balance": 0.16244,
+     "consumption_twh": 357.333,
+     "net_import_share": 0.279482,
+     "production_twh": 257.465
+    },
+    "oil": {
+     "balance": -0.136641,
+     "consumption_twh": 1335.663,
+     "net_import_share": -0.316534,
+     "production_twh": 1758.446
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": 0.706446,
+     "consumption_twh": 162.295,
+     "net_import_share": 0.827974,
+     "production_twh": 27.919
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.03783
+    },
+    "gas": {
+     "balance": 0.12913,
+     "consumption_twh": 314.237,
+     "net_import_share": 0.228725,
+     "production_twh": 242.363
+    },
+    "oil": {
+     "balance": -0.191438,
+     "consumption_twh": 1257.651,
+     "net_import_share": -0.473526,
+     "production_twh": 1853.182
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": 0.707257,
+     "consumption_twh": 197.067,
+     "net_import_share": 0.82853,
+     "production_twh": 33.791
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.034
+    },
+    "gas": {
+     "balance": 0.24875,
+     "consumption_twh": 404.465,
+     "net_import_share": 0.398398,
+     "production_twh": 243.327
+    },
+    "oil": {
+     "balance": -0.154009,
+     "consumption_twh": 1337.804,
+     "net_import_share": -0.36409,
+     "production_twh": 1824.885
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": 0.686198,
+     "consumption_twh": 162.767,
+     "net_import_share": 0.8139,
+     "production_twh": 30.291
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01871
+    },
+    "gas": {
+     "balance": 0.163391,
+     "consumption_twh": 319.876,
+     "net_import_share": 0.280887,
+     "production_twh": 230.027
+    },
+    "oil": {
+     "balance": -0.154501,
+     "consumption_twh": 1390.148,
+     "net_import_share": -0.365467,
+     "production_twh": 1898.201
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": 0.681498,
+     "consumption_twh": 159.269,
+     "net_import_share": 0.810585,
+     "production_twh": 30.168
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.02089
+    },
+    "gas": {
+     "balance": 0.121078,
+     "consumption_twh": 298.761,
+     "net_import_share": 0.216002,
+     "production_twh": 234.228
+    },
+    "oil": {
+     "balance": -0.199361,
+     "consumption_twh": 1425.2,
+     "net_import_share": -0.498006,
+     "production_twh": 2134.958
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": 0.664231,
+     "consumption_twh": 147.807,
+     "net_import_share": 0.798244,
+     "production_twh": 29.821
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0153
+    },
+    "gas": {
+     "balance": 0.157288,
+     "consumption_twh": 313.639,
+     "net_import_share": 0.271822,
+     "production_twh": 228.385
+    },
+    "oil": {
+     "balance": -0.194573,
+     "consumption_twh": 1427.733,
+     "net_import_share": -0.483155,
+     "production_twh": 2117.55
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01521
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "CHE": {
+   "2000": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.603,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.11973
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 28.3,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 148.286,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.675,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.17225
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 29.456,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 158.696,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.544,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.07406
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 28.911,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 150.42,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.586,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.04998
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 30.558,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 146.388,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.506,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01108
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 31.525,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 149.644,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.678,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.09899
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 32.364,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 150.236,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.811,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.04165
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 31.469,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 149.461,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 2.028,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.032
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 30.642,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 143.287,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.822,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01714
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 32.647,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 148.414,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.719,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.03348
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 31.336,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 144.264,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.725,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00781
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 35.003,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 147.45,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.594,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.03956
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 31.047,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 136.5,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.436,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.03337
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 34.033,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 139.246,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.547,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0362
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 35.842,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 141.592,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.583,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.085
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 31.047,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 128.455,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.447,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01584
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 33.172,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 129.561,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 1.0,
+     "consumption_twh": 1.331,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06029
+    },
+    "gas": {
+     "balance": 1.0,
+     "consumption_twh": 34.85,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    },
+    "oil": {
+     "balance": 1.0,
+     "consumption_twh": 122.349,
+     "net_import_share": 1.0,
+     "production_twh": 0.0
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.281,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.08447
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 34.997,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 125.385,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.192,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02457
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 33.197,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 120.372,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.067,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.09734
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 34.058,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 123.533,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.028,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.08834
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 34.147,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 102.538,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.036,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.03679
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 28.039,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 102.788,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 1.078,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.04841
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 37.031,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 105.803,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 0.85,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.10035
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 33.964,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 107.323,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 0.852,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.22511
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": 34.481,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": 107.36,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00154
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "CHN": {
+   "2000": {
+    "coal": {
+     "balance": -0.000895,
+     "consumption_twh": 8211.406,
+     "net_import_share": -0.001791,
+     "production_twh": 8226.111
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0065
+    },
+    "gas": {
+     "balance": -0.052165,
+     "consumption_twh": 246.957,
+     "net_import_share": -0.110072,
+     "production_twh": 274.14
+    },
+    "oil": {
+     "balance": 0.162815,
+     "consumption_twh": 2626.896,
+     "net_import_share": 0.280036,
+     "production_twh": 1891.271
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": -0.00458,
+     "consumption_twh": 8635.755,
+     "net_import_share": -0.009203,
+     "production_twh": 8715.229
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00584
+    },
+    "gas": {
+     "balance": -0.050191,
+     "consumption_twh": 276.458,
+     "net_import_share": -0.105687,
+     "production_twh": 305.676
+    },
+    "oil": {
+     "balance": 0.166574,
+     "consumption_twh": 2683.249,
+     "net_import_share": 0.285578,
+     "production_twh": 1916.973
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": 0.008529,
+     "consumption_twh": 9467.458,
+     "net_import_share": 0.016914,
+     "production_twh": 9307.322
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0051
+    },
+    "gas": {
+     "balance": -0.05622,
+     "consumption_twh": 294.136,
+     "net_import_share": -0.119139,
+     "production_twh": 329.179
+    },
+    "oil": {
+     "balance": 0.197456,
+     "consumption_twh": 2895.598,
+     "net_import_share": 0.329793,
+     "production_twh": 1940.651
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 0.012962,
+     "consumption_twh": 11283.059,
+     "net_import_share": 0.025592,
+     "production_twh": 10994.302
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00387
+    },
+    "gas": {
+     "balance": -0.016061,
+     "consumption_twh": 341.747,
+     "net_import_share": -0.032647,
+     "production_twh": 352.904
+    },
+    "oil": {
+     "balance": 0.242458,
+     "consumption_twh": 3234.762,
+     "net_import_share": 0.390288,
+     "production_twh": 1972.274
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": 0.010817,
+     "consumption_twh": 13155.28,
+     "net_import_share": 0.021402,
+     "production_twh": 12873.73
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00277
+    },
+    "gas": {
+     "balance": -0.022039,
+     "consumption_twh": 399.84,
+     "net_import_share": -0.045071,
+     "production_twh": 417.861
+    },
+    "oil": {
+     "balance": 0.302234,
+     "consumption_twh": 3777.772,
+     "net_import_share": 0.464178,
+     "production_twh": 2024.213
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": 0.032303,
+     "consumption_twh": 15405.106,
+     "net_import_share": 0.062584,
+     "production_twh": 14440.99
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00248
+    },
+    "gas": {
+     "balance": -0.028267,
+     "consumption_twh": 469.751,
+     "net_import_share": -0.058178,
+     "production_twh": 497.08
+    },
+    "oil": {
+     "balance": 0.290764,
+     "consumption_twh": 3838.487,
+     "net_import_share": 0.45053,
+     "production_twh": 2109.134
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": 0.045379,
+     "consumption_twh": 16918.381,
+     "net_import_share": 0.086818,
+     "production_twh": 15449.555
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00241
+    },
+    "gas": {
+     "balance": -0.010529,
+     "consumption_twh": 577.838,
+     "net_import_share": -0.021283,
+     "production_twh": 590.136
+    },
+    "oil": {
+     "balance": 0.314087,
+     "consumption_twh": 4116.769,
+     "net_import_share": 0.478031,
+     "production_twh": 2148.825
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": 0.047921,
+     "consumption_twh": 18423.914,
+     "net_import_share": 0.09146,
+     "production_twh": 16738.865
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00315
+    },
+    "gas": {
+     "balance": 0.009181,
+     "consumption_twh": 710.779,
+     "net_import_share": 0.018194,
+     "production_twh": 697.847
+    },
+    "oil": {
+     "balance": 0.331256,
+     "consumption_twh": 4313.567,
+     "net_import_share": 0.497659,
+     "production_twh": 2166.881
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": 0.037894,
+     "consumption_twh": 18715.92,
+     "net_import_share": 0.07302,
+     "production_twh": 17349.283
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00368
+    },
+    "gas": {
+     "balance": 0.006147,
+     "consumption_twh": 819.329,
+     "net_import_share": 0.01222,
+     "production_twh": 809.317
+    },
+    "oil": {
+     "balance": 0.331166,
+     "consumption_twh": 4408.092,
+     "net_import_share": 0.497558,
+     "production_twh": 2214.812
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": 0.04587,
+     "consumption_twh": 19605.02,
+     "net_import_share": 0.087716,
+     "production_twh": 17885.352
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00307
+    },
+    "gas": {
+     "balance": 0.024319,
+     "consumption_twh": 902.24,
+     "net_import_share": 0.047484,
+     "production_twh": 859.398
+    },
+    "oil": {
+     "balance": 0.35031,
+     "consumption_twh": 4580.298,
+     "net_import_share": 0.518859,
+     "production_twh": 2203.769
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": 0.024511,
+     "consumption_twh": 20340.543,
+     "net_import_share": 0.04785,
+     "production_twh": 19367.25
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00322
+    },
+    "gas": {
+     "balance": 0.060022,
+     "consumption_twh": 1088.741,
+     "net_import_share": 0.113246,
+     "production_twh": 965.445
+    },
+    "oil": {
+     "balance": 0.376664,
+     "consumption_twh": 5214.49,
+     "net_import_share": 0.547213,
+     "production_twh": 2361.053
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": 0.013932,
+     "consumption_twh": 22143.604,
+     "net_import_share": 0.027481,
+     "production_twh": 21535.068
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00271
+    },
+    "gas": {
+     "balance": 0.120157,
+     "consumption_twh": 1351.629,
+     "net_import_share": 0.214536,
+     "production_twh": 1061.656
+    },
+    "oil": {
+     "balance": 0.391125,
+     "consumption_twh": 5390.733,
+     "net_import_share": 0.562315,
+     "production_twh": 2359.442
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": 0.014319,
+     "consumption_twh": 22422.357,
+     "net_import_share": 0.028233,
+     "production_twh": 21789.303
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00217
+    },
+    "gas": {
+     "balance": 0.150176,
+     "consumption_twh": 1508.776,
+     "net_import_share": 0.261136,
+     "production_twh": 1114.781
+    },
+    "oil": {
+     "balance": 0.401788,
+     "consumption_twh": 5654.299,
+     "net_import_share": 0.573251,
+     "production_twh": 2412.969
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": 0.019316,
+     "consumption_twh": 22902.131,
+     "net_import_share": 0.0379,
+     "production_twh": 22034.137
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00207
+    },
+    "gas": {
+     "balance": 0.170479,
+     "consumption_twh": 1718.785,
+     "net_import_share": 0.291298,
+     "production_twh": 1218.107
+    },
+    "oil": {
+     "balance": 0.415082,
+     "consumption_twh": 5907.47,
+     "net_import_share": 0.586655,
+     "production_twh": 2441.826
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": 0.025265,
+     "consumption_twh": 22804.703,
+     "net_import_share": 0.049285,
+     "production_twh": 21680.762
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00197
+    },
+    "gas": {
+     "balance": 0.178949,
+     "consumption_twh": 1883.631,
+     "net_import_share": 0.303574,
+     "production_twh": 1311.809
+    },
+    "oil": {
+     "balance": 0.428254,
+     "consumption_twh": 6142.517,
+     "net_import_share": 0.599689,
+     "production_twh": 2458.919
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": 0.024198,
+     "consumption_twh": 22329.043,
+     "net_import_share": 0.047252,
+     "production_twh": 21273.959
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00214
+    },
+    "gas": {
+     "balance": 0.178656,
+     "consumption_twh": 1946.895,
+     "net_import_share": 0.303152,
+     "production_twh": 1356.689
+    },
+    "oil": {
+     "balance": 0.45189,
+     "consumption_twh": 6609.896,
+     "net_import_share": 0.622485,
+     "production_twh": 2495.333
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 0.048481,
+     "consumption_twh": 21675.779,
+     "net_import_share": 0.092479,
+     "production_twh": 19671.232
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00208
+    },
+    "gas": {
+     "balance": 0.205823,
+     "consumption_twh": 2094.411,
+     "net_import_share": 0.341382,
+     "production_twh": 1379.416
+    },
+    "oil": {
+     "balance": 0.492159,
+     "consumption_twh": 6823.579,
+     "net_import_share": 0.65966,
+     "production_twh": 2322.336
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": 0.037625,
+     "consumption_twh": 21915.443,
+     "net_import_share": 0.072521,
+     "production_twh": 20326.109
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00198
+    },
+    "gas": {
+     "balance": 0.23576,
+     "consumption_twh": 2412.522,
+     "net_import_share": 0.381562,
+     "production_twh": 1491.995
+    },
+    "oil": {
+     "balance": 0.526648,
+     "consumption_twh": 7183.172,
+     "net_import_share": 0.68994,
+     "production_twh": 2227.215
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": 0.022862,
+     "consumption_twh": 22352.146,
+     "net_import_share": 0.044702,
+     "production_twh": 21352.951
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00213
+    },
+    "gas": {
+     "balance": 0.275084,
+     "consumption_twh": 2839.26,
+     "net_import_share": 0.431476,
+     "production_twh": 1614.188
+    },
+    "oil": {
+     "balance": 0.547439,
+     "consumption_twh": 7528.741,
+     "net_import_share": 0.707542,
+     "production_twh": 2201.838
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": 0.017033,
+     "consumption_twh": 22922.236,
+     "net_import_share": 0.033496,
+     "production_twh": 22154.439
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00224
+    },
+    "gas": {
+     "balance": 0.271347,
+     "consumption_twh": 3083.768,
+     "net_import_share": 0.426865,
+     "production_twh": 1767.414
+    },
+    "oil": {
+     "balance": 0.559565,
+     "consumption_twh": 7891.51,
+     "net_import_share": 0.717591,
+     "production_twh": 2228.634
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": 0.022671,
+     "consumption_twh": 23402.553,
+     "net_import_share": 0.044338,
+     "production_twh": 22364.936
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0022
+    },
+    "gas": {
+     "balance": 0.268754,
+     "consumption_twh": 3366.173,
+     "net_import_share": 0.423651,
+     "production_twh": 1940.092
+    },
+    "oil": {
+     "balance": 0.556929,
+     "consumption_twh": 7959.667,
+     "net_import_share": 0.71542,
+     "production_twh": 2265.163
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": 0.023951,
+     "consumption_twh": 24315.477,
+     "net_import_share": 0.046781,
+     "production_twh": 23177.975
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00167
+    },
+    "gas": {
+     "balance": 0.290179,
+     "consumption_twh": 3802.679,
+     "net_import_share": 0.449828,
+     "production_twh": 2092.129
+    },
+    "oil": {
+     "balance": 0.558889,
+     "consumption_twh": 8174.095,
+     "net_import_share": 0.717035,
+     "production_twh": 2312.986
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": -0.019449,
+     "consumption_twh": 24397.779,
+     "net_import_share": -0.03967,
+     "production_twh": 25365.633
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00147
+    },
+    "gas": {
+     "balance": 0.259898,
+     "consumption_twh": 3776.475,
+     "net_import_share": 0.41257,
+     "production_twh": 2218.414
+    },
+    "oil": {
+     "balance": 0.549892,
+     "consumption_twh": 8198.393,
+     "net_import_share": 0.709587,
+     "production_twh": 2380.917
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": -0.014724,
+     "consumption_twh": 25181.209,
+     "net_import_share": -0.029888,
+     "production_twh": 25933.818
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00181
+    },
+    "gas": {
+     "balance": 0.266908,
+     "consumption_twh": 4048.381,
+     "net_import_share": 0.421353,
+     "production_twh": 2342.583
+    },
+    "oil": {
+     "balance": 0.578037,
+     "consumption_twh": 9091.228,
+     "net_import_share": 0.732602,
+     "production_twh": 2430.972
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": -0.012455,
+     "consumption_twh": 25599.307,
+     "net_import_share": -0.025224,
+     "production_twh": 26245.023
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00169
+    },
+    "gas": {
+     "balance": 0.272418,
+     "consumption_twh": 4343.913,
+     "net_import_share": 0.428189,
+     "production_twh": 2483.896
+    },
+    "oil": {
+     "balance": 0.567146,
+     "consumption_twh": 8964.054,
+     "net_import_share": 0.723794,
+     "production_twh": 2475.922
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00184
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "IND": {
+   "2000": {
+    "coal": {
+     "balance": 0.038012,
+     "consumption_twh": 1911.166,
+     "net_import_share": 0.07324,
+     "production_twh": 1771.192
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00227
+    },
+    "gas": {
+     "balance": 0.0,
+     "consumption_twh": 253.627,
+     "net_import_share": 0.0,
+     "production_twh": 253.627
+    },
+    "oil": {
+     "balance": 0.525534,
+     "consumption_twh": 1277.51,
+     "net_import_share": 0.688983,
+     "production_twh": 397.327
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": 0.035799,
+     "consumption_twh": 1926.953,
+     "net_import_share": 0.069123,
+     "production_twh": 1793.757
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0022
+    },
+    "gas": {
+     "balance": 0.0,
+     "consumption_twh": 254.277,
+     "net_import_share": 0.0,
+     "production_twh": 254.277
+    },
+    "oil": {
+     "balance": 0.52641,
+     "consumption_twh": 1281.096,
+     "net_import_share": 0.689736,
+     "production_twh": 397.478
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": 0.035902,
+     "consumption_twh": 2012.79,
+     "net_import_share": 0.069316,
+     "production_twh": 1873.271
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00221
+    },
+    "gas": {
+     "balance": 0.0,
+     "consumption_twh": 265.544,
+     "net_import_share": 0.0,
+     "production_twh": 265.544
+    },
+    "oil": {
+     "balance": 0.527291,
+     "consumption_twh": 1324.242,
+     "net_import_share": 0.690492,
+     "production_twh": 409.864
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 0.037721,
+     "consumption_twh": 2107.984,
+     "net_import_share": 0.0727,
+     "production_twh": 1954.734
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00264
+    },
+    "gas": {
+     "balance": 0.0,
+     "consumption_twh": 284.269,
+     "net_import_share": 0.0,
+     "production_twh": 284.269
+    },
+    "oil": {
+     "balance": 0.532118,
+     "consumption_twh": 1347.694,
+     "net_import_share": 0.694618,
+     "production_twh": 411.562
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": 0.030441,
+     "consumption_twh": 2243.529,
+     "net_import_share": 0.059084,
+     "production_twh": 2110.972
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00243
+    },
+    "gas": {
+     "balance": 0.043044,
+     "consumption_twh": 306.691,
+     "net_import_share": 0.082536,
+     "production_twh": 281.378
+    },
+    "oil": {
+     "balance": 0.543021,
+     "consumption_twh": 1426.856,
+     "net_import_share": 0.703841,
+     "production_twh": 422.576
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": 0.053386,
+     "consumption_twh": 2456.113,
+     "net_import_share": 0.101361,
+     "production_twh": 2207.16
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0022
+    },
+    "gas": {
+     "balance": 0.092516,
+     "consumption_twh": 343.256,
+     "net_import_share": 0.169363,
+     "production_twh": 285.121
+    },
+    "oil": {
+     "balance": 0.56238,
+     "consumption_twh": 1450.128,
+     "net_import_share": 0.719902,
+     "production_twh": 406.178
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": 0.050722,
+     "consumption_twh": 2549.865,
+     "net_import_share": 0.096546,
+     "production_twh": 2303.685
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00367
+    },
+    "gas": {
+     "balance": 0.120042,
+     "consumption_twh": 358.772,
+     "net_import_share": 0.214353,
+     "production_twh": 281.868
+    },
+    "oil": {
+     "balance": 0.570322,
+     "consumption_twh": 1532.039,
+     "net_import_share": 0.726376,
+     "production_twh": 419.203
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": 0.065594,
+     "consumption_twh": 2790.272,
+     "net_import_share": 0.123112,
+     "production_twh": 2446.755
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00617
+    },
+    "gas": {
+     "balance": 0.145272,
+     "consumption_twh": 388.103,
+     "net_import_share": 0.25369,
+     "production_twh": 289.645
+    },
+    "oil": {
+     "balance": 0.588793,
+     "consumption_twh": 1637.482,
+     "net_import_share": 0.741182,
+     "production_twh": 423.809
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": 0.065849,
+     "consumption_twh": 3020.762,
+     "net_import_share": 0.123562,
+     "production_twh": 2647.512
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.007
+    },
+    "gas": {
+     "balance": 0.152722,
+     "consumption_twh": 399.877,
+     "net_import_share": 0.264976,
+     "production_twh": 293.919
+    },
+    "oil": {
+     "balance": 0.592797,
+     "consumption_twh": 1719.259,
+     "net_import_share": 0.744347,
+     "production_twh": 439.533
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": 0.067008,
+     "consumption_twh": 3268.266,
+     "net_import_share": 0.1256,
+     "production_twh": 2857.771
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.006
+    },
+    "gas": {
+     "balance": 0.151988,
+     "consumption_twh": 491.081,
+     "net_import_share": 0.263871,
+     "production_twh": 361.499
+    },
+    "oil": {
+     "balance": 0.606976,
+     "consumption_twh": 1806.79,
+     "net_import_share": 0.755426,
+     "production_twh": 441.893
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": 0.065457,
+     "consumption_twh": 3348.546,
+     "net_import_share": 0.12287,
+     "production_twh": 2937.109
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00589
+    },
+    "gas": {
+     "balance": 0.108397,
+     "consumption_twh": 589.616,
+     "net_import_share": 0.195592,
+     "production_twh": 474.292
+    },
+    "oil": {
+     "balance": 0.587933,
+     "consumption_twh": 1848.416,
+     "net_import_share": 0.740501,
+     "production_twh": 479.662
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": 0.088151,
+     "consumption_twh": 3478.864,
+     "net_import_share": 0.16202,
+     "production_twh": 2915.217
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00494
+    },
+    "gas": {
+     "balance": 0.168113,
+     "consumption_twh": 602.859,
+     "net_import_share": 0.287837,
+     "production_twh": 429.334
+    },
+    "oil": {
+     "balance": 0.590272,
+     "consumption_twh": 1935.765,
+     "net_import_share": 0.742354,
+     "production_twh": 498.743
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": 0.121647,
+     "consumption_twh": 3787.818,
+     "net_import_share": 0.216908,
+     "production_twh": 2966.211
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00424
+    },
+    "gas": {
+     "balance": 0.198257,
+     "consumption_twh": 556.991,
+     "net_import_share": 0.330908,
+     "production_twh": 372.678
+    },
+    "oil": {
+     "balance": 0.611351,
+     "consumption_twh": 2051.67,
+     "net_import_share": 0.758806,
+     "production_twh": 494.851
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": 0.148287,
+     "consumption_twh": 4009.729,
+     "net_import_share": 0.258275,
+     "production_twh": 2974.117
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00345
+    },
+    "gas": {
+     "balance": 0.224222,
+     "consumption_twh": 490.193,
+     "net_import_share": 0.366309,
+     "production_twh": 310.631
+    },
+    "oil": {
+     "balance": 0.615994,
+     "consumption_twh": 2065.656,
+     "net_import_share": 0.762372,
+     "production_twh": 490.858
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": 0.168199,
+     "consumption_twh": 4401.073,
+     "net_import_share": 0.287964,
+     "production_twh": 3133.724
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00045
+    },
+    "gas": {
+     "balance": 0.245918,
+     "consumption_twh": 485.016,
+     "net_import_share": 0.394758,
+     "production_twh": 293.552
+    },
+    "oil": {
+     "balance": 0.628862,
+     "consumption_twh": 2125.494,
+     "net_import_share": 0.772149,
+     "production_twh": 484.296
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": 0.15755,
+     "consumption_twh": 4490.47,
+     "net_import_share": 0.272214,
+     "production_twh": 3268.103
+    },
+    "electricity": {
+     "net_import_share_of_demand": 7e-05
+    },
+    "gas": {
+     "balance": 0.258909,
+     "consumption_twh": 478.068,
+     "net_import_share": 0.411322,
+     "production_twh": 281.428
+    },
+    "oil": {
+     "balance": 0.654874,
+     "consumption_twh": 2296.039,
+     "net_import_share": 0.791449,
+     "production_twh": 478.841
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 0.162983,
+     "consumption_twh": 4587.692,
+     "net_import_share": 0.280285,
+     "production_twh": 3301.831
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00078
+    },
+    "gas": {
+     "balance": 0.312882,
+     "consumption_twh": 507.91,
+     "net_import_share": 0.476634,
+     "production_twh": 265.823
+    },
+    "oil": {
+     "balance": 0.683881,
+     "consumption_twh": 2514.262,
+     "net_import_share": 0.812267,
+     "production_twh": 472.009
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": 0.174466,
+     "consumption_twh": 4737.157,
+     "net_import_share": 0.297099,
+     "production_twh": 3329.753
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00109
+    },
+    "gas": {
+     "balance": 0.318681,
+     "consumption_twh": 535.999,
+     "net_import_share": 0.483333,
+     "production_twh": 276.933
+    },
+    "oil": {
+     "balance": 0.692472,
+     "consumption_twh": 2588.196,
+     "net_import_share": 0.818296,
+     "production_twh": 470.285
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": 0.167069,
+     "consumption_twh": 4981.602,
+     "net_import_share": 0.286305,
+     "production_twh": 3555.345
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00245
+    },
+    "gas": {
+     "balance": 0.356832,
+     "consumption_twh": 579.963,
+     "net_import_share": 0.525978,
+     "production_twh": 274.915
+    },
+    "oil": {
+     "balance": 0.70931,
+     "consumption_twh": 2704.512,
+     "net_import_share": 0.829938,
+     "production_twh": 459.936
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": 0.175561,
+     "consumption_twh": 4989.023,
+     "net_import_share": 0.298685,
+     "production_twh": 3498.878
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00197
+    },
+    "gas": {
+     "balance": 0.375419,
+     "consumption_twh": 592.498,
+     "net_import_share": 0.545897,
+     "production_twh": 269.055
+    },
+    "oil": {
+     "balance": 0.729872,
+     "consumption_twh": 2791.946,
+     "net_import_share": 0.843845,
+     "production_twh": 435.976
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": 0.148274,
+     "consumption_twh": 4714.672,
+     "net_import_share": 0.258256,
+     "production_twh": 3497.081
+    },
+    "electricity": {
+     "net_import_share_of_demand": -7e-05
+    },
+    "gas": {
+     "balance": 0.435083,
+     "consumption_twh": 603.601,
+     "net_import_share": 0.606353,
+     "production_twh": 237.606
+    },
+    "oil": {
+     "balance": 0.722546,
+     "consumption_twh": 2537.853,
+     "net_import_share": 0.838928,
+     "production_twh": 408.778
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": 0.180407,
+     "consumption_twh": 5352.792,
+     "net_import_share": 0.30567,
+     "production_twh": 3716.606
+    },
+    "electricity": {
+     "net_import_share_of_demand": -2e-05
+    },
+    "gas": {
+     "balance": 0.372163,
+     "consumption_twh": 623.727,
+     "net_import_share": 0.542447,
+     "production_twh": 285.388
+    },
+    "oil": {
+     "balance": 0.734999,
+     "consumption_twh": 2588.831,
+     "net_import_share": 0.847262,
+     "production_twh": 395.414
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": 0.141757,
+     "consumption_twh": 5561.334,
+     "net_import_share": 0.248314,
+     "production_twh": 4180.375
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00096
+    },
+    "gas": {
+     "balance": 0.323089,
+     "consumption_twh": 582.508,
+     "net_import_share": 0.488386,
+     "production_twh": 298.019
+    },
+    "oil": {
+     "balance": 0.759105,
+     "consumption_twh": 2804.53,
+     "net_import_share": 0.863058,
+     "production_twh": 384.057
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": 0.135303,
+     "consumption_twh": 6137.224,
+     "net_import_share": 0.238356,
+     "production_twh": 4674.382
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00108
+    },
+    "gas": {
+     "balance": 0.32524,
+     "consumption_twh": 620.344,
+     "net_import_share": 0.490839,
+     "production_twh": 315.855
+    },
+    "oil": {
+     "balance": 0.771787,
+     "consumption_twh": 2939.235,
+     "net_import_share": 0.871196,
+     "production_twh": 378.585
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": 0.119761,
+     "consumption_twh": 6379.826,
+     "net_import_share": 0.213905,
+     "production_twh": 5015.149
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00113
+    },
+    "gas": {
+     "balance": 0.369542,
+     "consumption_twh": 702.818,
+     "net_import_share": 0.539657,
+     "production_twh": 323.537
+    },
+    "oil": {
+     "balance": 0.77576,
+     "consumption_twh": 3028.744,
+     "net_import_share": 0.873722,
+     "production_twh": 382.465
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00059
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "IRN": {
+   "2000": {
+    "coal": {
+     "balance": 0.245481,
+     "consumption_twh": 15.16,
+     "net_import_share": 0.394195,
+     "production_twh": 9.184
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00573
+    },
+    "gas": {
+     "balance": 0.026813,
+     "consumption_twh": 594.409,
+     "net_import_share": 0.052225,
+     "production_twh": 563.366
+    },
+    "oil": {
+     "balance": -0.483682,
+     "consumption_twh": 775.711,
+     "net_import_share": -1.873579,
+     "production_twh": 2229.067
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": 0.250273,
+     "consumption_twh": 14.862,
+     "net_import_share": 0.40035,
+     "production_twh": 8.912
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00236
+    },
+    "gas": {
+     "balance": 0.030413,
+     "consumption_twh": 665.327,
+     "net_import_share": 0.059031,
+     "production_twh": 626.052
+    },
+    "oil": {
+     "balance": -0.46811,
+     "consumption_twh": 799.744,
+     "net_import_share": -1.760173,
+     "production_twh": 2207.432
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": 0.260811,
+     "consumption_twh": 14.082,
+     "net_import_share": 0.41372,
+     "production_twh": 8.256
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0013
+    },
+    "gas": {
+     "balance": 0.024715,
+     "consumption_twh": 782.203,
+     "net_import_share": 0.048238,
+     "production_twh": 744.471
+    },
+    "oil": {
+     "balance": -0.441756,
+     "consumption_twh": 806.609,
+     "net_import_share": -1.582661,
+     "production_twh": 2083.198
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 0.250523,
+     "consumption_twh": 15.257,
+     "net_import_share": 0.400669,
+     "production_twh": 9.144
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00374
+    },
+    "gas": {
+     "balance": 0.013823,
+     "consumption_twh": 802.767,
+     "net_import_share": 0.027269,
+     "production_twh": 780.876
+    },
+    "oil": {
+     "balance": -0.487257,
+     "consumption_twh": 810.284,
+     "net_import_share": -1.900593,
+     "production_twh": 2350.304
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": 0.23984,
+     "consumption_twh": 15.971,
+     "net_import_share": 0.386889,
+     "production_twh": 9.792
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00202
+    },
+    "gas": {
+     "balance": 0.012024,
+     "consumption_twh": 932.56,
+     "net_import_share": 0.023761,
+     "production_twh": 910.401
+    },
+    "oil": {
+     "balance": -0.482,
+     "consumption_twh": 848.906,
+     "net_import_share": -1.861005,
+     "production_twh": 2428.724
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": 0.185062,
+     "consumption_twh": 18.103,
+     "net_import_share": 0.312324,
+     "production_twh": 12.449
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00386
+    },
+    "gas": {
+     "balance": 0.002243,
+     "consumption_twh": 970.469,
+     "net_import_share": 0.004476,
+     "production_twh": 966.125
+    },
+    "oil": {
+     "balance": -0.452982,
+     "consumption_twh": 910.154,
+     "net_import_share": -1.656189,
+     "production_twh": 2417.541
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": 0.139002,
+     "consumption_twh": 17.474,
+     "net_import_share": 0.244077,
+     "production_twh": 13.209
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00119
+    },
+    "gas": {
+     "balance": 0.002401,
+     "consumption_twh": 1057.84,
+     "net_import_share": 0.00479,
+     "production_twh": 1052.773
+    },
+    "oil": {
+     "balance": -0.42354,
+     "consumption_twh": 991.934,
+     "net_import_share": -1.46945,
+     "production_twh": 2449.531
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": 0.155188,
+     "consumption_twh": 18.215,
+     "net_import_share": 0.26868,
+     "production_twh": 13.321
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00336
+    },
+    "gas": {
+     "balance": 0.002273,
+     "consumption_twh": 1185.522,
+     "net_import_share": 0.004536,
+     "production_twh": 1180.144
+    },
+    "oil": {
+     "balance": -0.425694,
+     "consumption_twh": 999.074,
+     "net_import_share": -1.482463,
+     "production_twh": 2480.164
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": 0.059897,
+     "consumption_twh": 14.342,
+     "net_import_share": 0.113025,
+     "production_twh": 12.721
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01051
+    },
+    "gas": {
+     "balance": 0.0089,
+     "consumption_twh": 1257.867,
+     "net_import_share": 0.017643,
+     "production_twh": 1235.674
+    },
+    "oil": {
+     "balance": -0.417439,
+     "consumption_twh": 1029.706,
+     "net_import_share": -1.43312,
+     "production_twh": 2505.398
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": 0.002111,
+     "consumption_twh": 9.255,
+     "net_import_share": 0.004214,
+     "production_twh": 9.216
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01874
+    },
+    "gas": {
+     "balance": -0.003479,
+     "consumption_twh": 1347.944,
+     "net_import_share": -0.006982,
+     "production_twh": 1357.356
+    },
+    "oil": {
+     "balance": -0.412374,
+     "consumption_twh": 1002.677,
+     "net_import_share": -1.403526,
+     "production_twh": 2409.96
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": 0.210727,
+     "consumption_twh": 13.364,
+     "net_import_share": 0.348099,
+     "production_twh": 8.712
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01591
+    },
+    "gas": {
+     "balance": 0.001662,
+     "consumption_twh": 1443.894,
+     "net_import_share": 0.003319,
+     "production_twh": 1439.102
+    },
+    "oil": {
+     "balance": -0.434471,
+     "consumption_twh": 972.176,
+     "net_import_share": -1.536514,
+     "production_twh": 2465.938
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": 0.191842,
+     "consumption_twh": 13.733,
+     "net_import_share": 0.321925,
+     "production_twh": 9.312
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02173
+    },
+    "gas": {
+     "balance": 0.007253,
+     "consumption_twh": 1531.926,
+     "net_import_share": 0.014402,
+     "production_twh": 1509.863
+    },
+    "oil": {
+     "balance": -0.432977,
+     "consumption_twh": 978.044,
+     "net_import_share": -1.527191,
+     "production_twh": 2471.704
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": 0.120981,
+     "consumption_twh": 10.651,
+     "net_import_share": 0.215848,
+     "production_twh": 8.352
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02951
+    },
+    "gas": {
+     "balance": -0.014186,
+     "consumption_twh": 1525.455,
+     "net_import_share": -0.02878,
+     "production_twh": 1569.358
+    },
+    "oil": {
+     "balance": -0.355157,
+     "consumption_twh": 998.781,
+     "net_import_share": -1.10153,
+     "production_twh": 2098.968
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": 0.026345,
+     "consumption_twh": 8.863,
+     "net_import_share": 0.051337,
+     "production_twh": 8.408
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0314
+    },
+    "gas": {
+     "balance": -0.011863,
+     "consumption_twh": 1538.345,
+     "net_import_share": -0.02401,
+     "production_twh": 1575.281
+    },
+    "oil": {
+     "balance": -0.29452,
+     "consumption_twh": 1075.391,
+     "net_import_share": -0.834947,
+     "production_twh": 1973.286
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": 0.095458,
+     "consumption_twh": 10.552,
+     "net_import_share": 0.17428,
+     "production_twh": 8.713
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02184
+    },
+    "gas": {
+     "balance": -0.005876,
+     "consumption_twh": 1734.009,
+     "net_import_share": -0.011821,
+     "production_twh": 1754.506
+    },
+    "oil": {
+     "balance": -0.342238,
+     "consumption_twh": 991.938,
+     "net_import_share": -1.040612,
+     "production_twh": 2024.161
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": 0.123899,
+     "consumption_twh": 12.695,
+     "net_import_share": 0.220481,
+     "production_twh": 9.896
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00962
+    },
+    "gas": {
+     "balance": 0.001283,
+     "consumption_twh": 1840.195,
+     "net_import_share": 0.002563,
+     "production_twh": 1835.479
+    },
+    "oil": {
+     "balance": -0.415851,
+     "consumption_twh": 864.857,
+     "net_import_share": -1.423782,
+     "production_twh": 2096.225
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 0.009995,
+     "consumption_twh": 10.56,
+     "net_import_share": 0.019792,
+     "production_twh": 10.351
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00871
+    },
+    "gas": {
+     "balance": -0.00764,
+     "consumption_twh": 1963.191,
+     "net_import_share": -0.015397,
+     "production_twh": 1993.419
+    },
+    "oil": {
+     "balance": -0.477791,
+     "consumption_twh": 888.29,
+     "net_import_share": -1.829887,
+     "production_twh": 2513.76
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 11.982,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01436
+    },
+    "gas": {
+     "balance": -0.02112,
+     "consumption_twh": 2050.04,
+     "net_import_share": -0.043151,
+     "production_twh": 2138.501
+    },
+    "oil": {
+     "balance": -0.505101,
+     "consumption_twh": 896.906,
+     "net_import_share": -2.041232,
+     "production_twh": 2727.699
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 15.849,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01202
+    },
+    "gas": {
+     "balance": -0.017288,
+     "consumption_twh": 2126.434,
+     "net_import_share": -0.035185,
+     "production_twh": 2201.252
+    },
+    "oil": {
+     "balance": -0.47143,
+     "consumption_twh": 933.499,
+     "net_import_share": -1.783792,
+     "production_twh": 2598.667
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 18.933,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02199
+    },
+    "gas": {
+     "balance": -0.022217,
+     "consumption_twh": 2183.896,
+     "net_import_share": -0.045444,
+     "production_twh": 2283.14
+    },
+    "oil": {
+     "balance": -0.311642,
+     "consumption_twh": 985.508,
+     "net_import_share": -0.905464,
+     "production_twh": 1877.85
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 21.401,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02058
+    },
+    "gas": {
+     "balance": 0.002099,
+     "consumption_twh": 2367.673,
+     "net_import_share": 0.004189,
+     "production_twh": 2357.755
+    },
+    "oil": {
+     "balance": -0.286347,
+     "consumption_twh": 950.843,
+     "net_import_share": -0.802484,
+     "production_twh": 1713.879
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 20.255,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01945
+    },
+    "gas": {
+     "balance": -0.028192,
+     "consumption_twh": 2295.314,
+     "net_import_share": -0.05802,
+     "production_twh": 2428.488
+    },
+    "oil": {
+     "balance": -0.321728,
+     "consumption_twh": 1010.115,
+     "net_import_share": -0.948669,
+     "production_twh": 1968.38
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 21.514,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01789
+    },
+    "gas": {
+     "balance": -0.017049,
+     "consumption_twh": 2394.013,
+     "net_import_share": -0.034689,
+     "production_twh": 2477.058
+    },
+    "oil": {
+     "balance": -0.341878,
+     "consumption_twh": 1017.021,
+     "net_import_share": -1.038951,
+     "production_twh": 2073.656
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 18.063,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01793
+    },
+    "gas": {
+     "balance": -0.02598,
+     "consumption_twh": 2465.833,
+     "net_import_share": -0.053346,
+     "production_twh": 2597.375
+    },
+    "oil": {
+     "balance": -0.408416,
+     "consumption_twh": 1031.422,
+     "net_import_share": -1.380754,
+     "production_twh": 2455.562
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 18.45,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0061
+    },
+    "gas": {
+     "balance": -0.034471,
+     "consumption_twh": 2453.936,
+     "net_import_share": -0.071404,
+     "production_twh": 2629.157
+    },
+    "oil": {
+     "balance": -0.446007,
+     "consumption_twh": 1044.638,
+     "net_import_share": -1.610155,
+     "production_twh": 2726.667
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00046
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "NOR": {
+   "2000": {
+    "coal": {
+     "balance": 0.379166,
+     "consumption_twh": 11.545,
+     "net_import_share": 0.549848,
+     "production_twh": 5.197
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.15429
+    },
+    "gas": {
+     "balance": -0.843401,
+     "consumption_twh": 42.368,
+     "net_import_share": -10.771455,
+     "production_twh": 498.733
+    },
+    "oil": {
+     "balance": -0.886636,
+     "consumption_twh": 108.985,
+     "net_import_share": -15.642354,
+     "production_twh": 1813.767
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": -0.176697,
+     "consumption_twh": 10.288,
+     "net_import_share": -0.429238,
+     "production_twh": 14.704
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.02859
+    },
+    "gas": {
+     "balance": -0.865843,
+     "consumption_twh": 39.263,
+     "net_import_share": -12.907954,
+     "production_twh": 546.068
+    },
+    "oil": {
+     "balance": -0.88569,
+     "consumption_twh": 114.805,
+     "net_import_share": -15.496337,
+     "production_twh": 1893.862
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": -0.325496,
+     "consumption_twh": 8.922,
+     "net_import_share": -0.965142,
+     "production_twh": 17.533
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.08056
+    },
+    "gas": {
+     "balance": -0.880556,
+     "consumption_twh": 41.903,
+     "net_import_share": -14.744267,
+     "production_twh": 659.732
+    },
+    "oil": {
+     "balance": -0.883483,
+     "consumption_twh": 113.964,
+     "net_import_share": -15.16485,
+     "production_twh": 1842.211
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": -0.470749,
+     "consumption_twh": 8.712,
+     "net_import_share": -1.778926,
+     "production_twh": 24.21
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.06871
+    },
+    "gas": {
+     "balance": -0.884078,
+     "consumption_twh": 45.148,
+     "net_import_share": -15.253012,
+     "production_twh": 733.791
+    },
+    "oil": {
+     "balance": -0.876171,
+     "consumption_twh": 118.462,
+     "net_import_share": -14.151247,
+     "production_twh": 1794.847
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": -0.416555,
+     "consumption_twh": 9.836,
+     "net_import_share": -1.427918,
+     "production_twh": 23.881
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0942
+    },
+    "gas": {
+     "balance": -0.887058,
+     "consumption_twh": 47.741,
+     "net_import_share": -15.70828,
+     "production_twh": 797.67
+    },
+    "oil": {
+     "balance": -0.878827,
+     "consumption_twh": 113.563,
+     "net_import_share": -14.505367,
+     "production_twh": 1760.836
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": -0.180425,
+     "consumption_twh": 8.399,
+     "net_import_share": -0.440291,
+     "production_twh": 12.097
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.09616
+    },
+    "gas": {
+     "balance": -0.902424,
+     "consumption_twh": 43.941,
+     "net_import_share": -18.496803,
+     "production_twh": 856.709
+    },
+    "oil": {
+     "balance": -0.867533,
+     "consumption_twh": 115.055,
+     "net_import_share": -13.098066,
+     "production_twh": 1622.053
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": -0.464332,
+     "consumption_twh": 7.205,
+     "net_import_share": -1.733657,
+     "production_twh": 19.696
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00696
+    },
+    "gas": {
+     "balance": -0.906175,
+     "consumption_twh": 43.426,
+     "net_import_share": -19.31617,
+     "production_twh": 882.25
+    },
+    "oil": {
+     "balance": -0.855118,
+     "consumption_twh": 117.824,
+     "net_import_share": -11.804301,
+     "production_twh": 1508.654
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": -0.617413,
+     "consumption_twh": 7.923,
+     "net_import_share": -3.227565,
+     "production_twh": 33.495
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.07955
+    },
+    "gas": {
+     "balance": -0.910965,
+     "consumption_twh": 41.635,
+     "net_import_share": -20.463072,
+     "production_twh": 893.615
+    },
+    "oil": {
+     "balance": -0.839769,
+     "consumption_twh": 121.141,
+     "net_import_share": -10.482009,
+     "production_twh": 1390.942
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": -0.551028,
+     "consumption_twh": 8.165,
+     "net_import_share": -2.454623,
+     "production_twh": 28.207
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.10885
+    },
+    "gas": {
+     "balance": -0.917022,
+     "consumption_twh": 42.009,
+     "net_import_share": -22.102668,
+     "production_twh": 970.52
+    },
+    "oil": {
+     "balance": -0.843744,
+     "consumption_twh": 114.245,
+     "net_import_share": -10.799527,
+     "production_twh": 1348.037
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": -0.539317,
+     "consumption_twh": 6.5,
+     "net_import_share": -2.341385,
+     "production_twh": 21.719
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.07361
+    },
+    "gas": {
+     "balance": -0.923241,
+     "consumption_twh": 39.723,
+     "net_import_share": -24.055736,
+     "production_twh": 995.289
+    },
+    "oil": {
+     "balance": -0.836725,
+     "consumption_twh": 113.28,
+     "net_import_share": -10.249303,
+     "production_twh": 1274.321
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": -0.284653,
+     "consumption_twh": 8.861,
+     "net_import_share": -0.795847,
+     "production_twh": 15.913
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.05777
+    },
+    "gas": {
+     "balance": -0.925702,
+     "consumption_twh": 40.343,
+     "net_import_share": -24.918648,
+     "production_twh": 1045.636
+    },
+    "oil": {
+     "balance": -0.812463,
+     "consumption_twh": 119.778,
+     "net_import_share": -8.664538,
+     "production_twh": 1157.599
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": -0.073713,
+     "consumption_twh": 9.833,
+     "net_import_share": -0.159158,
+     "production_twh": 11.398
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02507
+    },
+    "gas": {
+     "balance": -0.922853,
+     "consumption_twh": 40.243,
+     "net_import_share": -23.924683,
+     "production_twh": 1003.044
+    },
+    "oil": {
+     "balance": -0.808391,
+     "consumption_twh": 116.164,
+     "net_import_share": -8.437924,
+     "production_twh": 1096.347
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": -0.029488,
+     "consumption_twh": 9.528,
+     "net_import_share": -0.060768,
+     "production_twh": 10.107
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.13883
+    },
+    "gas": {
+     "balance": -0.932124,
+     "consumption_twh": 39.869,
+     "net_import_share": -27.465374,
+     "production_twh": 1134.886
+    },
+    "oil": {
+     "balance": -0.795532,
+     "consumption_twh": 116.09,
+     "net_import_share": -7.781471,
+     "production_twh": 1019.441
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": -0.256435,
+     "consumption_twh": 9.028,
+     "net_import_share": -0.689743,
+     "production_twh": 15.255
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0391
+    },
+    "gas": {
+     "balance": -0.929156,
+     "consumption_twh": 39.498,
+     "net_import_share": -26.230898,
+     "production_twh": 1075.566
+    },
+    "oil": {
+     "balance": -0.783942,
+     "consumption_twh": 117.565,
+     "net_import_share": -7.25676,
+     "production_twh": 970.706
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": -0.164216,
+     "consumption_twh": 9.889,
+     "net_import_share": -0.392962,
+     "production_twh": 13.775
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.12434
+    },
+    "gas": {
+     "balance": -0.923319,
+     "consumption_twh": 42.449,
+     "net_import_share": -24.082146,
+     "production_twh": 1064.712
+    },
+    "oil": {
+     "balance": -0.793535,
+     "consumption_twh": 114.271,
+     "net_import_share": -7.686858,
+     "production_twh": 992.656
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": -0.012919,
+     "consumption_twh": 8.863,
+     "net_import_share": -0.026176,
+     "production_twh": 9.095
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.11414
+    },
+    "gas": {
+     "balance": -0.924516,
+     "consumption_twh": 45.094,
+     "net_import_share": -24.495654,
+     "production_twh": 1149.701
+    },
+    "oil": {
+     "balance": -0.79583,
+     "consumption_twh": 116.294,
+     "net_import_share": -7.795768,
+     "production_twh": 1022.895
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": 0.149934,
+     "consumption_twh": 9.1,
+     "net_import_share": 0.260769,
+     "production_twh": 6.727
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.12468
+    },
+    "gas": {
+     "balance": -0.927002,
+     "consumption_twh": 43.466,
+     "net_import_share": -25.397989,
+     "production_twh": 1147.415
+    },
+    "oil": {
+     "balance": -0.806945,
+     "consumption_twh": 112.659,
+     "net_import_share": -8.359767,
+     "production_twh": 1054.462
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 9.513,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.11389
+    },
+    "gas": {
+     "balance": -0.92842,
+     "consumption_twh": 45.439,
+     "net_import_share": -25.940756,
+     "production_twh": 1224.161
+    },
+    "oil": {
+     "balance": -0.805423,
+     "consumption_twh": 111.996,
+     "net_import_share": -8.278697,
+     "production_twh": 1039.177
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 9.291,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.07475
+    },
+    "gas": {
+     "balance": -0.929476,
+     "consumption_twh": 43.854,
+     "net_import_share": -26.359329,
+     "production_twh": 1199.816
+    },
+    "oil": {
+     "balance": -0.788323,
+     "consumption_twh": 115.443,
+     "net_import_share": -7.448368,
+     "production_twh": 975.305
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 9.075,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0003
+    },
+    "gas": {
+     "balance": -0.923114,
+     "consumption_twh": 45.274,
+     "net_import_share": -24.012546,
+     "production_twh": 1132.418
+    },
+    "oil": {
+     "balance": -0.786154,
+     "consumption_twh": 110.243,
+     "net_import_share": -7.352503,
+     "production_twh": 920.805
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 8.977,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.15293
+    },
+    "gas": {
+     "balance": -0.92402,
+     "consumption_twh": 43.57,
+     "net_import_share": -24.322768,
+     "production_twh": 1103.313
+    },
+    "oil": {
+     "balance": -0.826808,
+     "consumption_twh": 102.117,
+     "net_import_share": -9.547872,
+     "production_twh": 1077.117
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 9.79,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.12598
+    },
+    "gas": {
+     "balance": -0.928967,
+     "consumption_twh": 41.706,
+     "net_import_share": -26.155733,
+     "production_twh": 1132.557
+    },
+    "oil": {
+     "balance": -0.825291,
+     "consumption_twh": 104.959,
+     "net_import_share": -9.447594,
+     "production_twh": 1096.569
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 9.366,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.09421
+    },
+    "gas": {
+     "balance": -0.938798,
+     "consumption_twh": 38.809,
+     "net_import_share": -30.678915,
+     "production_twh": 1229.427
+    },
+    "oil": {
+     "balance": -0.812698,
+     "consumption_twh": 107.24,
+     "net_import_share": -8.677937,
+     "production_twh": 1037.862
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 8.464,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.13055
+    },
+    "gas": {
+     "balance": -0.937029,
+     "consumption_twh": 37.749,
+     "net_import_share": -29.760894,
+     "production_twh": 1161.193
+    },
+    "oil": {
+     "balance": -0.821513,
+     "consumption_twh": 108.044,
+     "net_import_share": -9.205277,
+     "production_twh": 1102.619
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": 8.812,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.13298
+    },
+    "gas": {
+     "balance": -0.942212,
+     "consumption_twh": 33.681,
+     "net_import_share": -32.609453,
+     "production_twh": 1132.0
+    },
+    "oil": {
+     "balance": -0.805461,
+     "consumption_twh": 107.619,
+     "net_import_share": -8.280694,
+     "production_twh": 998.779
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.16774
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "RUS": {
+   "2000": {
+    "coal": {
+     "balance": -0.069314,
+     "consumption_twh": 1230.057,
+     "net_import_share": -0.148953,
+     "production_twh": 1413.278
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01628
+    },
+    "gas": {
+     "balance": -0.189167,
+     "consumption_twh": 3661.913,
+     "net_import_share": -0.4666,
+     "production_twh": 5370.56
+    },
+    "oil": {
+     "balance": -0.443162,
+     "consumption_twh": 1465.806,
+     "net_import_share": -1.591712,
+     "production_twh": 3798.947
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": -0.109127,
+     "consumption_twh": 1199.908,
+     "net_import_share": -0.24499,
+     "production_twh": 1493.873
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01812
+    },
+    "gas": {
+     "balance": -0.179274,
+     "consumption_twh": 3721.688,
+     "net_import_share": -0.436867,
+     "production_twh": 5347.57
+    },
+    "oil": {
+     "balance": -0.460868,
+     "consumption_twh": 1509.422,
+     "net_import_share": -1.709669,
+     "production_twh": 4090.034
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": -0.083846,
+     "consumption_twh": 1204.939,
+     "net_import_share": -0.183038,
+     "production_twh": 1425.489
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01473
+    },
+    "gas": {
+     "balance": -0.184876,
+     "consumption_twh": 3766.749,
+     "net_import_share": -0.453613,
+     "production_twh": 5475.396
+    },
+    "oil": {
+     "balance": -0.507919,
+     "consumption_twh": 1456.214,
+     "net_import_share": -2.064369,
+     "production_twh": 4462.377
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": -0.119367,
+     "consumption_twh": 1212.413,
+     "net_import_share": -0.271094,
+     "production_twh": 1541.091
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01482
+    },
+    "gas": {
+     "balance": -0.193499,
+     "consumption_twh": 3855.952,
+     "net_import_share": -0.479848,
+     "production_twh": 5706.221
+    },
+    "oil": {
+     "balance": -0.532777,
+     "consumption_twh": 1509.185,
+     "net_import_share": -2.280612,
+     "production_twh": 4951.051
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": -0.157104,
+     "consumption_twh": 1161.752,
+     "net_import_share": -0.372773,
+     "production_twh": 1594.822
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00824
+    },
+    "gas": {
+     "balance": -0.191125,
+     "consumption_twh": 3956.19,
+     "net_import_share": -0.472571,
+     "production_twh": 5825.771
+    },
+    "oil": {
+     "balance": -0.567086,
+     "consumption_twh": 1488.477,
+     "net_import_share": -2.619856,
+     "production_twh": 5388.073
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": -0.1782,
+     "consumption_twh": 1099.903,
+     "net_import_share": -0.433683,
+     "production_twh": 1576.912
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01315
+    },
+    "gas": {
+     "balance": -0.191007,
+     "consumption_twh": 4004.01,
+     "net_import_share": -0.47221,
+     "production_twh": 5894.742
+    },
+    "oil": {
+     "balance": -0.574166,
+     "consumption_twh": 1493.819,
+     "net_import_share": -2.696666,
+     "production_twh": 5522.15
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": -0.184697,
+     "consumption_twh": 1128.363,
+     "net_import_share": -0.453076,
+     "production_twh": 1639.597
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01619
+    },
+    "gas": {
+     "balance": -0.178317,
+     "consumption_twh": 4217.361,
+     "net_import_share": -0.434028,
+     "production_twh": 6047.812
+    },
+    "oil": {
+     "balance": -0.565495,
+     "consumption_twh": 1569.592,
+     "net_import_share": -2.602934,
+     "production_twh": 5655.137
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": -0.208848,
+     "consumption_twh": 1092.244,
+     "net_import_share": -0.52796,
+     "production_twh": 1668.905
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01272
+    },
+    "gas": {
+     "balance": -0.167693,
+     "consumption_twh": 4288.172,
+     "net_import_share": -0.402959,
+     "production_twh": 6016.131
+    },
+    "oil": {
+     "balance": -0.574804,
+     "consumption_twh": 1561.667,
+     "net_import_share": -2.703708,
+     "production_twh": 5783.959
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": -0.193215,
+     "consumption_twh": 1171.354,
+     "net_import_share": -0.478976,
+     "production_twh": 1732.405
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01724
+    },
+    "gas": {
+     "balance": -0.182465,
+     "consumption_twh": 4227.477,
+     "net_import_share": -0.446378,
+     "production_twh": 6114.53
+    },
+    "oil": {
+     "balance": -0.562041,
+     "consumption_twh": 1611.649,
+     "net_import_share": -2.566643,
+     "production_twh": 5748.176
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": -0.212036,
+     "consumption_twh": 1071.749,
+     "net_import_share": -0.538189,
+     "production_twh": 1648.552
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01519
+    },
+    "gas": {
+     "balance": -0.148184,
+     "consumption_twh": 3977.893,
+     "net_import_share": -0.347924,
+     "production_twh": 5361.897
+    },
+    "oil": {
+     "balance": -0.580783,
+     "consumption_twh": 1546.319,
+     "net_import_share": -2.770794,
+     "production_twh": 5830.85
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": -0.250219,
+     "consumption_twh": 1052.676,
+     "net_import_share": -0.667447,
+     "production_twh": 1755.281
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.0171
+    },
+    "gas": {
+     "balance": -0.17066,
+     "consumption_twh": 4239.202,
+     "net_import_share": -0.411555,
+     "production_twh": 5983.868
+    },
+    "oil": {
+     "balance": -0.575595,
+     "consumption_twh": 1604.92,
+     "net_import_share": -2.712478,
+     "production_twh": 5958.23
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": -0.252643,
+     "consumption_twh": 1093.336,
+     "net_import_share": -0.676099,
+     "production_twh": 1832.539
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.02184
+    },
+    "gas": {
+     "balance": -0.172159,
+     "consumption_twh": 4356.361,
+     "net_import_share": -0.415924,
+     "production_twh": 6168.277
+    },
+    "oil": {
+     "balance": -0.556435,
+     "consumption_twh": 1721.716,
+     "net_import_share": -2.50892,
+     "production_twh": 6041.363
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": -0.261942,
+     "consumption_twh": 1144.625,
+     "net_import_share": -0.709814,
+     "production_twh": 1957.096
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01565
+    },
+    "gas": {
+     "balance": -0.168105,
+     "consumption_twh": 4286.259,
+     "net_import_share": -0.40415,
+     "production_twh": 6018.55
+    },
+    "oil": {
+     "balance": -0.549547,
+     "consumption_twh": 1780.806,
+     "net_import_share": -2.439979,
+     "production_twh": 6125.936
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": -0.31333,
+     "consumption_twh": 1052.631,
+     "net_import_share": -0.912607,
+     "production_twh": 2013.269
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01309
+    },
+    "gas": {
+     "balance": -0.182447,
+     "consumption_twh": 4248.674,
+     "net_import_share": -0.446325,
+     "production_twh": 6144.962
+    },
+    "oil": {
+     "balance": -0.552333,
+     "consumption_twh": 1785.025,
+     "net_import_share": -2.467604,
+     "production_twh": 6189.76
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": -0.337043,
+     "consumption_twh": 1018.439,
+     "net_import_share": -1.016786,
+     "production_twh": 2053.974
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00762
+    },
+    "gas": {
+     "balance": -0.166731,
+     "consumption_twh": 4221.982,
+     "net_import_share": -0.400184,
+     "production_twh": 5911.552
+    },
+    "oil": {
+     "balance": -0.538371,
+     "consumption_twh": 1875.539,
+     "net_import_share": -2.332483,
+     "production_twh": 6250.202
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": -0.338361,
+     "consumption_twh": 1071.356,
+     "net_import_share": -1.022795,
+     "production_twh": 2167.134
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01104
+    },
+    "gas": {
+     "balance": -0.176983,
+     "consumption_twh": 4086.748,
+     "net_import_share": -0.430085,
+     "production_twh": 5844.396
+    },
+    "oil": {
+     "balance": -0.555004,
+     "consumption_twh": 1812.358,
+     "net_import_share": -2.494422,
+     "production_twh": 6333.144
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": -0.369748,
+     "consumption_twh": 1037.977,
+     "net_import_share": -1.173334,
+     "production_twh": 2255.871
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01347
+    },
+    "gas": {
+     "balance": -0.166972,
+     "consumption_twh": 4206.464,
+     "net_import_share": -0.40088,
+     "production_twh": 5892.753
+    },
+    "oil": {
+     "balance": -0.558659,
+     "consumption_twh": 1839.121,
+     "net_import_share": -2.531639,
+     "production_twh": 6495.111
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": -0.420633,
+     "consumption_twh": 976.106,
+     "net_import_share": -1.452043,
+     "production_twh": 2393.454
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00981
+    },
+    "gas": {
+     "balance": -0.191682,
+     "consumption_twh": 4311.006,
+     "net_import_share": -0.474275,
+     "production_twh": 6355.609
+    },
+    "oil": {
+     "balance": -0.559823,
+     "consumption_twh": 1833.12,
+     "net_import_share": -2.543629,
+     "production_twh": 6495.898
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": -0.435476,
+     "consumption_twh": 1007.856,
+     "net_import_share": -1.542811,
+     "production_twh": 2562.787
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01149
+    },
+    "gas": {
+     "balance": -0.190998,
+     "consumption_twh": 4544.993,
+     "net_import_share": -0.472182,
+     "production_twh": 6691.059
+    },
+    "oil": {
+     "balance": -0.562206,
+     "consumption_twh": 1850.849,
+     "net_import_share": -2.568363,
+     "production_twh": 6604.501
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": -0.44251,
+     "consumption_twh": 990.76,
+     "net_import_share": -1.58751,
+     "production_twh": 2563.601
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01676
+    },
+    "gas": {
+     "balance": -0.208943,
+     "consumption_twh": 4443.127,
+     "net_import_share": -0.528264,
+     "production_twh": 6790.269
+    },
+    "oil": {
+     "balance": -0.558567,
+     "consumption_twh": 1888.725,
+     "net_import_share": -2.530695,
+     "production_twh": 6668.512
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": -0.438957,
+     "consumption_twh": 910.978,
+     "net_import_share": -1.56479,
+     "production_twh": 2336.467
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.00999
+    },
+    "gas": {
+     "balance": -0.202427,
+     "consumption_twh": 4234.834,
+     "net_import_share": -0.507607,
+     "production_twh": 6384.466
+    },
+    "oil": {
+     "balance": -0.54114,
+     "consumption_twh": 1815.754,
+     "net_import_share": -2.35863,
+     "production_twh": 6098.446
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": -0.460362,
+     "consumption_twh": 947.612,
+     "net_import_share": -1.706187,
+     "production_twh": 2564.415
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01879
+    },
+    "gas": {
+     "balance": -0.238671,
+     "consumption_twh": 4315.445,
+     "net_import_share": -0.626986,
+     "production_twh": 7021.168
+    },
+    "oil": {
+     "balance": -0.528949,
+     "consumption_twh": 1930.496,
+     "net_import_share": -2.245826,
+     "production_twh": 6266.054
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": -0.4188,
+     "consumption_twh": 1062.208,
+     "net_import_share": -1.441154,
+     "production_twh": 2593.013
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01425
+    },
+    "gas": {
+     "balance": -0.159325,
+     "consumption_twh": 4484.05,
+     "net_import_share": -0.379039,
+     "production_twh": 6183.682
+    },
+    "oil": {
+     "balance": -0.525892,
+     "consumption_twh": 1982.087,
+     "net_import_share": -2.218452,
+     "production_twh": 6379.251
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": -0.413403,
+     "consumption_twh": 1060.086,
+     "net_import_share": -1.409497,
+     "production_twh": 2554.274
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01423
+    },
+    "gas": {
+     "balance": -0.127926,
+     "consumption_twh": 4533.709,
+     "net_import_share": -0.293383,
+     "production_twh": 5863.822
+    },
+    "oil": {
+     "balance": -0.50407,
+     "consumption_twh": 2077.033,
+     "net_import_share": -2.032828,
+     "production_twh": 6299.283
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": -0.417336,
+     "consumption_twh": 1041.379,
+     "net_import_share": -1.432512,
+     "production_twh": 2533.167
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01375
+    },
+    "gas": {
+     "balance": -0.138081,
+     "consumption_twh": 4770.235,
+     "net_import_share": -0.320404,
+     "production_twh": 6298.639
+    },
+    "oil": {
+     "balance": -0.483912,
+     "consumption_twh": 2129.103,
+     "net_import_share": -1.875312,
+     "production_twh": 6121.835
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": -0.01418
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  },
+  "USA": {
+   "2000": {
+    "coal": {
+     "balance": -0.003442,
+     "consumption_twh": 6286.536,
+     "net_import_share": -0.006907,
+     "production_twh": 6329.958
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0088
+    },
+    "gas": {
+     "balance": 0.09572,
+     "consumption_twh": 6283.907,
+     "net_import_share": 0.174717,
+     "production_twh": 5186.003
+    },
+    "oil": {
+     "balance": 0.449917,
+     "consumption_twh": 10654.942,
+     "net_import_share": 0.620611,
+     "production_twh": 4042.373
+    }
+   },
+   "2001": {
+    "coal": {
+     "balance": -0.035917,
+     "consumption_twh": 6101.316,
+     "net_import_share": -0.074509,
+     "production_twh": 6555.921
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00588
+    },
+    "gas": {
+     "balance": 0.060715,
+     "consumption_twh": 6006.58,
+     "net_import_share": 0.114479,
+     "production_twh": 5318.95
+    },
+    "oil": {
+     "balance": 0.452981,
+     "consumption_twh": 10642.425,
+     "net_import_share": 0.62352,
+     "production_twh": 4006.665
+    }
+   },
+   "2002": {
+    "coal": {
+     "balance": -0.018556,
+     "consumption_twh": 6098.454,
+     "net_import_share": -0.037813,
+     "production_twh": 6329.053
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00543
+    },
+    "gas": {
+     "balance": 0.096242,
+     "consumption_twh": 6201.112,
+     "net_import_share": 0.175585,
+     "production_twh": 5112.288
+    },
+    "oil": {
+     "balance": 0.455971,
+     "consumption_twh": 10641.834,
+     "net_import_share": 0.626346,
+     "production_twh": 3976.362
+    }
+   },
+   "2003": {
+    "coal": {
+     "balance": 0.005117,
+     "consumption_twh": 6214.537,
+     "net_import_share": 0.010182,
+     "production_twh": 6151.262
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00166
+    },
+    "gas": {
+     "balance": 0.075295,
+     "consumption_twh": 6021.901,
+     "net_import_share": 0.140046,
+     "production_twh": 5178.558
+    },
+    "oil": {
+     "balance": 0.472869,
+     "consumption_twh": 10806.655,
+     "net_import_share": 0.642106,
+     "production_twh": 3867.633
+    }
+   },
+   "2004": {
+    "coal": {
+     "balance": -0.008515,
+     "consumption_twh": 6254.982,
+     "net_import_share": -0.017177,
+     "production_twh": 6362.425
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00285
+    },
+    "gas": {
+     "balance": 0.091644,
+     "consumption_twh": 6046.277,
+     "net_import_share": 0.167901,
+     "production_twh": 5031.101
+    },
+    "oil": {
+     "balance": 0.494918,
+     "consumption_twh": 11199.437,
+     "net_import_share": 0.662134,
+     "production_twh": 3783.905
+    }
+   },
+   "2005": {
+    "coal": {
+     "balance": -0.008452,
+     "consumption_twh": 6346.957,
+     "net_import_share": -0.017048,
+     "production_twh": 6455.163
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0061
+    },
+    "gas": {
+     "balance": 0.0975,
+     "consumption_twh": 5951.93,
+     "net_import_share": 0.177677,
+     "production_twh": 4894.408
+    },
+    "oil": {
+     "balance": 0.514717,
+     "consumption_twh": 11216.509,
+     "net_import_share": 0.679621,
+     "production_twh": 3593.534
+    }
+   },
+   "2006": {
+    "coal": {
+     "balance": -0.029032,
+     "consumption_twh": 6249.683,
+     "net_import_share": -0.059801,
+     "production_twh": 6623.418
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00453
+    },
+    "gas": {
+     "balance": 0.077969,
+     "consumption_twh": 5865.778,
+     "net_import_share": 0.144659,
+     "production_twh": 5017.24
+    },
+    "oil": {
+     "balance": 0.515349,
+     "consumption_twh": 11072.753,
+     "net_import_share": 0.680172,
+     "production_twh": 3541.373
+    }
+   },
+   "2007": {
+    "coal": {
+     "balance": -0.016073,
+     "consumption_twh": 6333.85,
+     "net_import_share": -0.032672,
+     "production_twh": 6540.789
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00749
+    },
+    "gas": {
+     "balance": 0.089221,
+     "consumption_twh": 6241.383,
+     "net_import_share": 0.163825,
+     "production_twh": 5218.889
+    },
+    "oil": {
+     "balance": 0.512509,
+     "consumption_twh": 11004.68,
+     "net_import_share": 0.677694,
+     "production_twh": 3546.877
+    }
+   },
+   "2008": {
+    "coal": {
+     "balance": -0.03166,
+     "consumption_twh": 6233.055,
+     "net_import_share": -0.065391,
+     "production_twh": 6640.64
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00793
+    },
+    "gas": {
+     "balance": 0.070491,
+     "consumption_twh": 6288.912,
+     "net_import_share": 0.131698,
+     "production_twh": 5460.674
+    },
+    "oil": {
+     "balance": 0.490243,
+     "consumption_twh": 10275.43,
+     "net_import_share": 0.657937,
+     "production_twh": 3514.844
+    }
+   },
+   "2009": {
+    "coal": {
+     "balance": -0.046775,
+     "consumption_twh": 5482.376,
+     "net_import_share": -0.098141,
+     "production_twh": 6020.422
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00857
+    },
+    "gas": {
+     "balance": 0.051093,
+     "consumption_twh": 6176.281,
+     "net_import_share": 0.09722,
+     "production_twh": 5575.825
+    },
+    "oil": {
+     "balance": 0.443945,
+     "consumption_twh": 9742.241,
+     "net_import_share": 0.614906,
+     "production_twh": 3751.68
+    }
+   },
+   "2010": {
+    "coal": {
+     "balance": -0.028089,
+     "consumption_twh": 5800.542,
+     "net_import_share": -0.057803,
+     "production_twh": 6135.828
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00628
+    },
+    "gas": {
+     "balance": 0.059702,
+     "consumption_twh": 6481.935,
+     "net_import_share": 0.112676,
+     "production_twh": 5751.574
+    },
+    "oil": {
+     "balance": 0.437151,
+     "consumption_twh": 9892.91,
+     "net_import_share": 0.608358,
+     "production_twh": 3874.478
+    }
+   },
+   "2011": {
+    "coal": {
+     "balance": -0.061215,
+     "consumption_twh": 5473.071,
+     "net_import_share": -0.130413,
+     "production_twh": 6186.829
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00903
+    },
+    "gas": {
+     "balance": 0.032027,
+     "consumption_twh": 6582.108,
+     "net_import_share": 0.062066,
+     "production_twh": 6173.585
+    },
+    "oil": {
+     "balance": 0.412975,
+     "consumption_twh": 9697.58,
+     "net_import_share": 0.584547,
+     "production_twh": 4028.887
+    }
+   },
+   "2012": {
+    "coal": {
+     "balance": -0.086681,
+     "consumption_twh": 4838.405,
+     "net_import_share": -0.189816,
+     "production_twh": 5756.81
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01156
+    },
+    "gas": {
+     "balance": 0.029163,
+     "consumption_twh": 6881.228,
+     "net_import_share": 0.056673,
+     "production_twh": 6491.249
+    },
+    "oil": {
+     "balance": 0.346503,
+     "consumption_twh": 9472.091,
+     "net_import_share": 0.514671,
+     "production_twh": 4597.08
+    }
+   },
+   "2013": {
+    "coal": {
+     "balance": -0.051595,
+     "consumption_twh": 5022.271,
+     "net_import_share": -0.108804,
+     "production_twh": 5568.713
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01407
+    },
+    "gas": {
+     "balance": 0.037668,
+     "consumption_twh": 7070.228,
+     "net_import_share": 0.0726,
+     "production_twh": 6556.927
+    },
+    "oil": {
+     "balance": 0.297162,
+     "consumption_twh": 9628.432,
+     "net_import_share": 0.458173,
+     "production_twh": 5216.947
+    }
+   },
+   "2014": {
+    "coal": {
+     "balance": -0.059767,
+     "consumption_twh": 5010.856,
+     "net_import_share": -0.127132,
+     "production_twh": 5647.896
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01282
+    },
+    "gas": {
+     "balance": 0.012287,
+     "consumption_twh": 7222.605,
+     "net_import_share": 0.024277,
+     "production_twh": 7047.265
+    },
+    "oil": {
+     "balance": 0.227843,
+     "consumption_twh": 9692.96,
+     "net_import_share": 0.371127,
+     "production_twh": 6095.636
+    }
+   },
+   "2015": {
+    "coal": {
+     "balance": -0.07157,
+     "consumption_twh": 4329.078,
+     "net_import_share": -0.154173,
+     "production_twh": 4996.507
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01606
+    },
+    "gas": {
+     "balance": 0.002208,
+     "consumption_twh": 7435.795,
+     "net_import_share": 0.004406,
+     "production_twh": 7403.032
+    },
+    "oil": {
+     "balance": 0.20027,
+     "consumption_twh": 9891.111,
+     "net_import_share": 0.333709,
+     "production_twh": 6590.36
+    }
+   },
+   "2016": {
+    "coal": {
+     "balance": -0.01527,
+     "consumption_twh": 3960.741,
+     "net_import_share": -0.031013,
+     "production_twh": 4083.575
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01601
+    },
+    "gas": {
+     "balance": 0.014726,
+     "consumption_twh": 7490.989,
+     "net_import_share": 0.029025,
+     "production_twh": 7273.561
+    },
+    "oil": {
+     "balance": 0.224327,
+     "consumption_twh": 9965.476,
+     "net_import_share": 0.36645,
+     "production_twh": 6313.63
+    }
+   },
+   "2017": {
+    "coal": {
+     "balance": -0.060684,
+     "consumption_twh": 3852.593,
+     "net_import_share": -0.129208,
+     "production_twh": 4350.379
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01371
+    },
+    "gas": {
+     "balance": -0.004899,
+     "consumption_twh": 7398.232,
+     "net_import_share": -0.009846,
+     "production_twh": 7471.073
+    },
+    "oil": {
+     "balance": 0.202124,
+     "consumption_twh": 10062.591,
+     "net_import_share": 0.336278,
+     "production_twh": 6678.759
+    }
+   },
+   "2018": {
+    "coal": {
+     "balance": -0.073804,
+     "consumption_twh": 3689.459,
+     "net_import_share": -0.159371,
+     "production_twh": 4277.451
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01047
+    },
+    "gas": {
+     "balance": -0.01141,
+     "consumption_twh": 8219.633,
+     "net_import_share": -0.023082,
+     "production_twh": 8409.362
+    },
+    "oil": {
+     "balance": 0.138798,
+     "consumption_twh": 10303.763,
+     "net_import_share": 0.243762,
+     "production_twh": 7792.1
+    }
+   },
+   "2019": {
+    "coal": {
+     "balance": -0.114979,
+     "consumption_twh": 3150.46,
+     "net_import_share": -0.259833,
+     "production_twh": 3969.054
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.0093
+    },
+    "gas": {
+     "balance": -0.043342,
+     "consumption_twh": 8509.999,
+     "net_import_share": -0.090612,
+     "production_twh": 9281.11
+    },
+    "oil": {
+     "balance": 0.081596,
+     "consumption_twh": 10287.684,
+     "net_import_share": 0.150881,
+     "production_twh": 8735.463
+    }
+   },
+   "2020": {
+    "coal": {
+     "balance": -0.076548,
+     "consumption_twh": 2556.181,
+     "net_import_share": -0.165787,
+     "production_twh": 2979.962
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.01157
+    },
+    "gas": {
+     "balance": -0.050842,
+     "consumption_twh": 8353.242,
+     "net_import_share": -0.107131,
+     "production_twh": 9248.13
+    },
+    "oil": {
+     "balance": 0.042508,
+     "consumption_twh": 9035.32,
+     "net_import_share": 0.081549,
+     "production_twh": 8298.5
+    }
+   },
+   "2021": {
+    "coal": {
+     "balance": -0.047314,
+     "consumption_twh": 2936.894,
+     "net_import_share": -0.099327,
+     "production_twh": 3228.608
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00938
+    },
+    "gas": {
+     "balance": -0.060662,
+     "consumption_twh": 8364.249,
+     "net_import_share": -0.129158,
+     "production_twh": 9444.559
+    },
+    "oil": {
+     "balance": 0.083404,
+     "consumption_twh": 9868.985,
+     "net_import_share": 0.153967,
+     "production_twh": 8349.484
+    }
+   },
+   "2022": {
+    "coal": {
+     "balance": -0.098274,
+     "consumption_twh": 2752.975,
+     "net_import_share": -0.217968,
+     "production_twh": 3353.036
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00952
+    },
+    "gas": {
+     "balance": -0.058945,
+     "consumption_twh": 8804.077,
+     "net_import_share": -0.125275,
+     "production_twh": 9907.006
+    },
+    "oil": {
+     "balance": 0.05415,
+     "consumption_twh": 9930.587,
+     "net_import_share": 0.102737,
+     "production_twh": 8910.351
+    }
+   },
+   "2023": {
+    "coal": {
+     "balance": -0.179694,
+     "consumption_twh": 2275.209,
+     "net_import_share": -0.438114,
+     "production_twh": 3272.011
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00442
+    },
+    "gas": {
+     "balance": -0.07524,
+     "consumption_twh": 8884.396,
+     "net_import_share": -0.162724,
+     "production_twh": 10330.101
+    },
+    "oil": {
+     "balance": 0.01633,
+     "consumption_twh": 9967.948,
+     "net_import_share": 0.032136,
+     "production_twh": 9647.618
+    }
+   },
+   "2024": {
+    "coal": {
+     "balance": -0.146246,
+     "consumption_twh": 2195.627,
+     "net_import_share": -0.342596,
+     "production_twh": 2947.841
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00314
+    },
+    "gas": {
+     "balance": -0.067592,
+     "consumption_twh": 9021.992,
+     "net_import_share": -0.144985,
+     "production_twh": 10330.044
+    },
+    "oil": {
+     "balance": -0.001427,
+     "consumption_twh": 9948.951,
+     "net_import_share": -0.002858,
+     "production_twh": 9977.384
+    }
+   },
+   "2025": {
+    "coal": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "electricity": {
+     "net_import_share_of_demand": 0.00353
+    },
+    "gas": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    },
+    "oil": {
+     "balance": null,
+     "consumption_twh": null,
+     "net_import_share": null,
+     "production_twh": null
+    }
+   }
+  }
+ },
+ "formula": "net_import_share = (consumption - production) / consumption, per fuel (oil, gas, coal), TWh; positive = net importer. balance = (consumption - production) / (consumption + production), bounded -1..1, used only where a bounded number is needed. A blank production or consumption cell in the source -> VOID for that fuel-year, never 0.",
+ "licence_note": "derived from Our World in Data (CC BY 4.0), built on the Energy Institute Statistical Review; a null is a blank in the source",
+ "record": "annual energy net import share and balance by fuel",
+ "source": "github.com/owid/energy-data@f8de88a4f6f9cab44f1cf606047cbd6c4414042c owid-energy-data.csv sha256:266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76",
+ "units": "TWh; shares and balances are fractions"
+}
