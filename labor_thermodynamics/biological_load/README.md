@@ -12,20 +12,24 @@ Unit of the first document: one biological entity, one week (168 h).
 | `as_received/` | first delivery (v1): the two PDFs byte for byte and the text `pdftotext -layout` gives for each |
 | `as_received_v2/` | second delivery (v2), the same way |
 | `as_received_v3/` | third delivery (v3): the work order that carried it, verbatim, and the text of each document. No PDF was delivered for v3 |
-| `as_received_v4/` | fourth delivery (v4), the current one: the work order, verbatim, and the text of each document. No PDF. The order also carries the third document's text |
+| `as_received_v4/` | fourth delivery (v4): the work order, verbatim, and the text of each document. No PDF. The order also carries the third document's text |
+| `as_received_v5/` | fifth delivery (v5), the current one: the work order as received (it arrived cut off), the two documents' text (unchanged from v4), and `engineered_stability_additions.txt`, the three sections it adds to the third document |
+| `apply_v5.py` | cuts the additions out of the order and reads their blocks; carries the two unchanged texts over |
 | `apply_v3.py` | builds the v3 text: the v2 text with the work order's two replacements, read from the order file |
 | `apply_v4.py` | builds the v4 text: the v3 text with the order's one-line replacement in the coupling document; the truck document's text is carried over unchanged. Also reads the third document's code blocks out of the order |
 | `DECLARED.json` | the rules for this folder, with one amendment per later delivery |
 | `build_records.py` | reads each code block of the documents as the Python literal it is written as; nothing is typed by hand |
-| `records.json` | current records (v4): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
-| `records_v3.json`, `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
+| `records.json` | current records (v5, same values as v4): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
+| `records_v4.json`, `records_v3.json`, `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
 | `as_received_stability/` | a third document, *Engineered Stability: Overshoot, Coupling and Buffer Visibility*: its PDF byte for byte and the extracted text (first delivery) |
-| `records_engineered_stability.json` | that document's records: 5 blocks |
+| `records_engineered_stability.json` | that document's current records: the PDF's 5 blocks plus 7 from the v5 additions, and the To do list |
+| `records_engineered_stability_v1.json` | its first records (5 blocks), same bytes as before |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
 
 ```
 python3 apply_v3.py --check
 python3 apply_v4.py --check
+python3 apply_v5.py --check
 python3 build_records.py --check
 python3 check_biological_load.py
 python3 check_biological_load.py --selftest
@@ -86,18 +90,16 @@ across roles), accepted by the v4 work order on 2026-11-27. They stay as they ar
 | `current_seat` | without "floor" | includes "floor" |
 | closing line on time | DIFFERENT in capitals, with a dash | "time measures different things; no single years threshold" |
 
-## What the checker says (2026-11-27, v4)
+## What the checker says (2026-11-27, v5)
 
-- 36 checks, 0 failed (28 on the first two documents, 8 on the third); selftest 9, 0 failed.
-  Hashes for v1 to v4; all four record files and the third document's match a rebuild; v3 text is
-  v2 plus exactly its two replacements; v4 text is v3 plus exactly its one; every string in the
-  current records is in the source text (417, 93 and 48 strings, 0 not found); all blocks parsed;
-  the five figures the truck document derives from its own numbers reproduce (2 min, 87 m, 77 ft,
-  0.8 s, 1 per 114 mi); four pointers resolve.
-- 37 voids: 26 in the first two documents (unchanged since v2) and the 11 fields of `BUFFER_RECORD`.
-  Each is listed with the document's own comment on that line or "no reason given in the document".
-  None is read as zero or as safe.
-- 11 outside figures NOT OPENED: the 9 in the truck document, plus Meadows et al. and Tainter.
+- 52 checks, 0 failed; selftest 9, 0 failed. Hashes for v1 to v5; all seven record files match a
+  rebuild; each delivery's text is the one before plus exactly its order's changes (v5: none for the
+  two documents); every string in the records is in its source text (0 not found); all blocks
+  parsed; the truck document's five derived figures reproduce; four pointers resolve.
+- 46 voids: 26 in the first two documents (unchanged since v2), 11 in `BUFFER_RECORD`, 9 in the v5
+  additions. None is read as zero or as safe.
+- 19 outside figures or framings NOT OPENED: 9 in the truck document, Meadows et al. and Tainter,
+  and 8 strings with figures in the v5 additions.
 
 ## Third document: Engineered Stability (filed 2026-11-27)
 
@@ -106,7 +108,7 @@ delayed feedback; delay and noise are the part that can be engineered; buffers a
 margin and are invisible by design. It names the coupling document as canonical for `PROVENANCE`,
 `FALSE_DENOMINATOR` and `SENSOR_VALIDITY`.
 
-- 8 checks of the 36 are its own, all pass: its records match a rebuild; every string is in the
+- 8 checks on its PDF text, all pass (12 more cover the v5 additions, below): its records match a rebuild; every string is in the
   source text; all 5 blocks parsed; the three blocks it calls canonical exist in the coupling
   records; the two figures it shares with the truck document agree (3 s following distance,
   ~300 cut-ins a day).
@@ -121,6 +123,29 @@ margin and are invisible by design. It names the coupling document as canonical 
   domains; measured feedback delay per decision chain; buffer inventory per domain with trend;
   historical cases; small simulations of sensor latency against overshoot; thresholds.
 
+## Third document, v5 additions (2026-11-27)
+
+The v5 work order adds three sections after "Research program (open)": *Full-boundary EROI*,
+*Bridge window*, *To do (amendments)*. Compared with the filed PDF text: none of the three, and
+none of their block names, was there. So all three are added and there was nothing to compare
+value for value. The PDF's five blocks are carried unchanged.
+
+- 7 blocks added: `EROI_BOUNDARIES`, `UNCOUNTED_INPUTS`, `SUBSIDY_MASKING`, `METHOD`, `DIRECTION`,
+  `COMPANY_KNOWLEDGE`, `BRIDGE`. All parsed.
+- 9 voids: the 6 fields of `UNCOUNTED_INPUTS` ("all None = void, never zero"), `COMPANY_KNOWLEDGE`,
+  `BRIDGE.gap`, `BRIDGE.fuel_chain.mining_inputs`. `BRIDGE.seeds` also says "fifth+ = void" inside
+  its text; that is reported as text, not counted as a field.
+- The document's own marks on its figures are kept: "figures from memory, NOT OPENED" (EROI
+  section), "figures via search, Nov 2026" (Bridge section). Nothing was opened here. Names:
+  Brockway et al. 2019; Hall, Lambert; IEA; Rystad; DOE; Centrus.
+  `SUBSIDY_MASKING.context_2025_2026` sits in the "from memory" section but its own text says
+  "via search": two marks on one line, both kept.
+- Two things inside the text agree with each other: `BRIDGE.seeds` says 4 reactors and names 4;
+  `fuel_chain.gap` uses the same years (2028, 2029) as `fuel_chain.ban` and `fuel_chain.US_output`.
+- **The order arrived cut off.** Its last line is "- Knowled". The To do list has 5 full items; the
+  sixth is recorded as received and marked TRUNCATED. Whatever followed is not here.
+- No PDF was delivered for these sections; the filed PDF does not contain them.
+
 ## Open
 
 - `ROLE` vocabulary: 11 of its 13 words are outside the four need states; 3 compound statuses
@@ -128,8 +153,10 @@ margin and are invisible by design. It names the coupling document as canonical 
 - `responsibility_h` has mixed types: a number for the office role, text for regional and OTR, void
   for the day driver.
 - `true_cost`: NOT_COMPUTABLE (per-need values are an open slot; the terms have different units).
-- 11 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
-  truck document; Meadows et al. and Tainter in the third).
+- 19 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
+  truck document; Meadows et al. and Tainter, and 8 strings in the v5 additions, in the third).
+- The v5 order's cut-off To do item ("Knowled…") and anything after it: not received.
+- `UNCOUNTED_INPUTS`, `COMPANY_KNOWLEDGE`, `BRIDGE.gap`, `fuel_chain.mining_inputs`: voids.
 - The documents' own open slots: day driver `responsibility_h`; health risk from sanitation and
   holding; per-need dollar values; owner-operator taxable profit rate; `conditions_now` vs
   `conditions_then` for current manufacturing rules; other roles; measured cost of decoupled decisions.

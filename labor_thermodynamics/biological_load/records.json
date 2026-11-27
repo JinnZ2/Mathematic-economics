@@ -12,11 +12,11 @@
       "as_received": {
         "pdf": null,
         "pdf_sha256": null,
-        "text": "as_received_v4/biological_load_accounting_for_truck_drivers.txt",
+        "text": "as_received_v5/biological_load_accounting_for_truck_drivers.txt",
         "text_sha256": "76e8ba6a3c88126e395fd40dcc816a1b1365f50d3ee0e4213f999d2f4249deb4",
         "pdf_reason": "no PDF was delivered for this version",
-        "text_is": "the v3 text with the one-line replacement of as_received_v4/WORK_ORDER.md (apply_v4.py); the truck document's text is the v3 text unchanged",
-        "order_sha256": "9cda7244b415caa625785df5245635de5db773f36a6190e0f10215e2eccb14b3"
+        "text_is": "the v4 text unchanged, byte for byte; as_received_v5/WORK_ORDER.md changes only the third document (apply_v5.py)",
+        "order_sha256": "db288f4442362f04e0ba0ca20524d7eba2ff8f0366624034f2d351b495a4c6fd"
       },
       "blocks": [
         {
@@ -466,11 +466,11 @@
       "as_received": {
         "pdf": null,
         "pdf_sha256": null,
-        "text": "as_received_v4/decision_exposure_coupling.txt",
+        "text": "as_received_v5/decision_exposure_coupling.txt",
         "text_sha256": "bc530617e0dad1bae1c9de7c031a2af3ffd518052217d21605ff64be4c8b48d6",
         "pdf_reason": "no PDF was delivered for this version",
-        "text_is": "the v3 text with the one-line replacement of as_received_v4/WORK_ORDER.md (apply_v4.py); the truck document's text is the v3 text unchanged",
-        "order_sha256": "9cda7244b415caa625785df5245635de5db773f36a6190e0f10215e2eccb14b3"
+        "text_is": "the v4 text unchanged, byte for byte; as_received_v5/WORK_ORDER.md changes only the third document (apply_v5.py)",
+        "order_sha256": "db288f4442362f04e0ba0ca20524d7eba2ff8f0366624034f2d351b495a4c6fd"
       },
       "blocks": [
         {
@@ -683,6 +683,6 @@
       ]
     }
   ],
-  "delivery": "v4",
-  "supersedes": "records_v3.json (third delivery, kept unchanged)"
+  "delivery": "v5",
+  "supersedes": "records_v4.json (fourth delivery, kept unchanged)"
 }

@@ -175,7 +175,16 @@ def run():
           == open(os.path.join(HERE, "as_received_v3", apply_v4.TRUCK), "rb").read(),
           json.dumps(spans4))
     check("as_received_v4/WORK_ORDER.md unchanged (hash as recorded)",
-          all(d["as_received"].get("order_sha256") == br.sha("as_received_v4/WORK_ORDER.md") for d in rec["documents"]))
+          all(d["as_received"].get("order_sha256") == br.sha("as_received_v4/WORK_ORDER.md")
+              for d in json.load(open(os.path.join(HERE, "records_v4.json"), encoding="utf-8"))["documents"]))
+    import apply_v5
+    built5 = apply_v5.build()
+    check("v5 text of the two documents is the v4 text, byte for byte",
+          all(open(os.path.join(HERE, "as_received_v5", n), "rb").read() == open(os.path.join(HERE, "as_received_v4", n), "rb").read()
+              for n in apply_v5.CARRIED))
+    check("v5 additions file is the order's own text from '%s' to its end" % apply_v5.FIRST,
+          open(os.path.join(HERE, "as_received_v5", apply_v5.ADDITIONS), encoding="utf-8").read() == built5[apply_v5.ADDITIONS]
+          and open(os.path.join(HERE, "as_received_v5", "WORK_ORDER.md"), encoding="utf-8").read().endswith(built5[apply_v5.ADDITIONS]))
     blocks = {}
     all_voids = []
     for (name, title), d in zip(br.DOCS, rec["documents"]):
@@ -327,6 +336,72 @@ def run():
     check("Meadows et al. and Tainter are listed with the outside figures as NOT OPENED",
           {e["as_written"] for e in ext if e["field"] == "engineered_stability.attribution"} == {"Meadows et al.", "Tainter"})
     all_voids = all_voids + svoids
+    # --- fifth delivery: three sections added to the third document (amendment 'fifth delivery (v5)') ---
+    s2 = br.build_stability_v2()
+    check("%s matches a rebuild (PDF blocks plus the v5 additions)" % br.STABILITY_CURRENT,
+          open(os.path.join(HERE, br.STABILITY_CURRENT), encoding="utf-8").read() == br.dump(s2))
+    d2 = s2["documents"][0]
+    check("v5: the PDF's five blocks are carried unchanged into the new records",
+          [{k: v for k, v in b.items() if k != "source"} for b in d2["blocks"][:len(sd["blocks"])]] == sd["blocks"])
+    nb = d2["blocks"][len(sd["blocks"]):]
+    atext = built5[apply_v5.ADDITIONS]
+    titles = [t.split(" (")[0] for t in d2["sections_added"]]
+    present = [t for t in titles if squeeze(t) in stext]
+    clash = [b["block"] for b in nb if b["block"] in sblocks]
+    check("v5: none of the three sections or their block names is in the filed PDF text (all three are added, nothing to compare)",
+          not present and not clash, "sections already present: %s; block names already present: %s" % (present or "none", clash or "none"))
+    check("v5: the filed document ends with 'Research program (open)', so the additions follow it as the order says",
+          [b for b in stext_lines if b.startswith("  ") and b.strip().startswith("Research program")] != []
+          and squeeze("\n".join(stext_lines)).rstrip().endswith(squeeze("Thresholds: when a shrinking buffer becomes a forcing event")))
+    check("v5: every added block parsed", all(b["state"] == "PARSED" for b in nb), "%d blocks" % len(nb))
+    amissing = [x for b in nb for x in strings(b["value"]) if x not in atext]
+    check("v5: every string in the added records is in the additions text", not amissing,
+          "%d strings, %d not found" % (sum(1 for b in nb for _ in strings(b["value"])), len(amissing)))
+    alines = atext.split("\n")
+    avoids = []
+    for b in nb:
+        paths = voids(b["value"]) if isinstance(b["value"], (dict, list)) else ([""] if b["value"] is None else [])
+        for path in paths:
+            key = path.rsplit("/", 1)[-1] or b["block"]
+            pat = r'"%s":\s*None' % re.escape(key) if path else r"^%s = None" % re.escape(key)
+            reason = next((br.split_comment(l)[1] for l in alines if re.search(pat, l) and br.split_comment(l)[1]), None)
+            avoids.append({"document": sname, "block": b["block"], "field": path.strip("/") or b["block"],
+                           "reason": reason or "no comment on that line"})
+    nb_by = {b["block"]: b for b in nb}
+    check("v5: UNCOUNTED_INPUTS is all voids and each is counted as a void (never zero)",
+          all(v is None for v in nb_by["UNCOUNTED_INPUTS"]["value"].values())
+          and len([v for v in avoids if v["block"] == "UNCOUNTED_INPUTS"]) == len(nb_by["UNCOUNTED_INPUTS"]["value"]),
+          "%d fields, %d voids" % (len(nb_by["UNCOUNTED_INPUTS"]["value"]), len([v for v in avoids if v["block"] == "UNCOUNTED_INPUTS"])))
+    seeds = nb_by["BRIDGE"]["value"]["seeds"]
+    named_seeds = re.search(r"\(([^)]*)\)", seeds).group(1).split(", ")
+    check("v5 internal: the reactor count in BRIDGE.seeds equals the number of names it lists",
+          num(seeds, r"^(\d+) ") == len(named_seeds), "%g stated, %d named" % (num(seeds, r"^(\d+) "), len(named_seeds)))
+    fc = nb_by["BRIDGE"]["value"]["fuel_chain"]
+    y_w, y_c = num(fc["ban"], r"Jan 1 (\d{4})"), num(fc["US_output"], r"target ~(\d{4})")
+    g_w, g_c = num(fc["gap"], r"waivers end (\d{4})"), num(fc["gap"], r"HALEU ~(\d{4})")
+    check("v5 internal: fuel_chain.gap uses the same years as fuel_chain.ban and fuel_chain.US_output, and the waiver year is the earlier",
+          y_w == g_w and y_c == g_c and g_w < g_c, "waivers %g / %g, commercial %g / %g" % (y_w, g_w, y_c, g_c))
+    check("v5: 'see Biological Load Accounting' points to a document that is filed",
+          any("see Biological Load Accounting" in c for c in nb_by["UNCOUNTED_INPUTS"]["comments"]) and truck.startswith("biological_load_accounting"))
+    todo = d2["lists"][-1]["items"]
+    cut = [t for t in todo if t["state"] == "TRUNCATED"]
+    check("v5: the order's cut-off last line is recorded TRUNCATED, as received, and is the only such item",
+          len(cut) == 1 and cut[0] is todo[-1] and atext.rstrip("\n").endswith("- " + cut[0]["text"]), "%r" % (cut[0]["text"] if cut else None))
+    marks = {b["section"]: re.search(r"\(([^)]*)\)", b["section"]).group(1) for b in nb}
+    for b in nb:
+        for path, v in ([("", b["value"])] if isinstance(b["value"], str) else leaves(b["value"]) if isinstance(b["value"], dict) else []):
+            if isinstance(v, str) and re.search(r"\d", v):
+                ext.append({"field": "engineered_stability.%s%s" % (b["block"], ("." + path.strip("/").replace("/", ".")) if path else ""),
+                            "as_written": v, "source_state": "NOT OPENED", "document_mark": marks[b["section"]]})
+    names = sorted({n for b in nb for v in strings(b["value"]) for n in re.findall(r"Brockway et al\. 2019|Hall, Lambert|IEA|Rystad|DOE|Centrus", v)})
+    out["info"]["engineered_stability_v5"] = {
+        "sections_added": d2["sections_added"], "sections_already_present": present, "value_differences": [],
+        "blocks_added": [b["block"] for b in nb], "voids": avoids,
+        "void_written_inside_a_string": [v for b in nb for v in strings(b["value"]) if "void" in v],
+        "to_do_items": len(todo) - len(cut), "truncated": cut,
+        "outside_names": [{"name": n, "source_state": "NOT OPENED"} for n in names],
+        "document_marks": marks}
+    all_voids = all_voids + avoids
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}
     return out

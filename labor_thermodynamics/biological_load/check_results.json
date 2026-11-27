@@ -47,7 +47,22 @@
       "detail": ""
     },
     {
-      "check": "records.json matches a rebuild from as_received_v4/",
+      "check": "records_v4.json matches a rebuild from as_received_v4/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v4 delivery, Biological Load Accounting for Truck Drivers: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v4 delivery, Decision-Exposure Coupling: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "records.json matches a rebuild from as_received_v5/",
       "state": "PASS",
       "detail": ""
     },
@@ -63,6 +78,16 @@
     },
     {
       "check": "as_received_v4/WORK_ORDER.md unchanged (hash as recorded)",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5 text of the two documents is the v4 text, byte for byte",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5 additions file is the order's own text from '## Full-boundary EROI' to its end",
       "state": "PASS",
       "detail": ""
     },
@@ -142,7 +167,7 @@
       "detail": ""
     },
     {
-      "check": "records_engineered_stability.json matches a rebuild from as_received_stability/",
+      "check": "records_engineered_stability_v1.json matches a rebuild from as_received_stability/",
       "state": "PASS",
       "detail": ""
     },
@@ -180,6 +205,61 @@
       "check": "Meadows et al. and Tainter are listed with the outside figures as NOT OPENED",
       "state": "PASS",
       "detail": ""
+    },
+    {
+      "check": "records_engineered_stability.json matches a rebuild (PDF blocks plus the v5 additions)",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5: the PDF's five blocks are carried unchanged into the new records",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5: none of the three sections or their block names is in the filed PDF text (all three are added, nothing to compare)",
+      "state": "PASS",
+      "detail": "sections already present: none; block names already present: none"
+    },
+    {
+      "check": "v5: the filed document ends with 'Research program (open)', so the additions follow it as the order says",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5: every added block parsed",
+      "state": "PASS",
+      "detail": "7 blocks"
+    },
+    {
+      "check": "v5: every string in the added records is in the additions text",
+      "state": "PASS",
+      "detail": "45 strings, 0 not found"
+    },
+    {
+      "check": "v5: UNCOUNTED_INPUTS is all voids and each is counted as a void (never zero)",
+      "state": "PASS",
+      "detail": "6 fields, 6 voids"
+    },
+    {
+      "check": "v5 internal: the reactor count in BRIDGE.seeds equals the number of names it lists",
+      "state": "PASS",
+      "detail": "4 stated, 4 named"
+    },
+    {
+      "check": "v5 internal: fuel_chain.gap uses the same years as fuel_chain.ban and fuel_chain.US_output, and the waiver year is the earlier",
+      "state": "PASS",
+      "detail": "waivers 2028 / 2028, commercial 2029 / 2029"
+    },
+    {
+      "check": "v5: 'see Biological Load Accounting' points to a document that is filed",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v5: the order's cut-off last line is recorded TRUNCATED, as received, and is the only such item",
+      "state": "PASS",
+      "detail": "'Knowled'"
     }
   ],
   "info": {
@@ -325,6 +405,24 @@
             ]
           }
         ]
+      },
+      {
+        "from": "v4",
+        "to": "v5",
+        "document": "Biological Load Accounting for Truck Drivers",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [],
+        "comments_changed": []
+      },
+      {
+        "from": "v4",
+        "to": "v5",
+        "document": "Decision-Exposure Coupling",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [],
+        "comments_changed": []
       }
     ],
     "voids": [
@@ -652,6 +750,54 @@
         "field": "engineered_stability.attribution",
         "as_written": "Tainter",
         "source_state": "NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.EROI_BOUNDARIES.wellhead",
+        "as_written": "~30 primary stage (cited range; volume: thin)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; figures from memory, NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.EROI_BOUNDARIES.point_of_use",
+        "as_written": "~6:1 final stage, declining (Brockway et al. 2019; NOT OPENED)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; figures from memory, NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.EROI_BOUNDARIES.society_floor",
+        "as_written": "~10-15 for health, education, infrastructure (Hall, Lambert; NOT OPENED)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; figures from memory, NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.SUBSIDY_MASKING.context_2025_2026",
+        "as_written": "rigs fell in 2025; 2026 rise follows geopolitical price push (Hormuz, Nov 2026, via search: war disruption, oil flows ~half of pre-war ~20 mb/d, ship traffic ~9%, tanker attacks and mines; IEA projects 2.7 mb/d demand destruction, ~1/4 of Q4 contraction diesel); Tier 1 depletion -> more capital to hold output flat (Rystad, via search)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; figures from memory, NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.seeds",
+        "as_written": "4 DOE pilot advanced reactors reached zero-power criticality by Jul 4 2026 (Antares Mark-0, Valar Ward 250, Deployable Energy Unity, Aalo-X); fifth+ = void",
+        "source_state": "NOT OPENED",
+        "document_mark": "DERIVED; figures via search, Nov 2026"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.fuel_chain.ban",
+        "as_written": "Russian uranium imports banned Aug 2024; DOE waivers end by Jan 1 2028",
+        "source_state": "NOT OPENED",
+        "document_mark": "DERIVED; figures via search, Nov 2026"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.fuel_chain.US_output",
+        "as_written": "Centrus demo cascade, ~900 kg delivered; commercial Piketon target ~2029",
+        "source_state": "NOT OPENED",
+        "document_mark": "DERIVED; figures via search, Nov 2026"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.fuel_chain.gap",
+        "as_written": "waivers end 2028, commercial HALEU ~2029+ = fuel gap inside bridge window",
+        "source_state": "NOT OPENED",
+        "document_mark": "DERIVED; figures via search, Nov 2026"
       }
     ],
     "two_documents": {
@@ -800,12 +946,127 @@
         }
       ],
       "research_program": "open; nothing in it is started by this filing"
+    },
+    "engineered_stability_v5": {
+      "sections_added": [
+        "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+        "Bridge window (DERIVED; figures via search, Nov 2026)",
+        "To do (amendments)"
+      ],
+      "sections_already_present": [],
+      "value_differences": [],
+      "blocks_added": [
+        "EROI_BOUNDARIES",
+        "UNCOUNTED_INPUTS",
+        "SUBSIDY_MASKING",
+        "METHOD",
+        "DIRECTION",
+        "COMPANY_KNOWLEDGE",
+        "BRIDGE"
+      ],
+      "voids": [
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "public_roads",
+          "reason": "parts, rigs, crews hauled on public infrastructure"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "grid_share",
+          "reason": "electrical build-out and maintenance serving the site"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "financial_layer",
+          "reason": "banking, mortgage, insurance, capital formation"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "compute_cloud",
+          "reason": "data centers behind finance, logistics, operations"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "labor_biology",
+          "reason": "see Biological Load Accounting"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "UNCOUNTED_INPUTS",
+          "field": "public_subsidy",
+          "reason": "tax write-offs (intangible drilling costs, depletion allowance), grants, incentives"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "COMPANY_KNOWLEDGE",
+          "field": "COMPANY_KNOWLEDGE",
+          "reason": "void: full-boundary EROI not published; unverified"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "gap",
+          "reason": "years from criticality to grid-scale output: void"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "fuel_chain/mining_inputs",
+          "reason": "ore grade, mining EROI, import share: void"
+        }
+      ],
+      "void_written_inside_a_string": [
+        "4 DOE pilot advanced reactors reached zero-power criticality by Jul 4 2026 (Antares Mark-0, Valar Ward 250, Deployable Energy Unity, Aalo-X); fifth+ = void"
+      ],
+      "to_do_items": 5,
+      "truncated": [
+        {
+          "text": "Knowled",
+          "state": "TRUNCATED",
+          "reason": "the order ends here, mid-word; what followed was not received"
+        }
+      ],
+      "outside_names": [
+        {
+          "name": "Brockway et al. 2019",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "Centrus",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "DOE",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "Hall, Lambert",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "IEA",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "Rystad",
+          "source_state": "NOT OPENED"
+        }
+      ],
+      "document_marks": {
+        "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)": "PROPOSED; figures from memory, NOT OPENED",
+        "Bridge window (DERIVED; figures via search, Nov 2026)": "DERIVED; figures via search, Nov 2026"
+      }
     }
   },
   "summary": {
-    "checks": 36,
+    "checks": 52,
     "failed": 0,
-    "voids": 37,
-    "external_figures_not_opened": 11
+    "voids": 46,
+    "external_figures_not_opened": 19
   }
 }

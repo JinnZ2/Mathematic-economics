@@ -10,6 +10,9 @@ Third delivery (amendment 'third delivery (v3)'): text only, no PDF; as_received
 text with the work order's two replacements (apply_v3.py). records_v2.json keeps the v2 bytes.
 Fourth delivery (amendment 'fourth delivery (v4)'): text only; as_received_v4/*.txt is the v3 text
 with one line replaced in the coupling document (apply_v4.py). records_v3.json keeps the v3 bytes.
+Fifth delivery (amendment 'fifth delivery (v5)'): the two documents are unchanged (v5 text = v4 text);
+the third document gains three sections, read from the order (apply_v5.py). records_v4.json and
+records_engineered_stability_v1.json keep their bytes.
 
 Rule (DECLARED.json): every value comes from the extracted text. Each code block is rebuilt as the
 Python literal it is written as (lines the PDF wrapped are joined again) and read with
@@ -27,16 +30,18 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = [("biological_load_accounting_for_truck_drivers", "Biological Load Accounting for Truck Drivers"),
         ("decision_exposure_coupling", "Decision-Exposure Coupling")]
 VERSIONS = {"v1": ("as_received", "records_v1.json"), "v2": ("as_received_v2", "records_v2.json"),
-            "v3": ("as_received_v3", "records_v3.json"), "v4": ("as_received_v4", "records.json")}
-CURRENT = "v4"
+            "v3": ("as_received_v3", "records_v3.json"), "v4": ("as_received_v4", "records_v4.json"), "v5": ("as_received_v5", "records.json")}
+CURRENT = "v5"
 # text-only deliveries: what the stored text is (v3 keeps the words it was written with)
 TEXT_IS = {"v3": "the v2 extracted text with the replacements of %s/WORK_ORDER.md (apply_v3.py)",
            "v4": "the v3 text with the one-line replacement of %s/WORK_ORDER.md (apply_v4.py); "
-                 "the truck document's text is the v3 text unchanged"}
+                 "the truck document's text is the v3 text unchanged",
+           "v5": "the v4 text unchanged, byte for byte; %s/WORK_ORDER.md changes only the third document (apply_v5.py)"}
 # what each delivery's record file says about itself; v1 and v2 keep the words they were written with
 SUPERSEDES = {"v2": "records_v1.json (first delivery, kept unchanged)",
               "v3": "records_v2.json (second delivery, kept unchanged)",
-              "v4": "records_v3.json (third delivery, kept unchanged)"}
+              "v4": "records_v3.json (third delivery, kept unchanged)",
+              "v5": "records_v4.json (fourth delivery, kept unchanged)"}
 OPEN = re.compile(r'^\s*(?:([A-Za-z_]+) = ([{\[])(?:\s*(#.*)?$|")|"([a-z_]+)": \{\s*(#.*)?$)')
 KEYLINE = re.compile(r'^\s*("[^"]*":|[}\]\[]|"|#)')
 
@@ -180,7 +185,7 @@ def build(version="v1"):
 
 # A third document, delivered once (DECLARED.json, amendment 'third document'). Its own record file.
 STABILITY = ("engineered_stability", "Engineered Stability: Overshoot, Coupling and Buffer Visibility",
-             "as_received_stability", "records_engineered_stability.json")
+             "as_received_stability", "records_engineered_stability_v1.json")
 
 
 def build_stability():
@@ -194,6 +199,32 @@ def build_stability():
                            "as_received": {"pdf": "%s/%s.pdf" % (folder, name), "pdf_sha256": sha("%s/%s.pdf" % (folder, name)),
                                            "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))},
                            "blocks": read_doc(name, title, folder)}]}
+
+
+STABILITY_CURRENT = "records_engineered_stability.json"
+
+
+def build_stability_v2():
+    """The PDF's blocks unchanged, plus the blocks of the v5 order's three sections."""
+    import apply_v5
+    v1 = build_stability()
+    blocks, lists, sections = apply_v5.read_additions()
+    d1 = v1["documents"][0]
+    src1, src2 = d1["as_received"]["text"], "as_received_v5/" + apply_v5.ADDITIONS
+    return {"record": "ENGINEERED_STABILITY", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
+            "co_authored": True, "observer_slots": None, "delivery": "v2 (with the fifth delivery, v5)",
+            "supersedes": "records_engineered_stability_v1.json (first delivery, kept unchanged)",
+            "note": "The first five blocks are read from the PDF's extracted text; the rest from the three sections "
+                    "the v5 work order carried. Values are the document's; null is a void, never zero and never "
+                    "'safe'. The order arrived cut off: the last To do item is TRUNCATED.",
+            "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
+            "documents": [{"document": d1["document"],
+                           "as_received": dict(d1["as_received"], additions=src2, additions_sha256=sha(src2),
+                                               additions_pdf=None, additions_pdf_reason="no PDF was delivered for the additions",
+                                               order_sha256=sha("as_received_v5/WORK_ORDER.md")),
+                           "sections_added": sections,
+                           "blocks": [dict(b, source=src1) for b in d1["blocks"]] + [dict(b, source=src2) for b in blocks],
+                           "lists": [dict(l, source=src2) for l in lists]}]}
 
 
 def dump(o):
@@ -218,13 +249,18 @@ if __name__ == "__main__":
         for d in rec["documents"]:
             for b in d["blocks"]:
                 print("%-3s %-10s %-18s %-48s %s" % (version, b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
-    rec, out = build_stability(), os.path.join(HERE, STABILITY[3])
-    if sys.argv[1:] == ["--check"]:
+    for rec, fname, src, frozen in ((build_stability(), STABILITY[3], STABILITY[2], True),
+                                    (build_stability_v2(), STABILITY_CURRENT, STABILITY[2] + "/ and as_received_v5", False)):
+        out = os.path.join(HERE, fname)
         same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
-        print("%s matches a rebuild from %s/: %s" % (STABILITY[3], STABILITY[2], "yes" if same else "NO"))
-        ok = ok and same
-    else:
-        open(out, "w", encoding="utf-8").write(dump(rec))
-        for b in rec["documents"][0]["blocks"]:
-            print("st  %-10s %-18s %-48s %s" % (b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
+        if sys.argv[1:] == ["--check"]:
+            print("%s matches a rebuild from %s/: %s" % (fname, src, "yes" if same else "NO"))
+            ok = ok and same
+        elif frozen and not same:
+            print("REFUSED: %s differs from a rebuild; an earlier delivery's records are not rewritten" % fname)
+            ok = False
+        else:
+            open(out, "w", encoding="utf-8").write(dump(rec))
+            for b in rec["documents"][0]["blocks"]:
+                print("st  %-10s %-18s %-48s %s" % (b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
     sys.exit(0 if ok else 1)

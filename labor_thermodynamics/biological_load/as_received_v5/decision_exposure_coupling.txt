@@ -1,0 +1,234 @@
+Decision-Exposure Coupling
+
+
+
+
+  Decision-Exposure Coupling
+  CC0. Co-authored. Status tags: OBSERVED (field account) / DERIVED / PROPOSED.
+  Companion to Biological Load Accounting for Truck Drivers.
+
+  Decisions about work are made by people who haven't lived it, using evidence written by
+  people who haven't lived it, from rules set under conditions that no longer exist. AI then
+  makes decisions faster on top of those inputs. A decoupled input produces a false output,
+  whether or not anyone meant it to.
+
+
+  The decoupling (DERIVED)
+     DECOUPLING = {
+       "decision_maker": "office, day schedule, no exposure to the conditions
+     decided on",
+       "evidence_writer": "office / media / academia; not in the vicinity of the
+     life",
+       "rule_vintage": "set under old conditions (e.g. 1980s manufacturing), still
+     applied",
+       "documentation": "old, describes conditions that no longer hold",
+       "AI_layer": "trains on that record, decides and models faster on it",
+       "result": "false inputs -> false decisions, accelerated",
+     }
+     # amplification: AI speed x decoupled inputs = errors at engineering scale
+
+
+
+
+  Core rule (PROPOSED)
+     RULE = {
+       "coupling": "authority over a role's conditions requires exposure to those
+     conditions",
+       "option_A": "decision maker lives the same schedule and conditions as the
+     workers",
+       "option_B": "binding decision authority goes to those who live it",
+       "else": "don't make the choice on their behalf",
+       "test": "would the decision maker accept this for themselves, for a year?",
+     }
+
+
+
+
+                                                                                       Page 1 of 5
+Decision-Exposure Coupling
+
+
+
+
+  Provenance fields for any input
+     PROVENANCE = {
+       "lived_firsthand": None,     # bool — the gate: lived it vs wrote about it
+       "role_type": None,           # cab / floor / ward / classroom / field, with sub-role
+       "conditions": None,          # exposed (real routes/shifts, own needs) | sheltered (family firm, hand-picked loads)
+       "compensation_basis": None,  # market pay | family / insider pay
+       "current_seat": None,        # floor / cab | office | media | academia
+       "recency": None,             # years since exposure
+       "learning": None,            # organizing the work; individual — 1 yr for some, 5 for others
+       "endurance": None,           # how long sustained at full exposure
+       "maintenance": None,         # how well biological needs were kept up over that span
+       "diversity": None,           # range of conditions juggled: roles, seasons, regions, incidents
+       # time measures different things; no single years threshold
+       # years != experience (20 yrs in school != a PhD's work)
+       # authority judged per dimension, not as one score
+     }
+     # office, media or academic seat writing about the floor / cab = DERIVED at best, never OBSERVED
+     # CANONICAL: PROVENANCE and FALSE_DENOMINATOR are defined here; companion docs point here
+
+
+
+
+  Staleness check (PROPOSED)
+     STALENESS = {
+       "evidence_date": None,
+       "conditions_then": None,     # tech, staffing, schedules, pay, regulation
+       "conditions_now": None,
+       "still_applies": None,       # only if conditions match
+     }
+     # a rule from conditions that no longer exist is a false denominator
+
+
+
+
+                                                                               Page 2 of 5
+Decision-Exposure Coupling
+
+
+
+
+  False denominator (rule)
+     FALSE_DENOMINATOR = {
+       "definition": "results measured under one rule set or condition set,
+     applied to agents under another",
+       "status": "false regardless of intent; a lie needs no intention",
+       "examples": [
+         "automated trucks judged on fixed lanes and good weather; humans judged
+     under full rules in all weather",
+         "AI intelligence judged by how well it grips a steering wheel",
+         "a driver judged as 'steering A to B' instead of prevention, buffers,
+     sync",
+       ],
+       "fix": "same rules, same conditions, same metrics on both sides",
+     }
+
+
+
+
+  Instance: rotating 12-hour shifts (OBSERVED schedule,
+  DERIVED biology)
+     ROTATING_SHIFT = {
+       "pattern": "12 h days one week, 12 h nights the next, repeat",
+       "biology": "body clock shifts ~1 day per hour moved; a 12 h flip weekly
+     never fully re-entrains",
+       "life": "entire life and biology scheduled around the flip",
+       "decision_maker_schedule": "days only",
+       "coupling_test": "live the rotation for a year, or hand binding schedule
+     authority to those who do",
+     }
+     # volume: thin on exact re-entrainment rates
+
+
+
+
+  Instance: trucking
+  See companion doc: responsibility runs gate to gate, needs are self-funded, about 300
+  cut-ins a day, and the safe buffer itself invites cut-ins.
+
+
+
+
+                                                                                      Page 3 of 5
+Decision-Exposure Coupling
+
+
+
+
+  Evidence as sensor (PROPOSED)
+  Evidence about a job is a sensor reading. It's only valid if the sensor sits on the substrate
+  and measures in common denominators. Otherwise it's a bad sensor, and decisions built
+  on it inherit the error.
+
+     SENSOR_VALIDITY = {
+       "substrate_coupled": None,           # measured where the work and the body
+     actually are?
+       "common_denominators": {
+         "energy_accounting": None,         # joules, hours, calories, fuel in vs out
+         "biological_needs": None,          # homeostasis, sleep, sanitation, thermal,
+     social
+         "responsibility_span": None,       # hours liable, not hours logged
+       },
+       "same_scale_both_sides": None,       # no false denominator
+       "staleness": None,                   # see STALENESS
+       "provenance": None,                  # see PROVENANCE
+     }
+
+
+     # None = unassessed (void): neither pass nor fail
+     # any field False -> bad sensor -> reading decoupled -> exclude or tag
+     DERIVED
+     # all True -> valid sensor
+     # good decisions require good sensors; trusting bad sensors = deciding on
+     noise
+
+
+     ROLES_TO_AUDIT = ["trucking", "manufacturing (rotating shifts)", "nursing",
+                       "teaching", "farming", "mining", "warehouse"]
+     # per role: conditions, evidence age, common denominators present?
+
+
+
+
+  Data hygiene and 'hallucination' (DERIVED, partly OBSERVED in
+  research)
+  Not every wrong output is a model failure. Separate three sources before assigning blame.
+
+     ERROR_SOURCES = {
+       "1_garbage_in": {
+         "mechanism": "model faithfully reproduces a decoupled or false record",
+         "blame": "data supply / evidence incentives",
+         "visibility": "low — output looks correct to people who share the false
+
+
+
+
+                                                                                            Page 4 of 5
+Decision-Exposure Coupling
+
+
+
+
+     record",
+       },
+       "2_corrupted_representation": {
+         "mechanism": [
+           "conflicting sources blend into a weighted average matching neither,
+     nor reality",
+           "overlapping representations: a corrupted cluster bends nearby
+     reasoning",
+           "thin field record -> gap filled from nearest dense (outsider)
+     pattern",
+           "training/evals reward fluent guessing over 'unknown' -> blend emitted
+     as fact",
+         ],
+         "blame": "bad data shaping internal structure",
+         "volume": "thin on magnitude",
+       },
+       "3_fabrication": {
+         "mechanism": "output not grounded in any source",
+         "blame": "model",
+       },
+     }
+
+
+     # calling all three 'hallucination' hides 1 and 2 and leaves the data supply
+     unexamined
+     # fix order: sensor validity -> provenance -> staleness -> same-scale -> then
+     judge the model
+
+
+
+
+  Open slots
+         conditions_now vs conditions_then for current manufacturing rules
+         other roles: nursing, teaching, farming, mining, warehouse
+         measured cost of decoupled decisions
+
+
+
+
+                                                                               Page 5 of 5
+
