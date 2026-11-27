@@ -18,5 +18,20 @@
     "true_cost": "the core rule's true_cost adds self-funded costs, a value for restricted and absent needs, and responsibility hours. The per-need values are an open slot in the document and the terms have different units, so the checker reports true_cost as NOT_COMPUTABLE and never as a number.",
     "two_documents": "both documents carry a PROVENANCE block and a false-denominator definition, and they differ. Both are kept as written. The checker reports the differences; which document owns the shared blocks is an open item for the authors.",
     "no_person": "no person, carrier, shipper or site is named in the records beyond what the documents name."
-  }
+  },
+  "amendments": [
+    {
+      "date": "2026-11-27",
+      "name": "second delivery of both documents (v2)",
+      "after": "branch biological-load-accounting at 2167927. The owner delivered a revised PDF of each document. Declared before the v2 files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "versions": "the first delivery stays where it is, unedited: as_received/ and its records, now named records_v1.json (same bytes). The second delivery goes in as_received_v2/. records.json is built from the current delivery (v2) and names what it supersedes. The checker re-hashes both deliveries and rebuilds both record files.",
+        "what_changed": "reported by the checker from the two extracted texts, block by block; nothing is carried from v1 into v2 by hand.",
+        "pointers": "in v2 the truck-driver document no longer carries its own PROVENANCE block and gives its false-denominator definition and status as 'canonical in Decision-Exposure Coupling'. The checker treats such a value as a pointer and checks that it resolves: the coupling document must carry a PROVENANCE block and a FALSE_DENOMINATOR block with that field. A pointer that does not resolve is a FAIL. This replaces the open item 'which document owns the shared blocks'; the authors have answered it.",
+        "void": "v2 states the rule itself ('None = unassessed (void): neither pass nor fail'). The earlier rule here says the same and stays."
+      },
+      "observer_slots": null
+    }
+  ]
 }
