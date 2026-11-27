@@ -1,0 +1,22 @@
+{
+  "what": "Rules for filing two co-authored documents, 'Biological Load Accounting for Truck Drivers' and 'Decision-Exposure Coupling', as records with a checker. Committed before the documents, the records or the checker.",
+  "declared": "2026-11-27",
+  "status": "PROPOSED",
+  "license": "CC0",
+  "co_authored": true,
+  "observer_slots": null,
+  "origin": "two PDFs delivered by the owner in session, 2026-11-27, and the owner's 'Yes' to filing them here",
+  "rules": {
+    "as_received": "the two PDFs are kept byte for byte in as_received/, with the text pdftotext -layout gives beside each. Nothing in as_received/ is edited. The checker re-hashes all four files.",
+    "records": "records.json is built by build_records.py from the extracted text alone: each code block of a document is read as the Python literal it is written as. No value is typed by hand, corrected, completed or reworded. A block that cannot be read this way is listed as NOT_PARSED with the reason; it is not transcribed by hand to fill the gap.",
+    "comments": "a comment in a block (after #) is kept as text beside the block; it is not turned into a value.",
+    "void": "a None in a document is a void: it stays null. The checker lists every void with the comment the document puts on that line, or 'no reason given in the document'. A void is never read as False, zero or a default.",
+    "need_states": "the documents' core rule names four states for a need: PROVIDED, SELF_FUNDED, RESTRICTED, ABSENT. The checker reports every status value against them: one of the four; COMPOUND when the document joins two of them ('RESTRICTED or ABSENT', 'SELF_FUNDED / RESTRICTED'); OTHER_VOCABULARY for a value outside them (the ROLE block uses its own words). Nothing is mapped onto the four states by the checker; mapping is the authors' decision.",
+    "status_tags": "OBSERVED / DERIVED / PROPOSED tags are kept where the documents put them (section titles and comments). No tag is assigned here.",
+    "arithmetic": "the checker recomputes only figures the documents derive from their own numbers, with exact unit definitions (1 mile = 1609.344 m, 1 ft = 0.3048 m). A figure passes when it rounds to what the document states. Where a document does not give an input (the driving hours behind '300 a day is about 27 an hour'), the checker reports the value that statement implies and asserts nothing about it.",
+    "external_figures": "figures the documents attribute to outside studies or agencies are listed with source_state NOT OPENED. None was checked for this filing and none is restated from memory.",
+    "true_cost": "the core rule's true_cost adds self-funded costs, a value for restricted and absent needs, and responsibility hours. The per-need values are an open slot in the document and the terms have different units, so the checker reports true_cost as NOT_COMPUTABLE and never as a number.",
+    "two_documents": "both documents carry a PROVENANCE block and a false-denominator definition, and they differ. Both are kept as written. The checker reports the differences; which document owns the shared blocks is an open item for the authors.",
+    "no_person": "no person, carrier, shipper or site is named in the records beyond what the documents name."
+  }
+}
