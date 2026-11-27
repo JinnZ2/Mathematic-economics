@@ -92,6 +92,20 @@
         "figures": "the document marks its own figures: 'from memory, NOT OPENED', 'NOT OPENED', 'via search'. None was opened here. Every figure in the added blocks is listed NOT OPENED with the document's own mark beside it.",
         "cut_off_item": "the last To do item is recorded as received and marked TRUNCATED. It is not counted as a to-do item with content."
       }
+    },
+    {
+      "date": "2026-11-27",
+      "name": "third document, second PDF (six pages)",
+      "after": "branch biological-load-accounting at 67089dd. The owner uploaded a second PDF of 'Engineered Stability: Overshoot, Coupling and Buffer Visibility' with no work order. Declared before its files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "filing": "the PDF is kept byte for byte in as_received_stability_v2/ with the text pdftotext -layout gives. The first PDF (as_received_stability/) and the v5 order's additions (as_received_v5/) stay unedited.",
+        "records": "records_engineered_stability.json becomes records_engineered_stability_v2.json (same bytes). The new records_engineered_stability.json is built from the second PDF's text alone, by the same reader; one-line assignments (NAME = \"...\" / NAME = None) are read as blocks too. Nothing is typed by hand.",
+        "comparison": "every block of the new records is compared value for value, comments included, with the records it replaces (first PDF plus v5 order). Differences are reported, not reconciled.",
+        "to_do": "the PDF's text carries no bullet marks, so it does not say where one To do item ends and the next begins. The five full items of the v5 order are looked for in the PDF's To do text, in order; what remains after the fifth is recorded as the sixth item. The record says the boundaries come from the order. The v5 order's cut-off line must be the start of that sixth item; if it is not, FAIL.",
+        "two_documents": "not touched. records.json (v5) stays as it is.",
+        "figures": "nothing opened. New outside names or figures are listed NOT OPENED with the document's own mark."
+      }
     }
   ]
 }
