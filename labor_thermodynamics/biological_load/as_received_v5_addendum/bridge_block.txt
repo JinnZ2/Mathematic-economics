@@ -1,0 +1,39 @@
+## Bridge window (DERIVED; figures via search, Nov 2026)
+
+BRIDGE = {
+  "shock_now": "Hormuz flows ~half of pre-war; low-EROI US drilling up on price + subsidy",
+  "seeds": "4 DOE pilot advanced reactors reached zero-power criticality by Jul 4 2026 (Antares Mark-0, Valar Ward 250, Deployable Energy Unity, Aalo-X); fifth+ = void",
+  "seed_status": "physics proven; not grid-connected; long-range performance unproven",
+  "gap": None,                 # years from criticality to grid-scale output: void
+  "fuel_chain": {             # via search, Nov 2026
+    "HALEU_pre_ban": "Russia (Rosatom/TENEX) only commercial supplier",
+    "ban": "Russian uranium imports banned Aug 2024; DOE waivers end by Jan 1 2028",
+    "US_output": "Centrus demo cascade, ~900 kg delivered; commercial Piketon target ~2029",
+    "need": "fleet supply in tonnes, recurring; conversion/deconversion matched",
+    "gap": "waivers end 2028, commercial HALEU ~2029+ = fuel gap inside bridge window",
+    "mining_inputs": None,     # ore grade, mining EROI, import share: void
+  },
+  "material_dependency": {     # PROPOSED; from memory, volume: thin
+    "helium": {
+      "use": "coolant, gas-cooled designs (e.g. Xe-100)",
+      "chain": "Qatar ~1/3 world supply, ships via Hormuz (NOT OPENED)",
+      "status": None,
+    },
+    "lithium_7": {
+      "use": "enriched Li-7 for molten-salt designs (FLiBe)",
+      "chain": "China, Russia main producers (NOT OPENED)",
+      "status": None,
+    },
+    "nuclear_graphite": {
+      "use": "moderator, TRISO fuel matrix",
+      "chain": "China dominates synthetic graphite (NOT OPENED)",
+      "status": None,
+    },
+    "zirconium_hafnium": {"use": "cladding; Zr/Hf separation", "chain": None, "status": None},
+    "nickel_alloys": {"use": "high-temp structural, salt-facing", "chain": None, "status": None},
+    "boron_10": {"use": "control, shielding", "chain": None, "status": None},
+    "rule": "each material: source, share by country, choke point, refill rate, substitute",
+    "derived": "new energy still rides old supply chains and the same geopolitics",
+  },
+  "priority": "metrology + real denominators during the gap: full-boundary EROI, buffer inventory, coupled sensors",
+}

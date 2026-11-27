@@ -202,6 +202,7 @@ def build_stability():
 
 
 STABILITY_CURRENT = "records_engineered_stability.json"
+STABILITY_V3 = "records_engineered_stability_v3.json"      # second PDF alone; kept unchanged
 STABILITY_V2 = "records_engineered_stability_v2.json"      # first PDF + v5 order; kept unchanged
 STABILITY_PDF2 = "as_received_stability_v2"                 # second PDF (amendment 'third document, second PDF')
 SCALAR = re.compile(r'^     ([A-Z_]+) = ("|None\b)')
@@ -296,6 +297,25 @@ def build_stability_v2():
                            "lists": [dict(l, source=src2) for l in lists]}]}
 
 
+def build_stability_v4():
+    """The second PDF's blocks, with BRIDGE read from the v5 addendum's combined block."""
+    import apply_v5_addendum as ad
+    rec = build_stability_v3()
+    d = rec["documents"][0]
+    src1, src2 = d["as_received"]["text"], "as_received_v5_addendum/" + ad.OUT
+    new = ad.read()
+    d["blocks"] = [dict(new if b["block"] == "BRIDGE" else b, source=src2 if b["block"] == "BRIDGE" else src1) for b in d["blocks"]]
+    d["as_received"] = dict(d["as_received"], addendum=src2, addendum_sha256=sha(src2), addendum_pdf=None,
+                            addendum_pdf_reason="no PDF was delivered for the addendum",
+                            order_sha256=sha("as_received_v5_addendum/WORK_ORDER.md"))
+    rec["delivery"] = "v4 (second PDF plus the addendum to v5)"
+    rec["supersedes"] = "%s (second PDF alone, kept unchanged)" % STABILITY_V3
+    rec["note"] = ("Built by build_records.py: every block from the second PDF's text except BRIDGE, which is the v5 order's "
+                   "BRIDGE with the addendum's material_dependency inserted after fuel_chain. Values are the document's; "
+                   "null is a void, never zero. The addendum's written strings are from memory and NOT CHECKED.")
+    return rec
+
+
 def dump(o):
     return json.dumps(o, indent=2, ensure_ascii=False) + "\n"
 
@@ -320,7 +340,8 @@ if __name__ == "__main__":
                 print("%-3s %-10s %-18s %-48s %s" % (version, b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
     for rec, fname, src, frozen in ((build_stability(), STABILITY[3], STABILITY[2], True),
                                     (build_stability_v2(), STABILITY_V2, STABILITY[2] + "/ and as_received_v5", True),
-                                    (build_stability_v3(), STABILITY_CURRENT, STABILITY_PDF2, False)):
+                                    (build_stability_v3(), STABILITY_V3, STABILITY_PDF2, True),
+                                    (build_stability_v4(), STABILITY_CURRENT, STABILITY_PDF2 + "/ and as_received_v5_addendum", False)):
         out = os.path.join(HERE, fname)
         same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
         if sys.argv[1:] == ["--check"]:

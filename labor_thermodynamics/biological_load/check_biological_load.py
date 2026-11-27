@@ -404,8 +404,8 @@ def run():
     all_voids = all_voids + avoids
     # --- third document, second PDF (amendment 'third document, second PDF') ---
     s3 = br.build_stability_v3()
-    check("%s matches a rebuild from %s/" % (br.STABILITY_CURRENT, br.STABILITY_PDF2),
-          open(os.path.join(HERE, br.STABILITY_CURRENT), encoding="utf-8").read() == br.dump(s3))
+    check("%s matches a rebuild from %s/" % (br.STABILITY_V3, br.STABILITY_PDF2),
+          open(os.path.join(HERE, br.STABILITY_V3), encoding="utf-8").read() == br.dump(s3))
     d3 = s3["documents"][0]
     check("second PDF: PDF and text hashes unchanged",
           br.sha(d3["as_received"]["pdf"]) == d3["as_received"]["pdf_sha256"] and br.sha(d3["as_received"]["text"]) == d3["as_received"]["text_sha256"])
@@ -437,6 +437,48 @@ def run():
         "item_boundaries": "the PDF text has no bullet marks; boundaries of the first five are from the v5 order",
         "figures_in_completed_item": "none (no digits); its examples (chimerism, fetal microchimerism, mosaicism) are NOT OPENED",
         "to_do_item_claims_not_opened": ["human chimerism", "fetal microchimerism", "widespread mosaicism found within living memory"]}
+    # --- addendum to v5: material_dependency inside BRIDGE ---
+    import apply_v5_addendum as ad
+    s4 = br.build_stability_v4()
+    check("%s matches a rebuild (second PDF plus the addendum)" % br.STABILITY_CURRENT,
+          open(os.path.join(HERE, br.STABILITY_CURRENT), encoding="utf-8").read() == br.dump(s4))
+    btext = ad.build()
+    check("addendum: bridge_block.txt is the v5 BRIDGE with the order's lines inserted after fuel_chain",
+          open(os.path.join(ad.FOLDER, ad.OUT), encoding="utf-8").read() == btext
+          and "\n".join(ad.addendum_lines()) in open(os.path.join(ad.FOLDER, "WORK_ORDER.md"), encoding="utf-8").read())
+    d4 = s4["documents"][0]
+    b4 = {b["block"]: b for b in d4["blocks"]}
+    b3 = {b["block"]: b for b in d3["blocks"]}
+    check("addendum: every block except BRIDGE is unchanged from the second PDF",
+          all({k: v for k, v in b4[n].items() if k != "source"} == b3[n] for n in b3 if n != "BRIDGE") and list(b4) == list(b3))
+    nv, ov = b4["BRIDGE"]["value"], b3["BRIDGE"]["value"]
+    check("addendum: BRIDGE is the PDF's BRIDGE plus one key, material_dependency, right after fuel_chain",
+          b4["BRIDGE"]["state"] == "PARSED" and {k: v for k, v in nv.items() if k != "material_dependency"} == ov
+          and list(nv).index("material_dependency") == list(nv).index("fuel_chain") + 1,
+          "keys: %s" % list(nv))
+    md = nv["material_dependency"]
+    mmiss = [x for x in strings(md) if x not in btext]
+    check("addendum: every string in material_dependency is in the source text", not mmiss,
+          "%d strings, %d not found" % (sum(1 for _ in strings(md)), len(mmiss)))
+    mvoids = [p.strip("/") for p in voids(md)]
+    materials = [k for k, v in md.items() if isinstance(v, dict)]
+    expected = sorted([m + "/status" for m in materials] + [m + "/chain" for m in ("zirconium_hafnium", "nickel_alloys", "boron_10")])
+    check("addendum: the voids are every status field plus the three chain fields the order names; each counted as a void, never zero",
+          sorted(mvoids) == expected, "%d materials, %d voids" % (len(materials), len(mvoids)))
+    marked = {m: md[m]["chain"] for m in materials if isinstance(md[m]["chain"], str)}
+    check("addendum: each written chain line carries the document's NOT OPENED mark (helium/Qatar, Li-7, graphite)",
+          sorted(marked) == ["helium", "lithium_7", "nuclear_graphite"] and all("(NOT OPENED)" in v for v in marked.values()))
+    for m, v in marked.items():
+        ext.append({"field": "engineered_stability.BRIDGE.material_dependency.%s.chain" % m, "as_written": v,
+                    "source_state": "NOT OPENED", "document_mark": "PROPOSED; from memory, volume: thin"})
+    madd = [{"document": sname, "block": "BRIDGE", "field": "material_dependency/" + p,
+             "reason": "no comment on that line; the order: 'every value void until checked'"} for p in mvoids]
+    out["info"]["engineered_stability_addendum"] = {
+        "materials": materials, "voids": madd,
+        "written_strings_not_checked": [{"field": p.strip("/"), "as_written": v, "state": "NOT CHECKED (from memory)"}
+                                        for p, v in leaves(md) if isinstance(v, str)],
+        "order_rule": "All figures from memory, NOT OPENED. Every value void until checked."}
+    all_voids = all_voids + madd
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}
     return out

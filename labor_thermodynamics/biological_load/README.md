@@ -23,7 +23,9 @@ Unit of the first document: one biological entity, one week (168 h).
 | `records_v4.json`, `records_v3.json`, `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
 | `as_received_stability/` | a third document, *Engineered Stability: Overshoot, Coupling and Buffer Visibility*: its PDF byte for byte and the extracted text (first delivery) |
 | `as_received_stability_v2/` | the third document's second PDF (six pages), byte for byte, and its extracted text |
-| `records_engineered_stability.json` | that document's current records, built from the second PDF alone: 12 blocks and the To do list (6 items) |
+| `as_received_v5_addendum/` | addendum to v5: the work order, verbatim, and `bridge_block.txt` (the v5 `BRIDGE` with the addendum's `material_dependency` inserted after `fuel_chain`, built by `apply_v5_addendum.py`) |
+| `records_engineered_stability.json` | that document's current records: the second PDF's 12 blocks, with `BRIDGE` carrying the addendum, and the To do list (6 items) |
+| `records_engineered_stability_v3.json` | its records from the second PDF alone, same bytes as before |
 | `records_engineered_stability_v2.json` | its records from the first PDF plus the v5 order (12 blocks, last To do item TRUNCATED), same bytes as before |
 | `records_engineered_stability_v1.json` | its first records (5 blocks), same bytes as before |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
@@ -32,6 +34,7 @@ Unit of the first document: one biological entity, one week (168 h).
 python3 apply_v3.py --check
 python3 apply_v4.py --check
 python3 apply_v5.py --check
+python3 apply_v5_addendum.py --check
 python3 build_records.py --check
 python3 check_biological_load.py
 python3 check_biological_load.py --selftest
@@ -92,16 +95,16 @@ across roles), accepted by the v4 work order on 2026-11-27. They stay as they ar
 | `current_seat` | without "floor" | includes "floor" |
 | closing line on time | DIFFERENT in capitals, with a dash | "time measures different things; no single years threshold" |
 
-## What the checker says (2026-11-27, v5 and the third document's second PDF)
+## What the checker says (2026-11-27, v5, second PDF, addendum)
 
-- 60 checks, 0 failed; selftest 9, 0 failed. Hashes for v1 to v5; all eight record files match a
+- 67 checks, 0 failed; selftest 9, 0 failed. Hashes for v1 to v5; all nine record files match a
   rebuild; each delivery's text is the one before plus exactly its order's changes (v5: none for the
   two documents); every string in the records is in its source text (0 not found); all blocks
   parsed; the truck document's five derived figures reproduce; four pointers resolve.
-- 46 voids: 26 in the first two documents (unchanged since v2), 11 in `BUFFER_RECORD`, 9 in the v5
-  additions. None is read as zero or as safe.
-- 19 outside figures or framings NOT OPENED: 9 in the truck document, Meadows et al. and Tainter,
-  and 8 strings with figures in the v5 additions.
+- 55 voids: 26 in the first two documents (unchanged since v2), 11 in `BUFFER_RECORD`, 9 in the v5
+  additions, 9 in the addendum. None is read as zero or as safe.
+- 22 outside figures or framings NOT OPENED: 9 in the truck document, Meadows et al. and Tainter,
+  8 strings with figures in the v5 additions, and 3 chain lines in the addendum.
 
 ## Third document: Engineered Stability (filed 2026-11-27)
 
@@ -166,6 +169,21 @@ beside the first PDF, and the current records are built from it alone.
   the next begins. The first five boundaries are taken from the v5 order (all five items are in
   the PDF, in order); the sixth is what remains.
 
+## Addendum to v5: `material_dependency` (2026-11-27)
+
+One key added inside `BRIDGE`, right after `fuel_chain`: six materials (helium, lithium-7, nuclear
+graphite, zirconium/hafnium, nickel alloys, boron-10), a `rule` line and a `derived` line.
+
+- Every other block, and the rest of `BRIDGE`, is unchanged from the second PDF.
+- 9 voids: the six `status` fields, and `chain` for zirconium/hafnium, nickel alloys and boron-10.
+  Never zero.
+- 3 outside figures NOT OPENED, as the document marks them: helium (Qatar share, Hormuz), Li-7
+  producers, graphite share.
+- The order says "every value void until checked". The 11 strings that are written (uses, three
+  chain lines, rule, derived) are kept as written and listed NOT CHECKED (from memory) in
+  `check_results.json`; they are not turned into voids.
+- No PDF was delivered for the addendum; the second PDF does not contain it.
+
 ## Open
 
 - `ROLE` vocabulary: 11 of its 13 words are outside the four need states; 3 compound statuses
@@ -173,8 +191,10 @@ beside the first PDF, and the current records are built from it alone.
 - `responsibility_h` has mixed types: a number for the office role, text for regional and OTR, void
   for the day driver.
 - `true_cost`: NOT_COMPUTABLE (per-need values are an open slot; the terms have different units).
-- 19 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
-  truck document; Meadows et al. and Tainter, and 8 strings in the v5 additions, in the third).
+- 22 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
+  truck document; Meadows et al. and Tainter, 8 strings in the v5 additions and 3 chain lines in
+  the addendum, in the third).
+- `material_dependency`: 9 voids; its written strings are from memory, NOT CHECKED.
 - The sixth To do item's examples (chimerism, fetal microchimerism, mosaicism): NOT OPENED.
 - `UNCOUNTED_INPUTS`, `COMPANY_KNOWLEDGE`, `BRIDGE.gap`, `fuel_chain.mining_inputs`: voids.
 - The documents' own open slots: day driver `responsibility_h`; health risk from sanitation and

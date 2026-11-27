@@ -1,0 +1,271 @@
+{
+  "record": "ENGINEERED_STABILITY",
+  "date": "2026-11-27",
+  "status": "PROPOSED",
+  "license": "CC0",
+  "co_authored": true,
+  "observer_slots": null,
+  "delivery": "v3 (second PDF, six pages)",
+  "supersedes": "records_engineered_stability_v2.json (first PDF plus the v5 order's sections, kept unchanged)",
+  "note": "Built by build_records.py from the extracted text of the second PDF. Values are the document's; null is a void, never zero and never 'safe'. The PDF text has no bullet marks: To do item boundaries are taken from the v5 order, and the last item is what remains.",
+  "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
+  "documents": [
+    {
+      "document": "Engineered Stability: Overshoot, Coupling and Buffer Visibility",
+      "as_received": {
+        "pdf": "as_received_stability_v2/engineered_stability.pdf",
+        "pdf_sha256": "f3bf5068340f13c6e9e5c8591d354cc2f44ab760025cfd6ce252be7c90aaee78",
+        "text": "as_received_stability_v2/engineered_stability.txt",
+        "text_sha256": "2e164d74545ba05f18a2ac32ebbb4a55a3368bca7aeae37691bf4b827add3bb4"
+      },
+      "blocks": [
+        {
+          "block": "OVERSHOOT",
+          "section": "Core model (DERIVED from systems dynamics and control theory)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "requires": [
+              "growth",
+              "a limit",
+              "delayed feedback"
+            ],
+            "limit": "physical, not negotiable (energy, materials, biology)",
+            "engineerable": "feedback delay and noise",
+            "outcomes": {
+              "long delay / noisy sensors": "overshoot and collapse",
+              "short delay / clean sensors": "damped oscillation or controlled descent"
+            },
+            "goal": "buy time for better solutions, technologies, energy pathways"
+          },
+          "comments": [
+            "Meadows et al. framing"
+          ],
+          "comments_after": []
+        },
+        {
+          "block": "CONTROL",
+          "section": "Core model (DERIVED from systems dynamics and control theory)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "stability_margin": "shrinks with sensor latency and noise",
+            "decoupled_decisions": "= added sensor delay -> late corrections -> amplified swings",
+            "lever": "direct coupling: those who live the conditions report them, fast and clean"
+          },
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "EFFICIENCY_TRAP",
+          "section": "Efficiency vs. stability (DERIVED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "move": "cut what looks unused or redundant",
+            "what is cut": "buffers, redundancy, slack = stability margin",
+            "complexity_cost": "each added layer costs more energy to maintain (Tainter, diminishing returns)",
+            "result": "brittleness without removing the energy burden",
+            "check_first": "efficient toward whose goal? (name it before cutting)"
+          },
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "BUFFER_RECORD",
+          "section": "Buffer visibility (OBSERVED principle, PROPOSED method)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "name": null,
+            "domain": null,
+            "function": null,
+            "visible_to": null,
+            "size_now": null,
+            "size_then": null,
+            "refill_rate": null,
+            "draw_rate": null,
+            "sensor": null,
+            "failure_mode_if_gone": null,
+            "status": null
+          },
+          "comments": [
+            "energy, food, water, labor, biology, materials, social, time",
+            "what failure it absorbs",
+            "who knows it exists",
+            "trend: shrinking / stable / growing",
+            "who or what measures it; validity per SENSOR_VALIDITY",
+            "OBSERVED / DERIVED / PROPOSED"
+          ],
+          "comments_after": [
+            "None = void (unassessed), never treated as zero or as safe"
+          ]
+        },
+        {
+          "block": "BUFFER_EXAMPLES",
+          "section": "Buffer visibility (OBSERVED principle, PROPOSED method)",
+          "state": "PARSED",
+          "reason": null,
+          "value": [
+            "driver following distance (3 s+) — erased ~300x/day",
+            "worker homeostasis reserves across a shift or run",
+            "dock crew goodwill (carryover between drivers)",
+            "time slack in schedules (HOS, delivery windows)",
+            "unpaid community repair and volunteer capacity",
+            "forest, soil, water reserves"
+          ],
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "EROI_BOUNDARIES",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "wellhead": "~30 primary stage (cited range; volume: thin)",
+            "point_of_use": "~6:1 final stage, declining (Brockway et al. 2019; NOT OPENED)",
+            "society_floor": "~10-15 for health, education, infrastructure (Hall, Lambert; NOT OPENED)",
+            "field_estimate": "below the teens (OBSERVED reasoning, one source)"
+          },
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "UNCOUNTED_INPUTS",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "public_roads": null,
+            "grid_share": null,
+            "financial_layer": null,
+            "compute_cloud": null,
+            "labor_biology": null,
+            "public_subsidy": null
+          },
+          "comments": [
+            "all None = void, never zero",
+            "parts, rigs, crews hauled on public infrastructure",
+            "electrical build-out and maintenance serving the site",
+            "banking, mortgage, insurance, capital formation",
+            "data centers behind finance, logistics, operations",
+            "see Biological Load Accounting",
+            "tax write-offs (intangible drilling costs, depletion allowance), grants, incentives"
+          ],
+          "comments_after": []
+        },
+        {
+          "block": "SUBSIDY_MASKING",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "mechanism": "public money makes low-EROI wells profitable on paper",
+            "signal_split": "money says go; energy says shrinking = decoupled sensor",
+            "buffer_draw": "public sector covers the gap; surplus pulled from elsewhere in society, unseen",
+            "context_2025_2026": "rigs fell in 2025; 2026 rise follows geopolitical price push (Hormuz, Nov 2026, via search: war disruption, oil flows ~half of pre-war ~20 mb/d, ship traffic ~9%, tanker attacks and mines; IEA projects 2.7 mb/d demand destruction, ~1/4 of Q4 contraction diesel); Tier 1 depletion -> more capital to hold output flat (Rystad, via search)"
+          },
+          "comments": [
+            "DERIVED"
+          ],
+          "comments_after": []
+        },
+        {
+          "block": "METHOD",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": "input-output tables: sector energy intensity x project's capital/service draw -> add to denominator",
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "DIRECTION",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": "each added input lowers EROI; capital-heavy sources (deepwater, shale) drop most",
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "COMPANY_KNOWLEDGE",
+          "section": "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": null,
+          "comments": [
+            "void: full-boundary EROI not published; unverified"
+          ],
+          "comments_after": []
+        },
+        {
+          "block": "BRIDGE",
+          "section": "Bridge window (DERIVED; figures via search, Nov 2026)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "shock_now": "Hormuz flows ~half of pre-war; low-EROI US drilling up on price + subsidy",
+            "seeds": "4 DOE pilot advanced reactors reached zero-power criticality by Jul 4 2026 (Antares Mark-0, Valar Ward 250, Deployable Energy Unity, Aalo-X); fifth+ = void",
+            "seed_status": "physics proven; not grid-connected; long-range performance unproven",
+            "gap": null,
+            "fuel_chain": {
+              "HALEU_pre_ban": "Russia (Rosatom/TENEX) only commercial supplier",
+              "ban": "Russian uranium imports banned Aug 2024; DOE waivers end by Jan 1 2028",
+              "US_output": "Centrus demo cascade, ~900 kg delivered; commercial Piketon target ~2029",
+              "need": "fleet supply in tonnes, recurring; conversion/deconversion matched",
+              "gap": "waivers end 2028, commercial HALEU ~2029+ = fuel gap inside bridge window",
+              "mining_inputs": null
+            },
+            "priority": "metrology + real denominators during the gap: full-boundary EROI, buffer inventory, coupled sensors"
+          },
+          "comments": [
+            "years from criticality to grid-scale output: void",
+            "via search, Nov 2026",
+            "ore grade, mining EROI, import share: void"
+          ],
+          "comments_after": []
+        }
+      ],
+      "lists": [
+        {
+          "section": "To do (amendments)",
+          "text": "Purpose test: stated goal vs pattern; whose buffers a plan protects vs drains reveals the real goal Metrology: traceability + stated uncertainty on every reading Hoarding as a strategy: test against population genetics (minimum viable population, diversity loss, inbreeding depression), closed-system maintenance, skill and supply-chain dependence Hoarding bottleneck evidence split: genetic (weak except isolated dynasties) / microbiome (stronger: affluent, industrialized biomes less diverse) / epigenetic (thin, contested) Decision rule under uncertainty: when evidence is thin or contested and the outcome is irreversible, don't bet on it; keep diversity (genetic, biome, skills) as the buffer that preserves options Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal microchimerism, widespread mosaicism found within living memory); irreversible selection by wealth or industrial value discards variation before its function is known = cutting an unseen buffer",
+          "items": [
+            {
+              "text": "Purpose test: stated goal vs pattern; whose buffers a plan protects vs drains reveals the real goal",
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
+            },
+            {
+              "text": "Metrology: traceability + stated uncertainty on every reading",
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
+            },
+            {
+              "text": "Hoarding as a strategy: test against population genetics (minimum viable population, diversity loss, inbreeding depression), closed-system maintenance, skill and supply-chain dependence",
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
+            },
+            {
+              "text": "Hoarding bottleneck evidence split: genetic (weak except isolated dynasties) / microbiome (stronger: affluent, industrialized biomes less diverse) / epigenetic (thin, contested)",
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
+            },
+            {
+              "text": "Decision rule under uncertainty: when evidence is thin or contested and the outcome is irreversible, don't bet on it; keep diversity (genetic, biome, skills) as the buffer that preserves options",
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
+            },
+            {
+              "text": "Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal microchimerism, widespread mosaicism found within living memory); irreversible selection by wealth or industrial value discards variation before its function is known = cutting an unseen buffer",
+              "state": "IN_PDF",
+              "boundary_from": "what remains after the items above"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

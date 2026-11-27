@@ -262,7 +262,7 @@
       "detail": "'Knowled'"
     },
     {
-      "check": "records_engineered_stability.json matches a rebuild from as_received_stability_v2/",
+      "check": "records_engineered_stability_v3.json matches a rebuild from as_received_stability_v2/",
       "state": "PASS",
       "detail": ""
     },
@@ -300,6 +300,41 @@
       "check": "second PDF: void count equals the first PDF's plus the v5 additions' (no void filled, none added)",
       "state": "PASS",
       "detail": "20 here, 11 + 9 before"
+    },
+    {
+      "check": "records_engineered_stability.json matches a rebuild (second PDF plus the addendum)",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "addendum: bridge_block.txt is the v5 BRIDGE with the order's lines inserted after fuel_chain",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "addendum: every block except BRIDGE is unchanged from the second PDF",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "addendum: BRIDGE is the PDF's BRIDGE plus one key, material_dependency, right after fuel_chain",
+      "state": "PASS",
+      "detail": "keys: ['shock_now', 'seeds', 'seed_status', 'gap', 'fuel_chain', 'material_dependency', 'priority']"
+    },
+    {
+      "check": "addendum: every string in material_dependency is in the source text",
+      "state": "PASS",
+      "detail": "37 strings, 0 not found"
+    },
+    {
+      "check": "addendum: the voids are every status field plus the three chain fields the order names; each counted as a void, never zero",
+      "state": "PASS",
+      "detail": "6 materials, 9 voids"
+    },
+    {
+      "check": "addendum: each written chain line carries the document's NOT OPENED mark (helium/Qatar, Li-7, graphite)",
+      "state": "PASS",
+      "detail": ""
     }
   ],
   "info": {
@@ -838,6 +873,24 @@
         "as_written": "waivers end 2028, commercial HALEU ~2029+ = fuel gap inside bridge window",
         "source_state": "NOT OPENED",
         "document_mark": "DERIVED; figures via search, Nov 2026"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.material_dependency.helium.chain",
+        "as_written": "Qatar ~1/3 world supply, ships via Hormuz (NOT OPENED)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; from memory, volume: thin"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.material_dependency.lithium_7.chain",
+        "as_written": "China, Russia main producers (NOT OPENED)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; from memory, volume: thin"
+      },
+      {
+        "field": "engineered_stability.BRIDGE.material_dependency.nuclear_graphite.chain",
+        "as_written": "China dominates synthetic graphite (NOT OPENED)",
+        "source_state": "NOT OPENED",
+        "document_mark": "PROPOSED; from memory, volume: thin"
       }
     ],
     "two_documents": {
@@ -1129,12 +1182,136 @@
         "fetal microchimerism",
         "widespread mosaicism found within living memory"
       ]
+    },
+    "engineered_stability_addendum": {
+      "materials": [
+        "helium",
+        "lithium_7",
+        "nuclear_graphite",
+        "zirconium_hafnium",
+        "nickel_alloys",
+        "boron_10"
+      ],
+      "voids": [
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/helium/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/lithium_7/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/nuclear_graphite/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/zirconium_hafnium/chain",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/zirconium_hafnium/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/nickel_alloys/chain",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/nickel_alloys/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/boron_10/chain",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BRIDGE",
+          "field": "material_dependency/boron_10/status",
+          "reason": "no comment on that line; the order: 'every value void until checked'"
+        }
+      ],
+      "written_strings_not_checked": [
+        {
+          "field": "helium/use",
+          "as_written": "coolant, gas-cooled designs (e.g. Xe-100)",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "helium/chain",
+          "as_written": "Qatar ~1/3 world supply, ships via Hormuz (NOT OPENED)",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "lithium_7/use",
+          "as_written": "enriched Li-7 for molten-salt designs (FLiBe)",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "lithium_7/chain",
+          "as_written": "China, Russia main producers (NOT OPENED)",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "nuclear_graphite/use",
+          "as_written": "moderator, TRISO fuel matrix",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "nuclear_graphite/chain",
+          "as_written": "China dominates synthetic graphite (NOT OPENED)",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "zirconium_hafnium/use",
+          "as_written": "cladding; Zr/Hf separation",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "nickel_alloys/use",
+          "as_written": "high-temp structural, salt-facing",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "boron_10/use",
+          "as_written": "control, shielding",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "rule",
+          "as_written": "each material: source, share by country, choke point, refill rate, substitute",
+          "state": "NOT CHECKED (from memory)"
+        },
+        {
+          "field": "derived",
+          "as_written": "new energy still rides old supply chains and the same geopolitics",
+          "state": "NOT CHECKED (from memory)"
+        }
+      ],
+      "order_rule": "All figures from memory, NOT OPENED. Every value void until checked."
     }
   },
   "summary": {
-    "checks": 60,
+    "checks": 67,
     "failed": 0,
-    "voids": 46,
-    "external_figures_not_opened": 19
+    "voids": 55,
+    "external_figures_not_opened": 22
   }
 }
