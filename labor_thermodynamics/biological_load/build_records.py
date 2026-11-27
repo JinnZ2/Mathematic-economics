@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Build records.json from the two documents in as_received/. Stdlib only.
 
-    python3 build_records.py            write records.json
-    python3 build_records.py --check    rebuild and compare with the stored file; exit 1 if it differs
+    python3 build_records.py            write records.json (current delivery, v2) and records_v1.json
+    python3 build_records.py --check    rebuild both and compare with the stored files; exit 1 if either differs
+
+Two deliveries (DECLARED.json, amendment 'second delivery'): v1 in as_received/, v2 in
+as_received_v2/. The v1 record file keeps the bytes it had when it was named records.json.
 
 Rule (DECLARED.json): every value comes from the extracted text. Each code block is rebuilt as the
 Python literal it is written as (lines the PDF wrapped are joined again) and read with
@@ -19,13 +22,15 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = [("biological_load_accounting_for_truck_drivers", "Biological Load Accounting for Truck Drivers"),
         ("decision_exposure_coupling", "Decision-Exposure Coupling")]
+VERSIONS = {"v1": ("as_received", "records_v1.json"), "v2": ("as_received_v2", "records.json")}
+CURRENT = "v2"
 OPEN = re.compile(r'^\s*(?:([A-Za-z_]+) = ([{\[])(?:\s*(#.*)?$|")|"([a-z_]+)": \{\s*(#.*)?$)')
 KEYLINE = re.compile(r'^\s*("[^"]*":|[}\]\[]|"|#)')
 
 
-def clean_lines(name, title):
+def clean_lines(name, title, folder="as_received"):
     out = []
-    for raw in open(os.path.join(HERE, "as_received", name + ".txt"), encoding="utf-8").read().replace("\f", "\n").split("\n"):
+    for raw in open(os.path.join(HERE, folder, name + ".txt"), encoding="utf-8").read().replace("\f", "\n").split("\n"):
         s = raw.strip()
         if s == title or re.fullmatch(r"Page \d+ of \d+", s):
             continue          # running header and footer of the PDF pages
@@ -96,8 +101,8 @@ def strip_strings(s):
     return re.sub(r'"[^"]*"', '""', s)
 
 
-def read_doc(name, title):
-    lines = clean_lines(name, title)
+def read_doc(name, title, folder="as_received"):
+    lines = clean_lines(name, title, folder)
     blocks, section, i = [], None, 0
     prose = []
     while i < len(lines):
@@ -136,19 +141,23 @@ def sha(rel):
     return hashlib.sha256(open(os.path.join(HERE, rel), "rb").read()).hexdigest()
 
 
-def build():
+def build(version="v1"):
+    folder = VERSIONS[version][0]
     docs = []
     for name, title in DOCS:
         docs.append({"document": title,
-                     "as_received": {"pdf": "as_received/%s.pdf" % name, "pdf_sha256": sha("as_received/%s.pdf" % name),
-                                     "text": "as_received/%s.txt" % name, "text_sha256": sha("as_received/%s.txt" % name)},
-                     "blocks": read_doc(name, title)})
-    return {"record": "BIOLOGICAL_LOAD_ACCOUNTING", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
-            "co_authored": True, "observer_slots": None,
-            "note": "Built by build_records.py from the extracted text of the two documents. Values are the "
-                    "documents'; null is a void, not False and not zero. Section titles carry the documents' "
-                    "own status tags.",
-            "documents": docs}
+                     "as_received": {"pdf": "%s/%s.pdf" % (folder, name), "pdf_sha256": sha("%s/%s.pdf" % (folder, name)),
+                                     "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))},
+                     "blocks": read_doc(name, title, folder)})
+    rec = {"record": "BIOLOGICAL_LOAD_ACCOUNTING", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
+           "co_authored": True, "observer_slots": None,
+           "note": "Built by build_records.py from the extracted text of the two documents. Values are the "
+                   "documents'; null is a void, not False and not zero. Section titles carry the documents' "
+                   "own status tags.",
+           "documents": docs}
+    if version != "v1":       # the v1 file keeps exactly the keys it was first written with
+        rec = dict(rec, delivery=version, supersedes="records_v1.json (first delivery, kept unchanged)")
+    return rec
 
 
 def dump(o):
@@ -156,13 +165,21 @@ def dump(o):
 
 
 if __name__ == "__main__":
-    rec = build()
-    out = os.path.join(HERE, "records.json")
-    if sys.argv[1:] == ["--check"]:
-        same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
-        print("records.json matches a rebuild from as_received/: %s" % ("yes" if same else "NO"))
-        sys.exit(0 if same else 1)
-    open(out, "w", encoding="utf-8").write(dump(rec))
-    for d in rec["documents"]:
-        for b in d["blocks"]:
-            print("%-10s %-18s %-48s %s" % (b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
+    ok = True
+    for version, (folder, fname) in VERSIONS.items():
+        rec = build(version)
+        out = os.path.join(HERE, fname)
+        if sys.argv[1:] == ["--check"]:
+            same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
+            print("%s matches a rebuild from %s/: %s" % (fname, folder, "yes" if same else "NO"))
+            ok = ok and same
+            continue
+        if version == "v1" and os.path.exists(out) and open(out, encoding="utf-8").read() != dump(rec):
+            print("REFUSED: %s exists and differs from a rebuild; the first delivery's records are not rewritten" % fname)
+            ok = False
+            continue
+        open(out, "w", encoding="utf-8").write(dump(rec))
+        for d in rec["documents"]:
+            for b in d["blocks"]:
+                print("%-3s %-10s %-18s %-48s %s" % (version, b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
+    sys.exit(0 if ok else 1)

@@ -10,10 +10,10 @@
     {
       "document": "Biological Load Accounting for Truck Drivers",
       "as_received": {
-        "pdf": "as_received/biological_load_accounting_for_truck_drivers.pdf",
-        "pdf_sha256": "fbee1064b64281bb44fdaeb3b0ff828138e2cc04a053800958146a3d5d804574",
-        "text": "as_received/biological_load_accounting_for_truck_drivers.txt",
-        "text_sha256": "dbfef43fbbb14ec7c5ac5d92918d9c11606dcb44296dedb0d809ad50a666a418"
+        "pdf": "as_received_v2/biological_load_accounting_for_truck_drivers.pdf",
+        "pdf_sha256": "ddce5d2cf7fb5b145c3b925dc6a75eee09ff64b8560e3a9f965babd99ad9ec5d",
+        "text": "as_received_v2/biological_load_accounting_for_truck_drivers.txt",
+        "text_sha256": "da09bc1a33c010ba775a7e4d1dab252d9dd8c4424f39358e62564601f5c2e048"
       },
       "blocks": [
         {
@@ -401,9 +401,9 @@
             },
             "undercount": "research counts close cut-ins (~0.8 s) only; every entry into 3-8 s buffer is driver workload, uncounted",
             "false_denominator": {
-              "definition": "a comparison where results measured under one rule set or condition set are applied to agents under another",
+              "definition": "canonical in Decision-Exposure Coupling",
               "instance": "automated systems studied on fixed lanes, good weather, close-cut-in metrics, outcome-based judging; humans held to full following-distance rules, HOS, CSA, all weather",
-              "status": "false statement regardless of intent — a lie needs no intention",
+              "status": "canonical in Decision-Exposure Coupling",
               "fix": "same rules, same conditions, same metrics on both sides before comparing"
             },
             "event": "car enters truck following gap",
@@ -455,52 +455,16 @@
             "'pay drivers less' saves at one node, pays it back multiplied across all of them",
             "magnitude: None (void) — needs measurement"
           ]
-        },
-        {
-          "block": "PROVENANCE",
-          "section": "Source provenance rule",
-          "state": "PARSED",
-          "reason": null,
-          "value": {
-            "lived_firsthand": null,
-            "role_type": null,
-            "conditions": null,
-            "compensation_basis": null,
-            "recency": null,
-            "current_seat": null,
-            "learning": null,
-            "endurance": null,
-            "maintenance": null,
-            "diversity": null
-          },
-          "comments": [
-            "bool — the gate: lived it vs wrote about it",
-            "day / regional / OTR / custody / owner-op",
-            "exposed (real routes, own needs) | sheltered (family firm, hand-picked loads)",
-            "market pay | family / insider pay",
-            "years since last doing it",
-            "cab | office | media | academia",
-            "time measures DIFFERENT things — no single years threshold",
-            "organizing the work; individual — 1 yr for some, 5 for others",
-            "how long sustained at full exposure",
-            "how well biological needs were kept up over that span",
-            "range of conditions juggled: roles, seasons, regions, incidents"
-          ],
-          "comments_after": [
-            "years != experience (20 yrs in school != a PhD's work)",
-            "office or media seat writing about the cab = DERIVED at best, never OBSERVED",
-            "authority judged per dimension, not as one score"
-          ]
         }
       ]
     },
     {
       "document": "Decision-Exposure Coupling",
       "as_received": {
-        "pdf": "as_received/decision_exposure_coupling.pdf",
-        "pdf_sha256": "59db9939c093f48187042f87cd3a9d9ef4ac821d4e6d66b047d35606ea0e3a1d",
-        "text": "as_received/decision_exposure_coupling.txt",
-        "text_sha256": "ef5d1e9b17eaf420c5d9de5bec5126e13121a5d35ab3517cccdcd14b6e24a8ed"
+        "pdf": "as_received_v2/decision_exposure_coupling.pdf",
+        "pdf_sha256": "c3ba40636b1b86566da153fa54f9d34d500e4a63c97291f00e12292e72daa748",
+        "text": "as_received_v2/decision_exposure_coupling.txt",
+        "text_sha256": "c9858bf290afaeac7669ffa9b94025b56b5c7b8c7cea44835a69d590760aefef"
       },
       "blocks": [
         {
@@ -543,7 +507,8 @@
           "reason": null,
           "value": {
             "lived_firsthand": null,
-            "role_and_conditions": null,
+            "role_type": null,
+            "conditions": null,
             "compensation_basis": null,
             "current_seat": null,
             "recency": null,
@@ -554,6 +519,7 @@
           },
           "comments": [
             "bool — the gate",
+            "cab / floor / ward / classroom / field, with sub-role",
             "exposed | sheltered",
             "market | insider",
             "floor / cab | office | media | academia",
@@ -561,7 +527,8 @@
             "time measures different things; no single years threshold"
           ],
           "comments_after": [
-            "office seat writing about the floor = DERIVED at best, never OBSERVED"
+            "office seat writing about the floor = DERIVED at best, never OBSERVED",
+            "CANONICAL: PROVENANCE and FALSE_DENOMINATOR are defined here; companion docs point here"
           ]
         },
         {
@@ -644,7 +611,9 @@
             "see PROVENANCE"
           ],
           "comments_after": [
+            "None = unassessed (void): neither pass nor fail",
             "any field False -> bad sensor -> reading decoupled -> exclude or tag DERIVED",
+            "all True -> valid sensor",
             "good decisions require good sensors; trusting bad sensors = deciding on noise"
           ]
         },
@@ -701,5 +670,7 @@
         }
       ]
     }
-  ]
+  ],
+  "delivery": "v2",
+  "supersedes": "records_v1.json (first delivery, kept unchanged)"
 }

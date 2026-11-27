@@ -61,9 +61,47 @@ def classify_status(value):
     return "OTHER_VOCABULARY"
 
 
+FOLDER = br.VERSIONS[br.CURRENT][0]
+POINTER = re.compile(r"^canonical in (.+)$")
+
+
+def leaves(o, path=""):
+    if isinstance(o, dict):
+        for k, v in o.items():
+            yield from leaves(v, path + "/" + k)
+    elif isinstance(o, list):
+        for i, v in enumerate(o):
+            yield from leaves(v, "%s/%d" % (path, i))
+    else:
+        yield path, o
+
+
+def delivery_changes():
+    """What differs between the two deliveries, read from the two record files."""
+    old, new = br.build("v1"), br.build("v2")
+    out = []
+    for do, dn in zip(old["documents"], new["documents"]):
+        bo = {b["block"]: b for b in do["blocks"]}
+        bn = {b["block"]: b for b in dn["blocks"]}
+        row = {"document": dn["document"], "blocks_removed": sorted(set(bo) - set(bn)),
+               "blocks_added": sorted(set(bn) - set(bo)), "values_changed": [], "comments_changed": []}
+        for k in sorted(set(bo) & set(bn)):
+            lo, ln = dict(leaves(bo[k]["value"])), dict(leaves(bn[k]["value"]))
+            for path in sorted(set(lo) | set(ln)):
+                if lo.get(path, "ABSENT") != ln.get(path, "ABSENT"):
+                    row["values_changed"].append({"block": k, "field": path.strip("/"),
+                                                  "v1": lo.get(path, "ABSENT"), "v2": ln.get(path, "ABSENT")})
+            if bo[k]["comments"] + bo[k]["comments_after"] != bn[k]["comments"] + bn[k]["comments_after"]:
+                row["comments_changed"].append({"block": k,
+                                                "added": [c for c in bn[k]["comments"] + bn[k]["comments_after"]
+                                                          if c not in bo[k]["comments"] + bo[k]["comments_after"]]})
+        out.append(row)
+    return out
+
+
 def void_reason(block, key, name, title):
     """The comment the document puts on the line of a void, read from the source text."""
-    lines = br.clean_lines(name, title)
+    lines = br.clean_lines(name, title, FOLDER)
     for i, raw in enumerate(lines):
         if re.search(r'"%s":\s*None' % re.escape(key), raw):
             code, com = br.split_comment(raw)
@@ -112,15 +150,23 @@ def run():
         if not ok:
             fails.append(name)
 
-    check("records.json matches a rebuild from as_received/",
-          open(os.path.join(HERE, "records.json"), encoding="utf-8").read() == br.dump(br.build()))
+    for version, (folder, fname) in br.VERSIONS.items():
+        built = br.build(version)
+        check("%s matches a rebuild from %s/" % (fname, folder),
+              open(os.path.join(HERE, fname), encoding="utf-8").read() == br.dump(built))
+        if version != br.CURRENT:
+            for d in built["documents"]:
+                ar = d["as_received"]
+                check("%s delivery, %s: PDF and text hashes as recorded" % (version, d["document"]),
+                      json.load(open(os.path.join(HERE, fname), encoding="utf-8"))["documents"][built["documents"].index(d)]["as_received"] == ar)
+    out["info"]["changes_v1_to_v2"] = delivery_changes()
     blocks = {}
     all_voids = []
     for (name, title), d in zip(br.DOCS, rec["documents"]):
         ar = d["as_received"]
         check("%s: PDF and text hashes unchanged" % name,
               br.sha(ar["pdf"]) == ar["pdf_sha256"] and br.sha(ar["text"]) == ar["text_sha256"])
-        text = squeeze("\n".join(br.clean_lines(name, title)))
+        text = squeeze("\n".join(br.clean_lines(name, title, FOLDER)))
         missing = [s for b in d["blocks"] for s in strings(b["value"]) if squeeze(s) not in text]
         n = sum(1 for b in d["blocks"] for _ in strings(b["value"]))
         check("%s: every string in the records is in the source text" % name, not missing,
@@ -179,20 +225,36 @@ def run():
     out["info"]["external_figures"] = ext
 
     dec = "decision_exposure_coupling"
-    pa, pb = blocks[(truck, "PROVENANCE")]["value"], blocks[(dec, "PROVENANCE")]["value"]
     fa, fb = bi["false_denominator"], blocks[(dec, "FALSE_DENOMINATOR")]["value"]
+    pointers = []
+    for k, v in fa.items():
+        m = POINTER.match(v) if isinstance(v, str) else None
+        if m:
+            ok = m.group(1) == "Decision-Exposure Coupling" and isinstance(fb.get(k), str) and bool(fb[k])
+            pointers.append({"field": "BUFFER_INTRUSION/false_denominator/" + k, "points_to": m.group(1),
+                             "resolves_to": fb.get(k), "resolves": ok})
+            check("pointer: false_denominator.%s is defined in the coupling document" % k, ok)
+    truck_text = " ".join(" ".join(br.clean_lines(truck, br.DOCS[0][1], FOLDER)).split())
+    prov_pointer = "Canonical PROVENANCE block: Decision-Exposure Coupling" in truck_text
+    if (truck, "PROVENANCE") not in blocks:
+        ok = prov_pointer and (dec, "PROVENANCE") in blocks
+        pointers.append({"field": "PROVENANCE", "points_to": "Decision-Exposure Coupling",
+                         "resolves_to": sorted(blocks[(dec, "PROVENANCE")]["value"]) if ok else None, "resolves": ok})
+        check("pointer: the truck document's PROVENANCE points to a block the coupling document carries", ok)
+    canon = any("CANONICAL" in c for c in blocks[(dec, "PROVENANCE")]["comments"] + blocks[(dec, "PROVENANCE")]["comments_after"])
     out["info"]["two_documents"] = {
-        "PROVENANCE": {"only_in_truck_doc": sorted(set(pa) - set(pb)), "only_in_coupling_doc": sorted(set(pb) - set(pa)),
-                       "in_both": sorted(set(pa) & set(pb))},
-        "false_denominator": {k: {"truck_doc": fa.get(k), "coupling_doc": fb.get(k), "same": fa.get(k) == fb.get(k)}
-                              for k in sorted(set(fa) | set(fb)) if k not in ("instance", "examples")},
-        "owner_of_shared_blocks": None,
-        "note": "both kept as written; which document owns the shared blocks is an open item"}
+        "owner_of_shared_blocks": "Decision-Exposure Coupling" if canon and all(p["resolves"] for p in pointers) and pointers else None,
+        "coupling_document_says_canonical": canon,
+        "pointers": pointers,
+        "kept_in_truck_document": {k: v for k, v in fa.items() if not (isinstance(v, str) and POINTER.match(v))},
+        "note": "the truck document keeps its own instance and fix lines for the false denominator; its fix "
+                "line reads %r, the coupling document's %r" % (fa.get("fix"), fb.get("fix"))}
     sv = blocks[(dec, "SENSOR_VALIDITY")]["value"]
     flat = list(voids(sv))
     out["info"]["sensor_validity"] = {"fields": len(flat), "void": len(flat),
-                                      "note": "every field is a void (not assessed). The document's rule 'any "
-                                              "field False -> bad sensor' does not fire on a void."}
+                                      "document_rule_on_void": next((c for c in blocks[(dec, "SENSOR_VALIDITY")]["comments_after"]
+                                                                     if "None" in c), None),
+                                      "note": "every field is a void (not assessed): neither pass nor fail"}
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}
     return out
@@ -232,8 +294,12 @@ if __name__ == "__main__":
         len(i["role_block_vocabulary"]["words"])))
     print("INFO implied driving hours per day: %s   true_cost: %s   external figures NOT OPENED: %d" % (
         i["implied_driving_hours_per_day"]["value"], i["true_cost"]["state"], len(i["external_figures"])))
-    print("INFO PROVENANCE fields only in one document: %s / %s" % (
-        i["two_documents"]["PROVENANCE"]["only_in_truck_doc"], i["two_documents"]["PROVENANCE"]["only_in_coupling_doc"]))
+    print("INFO shared blocks owned by: %s   pointers: %d, all resolve: %s" % (
+        i["two_documents"]["owner_of_shared_blocks"], len(i["two_documents"]["pointers"]),
+        all(p["resolves"] for p in i["two_documents"]["pointers"])))
+    for row in i["changes_v1_to_v2"]:
+        print("INFO v1 -> v2, %s: blocks removed %s, added %s, values changed %d, blocks with new comments %d" % (
+            row["document"], row["blocks_removed"], row["blocks_added"], len(row["values_changed"]), len(row["comments_changed"])))
     print("checks: %d   failed: %d" % (rep["summary"]["checks"], rep["summary"]["failed"]))
     if "--json" in sys.argv:
         p = sys.argv[sys.argv.index("--json") + 1]
