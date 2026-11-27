@@ -32,6 +32,20 @@
         "void": "v2 states the rule itself ('None = unassessed (void): neither pass nor fail'). The earlier rule here says the same and stays."
       },
       "observer_slots": null
+    },
+    {
+      "date": "2026-11-27",
+      "name": "third delivery (v3): two changes delivered as text",
+      "after": "branch biological-load-accounting at fc27445. By the owner's work order of 2026-11-27, which says the two documents are Claude Docs edited live and that its text is authoritative for the changes. Declared before the v3 files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "no_pdf": "the third delivery arrived as text in a work order, not as PDFs. as_received_v3/ therefore holds no PDF and the records say so (pdf null). Nothing is extracted from a v3 PDF, because none was delivered.",
+        "order_text": "the work order is kept verbatim in as_received_v3/WORK_ORDER.md. The replacement block and the replacement line are read from that file by apply_v3.py; they are not typed a second time anywhere.",
+        "v3_text": "the v3 text of each document is the v2 extracted text with exactly the two replacements the order names: the whole PROVENANCE block of the coupling document (its two trailing comment lines included, as the order's block carries them), and the false_denominator fix line of the truck document. apply_v3.py does this, refuses if either target is not found exactly once, and the checker confirms that v2 and v3 differ in nothing else.",
+        "versions": "v1 and v2 stay unedited. The v2 records become records_v2.json (same bytes as when the file was named records.json). records.json is built from v3 and names what it supersedes.",
+        "pointers": "the truck document's false-denominator definition, status and fix now all read 'canonical in Decision-Exposure Coupling'; each must resolve to that field of the coupling document's FALSE_DENOMINATOR block, and its PROVENANCE pointer must resolve too."
+      },
+      "observer_slots": null
     }
   ]
 }
