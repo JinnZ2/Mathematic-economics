@@ -115,6 +115,31 @@
       "check": "pointer: the truck document's PROVENANCE points to a block the coupling document carries",
       "state": "PASS",
       "detail": ""
+    },
+    {
+      "check": "records_engineered_stability.json matches a rebuild from as_received_stability/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "engineered_stability: every string in the records is in the source text",
+      "state": "PASS",
+      "detail": "48 strings, 0 not found"
+    },
+    {
+      "check": "engineered_stability: every block parsed",
+      "state": "PASS",
+      "detail": "5 blocks"
+    },
+    {
+      "check": "companion blocks the document calls canonical exist in the coupling records",
+      "state": "PASS",
+      "detail": "named ['PROVENANCE', 'FALSE_DENOMINATOR', 'SENSOR_VALIDITY'], found ['PROVENANCE', 'FALSE_DENOMINATOR', 'SENSOR_VALIDITY']"
+    },
+    {
+      "check": "shared figures agree with the truck document (following distance, cut-ins per day)",
+      "state": "PASS",
+      "detail": "3 s and 300 a day here; 3 s and 300 a day there"
     }
   ],
   "info": {
@@ -601,12 +626,108 @@
       "void": 7,
       "document_rule_on_void": "None = unassessed (void): neither pass nor fail",
       "note": "every field is a void (not assessed): neither pass nor fail"
+    },
+    "engineered_stability": {
+      "blocks": [
+        "OVERSHOOT",
+        "CONTROL",
+        "EFFICIENCY_TRAP",
+        "BUFFER_RECORD",
+        "BUFFER_EXAMPLES"
+      ],
+      "sections": [
+        "Buffer visibility (OBSERVED principle, PROPOSED method)",
+        "Core model (DERIVED from systems dynamics and control theory)",
+        "Efficiency vs. stability (DERIVED)"
+      ],
+      "voids": [
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "name",
+          "reason": "no comment on that line"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "domain",
+          "reason": "energy, food, water, labor, biology, materials,"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "function",
+          "reason": "what failure it absorbs"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "visible_to",
+          "reason": "who knows it exists"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "size_now",
+          "reason": "no comment on that line"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "size_then",
+          "reason": "trend: shrinking / stable / growing"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "refill_rate",
+          "reason": "no comment on that line"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "draw_rate",
+          "reason": "no comment on that line"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "sensor",
+          "reason": "who or what measures it; validity per"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "failure_mode_if_gone",
+          "reason": "no comment on that line"
+        },
+        {
+          "document": "engineered_stability",
+          "block": "BUFFER_RECORD",
+          "field": "status",
+          "reason": "OBSERVED / DERIVED / PROPOSED"
+        }
+      ],
+      "document_rule_on_void": "None = void (unassessed), never treated as zero or as safe",
+      "buffer_records_filled": 0,
+      "buffer_examples": 6,
+      "attributions": [
+        {
+          "name": "Meadows et al.",
+          "source_state": "NOT OPENED"
+        },
+        {
+          "name": "Tainter",
+          "source_state": "NOT OPENED"
+        }
+      ],
+      "research_program": "open; nothing in it is started by this filing"
     }
   },
   "summary": {
-    "checks": 23,
+    "checks": 28,
     "failed": 0,
-    "voids": 26,
+    "voids": 37,
     "external_figures_not_opened": 9
   }
 }

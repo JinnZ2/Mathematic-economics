@@ -17,6 +17,8 @@ Unit of the first document: one biological entity, one week (168 h).
 | `build_records.py` | reads each code block of the documents as the Python literal it is written as; nothing is typed by hand |
 | `records.json` | current records (v3): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
 | `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
+| `as_received_stability/` | a third document, *Engineered Stability: Overshoot, Coupling and Buffer Visibility*: its PDF byte for byte and the extracted text (first delivery) |
+| `records_engineered_stability.json` | that document's records: 5 blocks |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
 
 ```
@@ -60,13 +62,32 @@ Standard library only. Re-extracting the text needs `pdftotext`; the checker doe
 
 ## What the checker says (2026-11-27, v3)
 
-- 23 checks, 0 failed: hashes for v1, v2 and v3; all three record files match a rebuild; the v3 text
+- 28 checks, 0 failed (23 on the first two documents, 5 on the third): hashes for v1, v2 and v3; all three record files match a rebuild; the v3 text
   is v2 plus exactly the two replacements; every string in the current records is in the source
   text (417 and 93 strings, 0 not found); all blocks parsed; the five figures the truck document
   derives from its own numbers reproduce (2 min, 87 m, 77 ft, 0.8 s, 1 per 114 mi); four pointers
   resolve (false-denominator definition, status and fix, and `PROVENANCE`).
 - 26 voids (unchanged from v2), each listed with the document's own comment on that line or "no
   reason given in the document".
+
+## Third document: Engineered Stability (filed 2026-11-27)
+
+A companion that sets the other two inside a stability frame: overshoot needs growth, a limit and
+delayed feedback; delay and noise are the part that can be engineered; buffers are the stability
+margin and are invisible by design. It names the coupling document as canonical for `PROVENANCE`,
+`FALSE_DENOMINATOR` and `SENSOR_VALIDITY`.
+
+- 5 checks of the 28 are its own, all pass: its records match a rebuild; every string is in the
+  source text; all 5 blocks parsed; the three blocks it calls canonical exist in the coupling
+  records; the two figures it shares with the truck document agree (3 s following distance,
+  ~300 cut-ins a day).
+- `BUFFER_RECORD` is a template: all 11 fields are voids, and the document says so ("None = void
+  (unassessed), never treated as zero or as safe"). No buffer has been recorded yet.
+  `BUFFER_EXAMPLES` lists 6 candidates.
+- Two framings are attributed by name (Meadows et al.; Tainter): NOT OPENED.
+- Its research program is open and nothing in it is started here: common denominators across
+  domains; measured feedback delay per decision chain; buffer inventory per domain with trend;
+  historical cases; small simulations of sensor latency against overshoot; thresholds.
 
 ## Open
 

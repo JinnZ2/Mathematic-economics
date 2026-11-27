@@ -1,0 +1,122 @@
+{
+  "record": "ENGINEERED_STABILITY",
+  "date": "2026-11-27",
+  "status": "PROPOSED",
+  "license": "CC0",
+  "co_authored": true,
+  "observer_slots": null,
+  "delivery": "v1",
+  "note": "Built by build_records.py from the extracted text of the document. Values are the document's; null is a void, never zero and never 'safe'.",
+  "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
+  "documents": [
+    {
+      "document": "Engineered Stability: Overshoot, Coupling and Buffer Visibility",
+      "as_received": {
+        "pdf": "as_received_stability/engineered_stability.pdf",
+        "pdf_sha256": "69c864f748554a7e8d201735c5ed9203ac94ff7813217d16842395bb958ffc95",
+        "text": "as_received_stability/engineered_stability.txt",
+        "text_sha256": "1e43e251ad3daeb51f8b658b56d611b5aac1ddaa693973390c2efc6499b1d66e"
+      },
+      "blocks": [
+        {
+          "block": "OVERSHOOT",
+          "section": "Core model (DERIVED from systems dynamics and control theory)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "requires": [
+              "growth",
+              "a limit",
+              "delayed feedback"
+            ],
+            "limit": "physical, not negotiable (energy, materials, biology)",
+            "engineerable": "feedback delay and noise",
+            "outcomes": {
+              "long delay / noisy sensors": "overshoot and collapse",
+              "short delay / clean sensors": "damped oscillation or controlled descent"
+            },
+            "goal": "buy time for better solutions, technologies, energy pathways"
+          },
+          "comments": [
+            "Meadows et al. framing"
+          ],
+          "comments_after": []
+        },
+        {
+          "block": "CONTROL",
+          "section": "Core model (DERIVED from systems dynamics and control theory)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "stability_margin": "shrinks with sensor latency and noise",
+            "decoupled_decisions": "= added sensor delay -> late corrections -> amplified swings",
+            "lever": "direct coupling: those who live the conditions report them, fast and clean"
+          },
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "EFFICIENCY_TRAP",
+          "section": "Efficiency vs. stability (DERIVED)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "move": "cut what looks unused or redundant",
+            "what is cut": "buffers, redundancy, slack = stability margin",
+            "complexity_cost": "each added layer costs more energy to maintain (Tainter, diminishing returns)",
+            "result": "brittleness without removing the energy burden",
+            "check_first": "efficient toward whose goal? (name it before cutting)"
+          },
+          "comments": [],
+          "comments_after": []
+        },
+        {
+          "block": "BUFFER_RECORD",
+          "section": "Buffer visibility (OBSERVED principle, PROPOSED method)",
+          "state": "PARSED",
+          "reason": null,
+          "value": {
+            "name": null,
+            "domain": null,
+            "function": null,
+            "visible_to": null,
+            "size_now": null,
+            "size_then": null,
+            "refill_rate": null,
+            "draw_rate": null,
+            "sensor": null,
+            "failure_mode_if_gone": null,
+            "status": null
+          },
+          "comments": [
+            "energy, food, water, labor, biology, materials, social, time",
+            "what failure it absorbs",
+            "who knows it exists",
+            "trend: shrinking / stable / growing",
+            "who or what measures it; validity per SENSOR_VALIDITY",
+            "OBSERVED / DERIVED / PROPOSED"
+          ],
+          "comments_after": [
+            "None = void (unassessed), never treated as zero or as safe"
+          ]
+        },
+        {
+          "block": "BUFFER_EXAMPLES",
+          "section": "Buffer visibility (OBSERVED principle, PROPOSED method)",
+          "state": "PARSED",
+          "reason": null,
+          "value": [
+            "driver following distance (3 s+) — erased ~300x/day",
+            "worker homeostasis reserves across a shift or run",
+            "dock crew goodwill (carryover between drivers)",
+            "time slack in schedules (HOS, delivery windows)",
+            "unpaid community repair and volunteer capacity",
+            "forest, soil, water reserves"
+          ],
+          "comments": [],
+          "comments_after": []
+        }
+      ]
+    }
+  ]
+}

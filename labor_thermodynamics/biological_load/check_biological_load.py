@@ -263,6 +263,49 @@ def run():
                                       "document_rule_on_void": next((c for c in blocks[(dec, "SENSOR_VALIDITY")]["comments_after"]
                                                                      if "None" in c), None),
                                       "note": "every field is a void (not assessed): neither pass nor fail"}
+    # --- third document: Engineered Stability (DECLARED.json, amendment 'third document') ---
+    sname, stitle, sfolder, sfile = br.STABILITY
+    srec = br.build_stability()
+    check("%s matches a rebuild from %s/" % (sfile, sfolder),
+          open(os.path.join(HERE, sfile), encoding="utf-8").read() == br.dump(srec))
+    sd = srec["documents"][0]
+    stext_lines = br.clean_lines(sname, stitle, sfolder)
+    stext = squeeze("\n".join(stext_lines))
+    smissing = [x for b in sd["blocks"] for x in strings(b["value"]) if squeeze(x) not in stext]
+    sn = sum(1 for b in sd["blocks"] for _ in strings(b["value"]))
+    check("%s: every string in the records is in the source text" % sname, not smissing,
+          "%d strings, %d not found" % (sn, len(smissing)))
+    check("%s: every block parsed" % sname, all(b["state"] == "PARSED" for b in sd["blocks"]), "%d blocks" % len(sd["blocks"]))
+    sblocks = {b["block"]: b for b in sd["blocks"]}
+    header = " ".join(" ".join(stext_lines).split())
+    m = re.search(r"Decision-Exposure Coupling \(canonical ([A-Z_, ]+)\)", header)
+    named = [x.strip() for x in m.group(1).split(",")] if m else []
+    have = [x for x in named if (dec, x) in blocks]
+    check("companion blocks the document calls canonical exist in the coupling records", bool(named) and have == named,
+          "named %s, found %s" % (named, have))
+    ex = " ".join(sblocks["BUFFER_EXAMPLES"]["value"])
+    s_sec, s_day = num(ex, r"\((\d+) s\+\)"), num(ex, r"~(\d+)x/day")
+    t_sec = num(bi["buffer_vs_threshold"]["driver_preferred"], r"^(\d+) s")
+    t_day = num(bi["frequency"], r"~(\d+) cut-ins/day")
+    check("shared figures agree with the truck document (following distance, cut-ins per day)",
+          s_sec == t_sec and s_day == t_day, "%g s and %g a day here; %g s and %g a day there" % (s_sec, s_day, t_sec, t_day))
+    svoids = [{"document": sname, "block": b["block"], "field": path.strip("/"),
+               "reason": next((br.split_comment(raw)[1] for raw in stext_lines
+                               if re.search(r'"%s":\s*None' % re.escape(path.rsplit("/", 1)[-1]), raw)
+                               and br.split_comment(raw)[1]), None) or "no comment on that line"}
+              for b in sd["blocks"] for path in voids(b["value"])]
+    attributions = sorted({a for b in sd["blocks"] for txt in list(strings(b["value"])) + b["comments"]
+                           for a in re.findall(r"(Meadows et al\.|Tainter)", txt)})
+    out["info"]["engineered_stability"] = {
+        "blocks": [b["block"] for b in sd["blocks"]],
+        "sections": sorted({b["section"] for b in sd["blocks"]}),
+        "voids": svoids,
+        "document_rule_on_void": next((c for c in sblocks["BUFFER_RECORD"]["comments_after"] if "None" in c), None),
+        "buffer_records_filled": 0 if all(v is None for v in sblocks["BUFFER_RECORD"]["value"].values()) else None,
+        "buffer_examples": len(sblocks["BUFFER_EXAMPLES"]["value"]),
+        "attributions": [{"name": a, "source_state": "NOT OPENED"} for a in attributions],
+        "research_program": "open; nothing in it is started by this filing"}
+    all_voids = all_voids + svoids
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}
     return out
@@ -309,6 +352,9 @@ if __name__ == "__main__":
         print("INFO %s -> %s, %s: blocks removed %s, added %s, values changed %d, blocks with changed comments %d" % (
             row["from"], row["to"], row["document"], row["blocks_removed"], row["blocks_added"],
             len(row["values_changed"]), len(row["comments_changed"])))
+    es = i["engineered_stability"]
+    print("INFO engineered stability: %d blocks, %d voids (BUFFER_RECORD template, none filled), %d buffer examples, attributions NOT OPENED: %s" % (
+        len(es["blocks"]), len(es["voids"]), es["buffer_examples"], [a["name"] for a in es["attributions"]]))
     print("checks: %d   failed: %d" % (rep["summary"]["checks"], rep["summary"]["failed"]))
     if "--json" in sys.argv:
         p = sys.argv[sys.argv.index("--json") + 1]

@@ -171,6 +171,24 @@ def build(version="v1"):
     return rec
 
 
+# A third document, delivered once (DECLARED.json, amendment 'third document'). Its own record file.
+STABILITY = ("engineered_stability", "Engineered Stability: Overshoot, Coupling and Buffer Visibility",
+             "as_received_stability", "records_engineered_stability.json")
+
+
+def build_stability():
+    name, title, folder, _ = STABILITY
+    return {"record": "ENGINEERED_STABILITY", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
+            "co_authored": True, "observer_slots": None, "delivery": "v1",
+            "note": "Built by build_records.py from the extracted text of the document. Values are the "
+                    "document's; null is a void, never zero and never 'safe'.",
+            "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
+            "documents": [{"document": title,
+                           "as_received": {"pdf": "%s/%s.pdf" % (folder, name), "pdf_sha256": sha("%s/%s.pdf" % (folder, name)),
+                                           "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))},
+                           "blocks": read_doc(name, title, folder)}]}
+
+
 def dump(o):
     return json.dumps(o, indent=2, ensure_ascii=False) + "\n"
 
@@ -193,4 +211,13 @@ if __name__ == "__main__":
         for d in rec["documents"]:
             for b in d["blocks"]:
                 print("%-3s %-10s %-18s %-48s %s" % (version, b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
+    rec, out = build_stability(), os.path.join(HERE, STABILITY[3])
+    if sys.argv[1:] == ["--check"]:
+        same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
+        print("%s matches a rebuild from %s/: %s" % (STABILITY[3], STABILITY[2], "yes" if same else "NO"))
+        ok = ok and same
+    else:
+        open(out, "w", encoding="utf-8").write(dump(rec))
+        for b in rec["documents"][0]["blocks"]:
+            print("st  %-10s %-18s %-48s %s" % (b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
     sys.exit(0 if ok else 1)
