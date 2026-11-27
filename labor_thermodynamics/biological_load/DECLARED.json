@@ -46,6 +46,22 @@
         "pointers": "the truck document's false-denominator definition, status and fix now all read 'canonical in Decision-Exposure Coupling'; each must resolve to that field of the coupling document's FALSE_DENOMINATOR block, and its PROVENANCE pointer must resolve too."
       },
       "observer_slots": null
+    },
+    {
+      "date": "2026-11-27",
+      "name": "third document: Engineered Stability: Overshoot, Coupling and Buffer Visibility",
+      "after": "branch biological-load-accounting at 3fe8e68. The owner delivered one more PDF, a companion to the two documents here, with no further instruction; it is filed under the same rules, in the folder the owner already confirmed. Declared before the file, its records or the checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "as_received": "the PDF byte for byte and its pdftotext -layout text in as_received_stability/, unedited. This is its first delivery.",
+        "records": "records_engineered_stability.json, built by build_records.py from the extracted text alone, the same way as the other record files. The two earlier documents' deliveries and record files are not touched.",
+        "companions": "the document says PROVENANCE, FALSE_DENOMINATOR and SENSOR_VALIDITY are canonical in Decision-Exposure Coupling. The checker confirms the current coupling records carry all three blocks; a missing one is a FAIL.",
+        "shared_figures": "where the document repeats a figure of the truck document (the following distance in seconds, the cut-ins per day), the checker compares the numbers; a difference is a FAIL. It checks nothing else about the document's claims.",
+        "void": "the document states 'None = void (unassessed), never treated as zero or as safe'. Every field of its BUFFER_RECORD is a void and is listed as one.",
+        "attributions": "names the document attributes framings to (in comments or values) are listed NOT OPENED; no source was read for this filing.",
+        "not_built": "the document's research program (delay measurements, buffer inventory, historical cases, small simulations, thresholds) is open work. None of it is started by filing the document."
+      },
+      "observer_slots": null
     }
   ]
 }
