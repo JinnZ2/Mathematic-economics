@@ -62,6 +62,21 @@
         "not_built": "the document's research program (delay measurements, buffer inventory, historical cases, small simulations, thresholds) is open work. None of it is started by filing the document."
       },
       "observer_slots": null
+    },
+    {
+      "date": "2026-11-27",
+      "name": "fourth delivery (v4): one line in the coupling document; the third document's text",
+      "after": "branch biological-load-accounting at c7a9f84. By the owner's work order of 2026-11-27 (v4). Declared before the v4 files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "order_text": "the work order is kept verbatim in as_received_v4/WORK_ORDER.md. apply_v4.py reads the line to replace and its replacement from that file.",
+        "v4_text": "the v4 text of the coupling document is the v3 text with exactly that one line replaced; apply_v4.py refuses unless the line is found exactly once. The truck document is not changed by the order: its v4 text is the v3 text, byte for byte, and the records say so. No PDF was delivered for v4.",
+        "versions": "v1-v3 stay unedited. The v3 records become records_v3.json (same bytes). records.json is built from v4.",
+        "third_document": "the order carries the full text of 'Engineered Stability: Overshoot, Coupling and Buffer Visibility' and asks for it to be filed as a third document. It was already filed from its PDF at c7a9f84 (as_received_stability/, records_engineered_stability.json), before this order arrived. It is not filed a second time. The order's text is kept (it is inside WORK_ORDER.md) and the checker reads the five code blocks out of it and requires them to equal the blocks read from the PDF; a difference is a FAIL and would mean there are two versions.",
+        "outside_names": "Meadows et al. and Tainter, which the third document attributes framings to, are listed with the outside figures as NOT OPENED.",
+        "accepted_wording": "the owner states that the five other wording differences between the v1 truck PROVENANCE block and the canonical block are intentional (generalized across roles). The README marks them accepted; they are no longer listed as differences to resolve."
+      },
+      "observer_slots": null
     }
   ]
 }
