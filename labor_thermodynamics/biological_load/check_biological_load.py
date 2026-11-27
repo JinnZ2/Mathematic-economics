@@ -167,6 +167,15 @@ def run():
     check("v3 text is the v2 text plus exactly the work order's two replacements",
           all(open(os.path.join(HERE, "as_received_v3", n), encoding="utf-8").read() == t for n, t in texts.items()),
           json.dumps(spans))
+    import apply_v4
+    texts4, spans4 = apply_v4.build()
+    check("v4 text is the v3 text plus exactly the work order's one replacement (truck document unchanged)",
+          all(open(os.path.join(HERE, "as_received_v4", n), encoding="utf-8").read() == t for n, t in texts4.items())
+          and open(os.path.join(HERE, "as_received_v4", apply_v4.TRUCK), "rb").read()
+          == open(os.path.join(HERE, "as_received_v3", apply_v4.TRUCK), "rb").read(),
+          json.dumps(spans4))
+    check("as_received_v4/WORK_ORDER.md unchanged (hash as recorded)",
+          all(d["as_received"].get("order_sha256") == br.sha("as_received_v4/WORK_ORDER.md") for d in rec["documents"]))
     blocks = {}
     all_voids = []
     for (name, title), d in zip(br.DOCS, rec["documents"]):
@@ -277,6 +286,10 @@ def run():
           "%d strings, %d not found" % (sn, len(smissing)))
     check("%s: every block parsed" % sname, all(b["state"] == "PARSED" for b in sd["blocks"]), "%d blocks" % len(sd["blocks"]))
     sblocks = {b["block"]: b for b in sd["blocks"]}
+    ob = apply_v4.order_blocks()
+    differ = sorted(k for k in set(ob) | set(sblocks) if k not in ob or k not in sblocks or ob[k] != sblocks[k]["value"])
+    check("third document: the code blocks in the v4 order's text equal the blocks read from the PDF",
+          bool(ob) and not differ, "%d blocks in the order, %d from the PDF, differing: %s" % (len(ob), len(sblocks), differ or "none"))
     header = " ".join(" ".join(stext_lines).split())
     m = re.search(r"Decision-Exposure Coupling \(canonical ([A-Z_, ]+)\)", header)
     named = [x.strip() for x in m.group(1).split(",")] if m else []
@@ -305,6 +318,14 @@ def run():
         "buffer_examples": len(sblocks["BUFFER_EXAMPLES"]["value"]),
         "attributions": [{"name": a, "source_state": "NOT OPENED"} for a in attributions],
         "research_program": "open; nothing in it is started by this filing"}
+    check("BUFFER_RECORD: every field is a void and is counted as a void (not zero, not safe)",
+          all(v is None for v in sblocks["BUFFER_RECORD"]["value"].values())
+          and len([v for v in svoids if v["block"] == "BUFFER_RECORD"]) == len(sblocks["BUFFER_RECORD"]["value"]),
+          "%d fields, %d voids" % (len(sblocks["BUFFER_RECORD"]["value"]), len([v for v in svoids if v["block"] == "BUFFER_RECORD"])))
+    for a in attributions:      # v4 order: outside figures, NOT OPENED
+        ext.append({"field": "engineered_stability.attribution", "as_written": a, "source_state": "NOT OPENED"})
+    check("Meadows et al. and Tainter are listed with the outside figures as NOT OPENED",
+          {e["as_written"] for e in ext if e["field"] == "engineered_stability.attribution"} == {"Meadows et al.", "Tainter"})
     all_voids = all_voids + svoids
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}

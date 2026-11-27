@@ -32,7 +32,22 @@
       "detail": ""
     },
     {
-      "check": "records.json matches a rebuild from as_received_v3/",
+      "check": "records_v3.json matches a rebuild from as_received_v3/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v3 delivery, Biological Load Accounting for Truck Drivers: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v3 delivery, Decision-Exposure Coupling: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "records.json matches a rebuild from as_received_v4/",
       "state": "PASS",
       "detail": ""
     },
@@ -40,6 +55,16 @@
       "check": "v3 text is the v2 text plus exactly the work order's two replacements",
       "state": "PASS",
       "detail": "{\"decision_exposure_coupling.txt\": {\"v2_lines_replaced\": [54, 68], \"v3_lines\": 17}, \"biological_load_accounting_for_truck_drivers.txt\": {\"v2_lines_replaced\": [390, 391], \"v3_lines\": 1}}"
+    },
+    {
+      "check": "v4 text is the v3 text plus exactly the work order's one replacement (truck document unchanged)",
+      "state": "PASS",
+      "detail": "{\"decision_exposure_coupling.txt\": {\"v3_line_replaced\": 69}, \"biological_load_accounting_for_truck_drivers.txt\": {\"changed\": false}}"
+    },
+    {
+      "check": "as_received_v4/WORK_ORDER.md unchanged (hash as recorded)",
+      "state": "PASS",
+      "detail": ""
     },
     {
       "check": "biological_load_accounting_for_truck_drivers: text and work-order hashes (no PDF in this delivery) unchanged",
@@ -132,6 +157,11 @@
       "detail": "5 blocks"
     },
     {
+      "check": "third document: the code blocks in the v4 order's text equal the blocks read from the PDF",
+      "state": "PASS",
+      "detail": "5 blocks in the order, 5 from the PDF, differing: none"
+    },
+    {
       "check": "companion blocks the document calls canonical exist in the coupling records",
       "state": "PASS",
       "detail": "named ['PROVENANCE', 'FALSE_DENOMINATOR', 'SENSOR_VALIDITY'], found ['PROVENANCE', 'FALSE_DENOMINATOR', 'SENSOR_VALIDITY']"
@@ -140,6 +170,16 @@
       "check": "shared figures agree with the truck document (following distance, cut-ins per day)",
       "state": "PASS",
       "detail": "3 s and 300 a day here; 3 s and 300 a day there"
+    },
+    {
+      "check": "BUFFER_RECORD: every field is a void and is counted as a void (not zero, not safe)",
+      "state": "PASS",
+      "detail": "11 fields, 11 voids"
+    },
+    {
+      "check": "Meadows et al. and Tainter are listed with the outside figures as NOT OPENED",
+      "state": "PASS",
+      "detail": ""
     }
   ],
   "info": {
@@ -254,6 +294,34 @@
               "bool — the gate",
               "exposed | sheltered",
               "market | insider"
+            ]
+          }
+        ]
+      },
+      {
+        "from": "v3",
+        "to": "v4",
+        "document": "Biological Load Accounting for Truck Drivers",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [],
+        "comments_changed": []
+      },
+      {
+        "from": "v3",
+        "to": "v4",
+        "document": "Decision-Exposure Coupling",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [],
+        "comments_changed": [
+          {
+            "block": "PROVENANCE",
+            "added": [
+              "office, media or academic seat writing about the floor / cab = DERIVED at best, never OBSERVED"
+            ],
+            "removed": [
+              "office seat writing about the floor = DERIVED at best, never OBSERVED"
             ]
           }
         ]
@@ -574,6 +642,16 @@
         "field": "market.new_carrier_failure",
         "as_written": "~85% in recent 3-yr downturn; ~75% gone by year 5 (secondhand SBA)",
         "source_state": "NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.attribution",
+        "as_written": "Meadows et al.",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "engineered_stability.attribution",
+        "as_written": "Tainter",
+        "source_state": "NOT OPENED"
       }
     ],
     "two_documents": {
@@ -725,9 +803,9 @@
     }
   },
   "summary": {
-    "checks": 28,
+    "checks": 36,
     "failed": 0,
     "voids": 37,
-    "external_figures_not_opened": 9
+    "external_figures_not_opened": 11
   }
 }

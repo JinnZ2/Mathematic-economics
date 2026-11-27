@@ -8,6 +8,8 @@ Two deliveries (DECLARED.json, amendment 'second delivery'): v1 in as_received/,
 as_received_v2/. The v1 record file keeps the bytes it had when it was named records.json.
 Third delivery (amendment 'third delivery (v3)'): text only, no PDF; as_received_v3/*.txt is the v2
 text with the work order's two replacements (apply_v3.py). records_v2.json keeps the v2 bytes.
+Fourth delivery (amendment 'fourth delivery (v4)'): text only; as_received_v4/*.txt is the v3 text
+with one line replaced in the coupling document (apply_v4.py). records_v3.json keeps the v3 bytes.
 
 Rule (DECLARED.json): every value comes from the extracted text. Each code block is rebuilt as the
 Python literal it is written as (lines the PDF wrapped are joined again) and read with
@@ -25,11 +27,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = [("biological_load_accounting_for_truck_drivers", "Biological Load Accounting for Truck Drivers"),
         ("decision_exposure_coupling", "Decision-Exposure Coupling")]
 VERSIONS = {"v1": ("as_received", "records_v1.json"), "v2": ("as_received_v2", "records_v2.json"),
-            "v3": ("as_received_v3", "records.json")}
-CURRENT = "v3"
+            "v3": ("as_received_v3", "records_v3.json"), "v4": ("as_received_v4", "records.json")}
+CURRENT = "v4"
+# text-only deliveries: what the stored text is (v3 keeps the words it was written with)
+TEXT_IS = {"v3": "the v2 extracted text with the replacements of %s/WORK_ORDER.md (apply_v3.py)",
+           "v4": "the v3 text with the one-line replacement of %s/WORK_ORDER.md (apply_v4.py); "
+                 "the truck document's text is the v3 text unchanged"}
 # what each delivery's record file says about itself; v1 and v2 keep the words they were written with
 SUPERSEDES = {"v2": "records_v1.json (first delivery, kept unchanged)",
-              "v3": "records_v2.json (second delivery, kept unchanged)"}
+              "v3": "records_v2.json (second delivery, kept unchanged)",
+              "v4": "records_v3.json (third delivery, kept unchanged)"}
 OPEN = re.compile(r'^\s*(?:([A-Za-z_]+) = ([{\[])(?:\s*(#.*)?$|")|"([a-z_]+)": \{\s*(#.*)?$)')
 KEYLINE = re.compile(r'^\s*("[^"]*":|[}\]\[]|"|#)')
 
@@ -157,7 +164,7 @@ def build(version="v1"):
               "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))}
         if not has_pdf:
             ar["pdf_reason"] = "no PDF was delivered for this version"
-            ar["text_is"] = "the v2 extracted text with the replacements of %s/WORK_ORDER.md (apply_v3.py)" % folder
+            ar["text_is"] = TEXT_IS[version] % folder
             ar["order_sha256"] = sha("%s/WORK_ORDER.md" % folder)
         docs.append({"document": title, "as_received": ar, "blocks": read_doc(name, title, folder)})
     rec = {"record": "BIOLOGICAL_LOAD_ACCOUNTING", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",

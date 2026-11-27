@@ -12,11 +12,11 @@
       "as_received": {
         "pdf": null,
         "pdf_sha256": null,
-        "text": "as_received_v3/biological_load_accounting_for_truck_drivers.txt",
+        "text": "as_received_v4/biological_load_accounting_for_truck_drivers.txt",
         "text_sha256": "76e8ba6a3c88126e395fd40dcc816a1b1365f50d3ee0e4213f999d2f4249deb4",
         "pdf_reason": "no PDF was delivered for this version",
-        "text_is": "the v2 extracted text with the replacements of as_received_v3/WORK_ORDER.md (apply_v3.py)",
-        "order_sha256": "93d4f561f2f642caa23838610041127182753158bc6ce954e98a69c4df3951b5"
+        "text_is": "the v3 text with the one-line replacement of as_received_v4/WORK_ORDER.md (apply_v4.py); the truck document's text is the v3 text unchanged",
+        "order_sha256": "9cda7244b415caa625785df5245635de5db773f36a6190e0f10215e2eccb14b3"
       },
       "blocks": [
         {
@@ -466,11 +466,11 @@
       "as_received": {
         "pdf": null,
         "pdf_sha256": null,
-        "text": "as_received_v3/decision_exposure_coupling.txt",
-        "text_sha256": "1865497f42590506d8f8947d4d1f3c766d8cd6a9123cacd12e5eb2aa3d28a3db",
+        "text": "as_received_v4/decision_exposure_coupling.txt",
+        "text_sha256": "bc530617e0dad1bae1c9de7c031a2af3ffd518052217d21605ff64be4c8b48d6",
         "pdf_reason": "no PDF was delivered for this version",
-        "text_is": "the v2 extracted text with the replacements of as_received_v3/WORK_ORDER.md (apply_v3.py)",
-        "order_sha256": "93d4f561f2f642caa23838610041127182753158bc6ce954e98a69c4df3951b5"
+        "text_is": "the v3 text with the one-line replacement of as_received_v4/WORK_ORDER.md (apply_v4.py); the truck document's text is the v3 text unchanged",
+        "order_sha256": "9cda7244b415caa625785df5245635de5db773f36a6190e0f10215e2eccb14b3"
       },
       "blocks": [
         {
@@ -539,7 +539,7 @@
             "authority judged per dimension, not as one score"
           ],
           "comments_after": [
-            "office seat writing about the floor = DERIVED at best, never OBSERVED",
+            "office, media or academic seat writing about the floor / cab = DERIVED at best, never OBSERVED",
             "CANONICAL: PROVENANCE and FALSE_DENOMINATOR are defined here; companion docs point here"
           ]
         },
@@ -683,6 +683,6 @@
       ]
     }
   ],
-  "delivery": "v3",
-  "supersedes": "records_v2.json (second delivery, kept unchanged)"
+  "delivery": "v4",
+  "supersedes": "records_v3.json (third delivery, kept unchanged)"
 }

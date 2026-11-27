@@ -11,18 +11,21 @@ Unit of the first document: one biological entity, one week (168 h).
 |---|---|
 | `as_received/` | first delivery (v1): the two PDFs byte for byte and the text `pdftotext -layout` gives for each |
 | `as_received_v2/` | second delivery (v2), the same way |
-| `as_received_v3/` | third delivery (v3), the current one: the work order that carried it, verbatim, and the text of each document. No PDF was delivered for v3 |
+| `as_received_v3/` | third delivery (v3): the work order that carried it, verbatim, and the text of each document. No PDF was delivered for v3 |
+| `as_received_v4/` | fourth delivery (v4), the current one: the work order, verbatim, and the text of each document. No PDF. The order also carries the third document's text |
 | `apply_v3.py` | builds the v3 text: the v2 text with the work order's two replacements, read from the order file |
+| `apply_v4.py` | builds the v4 text: the v3 text with the order's one-line replacement in the coupling document; the truck document's text is carried over unchanged. Also reads the third document's code blocks out of the order |
 | `DECLARED.json` | the rules for this folder, with one amendment per later delivery |
 | `build_records.py` | reads each code block of the documents as the Python literal it is written as; nothing is typed by hand |
-| `records.json` | current records (v3): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
-| `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
+| `records.json` | current records (v4): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
+| `records_v3.json`, `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
 | `as_received_stability/` | a third document, *Engineered Stability: Overshoot, Coupling and Buffer Visibility*: its PDF byte for byte and the extracted text (first delivery) |
 | `records_engineered_stability.json` | that document's records: 5 blocks |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
 
 ```
 python3 apply_v3.py --check
+python3 apply_v4.py --check
 python3 build_records.py --check
 python3 check_biological_load.py
 python3 check_biological_load.py --selftest
@@ -60,15 +63,41 @@ Standard library only. Re-extracting the text needs `pdftotext`; the checker doe
   live. The v3 text here is the v2 extracted text with those two replacements, and the checker
   confirms nothing else differs.
 
-## What the checker says (2026-11-27, v3)
+## What changed from v3 to v4 (one line)
 
-- 28 checks, 0 failed (23 on the first two documents, 5 on the third): hashes for v1, v2 and v3; all three record files match a rebuild; the v3 text
-  is v2 plus exactly the two replacements; every string in the current records is in the source
-  text (417 and 93 strings, 0 not found); all blocks parsed; the five figures the truck document
-  derives from its own numbers reproduce (2 min, 87 m, 77 ft, 0.8 s, 1 per 114 mi); four pointers
-  resolve (false-denominator definition, status and fix, and `PROVENANCE`).
-- 26 voids (unchanged from v2), each listed with the document's own comment on that line or "no
-  reason given in the document".
+- Coupling document, the comment line after the `PROVENANCE` block's closing brace:
+  - v3: "office seat writing about the floor = DERIVED at best, never OBSERVED"
+  - v4: "office, media or academic seat writing about the floor / cab = DERIVED at best, never OBSERVED"
+
+  This puts v1's media seat back and adds an academic seat, matching the `current_seat` options.
+- Truck document: not changed. Its v4 text is the v3 text byte for byte.
+- No block's values changed; one block's comments changed (`PROVENANCE`).
+
+### v1 to v3 wording differences in `PROVENANCE`: ACCEPTED
+
+The other five differences between the v1 block and the current one are intentional (generalized
+across roles), accepted by the v4 work order on 2026-11-27. They stay as they are:
+
+| Field / line | v1 | now |
+|---|---|---|
+| `conditions` | "real routes" | "real routes/shifts" |
+| `role_type` | "day / regional / OTR / custody / owner-op" | "cab / floor / ward / classroom / field, with sub-role" |
+| `recency` | "years since last doing it" | "years since exposure" |
+| `current_seat` | without "floor" | includes "floor" |
+| closing line on time | DIFFERENT in capitals, with a dash | "time measures different things; no single years threshold" |
+
+## What the checker says (2026-11-27, v4)
+
+- 36 checks, 0 failed (28 on the first two documents, 8 on the third); selftest 9, 0 failed.
+  Hashes for v1 to v4; all four record files and the third document's match a rebuild; v3 text is
+  v2 plus exactly its two replacements; v4 text is v3 plus exactly its one; every string in the
+  current records is in the source text (417, 93 and 48 strings, 0 not found); all blocks parsed;
+  the five figures the truck document derives from its own numbers reproduce (2 min, 87 m, 77 ft,
+  0.8 s, 1 per 114 mi); four pointers resolve.
+- 37 voids: 26 in the first two documents (unchanged since v2) and the 11 fields of `BUFFER_RECORD`.
+  Each is listed with the document's own comment on that line or "no reason given in the document".
+  None is read as zero or as safe.
+- 11 outside figures NOT OPENED: the 9 in the truck document, plus Meadows et al. and Tainter.
 
 ## Third document: Engineered Stability (filed 2026-11-27)
 
@@ -77,14 +106,17 @@ delayed feedback; delay and noise are the part that can be engineered; buffers a
 margin and are invisible by design. It names the coupling document as canonical for `PROVENANCE`,
 `FALSE_DENOMINATOR` and `SENSOR_VALIDITY`.
 
-- 5 checks of the 28 are its own, all pass: its records match a rebuild; every string is in the
+- 8 checks of the 36 are its own, all pass: its records match a rebuild; every string is in the
   source text; all 5 blocks parsed; the three blocks it calls canonical exist in the coupling
   records; the two figures it shares with the truck document agree (3 s following distance,
   ~300 cut-ins a day).
 - `BUFFER_RECORD` is a template: all 11 fields are voids, and the document says so ("None = void
   (unassessed), never treated as zero or as safe"). No buffer has been recorded yet.
   `BUFFER_EXAMPLES` lists 6 candidates.
-- Two framings are attributed by name (Meadows et al.; Tainter): NOT OPENED.
+- The v4 work order carried this document's text. It is not filed a second time: the PDF stays
+  the source. The checker reads the five code blocks out of the order's text and they equal the
+  blocks read from the PDF, value for value.
+- Two framings are attributed by name (Meadows et al.; Tainter): outside figures, NOT OPENED.
 - Its research program is open and nothing in it is started here: common denominators across
   domains; measured feedback delay per decision chain; buffer inventory per domain with trend;
   historical cases; small simulations of sensor latency against overshoot; thresholds.
@@ -96,7 +128,8 @@ margin and are invisible by design. It names the coupling document as canonical 
 - `responsibility_h` has mixed types: a number for the office role, text for regional and OTR, void
   for the day driver.
 - `true_cost`: NOT_COMPUTABLE (per-need values are an open slot; the terms have different units).
-- 9 figures attributed to outside studies or agencies: NOT OPENED.
+- 11 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
+  truck document; Meadows et al. and Tainter in the third).
 - The documents' own open slots: day driver `responsibility_h`; health risk from sanitation and
   holding; per-need dollar values; owner-operator taxable profit rate; `conditions_now` vs
   `conditions_then` for current manufacturing rules; other roles; measured cost of decoupled decisions.
