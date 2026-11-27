@@ -77,6 +77,21 @@
         "accepted_wording": "the owner states that the five other wording differences between the v1 truck PROVENANCE block and the canonical block are intentional (generalized across roles). The README marks them accepted; they are no longer listed as differences to resolve."
       },
       "observer_slots": null
+    },
+    {
+      "date": "2026-11-27",
+      "name": "fifth delivery (v5): three sections added to the third document",
+      "after": "branch biological-load-accounting at 7462315. By the owner's work order of 2026-11-27 (v5). Declared before the v5 files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "order_text": "the work order is kept as received in as_received_v5/WORK_ORDER.md. It arrived cut off: its last line is '- Knowled'. Nothing is added to finish that line or to guess what followed.",
+        "two_documents": "the order changes neither the coupling document nor the truck document. Their v5 text is the v4 text, byte for byte, and the records say so. The v4 records become records_v4.json (same bytes); records.json is built from v5.",
+        "third_document": "the filed PDF text (as_received_stability/) stays the source for what it holds and is not edited. The order's three sections are compared with it: a section already present is compared value for value and differences reported; a section not present is added. Added text is the order's own lines from '## Full-boundary EROI' to the end, stored as as_received_v5/engineered_stability_additions.txt (apply_v5.py cuts it from the order; nothing is retyped). No PDF was delivered for the additions.",
+        "third_document_records": "records_engineered_stability.json becomes records_engineered_stability_v1.json (same bytes). The new records_engineered_stability.json holds the PDF's blocks unchanged plus the blocks read from the additions, each block naming its source. Blocks are read as the Python literals they are written as; nothing typed by hand.",
+        "voids": "None stays a void: never zero, never safe. A void written inside a string ('fifth+ = void') is reported as text, not counted as a field.",
+        "figures": "the document marks its own figures: 'from memory, NOT OPENED', 'NOT OPENED', 'via search'. None was opened here. Every figure in the added blocks is listed NOT OPENED with the document's own mark beside it.",
+        "cut_off_item": "the last To do item is recorded as received and marked TRUNCATED. It is not counted as a to-do item with content."
+      }
     }
   ]
 }
