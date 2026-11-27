@@ -1,0 +1,512 @@
+Biological Load Accounting for Truck Drivers
+
+
+
+
+  Biological Load Accounting for Truck
+  Drivers
+  CC0. Co-authored. Status tags: OBSERVED (field account) / DERIVED / PROPOSED.
+
+
+  Purpose
+  Pay statistics compare jobs by gross pay and on-duty hours. That leaves out what a
+  biological body needs to function, and who pays for it. This framework gives AI and
+  analysts a way to compare an office job and regional/OTR trucking on the same physical
+  scale.
+
+  Unit: one biological entity, one week (168 h).
+
+
+  Core rule
+     # compare roles on what a body needs, not on paycheck
+     # each need scored: PROVIDED | SELF_FUNDED | RESTRICTED | ABSENT
+     # responsibility_h = gate_out -> delivery, not on_duty_h
+     # true_cost = sum(self_funded) + value(restricted + absent) +
+     responsibility_h
+     # office stats measure on_duty_h only -> miss responsibility_h and
+     homeostasis
+
+
+
+
+                                                                                     Page 1 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+  Roles
+     ROLE = {
+       "office_9to5": {"on_duty_h": 40, "responsibility_h": 40,
+                       "homeostasis": "provided", "socialization": "on_demand",
+                       "movement_freedom": "full", "medical_access":
+     "schedulable"},
+       "day_driver": {"on_duty_h": "40-60", "responsibility_h": None,
+                       "homeostasis": "home_nightly", "socialization": "daily",
+                       "movement_freedom": "partial", "medical_access":
+     "partial"},
+       "regional":    {"on_duty_h": 70, "responsibility_h": "~120 (5 days
+     continuous)",
+                       "homeostasis": "self_funded", "socialization": "2 days/wk",
+                       "movement_freedom": "geofenced",
+                       "medical_access": "compressed_into_home_days",
+                       "emergency_backup": "self_rescue"},
+       "OTR":         {"on_duty_h": 70, "responsibility_h": "168, weeks at a
+     time",
+                       "homeostasis": "self_funded", "socialization":
+     "remote_only",
+                       "movement_freedom": "geofenced", "medical_access": None,
+                       "emergency_backup": "self_rescue"},
+     }
+
+
+
+
+  Responsibility span (OBSERVED)
+     "custody_load": {
+       "responsibility_span": "gate_out -> delivery, continuous",
+       "off_duty": "log_status_only",   # liability and on-call never pause
+       "on_call_h": "100% of span",
+       "incident_while_off": ["wake", "go on duty", "handle
+     scene/authorities/docs",
+                              "go off duty", "10h break RESTARTS"],
+       "cost_of_incident": "trip extends; sleep lost; restart time unpaid",
+     }
+     # office equivalent: on call 24/7, sleeping at the worksite,
+     # any page resets your rest clock
+
+
+
+
+                                                                               Page 2 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+  Biological needs ledger
+     BIO_NEEDS = {
+       "defecation_urination": {
+         "office": "on site, free, any time",
+         "truck": {"shipper_receiver": "indoor restroom often refused, any time",
+                   "fallback": "porta-potty out back, or none",
+                   "condition": "unserviced, fecal contamination; down to -40 in
+     winter",
+                   "incentive_gap": "site bears no cost for bad sanitation; driver
+     bears all",
+                   "health_risk": None,
+                   "status": "RESTRICTED or ABSENT"}},   # OBSERVED
+       "running_water": {"office": "tap, free",
+                          "truck": {"access": "carried / bought", "status":
+     "SELF_FUNDED"}},
+       "hygiene_shower": {"office": "home, daily, free",
+                          "truck": {"access": "truck stop, paid or points",
+                                    "constraint": "parking + queue + time",
+                                    "status": "SELF_FUNDED"}},
+       "electricity":    {"office": "grid, free",
+                          "truck": {"access": "idle / APU / inverter / battery",
+                                    "cost": "driver-paid", "constraint": "anti-
+     idle laws",
+                                    "status": "SELF_FUNDED"}},
+       "lighting":       {"office": "switch, free",
+                          "truck": {"interior": "cab battery / idle; dead battery
+     = no start",
+                                    "exterior": "lot light if any, else self-
+     bought headlamp",
+                                    "dark_tasks": ["pre-trip", "coupling", "walk
+     to restroom",
+                                                   "seal checks", "incident
+     scene"],
+                                    "risk": "falls, missed defects, personal
+     security",
+                                    "status": "SELF_FUNDED / RESTRICTED"}},
+       "thermal_regulation": {"office": "HVAC, free",
+                          "truck": {"access": "idle / APU / bunk heater, driver-
+     paid",
+                                    "risk": "heat or cold exposure if unfunded",
+                                    "status": "SELF_FUNDED"}},
+       "food":           {"office": "kitchen, any store",
+
+
+
+                                                                               Page 3 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+                                               "truck": {"access": "truck stop / cab storage",
+                                                         "cost": "exceeds per diem", "constraint":
+     "geofenced",
+                                                          "status": "SELF_FUNDED / RESTRICTED"}},
+          "sleep":                             {"office": "bed, fixed hours, quiet",
+                                                "truck": {"access": "bunk", "constraint": "noise,
+     rotating hours",
+                                                          "interrupt": "incident = 10h restart",
+                                                          "status": "RESTRICTED"}},
+          "medical":                           {"office": "schedulable",
+                                                "truck": {"access": "home days; urgent care only if rig
+     fits",
+                                                          "status": "RESTRICTED"}},
+          "socialization":                     {"office": "on demand",
+                                                "truck": {"access": "phone / home days", "status":
+     "RESTRICTED"}},
+       "movement_freedom": {"office": "full, any lot",
+                          "truck": {"access": "truck stops, shippers, rest areas;
+     walk or Uber",
+                                    "geometry": "80 ft rig fits few lots",
+                                    "time": "services 9-5 vs nights/weekends",
+                                    "status": "RESTRICTED"}},
+       "safe_shelter":   {"office": "building",
+                          "truck": {"access": "parking lottery; storms = none",
+                                    "backup": "self-rescue", "status": "ABSENT"}},
+     }
+
+
+
+
+  Comparison anchor (DERIVED)
+  Military deployment has the same conditions (small living space, carry your own supplies,
+  self-rescue, separation) and pays for them: hazardous duty pay, separation allowance,
+  housing and medical covered. Regional/OTR trucking carries the same burden with no
+  premium built in.
+
+
+
+
+                                                                                                     Page 4 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+  Market context (OBSERVED, sources vary)
+     market = {
+       "carriers_<=10_trucks": "~91.5% of registrations", # counts authorities,
+     not viability
+       "new_carrier_failure": "~85% in recent 3-yr downturn; ~75% gone by year 5
+     (secondhand SBA)",
+       "exits": "close OR absorbed under larger fleets",
+       "per_diem": "partial reimbursement of living costs, not income",
+       "tax_profitability_of_owner_ops": None,   # void: no data found
+     }
+     # registration counts describe a flow (churn), not a stable population
+
+
+
+
+  What the job actually is (for automation and analysis)
+  Driving from A to B is the smallest part. The job is spatial engineering, buffer
+  management, prevention and systems engineering. Success is invisible: a good run means
+  nothing happened.
+
+     JOB_CORE = {
+       "spatial_engineering": {         # 4D: space + time, continuous (OBSERVED)
+         "rig_geometry": ["80 ft swept path, off-tracking, turning radius",
+                          "backing into docks, tight yards, city streets",
+                          "lot geometry: can the rig physically fit and exit"],
+         "moving_humans": "anticipate every pedestrian and worker's next action",
+         "moving_vehicles": "anticipate every vehicle's trajectory and intent",
+         "merges": "read on/off-ramp geometry and how people merge into the gap
+     you hold",
+         "terrain": {
+           "grade": "uphill = speed loss, others pass/cut in; downhill = mass
+     energy, brake heat, gear choice",
+           "geology_geography": "curves, crowns, shoulders, washouts, ice zones",
+         },
+       },
+       "buffer_management": {
+         "space": "following distance scaled to 80,000 lb stopping energy",
+         "time":   "HOS clock vs appointment windows vs traffic vs weather",
+         "energy": "fuel, battery, heat, water, food, sleep",
+         "body":   "homeostasis reserves across the run",
+       },
+       "prevention": {                    # the biggest part (OBSERVED)
+
+
+
+
+                                                                                     Page 5 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+         "pre_trip": "catch failures before they happen",
+         "traffic": "read other drivers' intent 10-20 s ahead",
+         "weather_road": "read conditions; choose not to go",
+         "wildlife": {
+            "deer": "seasonal surge (rut, fall) — crossings across every highway",
+            "bear": "strikes every year",
+            "other": None,               # void: moose, elk, livestock, region-
+     dependent
+            "method": "scan ditches/treelines, eye-shine at night, speed for
+     stopping energy",
+         },
+       },
+       "systems_engineering": {           # scheduling + time maintenance (OBSERVED)
+         "coupled_system": "load + truck + body + clock + route + custody",
+         "time_maintenance": {
+            "preemptive": "build time buffers before they're needed",
+            "predictive": "forecast traffic, weather, dock delays, HOS limits
+     ahead",
+         },
+         "external_sync": ["gate-out time", "delivery window", "HOS clock",
+                            "fuel stops", "legal parking availability"],
+         "internal_sync": ["bathroom", "food", "water", "sleep", "hygiene",
+                            "thermal", "medical"],    # body scheduled like a
+     subsystem
+         "relational_sync": ["kid's teacher, school, appointments",
+                              "family and others' emotional needs",
+                              "every daily-life call anyone else makes in business
+     hours"],
+         "constraint": "handled while driving: reception, safety, HOS — three-way
+     sync",
+         "load": "external state (road, load, clock) + internal state (body) +
+     others' states, at once",
+         "rule": "stack internal needs onto external stops — one stop, many needs
+     met",
+         "cascade": "incident -> 10h restart -> missed window -> next load",
+       },
+     }
+
+
+     # desk measures output as miles; actual output = failures prevented
+     # automation spec must cover prevention + off-nominal handling, not lane-
+     keeping
+     # DERIVED: why 2016-era 'trucks automate first' claims failed while desk work
+     automated first
+
+
+
+                                                                                Page 6 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+  Dock synchronization (OBSERVED)
+  At the dock, prevention becomes choreography. The driver reads people and the site
+  within seconds and finishes their own sequence before the dock crew is ready.
+
+     DOCK_SYNC = {
+          "pre_arrival_read": ["trucks in line", "dock condition", "crew staffing"],
+          "human_read": {
+              "window": "seconds after meeting",
+              "inputs": ["expression", "body language", "tone", "workload"],
+            "output": "predict their reaction; adapt approach",
+          },
+       "site_read": ["does the dock need cleaning", "broken pallet debris in the
+     way",
+                        "dock plate state", "equipment ready"],
+          "driver_sequence": [            # done before crew's pallet jack is ready
+              "open doors", "show seal", "break seal / log it",
+              "dock plate extended", "clear debris", "straps off load",
+          ],
+          "goal": "smooth + fast + crew friendly and happy",
+          "skill_class": "social anticipation + workflow sync, not driving",
+          "feedback_loop": {
+         "positive": "good attitude -> crew engages -> fast turn -> everyone
+     better off",
+         "negative": "bad attitude -> crew slows -> longer wait -> more unhappy ->
+     slower still",
+            "cost_of_negative": "lost hours on HOS clock, missed next window",
+          },
+          "carryover": {                  # OBSERVED, increasing frequency
+            "mechanism": "crew state persists between drivers; next driver inherits
+     the deficit",
+         "symptoms": ["crew exhausted / on break, dock empty",
+                            "driver walks around to front of store to find help"],
+              "repair_cost": "next driver spends time + social energy restoring crew
+     state",
+         "root_cause": "low pay + long hours + no recognition -> unhappy drivers -
+     > drained crews",
+         "loop": "systemic: degrades every dock interaction downstream",
+          },
+     }
+
+
+
+
+                                                                                       Page 7 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+     # office analog: walking into a stranger's meeting, reading the room in
+     seconds,
+     # and having the slides queued before anyone sits down — several times a day
+
+
+
+
+  Buffer intrusion (OBSERVED, continuous)
+  Cars cutting into a truck's following gap happens every day, many times a day. Each cut-in
+  erases a stopping buffer sized for 80,000 lb, and the driver rebuilds it. Good drivers train
+  in defensive driving continuously because of it.
+
+     BUFFER_INTRUSION = {
+       "frequency": "~300 cut-ins/day (one driver's field estimate) ≈ 27/hr ≈ one
+     every ~2 min of driving", # OBSERVED; fleet dashcam logs exist on nearly
+     every truck, not public
+       "rate_by_context": {"city / rush hour": "higher", "rural open road":
+     "lower", "300/day": "average across both"},
+       "VTTI_2022": {                  # OBSERVED: 2.1M miles naturalistic truck
+     data, ~18,500 close cut-ins
+         "threshold": "cut-in probability rises once following distance > 23.5 m
+     (~77 ft)",
+         "response": "truck often brakes and re-opens gap by ~15.5 m",
+         "rate_floor": "~1 close cut-in per ~114 mi — close cases only, so a
+     floor, not the full rate",
+          },
+          "buffer_vs_threshold": {             # DERIVED
+              "driver_preferred": "3 s ≈ 87 m at 65 mph",
+              "FMCSA_guidance": "1 s per 10 ft of vehicle length + 1 s above 40 mph ≈ 8
+     s for a 70+ ft rig (from memory, unverified here)",
+         "23.5 m at 65 mph": "≈ 0.8 s",
+         "result": "any safe buffer sits far past the cut-in threshold — the gap
+     that keeps you safe is the gap that invites cut-ins",
+          },
+          "buffer_scaling": {"dry, clear": "3 s minimum (driver preference)",
+     "frost": "much more", "snow": "much more still"}, # OBSERVED
+       "undercount": "research counts close cut-ins (~0.8 s) only; every entry
+     into 3-8 s buffer is driver workload, uncounted",
+       "false_denominator": {          # rule
+         "definition": "a comparison where results measured under one rule set or
+     condition set are applied to agents under another",
+         "instance": "automated systems studied on fixed lanes, good weather,
+     close-cut-in metrics, outcome-based judging; humans held to full following-
+
+
+
+                                                                                          Page 8 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+     distance rules, HOS, CSA, all weather",
+         "status": "false statement regardless of intent — a lie needs no
+     intention",
+         "fix": "same rules, same conditions, same metrics on both sides before
+     comparing",
+          },
+          "event": "car enters truck following gap",
+          "effect": "stopping buffer erased -> driver brakes / rebuilds gap",
+          "risk_holder": "truck driver: if buffer fails, truck blamed and sued",
+          "counter": "continuous defensive-driving training and practice",
+          "crash_data": {                  # OBSERVED in studies; dated 1999-2007;
+     contested by safety groups
+         "UMTRI": "car-driver actions contributed to ~70% of fatal car-truck
+     crashes; truck driver factor ~26.5%",
+         "ATA-cited study": "8,309 fatal crashes: car drivers assigned factors
+     81%, truck drivers 27%",
+         "AAA": "car drivers blamed in ~75%; 98% of fatalities in the car",
+         "caveat": "'driver factor' is a proxy for fault; no recent equivalent
+     found",
+          },
+          "record_asymmetry": {
+              "truck_side": "dashcam data logged, held privately by fleets",
+              "car_side": "social media posts, public",
+         "result": "public record skews toward the side with a platform, not the
+     side with data",
+          },
+     }
+
+
+
+
+  System-wide propagation (OBSERVED mechanism, DERIVED
+  cost)
+  Driver state is not contained to the cab. Unhappy drivers raise friction at every node they
+  touch, and each node then needs more pay to tolerate it. Cutting driver pay raises total
+  system cost.
+
+
+
+
+                                                                                         Page 9 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+     PROPAGATION = {
+          "source": "low pay + long hours + no recognition -> unhappy drivers",
+          "nodes": {
+              "dock_crew":                     "slows, breaks more, turns trucks slower",
+              "gate_crew":                     "more friction, slower check-in",
+              "dispatch":                      "more conflict handling -> needs higher pay to stay",
+              "warehouse":                     "worse conditions -> demands higher pay",
+            "other_drivers": "inherit drained crews (carryover)",
+          },
+       "energy_model": "friction loss at each handoff; losses compound across the
+     network",
+       "cost_flow": "compensating pay at every node + slower throughput -> higher
+     freight prices",
+       "leverage_point": "driver conditions — upstream fix reduces losses at all
+     downstream nodes",
+     }
+
+
+     # 'pay drivers less' saves at one node, pays it back multiplied across all of
+     them
+     # magnitude: None (void) — needs measurement
+
+
+
+
+  Source provenance rule
+  Any claim about what a job is like carries the source's lived exposure. A few weeks, long
+  ago, or sheltered does not count as authority.
+
+
+
+
+                                                                                                       Page 10 of 11
+Biological Load Accounting for Truck Drivers
+
+
+
+
+     PROVENANCE = {
+          "lived_firsthand": None,             # bool — the gate: lived it vs wrote about it
+          "role_type": None,                   # day / regional / OTR / custody / owner-op
+       "conditions": None,          # exposed (real routes, own needs) | sheltered
+     (family firm, hand-picked loads)
+          "compensation_basis": None,          # market pay | family / insider pay
+          "recency": None,                     # years since last doing it
+          "current_seat": None,                # cab | office | media | academia
+
+
+          # time measures DIFFERENT things — no single years threshold
+          "learning": None,            # organizing the work; individual — 1 yr for
+     some, 5 for others
+       "endurance": None,                      # how long sustained at full exposure
+       "maintenance": None,                    # how well biological needs were kept up over
+     that span
+       "diversity": None,                      # range of conditions juggled: roles, seasons,
+     regions, incidents
+     }
+
+
+     # years != experience (20 yrs in school != a PhD's work)
+     # office or media seat writing about the cab = DERIVED at best, never
+     OBSERVED
+     # authority judged per dimension, not as one score
+
+
+
+
+  Open slots
+          day_driver responsibility_h
+          health_risk from sanitation and holding
+          per-need dollar values, to compute true_cost
+          owner-operator taxable profit rate
+
+
+
+
+                                                                                         Page 11 of 11
+
