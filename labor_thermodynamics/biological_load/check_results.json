@@ -1,0 +1,489 @@
+{
+  "record": "BIOLOGICAL_LOAD_CHECK",
+  "checks": [
+    {
+      "check": "records.json matches a rebuild from as_received/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "biological_load_accounting_for_truck_drivers: PDF and text hashes unchanged",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "biological_load_accounting_for_truck_drivers: every string in the records is in the source text",
+      "state": "PASS",
+      "detail": "427 strings, 0 not found"
+    },
+    {
+      "check": "biological_load_accounting_for_truck_drivers: every block parsed",
+      "state": "PASS",
+      "detail": "9 blocks"
+    },
+    {
+      "check": "decision_exposure_coupling: PDF and text hashes unchanged",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "decision_exposure_coupling: every string in the records is in the source text",
+      "state": "PASS",
+      "detail": "92 strings, 0 not found"
+    },
+    {
+      "check": "decision_exposure_coupling: every block parsed",
+      "state": "PASS",
+      "detail": "9 blocks"
+    },
+    {
+      "check": "arithmetic: one every ~2 min at 27/hr",
+      "state": "PASS",
+      "detail": "recomputed 2.22, stated 2"
+    },
+    {
+      "check": "arithmetic: 3 s at 65 mph ≈ 87 m",
+      "state": "PASS",
+      "detail": "recomputed 87.17, stated 87"
+    },
+    {
+      "check": "arithmetic: 23.5 m ≈ 77 ft",
+      "state": "PASS",
+      "detail": "recomputed 77.10, stated 77"
+    },
+    {
+      "check": "arithmetic: 23.5 m at 65 mph ≈ 0.8 s",
+      "state": "PASS",
+      "detail": "recomputed 0.81, stated 0.8"
+    },
+    {
+      "check": "arithmetic: 2.1 M miles / 18500 close cut-ins ≈ 1 per ~114 mi",
+      "state": "PASS",
+      "detail": "recomputed 113.5"
+    }
+  ],
+  "info": {
+    "voids": [
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "ROLE",
+        "field": "day_driver/responsibility_h",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "ROLE",
+        "field": "OTR/medical_access",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "BIO_NEEDS",
+        "field": "defecation_urination/truck/health_risk",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "market",
+        "field": "tax_profitability_of_owner_ops",
+        "reason": "void: no data found"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "JOB_CORE",
+        "field": "prevention/wildlife/other",
+        "reason": "void: moose, elk, livestock, region-dependent"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "lived_firsthand",
+        "reason": "bool — the gate: lived it vs wrote about it"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "role_type",
+        "reason": "day / regional / OTR / custody / owner-op"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "conditions",
+        "reason": "exposed (real routes, own needs) | sheltered (family firm, hand-picked loads)"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "compensation_basis",
+        "reason": "market pay | family / insider pay"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "recency",
+        "reason": "years since last doing it"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "current_seat",
+        "reason": "cab | office | media | academia"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "learning",
+        "reason": "organizing the work; individual — 1 yr for some, 5 for others"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "endurance",
+        "reason": "how long sustained at full exposure"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "maintenance",
+        "reason": "how well biological needs were kept up over that span"
+      },
+      {
+        "document": "biological_load_accounting_for_truck_drivers",
+        "block": "PROVENANCE",
+        "field": "diversity",
+        "reason": "range of conditions juggled: roles, seasons, regions, incidents"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "lived_firsthand",
+        "reason": "bool — the gate"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "role_and_conditions",
+        "reason": "exposed | sheltered"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "compensation_basis",
+        "reason": "market | insider"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "current_seat",
+        "reason": "floor / cab | office | media | academia"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "recency",
+        "reason": "years since exposure"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "learning",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "endurance",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "maintenance",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "PROVENANCE",
+        "field": "diversity",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "STALENESS",
+        "field": "evidence_date",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "STALENESS",
+        "field": "conditions_then",
+        "reason": "tech, staffing, schedules, pay, regulation"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "STALENESS",
+        "field": "conditions_now",
+        "reason": "no reason given in the document"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "STALENESS",
+        "field": "still_applies",
+        "reason": "only if conditions match"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "substrate_coupled",
+        "reason": "measured where the work and the body actually are?"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "common_denominators/energy_accounting",
+        "reason": "joules, hours, calories, fuel in vs out"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "common_denominators/biological_needs",
+        "reason": "homeostasis, sleep, sanitation, thermal, social"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "common_denominators/responsibility_span",
+        "reason": "hours liable, not hours logged"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "same_scale_both_sides",
+        "reason": "no false denominator"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "staleness",
+        "reason": "see STALENESS"
+      },
+      {
+        "document": "decision_exposure_coupling",
+        "block": "SENSOR_VALIDITY",
+        "field": "provenance",
+        "reason": "see PROVENANCE"
+      }
+    ],
+    "need_status_truck": {
+      "defecation_urination": {
+        "as_written": "RESTRICTED or ABSENT",
+        "reads": "COMPOUND"
+      },
+      "running_water": {
+        "as_written": "SELF_FUNDED",
+        "reads": "SELF_FUNDED"
+      },
+      "hygiene_shower": {
+        "as_written": "SELF_FUNDED",
+        "reads": "SELF_FUNDED"
+      },
+      "electricity": {
+        "as_written": "SELF_FUNDED",
+        "reads": "SELF_FUNDED"
+      },
+      "lighting": {
+        "as_written": "SELF_FUNDED / RESTRICTED",
+        "reads": "COMPOUND"
+      },
+      "thermal_regulation": {
+        "as_written": "SELF_FUNDED",
+        "reads": "SELF_FUNDED"
+      },
+      "food": {
+        "as_written": "SELF_FUNDED / RESTRICTED",
+        "reads": "COMPOUND"
+      },
+      "sleep": {
+        "as_written": "RESTRICTED",
+        "reads": "RESTRICTED"
+      },
+      "medical": {
+        "as_written": "RESTRICTED",
+        "reads": "RESTRICTED"
+      },
+      "socialization": {
+        "as_written": "RESTRICTED",
+        "reads": "RESTRICTED"
+      },
+      "movement_freedom": {
+        "as_written": "RESTRICTED",
+        "reads": "RESTRICTED"
+      },
+      "safe_shelter": {
+        "as_written": "ABSENT",
+        "reads": "ABSENT"
+      }
+    },
+    "need_status_counts": {
+      "PROVIDED": 0,
+      "SELF_FUNDED": 4,
+      "RESTRICTED": 4,
+      "ABSENT": 1,
+      "COMPOUND": 3,
+      "OTHER_VOCABULARY": 0
+    },
+    "role_block_vocabulary": {
+      "words": [
+        "2 days/wk",
+        "compressed_into_home_days",
+        "daily",
+        "full",
+        "geofenced",
+        "home_nightly",
+        "on_demand",
+        "partial",
+        "provided",
+        "remote_only",
+        "schedulable",
+        "self_funded",
+        "self_rescue"
+      ],
+      "in_four_states": [
+        "provided",
+        "self_funded"
+      ],
+      "note": "the ROLE block uses its own words; nothing is mapped onto the four states"
+    },
+    "responsibility_h": {
+      "office_9to5": {
+        "as_written": 40,
+        "kind": "int"
+      },
+      "day_driver": {
+        "as_written": null,
+        "kind": "void"
+      },
+      "regional": {
+        "as_written": "~120 (5 days continuous)",
+        "kind": "str"
+      },
+      "OTR": {
+        "as_written": "168, weeks at a time",
+        "kind": "str"
+      }
+    },
+    "role_keys_not_on_every_role": {
+      "emergency_backup": [
+        "regional",
+        "OTR"
+      ]
+    },
+    "implied_driving_hours_per_day": {
+      "value": 11.11,
+      "note": "300 a day at 27 an hour implies this many hours; the document does not state the hours, and the checker asserts nothing about them"
+    },
+    "true_cost": {
+      "state": "NOT_COMPUTABLE",
+      "reason": "per-need dollar values are an open slot in the document; the terms (costs, a value for restricted and absent needs, hours) have different units"
+    },
+    "external_figures": [
+      {
+        "field": "VTTI_2022.threshold",
+        "as_written": "cut-in probability rises once following distance > 23.5 m (~77 ft)",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "VTTI_2022.response",
+        "as_written": "truck often brakes and re-opens gap by ~15.5 m",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "VTTI_2022.rate_floor",
+        "as_written": "~1 close cut-in per ~114 mi — close cases only, so a floor, not the full rate",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "crash_data.UMTRI",
+        "as_written": "car-driver actions contributed to ~70% of fatal car-truck crashes; truck driver factor ~26.5%",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "crash_data.ATA-cited study",
+        "as_written": "8,309 fatal crashes: car drivers assigned factors 81%, truck drivers 27%",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "crash_data.AAA",
+        "as_written": "car drivers blamed in ~75%; 98% of fatalities in the car",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "buffer_vs_threshold.FMCSA_guidance",
+        "as_written": "1 s per 10 ft of vehicle length + 1 s above 40 mph ≈ 8 s for a 70+ ft rig (from memory, unverified here)",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "market.carriers_<=10_trucks",
+        "as_written": "~91.5% of registrations",
+        "source_state": "NOT OPENED"
+      },
+      {
+        "field": "market.new_carrier_failure",
+        "as_written": "~85% in recent 3-yr downturn; ~75% gone by year 5 (secondhand SBA)",
+        "source_state": "NOT OPENED"
+      }
+    ],
+    "two_documents": {
+      "PROVENANCE": {
+        "only_in_truck_doc": [
+          "conditions",
+          "role_type"
+        ],
+        "only_in_coupling_doc": [
+          "role_and_conditions"
+        ],
+        "in_both": [
+          "compensation_basis",
+          "current_seat",
+          "diversity",
+          "endurance",
+          "learning",
+          "lived_firsthand",
+          "maintenance",
+          "recency"
+        ]
+      },
+      "false_denominator": {
+        "definition": {
+          "truck_doc": "a comparison where results measured under one rule set or condition set are applied to agents under another",
+          "coupling_doc": "results measured under one rule set or condition set, applied to agents under another",
+          "same": false
+        },
+        "fix": {
+          "truck_doc": "same rules, same conditions, same metrics on both sides before comparing",
+          "coupling_doc": "same rules, same conditions, same metrics on both sides",
+          "same": false
+        },
+        "status": {
+          "truck_doc": "false statement regardless of intent — a lie needs no intention",
+          "coupling_doc": "false regardless of intent; a lie needs no intention",
+          "same": false
+        }
+      },
+      "owner_of_shared_blocks": null,
+      "note": "both kept as written; which document owns the shared blocks is an open item"
+    },
+    "sensor_validity": {
+      "fields": 7,
+      "void": 7,
+      "note": "every field is a void (not assessed). The document's rule 'any field False -> bad sensor' does not fire on a void."
+    }
+  },
+  "summary": {
+    "checks": 12,
+    "failed": 0,
+    "voids": 35,
+    "external_figures_not_opened": 9
+  }
+}
