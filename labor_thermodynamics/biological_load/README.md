@@ -22,7 +22,9 @@ Unit of the first document: one biological entity, one week (168 h).
 | `records.json` | current records (v5, same values as v4): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
 | `records_v4.json`, `records_v3.json`, `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
 | `as_received_stability/` | a third document, *Engineered Stability: Overshoot, Coupling and Buffer Visibility*: its PDF byte for byte and the extracted text (first delivery) |
-| `records_engineered_stability.json` | that document's current records: the PDF's 5 blocks plus 7 from the v5 additions, and the To do list |
+| `as_received_stability_v2/` | the third document's second PDF (six pages), byte for byte, and its extracted text |
+| `records_engineered_stability.json` | that document's current records, built from the second PDF alone: 12 blocks and the To do list (6 items) |
+| `records_engineered_stability_v2.json` | its records from the first PDF plus the v5 order (12 blocks, last To do item TRUNCATED), same bytes as before |
 | `records_engineered_stability_v1.json` | its first records (5 blocks), same bytes as before |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
 
@@ -90,9 +92,9 @@ across roles), accepted by the v4 work order on 2026-11-27. They stay as they ar
 | `current_seat` | without "floor" | includes "floor" |
 | closing line on time | DIFFERENT in capitals, with a dash | "time measures different things; no single years threshold" |
 
-## What the checker says (2026-11-27, v5)
+## What the checker says (2026-11-27, v5 and the third document's second PDF)
 
-- 52 checks, 0 failed; selftest 9, 0 failed. Hashes for v1 to v5; all seven record files match a
+- 60 checks, 0 failed; selftest 9, 0 failed. Hashes for v1 to v5; all eight record files match a
   rebuild; each delivery's text is the one before plus exactly its order's changes (v5: none for the
   two documents); every string in the records is in its source text (0 not found); all blocks
   parsed; the truck document's five derived figures reproduce; four pointers resolve.
@@ -146,6 +148,24 @@ value for value. The PDF's five blocks are carried unchanged.
   sixth is recorded as received and marked TRUNCATED. Whatever followed is not here.
 - No PDF was delivered for these sections; the filed PDF does not contain them.
 
+## Third document, second PDF (filed 2026-11-27)
+
+A six-page PDF of the whole document arrived after the v5 order, with no work order. It is filed
+beside the first PDF, and the current records are built from it alone.
+
+- 12 blocks, all parsed; 93 strings, 0 not found in the source text.
+- Compared with the records it replaces (first PDF plus v5 order): same 12 blocks in the same
+  order, equal value for value, comments and section titles included. No differences.
+- 20 voids, the same 20 as before (11 + 9). None filled, none added.
+- **The cut-off item is now complete.** The order's "Knowled" is the start of the PDF's sixth To do
+  item: "Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal
+  microchimerism, widespread mosaicism found within living memory); irreversible selection by
+  wealth or industrial value discards variation before its function is known = cutting an unseen
+  buffer". Its examples are NOT OPENED.
+- The PDF's extracted text has no bullet marks, so it does not show where one To do item ends and
+  the next begins. The first five boundaries are taken from the v5 order (all five items are in
+  the PDF, in order); the sixth is what remains.
+
 ## Open
 
 - `ROLE` vocabulary: 11 of its 13 words are outside the four need states; 3 compound statuses
@@ -155,7 +175,7 @@ value for value. The PDF's five blocks are carried unchanged.
 - `true_cost`: NOT_COMPUTABLE (per-need values are an open slot; the terms have different units).
 - 19 figures or framings attributed to outside studies, agencies or authors: NOT OPENED (9 in the
   truck document; Meadows et al. and Tainter, and 8 strings in the v5 additions, in the third).
-- The v5 order's cut-off To do item ("Knowled…") and anything after it: not received.
+- The sixth To do item's examples (chimerism, fetal microchimerism, mosaicism): NOT OPENED.
 - `UNCOUNTED_INPUTS`, `COMPANY_KNOWLEDGE`, `BRIDGE.gap`, `fuel_chain.mining_inputs`: voids.
 - The documents' own open slots: day driver `responsibility_h`; health risk from sanitation and
   holding; per-need dollar values; owner-operator taxable profit rate; `conditions_now` vs

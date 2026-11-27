@@ -5,29 +5,19 @@
   "license": "CC0",
   "co_authored": true,
   "observer_slots": null,
-  "delivery": "v2 (with the fifth delivery, v5)",
-  "supersedes": "records_engineered_stability_v1.json (first delivery, kept unchanged)",
-  "note": "The first five blocks are read from the PDF's extracted text; the rest from the three sections the v5 work order carried. Values are the document's; null is a void, never zero and never 'safe'. The order arrived cut off: the last To do item is TRUNCATED.",
+  "delivery": "v3 (second PDF, six pages)",
+  "supersedes": "records_engineered_stability_v2.json (first PDF plus the v5 order's sections, kept unchanged)",
+  "note": "Built by build_records.py from the extracted text of the second PDF. Values are the document's; null is a void, never zero and never 'safe'. The PDF text has no bullet marks: To do item boundaries are taken from the v5 order, and the last item is what remains.",
   "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
   "documents": [
     {
       "document": "Engineered Stability: Overshoot, Coupling and Buffer Visibility",
       "as_received": {
-        "pdf": "as_received_stability/engineered_stability.pdf",
-        "pdf_sha256": "69c864f748554a7e8d201735c5ed9203ac94ff7813217d16842395bb958ffc95",
-        "text": "as_received_stability/engineered_stability.txt",
-        "text_sha256": "1e43e251ad3daeb51f8b658b56d611b5aac1ddaa693973390c2efc6499b1d66e",
-        "additions": "as_received_v5/engineered_stability_additions.txt",
-        "additions_sha256": "3f9e8484625358d6ae86f85373c147f23883b3f7cd412789d1452bc2b332a42d",
-        "additions_pdf": null,
-        "additions_pdf_reason": "no PDF was delivered for the additions",
-        "order_sha256": "db288f4442362f04e0ba0ca20524d7eba2ff8f0366624034f2d351b495a4c6fd"
+        "pdf": "as_received_stability_v2/engineered_stability.pdf",
+        "pdf_sha256": "f3bf5068340f13c6e9e5c8591d354cc2f44ab760025cfd6ce252be7c90aaee78",
+        "text": "as_received_stability_v2/engineered_stability.txt",
+        "text_sha256": "2e164d74545ba05f18a2ac32ebbb4a55a3368bca7aeae37691bf4b827add3bb4"
       },
-      "sections_added": [
-        "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)",
-        "Bridge window (DERIVED; figures via search, Nov 2026)",
-        "To do (amendments)"
-      ],
       "blocks": [
         {
           "block": "OVERSHOOT",
@@ -51,8 +41,7 @@
           "comments": [
             "Meadows et al. framing"
           ],
-          "comments_after": [],
-          "source": "as_received_stability/engineered_stability.txt"
+          "comments_after": []
         },
         {
           "block": "CONTROL",
@@ -65,8 +54,7 @@
             "lever": "direct coupling: those who live the conditions report them, fast and clean"
           },
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_stability/engineered_stability.txt"
+          "comments_after": []
         },
         {
           "block": "EFFICIENCY_TRAP",
@@ -81,8 +69,7 @@
             "check_first": "efficient toward whose goal? (name it before cutting)"
           },
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_stability/engineered_stability.txt"
+          "comments_after": []
         },
         {
           "block": "BUFFER_RECORD",
@@ -112,8 +99,7 @@
           ],
           "comments_after": [
             "None = void (unassessed), never treated as zero or as safe"
-          ],
-          "source": "as_received_stability/engineered_stability.txt"
+          ]
         },
         {
           "block": "BUFFER_EXAMPLES",
@@ -129,8 +115,7 @@
             "forest, soil, water reserves"
           ],
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_stability/engineered_stability.txt"
+          "comments_after": []
         },
         {
           "block": "EROI_BOUNDARIES",
@@ -144,8 +129,7 @@
             "field_estimate": "below the teens (OBSERVED reasoning, one source)"
           },
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "UNCOUNTED_INPUTS",
@@ -169,8 +153,7 @@
             "see Biological Load Accounting",
             "tax write-offs (intangible drilling costs, depletion allowance), grants, incentives"
           ],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "SUBSIDY_MASKING",
@@ -186,8 +169,7 @@
           "comments": [
             "DERIVED"
           ],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "METHOD",
@@ -196,8 +178,7 @@
           "reason": null,
           "value": "input-output tables: sector energy intensity x project's capital/service draw -> add to denominator",
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "DIRECTION",
@@ -206,8 +187,7 @@
           "reason": null,
           "value": "each added input lowers EROI; capital-heavy sources (deepwater, shale) drop most",
           "comments": [],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "COMPANY_KNOWLEDGE",
@@ -218,8 +198,7 @@
           "comments": [
             "void: full-boundary EROI not published; unverified"
           ],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         },
         {
           "block": "BRIDGE",
@@ -246,41 +225,45 @@
             "via search, Nov 2026",
             "ore grade, mining EROI, import share: void"
           ],
-          "comments_after": [],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          "comments_after": []
         }
       ],
       "lists": [
         {
           "section": "To do (amendments)",
+          "text": "Purpose test: stated goal vs pattern; whose buffers a plan protects vs drains reveals the real goal Metrology: traceability + stated uncertainty on every reading Hoarding as a strategy: test against population genetics (minimum viable population, diversity loss, inbreeding depression), closed-system maintenance, skill and supply-chain dependence Hoarding bottleneck evidence split: genetic (weak except isolated dynasties) / microbiome (stronger: affluent, industrialized biomes less diverse) / epigenetic (thin, contested) Decision rule under uncertainty: when evidence is thin or contested and the outcome is irreversible, don't bet on it; keep diversity (genetic, biome, skills) as the buffer that preserves options Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal microchimerism, widespread mosaicism found within living memory); irreversible selection by wealth or industrial value discards variation before its function is known = cutting an unseen buffer",
           "items": [
             {
               "text": "Purpose test: stated goal vs pattern; whose buffers a plan protects vs drains reveals the real goal",
-              "state": "AS_RECEIVED"
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
             },
             {
               "text": "Metrology: traceability + stated uncertainty on every reading",
-              "state": "AS_RECEIVED"
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
             },
             {
               "text": "Hoarding as a strategy: test against population genetics (minimum viable population, diversity loss, inbreeding depression), closed-system maintenance, skill and supply-chain dependence",
-              "state": "AS_RECEIVED"
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
             },
             {
               "text": "Hoarding bottleneck evidence split: genetic (weak except isolated dynasties) / microbiome (stronger: affluent, industrialized biomes less diverse) / epigenetic (thin, contested)",
-              "state": "AS_RECEIVED"
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
             },
             {
               "text": "Decision rule under uncertainty: when evidence is thin or contested and the outcome is irreversible, don't bet on it; keep diversity (genetic, biome, skills) as the buffer that preserves options",
-              "state": "AS_RECEIVED"
+              "state": "IN_PDF",
+              "boundary_from": "v5 order"
             },
             {
-              "text": "Knowled",
-              "state": "TRUNCATED",
-              "reason": "the order ends here, mid-word; what followed was not received"
+              "text": "Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal microchimerism, widespread mosaicism found within living memory); irreversible selection by wealth or industrial value discards variation before its function is known = cutting an unseen buffer",
+              "state": "IN_PDF",
+              "boundary_from": "what remains after the items above"
             }
-          ],
-          "source": "as_received_v5/engineered_stability_additions.txt"
+          ]
         }
       ]
     }

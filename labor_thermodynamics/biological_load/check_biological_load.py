@@ -338,8 +338,8 @@ def run():
     all_voids = all_voids + svoids
     # --- fifth delivery: three sections added to the third document (amendment 'fifth delivery (v5)') ---
     s2 = br.build_stability_v2()
-    check("%s matches a rebuild (PDF blocks plus the v5 additions)" % br.STABILITY_CURRENT,
-          open(os.path.join(HERE, br.STABILITY_CURRENT), encoding="utf-8").read() == br.dump(s2))
+    check("%s matches a rebuild (PDF blocks plus the v5 additions)" % br.STABILITY_V2,
+          open(os.path.join(HERE, br.STABILITY_V2), encoding="utf-8").read() == br.dump(s2))
     d2 = s2["documents"][0]
     check("v5: the PDF's five blocks are carried unchanged into the new records",
           [{k: v for k, v in b.items() if k != "source"} for b in d2["blocks"][:len(sd["blocks"])]] == sd["blocks"])
@@ -402,6 +402,41 @@ def run():
         "outside_names": [{"name": n, "source_state": "NOT OPENED"} for n in names],
         "document_marks": marks}
     all_voids = all_voids + avoids
+    # --- third document, second PDF (amendment 'third document, second PDF') ---
+    s3 = br.build_stability_v3()
+    check("%s matches a rebuild from %s/" % (br.STABILITY_CURRENT, br.STABILITY_PDF2),
+          open(os.path.join(HERE, br.STABILITY_CURRENT), encoding="utf-8").read() == br.dump(s3))
+    d3 = s3["documents"][0]
+    check("second PDF: PDF and text hashes unchanged",
+          br.sha(d3["as_received"]["pdf"]) == d3["as_received"]["pdf_sha256"] and br.sha(d3["as_received"]["text"]) == d3["as_received"]["text_sha256"])
+    check("second PDF: every block parsed", all(b["state"] == "PARSED" for b in d3["blocks"]), "%d blocks" % len(d3["blocks"]))
+    t3 = squeeze("\n".join(br.clean_lines(sname, stitle, br.STABILITY_PDF2)))
+    m3 = [x for b in d3["blocks"] for x in strings(b["value"]) if squeeze(x) not in t3]
+    check("second PDF: every string in the records is in the source text", not m3,
+          "%d strings, %d not found" % (sum(1 for b in d3["blocks"] for _ in strings(b["value"])), len(m3)))
+    old = {b["block"]: b for b in d2["blocks"]}
+    keys = ("section", "state", "value", "comments", "comments_after")
+    bdiff = [(b["block"], k) for b in d3["blocks"] for k in keys if b["block"] not in old or old[b["block"]][k] != b[k]]
+    check("second PDF: same blocks in the same order as the first PDF plus the v5 order, equal value for value, comments included",
+          [b["block"] for b in d3["blocks"]] == [b["block"] for b in d2["blocks"]] and not bdiff,
+          "%d blocks, differences: %s" % (len(d3["blocks"]), bdiff or "none"))
+    items3 = d3["lists"][0]["items"]
+    check("second PDF: the v5 order's five full To do items are in the PDF, in order",
+          [i["text"] for i in items3[:-1]] == [t["text"] for t in todo if t["state"] == "AS_RECEIVED"]
+          and all(i["state"] == "IN_PDF" for i in items3))
+    check("second PDF: the v5 order's cut-off line is the start of the PDF's sixth To do item",
+          len(items3) == len(todo) and items3[-1]["text"].startswith(cut[0]["text"]) and len(items3[-1]["text"]) > len(cut[0]["text"]),
+          "%r -> %d characters received" % (cut[0]["text"], len(items3[-1]["text"])))
+    v3 = [(b["block"], p) for b in d3["blocks"]
+          for p in (voids(b["value"]) if isinstance(b["value"], (dict, list)) else ([""] if b["value"] is None else []))]
+    check("second PDF: void count equals the first PDF's plus the v5 additions' (no void filled, none added)",
+          len(v3) == len(svoids) + len(avoids), "%d here, %d + %d before" % (len(v3), len(svoids), len(avoids)))
+    out["info"]["engineered_stability_second_pdf"] = {
+        "pages": 6, "blocks": [b["block"] for b in d3["blocks"]], "block_differences": bdiff, "voids": len(v3),
+        "to_do_items": len(items3), "item_now_complete": items3[-1]["text"],
+        "item_boundaries": "the PDF text has no bullet marks; boundaries of the first five are from the v5 order",
+        "figures_in_completed_item": "none (no digits); its examples (chimerism, fetal microchimerism, mosaicism) are NOT OPENED",
+        "to_do_item_claims_not_opened": ["human chimerism", "fetal microchimerism", "widespread mosaicism found within living memory"]}
     out["summary"] = {"checks": len(out["checks"]), "failed": len(fails), "voids": len(all_voids),
                       "external_figures_not_opened": len(ext)}
     return out

@@ -202,6 +202,75 @@ def build_stability():
 
 
 STABILITY_CURRENT = "records_engineered_stability.json"
+STABILITY_V2 = "records_engineered_stability_v2.json"      # first PDF + v5 order; kept unchanged
+STABILITY_PDF2 = "as_received_stability_v2"                 # second PDF (amendment 'third document, second PDF')
+SCALAR = re.compile(r'^     ([A-Z_]+) = ("|None\b)')
+
+
+def read_scalars(lines):
+    """One-line assignments (NAME = "..." / NAME = None  # ...), with lines the PDF wrapped joined."""
+    out, section = [], None
+    for i, raw in enumerate(lines):
+        if raw.strip() and len(raw) - len(raw.lstrip()) == 2 and re.match(r"^[A-Z]", raw.strip()) and "(" in raw \
+                and not lines[i - 1].strip() and not raw.strip().endswith((".", ":")):
+            section = raw.strip()
+            if section.count("(") > section.count(")"):
+                section += " " + lines[i + 1].strip()
+        m = SCALAR.match(raw)
+        if not m:
+            continue
+        code, com = split_comment(raw)
+        j = i + 1
+        while j < len(lines) and lines[j].strip() and len(lines[j]) - len(lines[j].lstrip()) == 5 \
+                and not SCALAR.match(lines[j]) and not OPEN.match(lines[j]):
+            if com is None:
+                code += " " + lines[j].strip()
+            else:
+                com += " " + lines[j].strip()
+            j += 1
+        try:
+            value, reason = ast.literal_eval(code.split(" = ", 1)[1]), None
+        except (SyntaxError, ValueError) as exc:
+            value, reason = None, "%s: %s" % (type(exc).__name__, exc)
+        out.append((i, {"block": m.group(1), "section": section, "state": "PARSED" if reason is None else "NOT_PARSED",
+                        "reason": reason, "value": value, "comments": [com] if com is not None else [], "comments_after": []}))
+    return out
+
+
+def build_stability_v3():
+    """Built from the second PDF's text alone. To do item boundaries come from the v5 order (see DECLARED.json)."""
+    import apply_v5
+    name, title, _, _ = STABILITY
+    lines = clean_lines(name, title, STABILITY_PDF2)
+    blocks = read_doc(name, title, STABILITY_PDF2)
+    where = {b["block"]: next(i for i, l in enumerate(lines) if re.match(r"^\s*%s = " % b["block"], l)) for b in blocks}
+    ordered = sorted([(where[b["block"]], b) for b in blocks] + read_scalars(lines), key=lambda t: t[0])
+    start = next(i for i, l in enumerate(lines) if l.strip() == "To do (amendments)")
+    todo = " ".join(" ".join(lines[start + 1:]).split()).replace("supply- chain", "supply-chain")
+    items, rest, found = [], todo, True
+    for it in apply_v5.read_additions()[1][-1]["items"]:
+        if it["state"] != "AS_RECEIVED":
+            continue
+        if rest.startswith(it["text"]):
+            items.append({"text": it["text"], "state": "IN_PDF", "boundary_from": "v5 order"})
+            rest = rest[len(it["text"]):].lstrip()
+        else:
+            found = False
+            items.append({"text": it["text"], "state": "NOT_FOUND_IN_PDF", "boundary_from": "v5 order"})
+    if rest:
+        items.append({"text": rest, "state": "IN_PDF", "boundary_from": "what remains after the items above" if found else None})
+    pdf, txt = "%s/%s.pdf" % (STABILITY_PDF2, name), "%s/%s.txt" % (STABILITY_PDF2, name)
+    return {"record": "ENGINEERED_STABILITY", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
+            "co_authored": True, "observer_slots": None, "delivery": "v3 (second PDF, six pages)",
+            "supersedes": "%s (first PDF plus the v5 order's sections, kept unchanged)" % STABILITY_V2,
+            "note": "Built by build_records.py from the extracted text of the second PDF. Values are the document's; "
+                    "null is a void, never zero and never 'safe'. The PDF text has no bullet marks: To do item "
+                    "boundaries are taken from the v5 order, and the last item is what remains.",
+            "companions": "records.json (Decision-Exposure Coupling; Biological Load Accounting for Truck Drivers)",
+            "documents": [{"document": title,
+                           "as_received": {"pdf": pdf, "pdf_sha256": sha(pdf), "text": txt, "text_sha256": sha(txt)},
+                           "blocks": [b for _, b in ordered],
+                           "lists": [{"section": "To do (amendments)", "text": todo, "items": items}]}]}
 
 
 def build_stability_v2():
@@ -250,7 +319,8 @@ if __name__ == "__main__":
             for b in d["blocks"]:
                 print("%-3s %-10s %-18s %-48s %s" % (version, b["state"], b["block"], (b["section"] or "")[:48], b["reason"] or ""))
     for rec, fname, src, frozen in ((build_stability(), STABILITY[3], STABILITY[2], True),
-                                    (build_stability_v2(), STABILITY_CURRENT, STABILITY[2] + "/ and as_received_v5", False)):
+                                    (build_stability_v2(), STABILITY_V2, STABILITY[2] + "/ and as_received_v5", True),
+                                    (build_stability_v3(), STABILITY_CURRENT, STABILITY_PDF2, False)):
         out = os.path.join(HERE, fname)
         same = os.path.exists(out) and open(out, encoding="utf-8").read() == dump(rec)
         if sys.argv[1:] == ["--check"]:

@@ -207,7 +207,7 @@
       "detail": ""
     },
     {
-      "check": "records_engineered_stability.json matches a rebuild (PDF blocks plus the v5 additions)",
+      "check": "records_engineered_stability_v2.json matches a rebuild (PDF blocks plus the v5 additions)",
       "state": "PASS",
       "detail": ""
     },
@@ -260,6 +260,46 @@
       "check": "v5: the order's cut-off last line is recorded TRUNCATED, as received, and is the only such item",
       "state": "PASS",
       "detail": "'Knowled'"
+    },
+    {
+      "check": "records_engineered_stability.json matches a rebuild from as_received_stability_v2/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "second PDF: PDF and text hashes unchanged",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "second PDF: every block parsed",
+      "state": "PASS",
+      "detail": "12 blocks"
+    },
+    {
+      "check": "second PDF: every string in the records is in the source text",
+      "state": "PASS",
+      "detail": "93 strings, 0 not found"
+    },
+    {
+      "check": "second PDF: same blocks in the same order as the first PDF plus the v5 order, equal value for value, comments included",
+      "state": "PASS",
+      "detail": "12 blocks, differences: none"
+    },
+    {
+      "check": "second PDF: the v5 order's five full To do items are in the PDF, in order",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "second PDF: the v5 order's cut-off line is the start of the PDF's sixth To do item",
+      "state": "PASS",
+      "detail": "'Knowled' -> 283 characters received"
+    },
+    {
+      "check": "second PDF: void count equals the first PDF's plus the v5 additions' (no void filled, none added)",
+      "state": "PASS",
+      "detail": "20 here, 11 + 9 before"
     }
   ],
   "info": {
@@ -1061,10 +1101,38 @@
         "Full-boundary EROI (PROPOSED; figures from memory, NOT OPENED)": "PROPOSED; figures from memory, NOT OPENED",
         "Bridge window (DERIVED; figures via search, Nov 2026)": "DERIVED; figures via search, Nov 2026"
       }
+    },
+    "engineered_stability_second_pdf": {
+      "pages": 6,
+      "blocks": [
+        "OVERSHOOT",
+        "CONTROL",
+        "EFFICIENCY_TRAP",
+        "BUFFER_RECORD",
+        "BUFFER_EXAMPLES",
+        "EROI_BOUNDARIES",
+        "UNCOUNTED_INPUTS",
+        "SUBSIDY_MASKING",
+        "METHOD",
+        "DIRECTION",
+        "COMPANY_KNOWLEDGE",
+        "BRIDGE"
+      ],
+      "block_differences": [],
+      "voids": 20,
+      "to_do_items": 6,
+      "item_now_complete": "Knowledge horizon: current biology is a provisional snapshot (e.g. human chimerism, fetal microchimerism, widespread mosaicism found within living memory); irreversible selection by wealth or industrial value discards variation before its function is known = cutting an unseen buffer",
+      "item_boundaries": "the PDF text has no bullet marks; boundaries of the first five are from the v5 order",
+      "figures_in_completed_item": "none (no digits); its examples (chimerism, fetal microchimerism, mosaicism) are NOT OPENED",
+      "to_do_item_claims_not_opened": [
+        "human chimerism",
+        "fetal microchimerism",
+        "widespread mosaicism found within living memory"
+      ]
     }
   },
   "summary": {
-    "checks": 52,
+    "checks": 60,
     "failed": 0,
     "voids": 46,
     "external_figures_not_opened": 19
