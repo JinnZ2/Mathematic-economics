@@ -10,14 +10,17 @@ Unit of the first document: one biological entity, one week (168 h).
 | File | What it is |
 |---|---|
 | `as_received/` | first delivery (v1): the two PDFs byte for byte and the text `pdftotext -layout` gives for each |
-| `as_received_v2/` | second delivery (v2), the same way; this is the current one |
-| `DECLARED.json` | the rules for this folder, with one amendment for the second delivery |
+| `as_received_v2/` | second delivery (v2), the same way |
+| `as_received_v3/` | third delivery (v3), the current one: the work order that carried it, verbatim, and the text of each document. No PDF was delivered for v3 |
+| `apply_v3.py` | builds the v3 text: the v2 text with the work order's two replacements, read from the order file |
+| `DECLARED.json` | the rules for this folder, with one amendment per later delivery |
 | `build_records.py` | reads each code block of the documents as the Python literal it is written as; nothing is typed by hand |
-| `records.json` | current records (v2): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
-| `records_v1.json` | the first delivery's records, the same bytes as when the file was named `records.json` |
+| `records.json` | current records (v3): 17 blocks with their section titles (which carry the OBSERVED / DERIVED / PROPOSED tags) and comments |
+| `records_v2.json`, `records_v1.json` | the earlier deliveries' records, each the same bytes as when it was named `records.json` |
 | `check_biological_load.py` | the checker; `check_results.json` is its last report |
 
 ```
+python3 apply_v3.py --check
 python3 build_records.py --check
 python3 check_biological_load.py
 python3 check_biological_load.py --selftest
@@ -41,30 +44,42 @@ Standard library only. Re-extracting the text needs `pdftotext`; the checker doe
 - The truck document keeps its own false-denominator `instance` and `fix` lines; its `fix` wording
   still differs slightly from the coupling document's.
 
-## What the checker says (2026-11-27, v2)
+## What changed from v2 to v3 (the work order's two changes, nothing else)
 
-- 18 checks, 0 failed: both deliveries' hashes; both record files match a rebuild; every string in
-  the current records is in the source text (417 and 93 strings); all blocks parsed; the five
-  figures the truck document derives from its own numbers reproduce (2 min, 87 m, 77 ft, 0.8 s,
-  1 per 114 mi); three pointers resolve.
-- Need status for trucking, as written: 4 SELF_FUNDED, 4 RESTRICTED, 1 ABSENT, 3 COMPOUND
-  (`RESTRICTED or ABSENT`, `SELF_FUNDED / RESTRICTED` twice), 0 PROVIDED.
-- The `ROLE` block uses its own words: 11 of its 13 are outside the four states. Nothing is mapped.
-- `responsibility_h` is a number for the office role, text for regional and OTR, void for the day driver.
-- 26 voids, each listed with the document's own comment on that line or "no reason given in the document".
-- "~300 a day ≈ 27 an hour" implies 11.11 hours of driving a day; the document does not state the hours.
+- Coupling document, canonical `PROVENANCE`: the per-field descriptions and the closing lines that v2
+  had not carried over from v1 are back ("years != experience (20 yrs in school != a PhD's work)",
+  "authority judged per dimension, not as one score"). The open item about them is closed.
+- Wording note: v1's "exposed (real routes, own needs)" is now "exposed (real routes/shifts, own
+  needs)", to cover all roles. `recency` reads "years since exposure" (v1: "years since last doing
+  it") and `current_seat` includes "floor", both as in v2.
+- Truck document: `false_denominator.fix` now reads "canonical in Decision-Exposure Coupling".
+  Definition, status and fix all point to the coupling document and all resolve.
+- v3 was delivered as text in a work order, not as PDFs: the two documents are Claude Docs edited
+  live. The v3 text here is the v2 extracted text with those two replacements, and the checker
+  confirms nothing else differs.
+
+## What the checker says (2026-11-27, v3)
+
+- 23 checks, 0 failed: hashes for v1, v2 and v3; all three record files match a rebuild; the v3 text
+  is v2 plus exactly the two replacements; every string in the current records is in the source
+  text (417 and 93 strings, 0 not found); all blocks parsed; the five figures the truck document
+  derives from its own numbers reproduce (2 min, 87 m, 77 ft, 0.8 s, 1 per 114 mi); four pointers
+  resolve (false-denominator definition, status and fix, and `PROVENANCE`).
+- 26 voids (unchanged from v2), each listed with the document's own comment on that line or "no
+  reason given in the document".
+
+## Open
+
+- `ROLE` vocabulary: 11 of its 13 words are outside the four need states; 3 compound statuses
+  (`RESTRICTED or ABSENT`, `SELF_FUNDED / RESTRICTED` twice) are unmapped.
+- `responsibility_h` has mixed types: a number for the office role, text for regional and OTR, void
+  for the day driver.
 - `true_cost`: NOT_COMPUTABLE (per-need values are an open slot; the terms have different units).
-- 9 figures attributed to outside studies or agencies: NOT OPENED. None was checked here.
-
-## Open items (the documents' own, plus what filing showed)
-
-- day driver `responsibility_h`; health risk from sanitation and holding; per-need dollar values;
-  owner-operator taxable profit rate (truck document's open slots)
-- `conditions_now` vs `conditions_then` for current manufacturing rules; other roles; measured cost
-  of decoupled decisions (coupling document's open slots)
-- whether the `ROLE` block's words map onto the four need states, and how compound statuses are read
-- whether the v1 field descriptions and closing lines of `PROVENANCE` should return in the canonical block
-- sources for the outside figures
-- every field of `SENSOR_VALIDITY`, `STALENESS` and `PROVENANCE` is a void: not assessed
+- 9 figures attributed to outside studies or agencies: NOT OPENED.
+- The documents' own open slots: day driver `responsibility_h`; health risk from sanitation and
+  holding; per-need dollar values; owner-operator taxable profit rate; `conditions_now` vs
+  `conditions_then` for current manufacturing rules; other roles; measured cost of decoupled decisions.
+- Every field of `SENSOR_VALIDITY`, `STALENESS` and `PROVENANCE` is a void: not assessed.
+- "~300 a day ≈ 27 an hour" implies 11.11 hours of driving a day; the document does not state the hours.
 
 Observer slots: null.

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Build records.json from the two documents in as_received/. Stdlib only.
 
-    python3 build_records.py            write records.json (current delivery, v2) and records_v1.json
+    python3 build_records.py            write records.json (current delivery) and check the earlier ones
     python3 build_records.py --check    rebuild both and compare with the stored files; exit 1 if either differs
 
 Two deliveries (DECLARED.json, amendment 'second delivery'): v1 in as_received/, v2 in
 as_received_v2/. The v1 record file keeps the bytes it had when it was named records.json.
+Third delivery (amendment 'third delivery (v3)'): text only, no PDF; as_received_v3/*.txt is the v2
+text with the work order's two replacements (apply_v3.py). records_v2.json keeps the v2 bytes.
 
 Rule (DECLARED.json): every value comes from the extracted text. Each code block is rebuilt as the
 Python literal it is written as (lines the PDF wrapped are joined again) and read with
@@ -22,8 +24,12 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = [("biological_load_accounting_for_truck_drivers", "Biological Load Accounting for Truck Drivers"),
         ("decision_exposure_coupling", "Decision-Exposure Coupling")]
-VERSIONS = {"v1": ("as_received", "records_v1.json"), "v2": ("as_received_v2", "records.json")}
-CURRENT = "v2"
+VERSIONS = {"v1": ("as_received", "records_v1.json"), "v2": ("as_received_v2", "records_v2.json"),
+            "v3": ("as_received_v3", "records.json")}
+CURRENT = "v3"
+# what each delivery's record file says about itself; v1 and v2 keep the words they were written with
+SUPERSEDES = {"v2": "records_v1.json (first delivery, kept unchanged)",
+              "v3": "records_v2.json (second delivery, kept unchanged)"}
 OPEN = re.compile(r'^\s*(?:([A-Za-z_]+) = ([{\[])(?:\s*(#.*)?$|")|"([a-z_]+)": \{\s*(#.*)?$)')
 KEYLINE = re.compile(r'^\s*("[^"]*":|[}\]\[]|"|#)')
 
@@ -145,10 +151,15 @@ def build(version="v1"):
     folder = VERSIONS[version][0]
     docs = []
     for name, title in DOCS:
-        docs.append({"document": title,
-                     "as_received": {"pdf": "%s/%s.pdf" % (folder, name), "pdf_sha256": sha("%s/%s.pdf" % (folder, name)),
-                                     "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))},
-                     "blocks": read_doc(name, title, folder)})
+        has_pdf = os.path.exists(os.path.join(HERE, folder, name + ".pdf"))
+        ar = {"pdf": "%s/%s.pdf" % (folder, name) if has_pdf else None,
+              "pdf_sha256": sha("%s/%s.pdf" % (folder, name)) if has_pdf else None,
+              "text": "%s/%s.txt" % (folder, name), "text_sha256": sha("%s/%s.txt" % (folder, name))}
+        if not has_pdf:
+            ar["pdf_reason"] = "no PDF was delivered for this version"
+            ar["text_is"] = "the v2 extracted text with the replacements of %s/WORK_ORDER.md (apply_v3.py)" % folder
+            ar["order_sha256"] = sha("%s/WORK_ORDER.md" % folder)
+        docs.append({"document": title, "as_received": ar, "blocks": read_doc(name, title, folder)})
     rec = {"record": "BIOLOGICAL_LOAD_ACCOUNTING", "date": "2026-11-27", "status": "PROPOSED", "license": "CC0",
            "co_authored": True, "observer_slots": None,
            "note": "Built by build_records.py from the extracted text of the two documents. Values are the "
@@ -156,7 +167,7 @@ def build(version="v1"):
                    "own status tags.",
            "documents": docs}
     if version != "v1":       # the v1 file keeps exactly the keys it was first written with
-        rec = dict(rec, delivery=version, supersedes="records_v1.json (first delivery, kept unchanged)")
+        rec = dict(rec, delivery=version, supersedes=SUPERSEDES[version])
     return rec
 
 
@@ -174,8 +185,8 @@ if __name__ == "__main__":
             print("%s matches a rebuild from %s/: %s" % (fname, folder, "yes" if same else "NO"))
             ok = ok and same
             continue
-        if version == "v1" and os.path.exists(out) and open(out, encoding="utf-8").read() != dump(rec):
-            print("REFUSED: %s exists and differs from a rebuild; the first delivery's records are not rewritten" % fname)
+        if version != CURRENT and os.path.exists(out) and open(out, encoding="utf-8").read() != dump(rec):
+            print("REFUSED: %s exists and differs from a rebuild; an earlier delivery's records are not rewritten" % fname)
             ok = False
             continue
         open(out, "w", encoding="utf-8").write(dump(rec))

@@ -77,25 +77,27 @@ def leaves(o, path=""):
 
 
 def delivery_changes():
-    """What differs between the two deliveries, read from the two record files."""
-    old, new = br.build("v1"), br.build("v2")
+    """What differs between each delivery and the next, read from the record files' sources."""
     out = []
-    for do, dn in zip(old["documents"], new["documents"]):
-        bo = {b["block"]: b for b in do["blocks"]}
-        bn = {b["block"]: b for b in dn["blocks"]}
-        row = {"document": dn["document"], "blocks_removed": sorted(set(bo) - set(bn)),
-               "blocks_added": sorted(set(bn) - set(bo)), "values_changed": [], "comments_changed": []}
-        for k in sorted(set(bo) & set(bn)):
-            lo, ln = dict(leaves(bo[k]["value"])), dict(leaves(bn[k]["value"]))
-            for path in sorted(set(lo) | set(ln)):
-                if lo.get(path, "ABSENT") != ln.get(path, "ABSENT"):
-                    row["values_changed"].append({"block": k, "field": path.strip("/"),
-                                                  "v1": lo.get(path, "ABSENT"), "v2": ln.get(path, "ABSENT")})
-            if bo[k]["comments"] + bo[k]["comments_after"] != bn[k]["comments"] + bn[k]["comments_after"]:
-                row["comments_changed"].append({"block": k,
-                                                "added": [c for c in bn[k]["comments"] + bn[k]["comments_after"]
-                                                          if c not in bo[k]["comments"] + bo[k]["comments_after"]]})
-        out.append(row)
+    names = list(br.VERSIONS)
+    for prev, cur in zip(names, names[1:]):
+        old, new = br.build(prev), br.build(cur)
+        for do, dn in zip(old["documents"], new["documents"]):
+            bo = {b["block"]: b for b in do["blocks"]}
+            bn = {b["block"]: b for b in dn["blocks"]}
+            row = {"from": prev, "to": cur, "document": dn["document"], "blocks_removed": sorted(set(bo) - set(bn)),
+                   "blocks_added": sorted(set(bn) - set(bo)), "values_changed": [], "comments_changed": []}
+            for k in sorted(set(bo) & set(bn)):
+                lo, ln = dict(leaves(bo[k]["value"])), dict(leaves(bn[k]["value"]))
+                for path in sorted(set(lo) | set(ln)):
+                    if lo.get(path, "ABSENT") != ln.get(path, "ABSENT"):
+                        row["values_changed"].append({"block": k, "field": path.strip("/"),
+                                                      "from": lo.get(path, "ABSENT"), "to": ln.get(path, "ABSENT")})
+                co, cn = bo[k]["comments"] + bo[k]["comments_after"], bn[k]["comments"] + bn[k]["comments_after"]
+                if co != cn:
+                    row["comments_changed"].append({"block": k, "added": [c for c in cn if c not in co],
+                                                    "removed": [c for c in co if c not in cn]})
+            out.append(row)
     return out
 
 
@@ -157,15 +159,21 @@ def run():
         if version != br.CURRENT:
             for d in built["documents"]:
                 ar = d["as_received"]
-                check("%s delivery, %s: PDF and text hashes as recorded" % (version, d["document"]),
+                check("%s delivery, %s: file hashes as recorded" % (version, d["document"]),
                       json.load(open(os.path.join(HERE, fname), encoding="utf-8"))["documents"][built["documents"].index(d)]["as_received"] == ar)
-    out["info"]["changes_v1_to_v2"] = delivery_changes()
+    out["info"]["changes_between_deliveries"] = delivery_changes()
+    import apply_v3
+    texts, spans = apply_v3.build()
+    check("v3 text is the v2 text plus exactly the work order's two replacements",
+          all(open(os.path.join(HERE, "as_received_v3", n), encoding="utf-8").read() == t for n, t in texts.items()),
+          json.dumps(spans))
     blocks = {}
     all_voids = []
     for (name, title), d in zip(br.DOCS, rec["documents"]):
         ar = d["as_received"]
-        check("%s: PDF and text hashes unchanged" % name,
-              br.sha(ar["pdf"]) == ar["pdf_sha256"] and br.sha(ar["text"]) == ar["text_sha256"])
+        check("%s: %s unchanged" % (name, "PDF and text hashes" if ar["pdf"] else "text and work-order hashes (no PDF in this delivery)"),
+              (br.sha(ar["pdf"]) == ar["pdf_sha256"] if ar["pdf"]
+               else br.sha(FOLDER + "/WORK_ORDER.md") == ar["order_sha256"]) and br.sha(ar["text"]) == ar["text_sha256"])
         text = squeeze("\n".join(br.clean_lines(name, title, FOLDER)))
         missing = [s for b in d["blocks"] for s in strings(b["value"]) if squeeze(s) not in text]
         n = sum(1 for b in d["blocks"] for _ in strings(b["value"]))
@@ -297,9 +305,10 @@ if __name__ == "__main__":
     print("INFO shared blocks owned by: %s   pointers: %d, all resolve: %s" % (
         i["two_documents"]["owner_of_shared_blocks"], len(i["two_documents"]["pointers"]),
         all(p["resolves"] for p in i["two_documents"]["pointers"])))
-    for row in i["changes_v1_to_v2"]:
-        print("INFO v1 -> v2, %s: blocks removed %s, added %s, values changed %d, blocks with new comments %d" % (
-            row["document"], row["blocks_removed"], row["blocks_added"], len(row["values_changed"]), len(row["comments_changed"])))
+    for row in i["changes_between_deliveries"]:
+        print("INFO %s -> %s, %s: blocks removed %s, added %s, values changed %d, blocks with changed comments %d" % (
+            row["from"], row["to"], row["document"], row["blocks_removed"], row["blocks_added"],
+            len(row["values_changed"]), len(row["comments_changed"])))
     print("checks: %d   failed: %d" % (rep["summary"]["checks"], rep["summary"]["failed"]))
     if "--json" in sys.argv:
         p = sys.argv[sys.argv.index("--json") + 1]

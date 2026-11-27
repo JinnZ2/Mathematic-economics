@@ -10,10 +10,13 @@
     {
       "document": "Biological Load Accounting for Truck Drivers",
       "as_received": {
-        "pdf": "as_received_v2/biological_load_accounting_for_truck_drivers.pdf",
-        "pdf_sha256": "ddce5d2cf7fb5b145c3b925dc6a75eee09ff64b8560e3a9f965babd99ad9ec5d",
-        "text": "as_received_v2/biological_load_accounting_for_truck_drivers.txt",
-        "text_sha256": "da09bc1a33c010ba775a7e4d1dab252d9dd8c4424f39358e62564601f5c2e048"
+        "pdf": null,
+        "pdf_sha256": null,
+        "text": "as_received_v3/biological_load_accounting_for_truck_drivers.txt",
+        "text_sha256": "76e8ba6a3c88126e395fd40dcc816a1b1365f50d3ee0e4213f999d2f4249deb4",
+        "pdf_reason": "no PDF was delivered for this version",
+        "text_is": "the v2 extracted text with the replacements of as_received_v3/WORK_ORDER.md (apply_v3.py)",
+        "order_sha256": "93d4f561f2f642caa23838610041127182753158bc6ce954e98a69c4df3951b5"
       },
       "blocks": [
         {
@@ -404,7 +407,7 @@
               "definition": "canonical in Decision-Exposure Coupling",
               "instance": "automated systems studied on fixed lanes, good weather, close-cut-in metrics, outcome-based judging; humans held to full following-distance rules, HOS, CSA, all weather",
               "status": "canonical in Decision-Exposure Coupling",
-              "fix": "same rules, same conditions, same metrics on both sides before comparing"
+              "fix": "canonical in Decision-Exposure Coupling"
             },
             "event": "car enters truck following gap",
             "effect": "stopping buffer erased -> driver brakes / rebuilds gap",
@@ -461,10 +464,13 @@
     {
       "document": "Decision-Exposure Coupling",
       "as_received": {
-        "pdf": "as_received_v2/decision_exposure_coupling.pdf",
-        "pdf_sha256": "c3ba40636b1b86566da153fa54f9d34d500e4a63c97291f00e12292e72daa748",
-        "text": "as_received_v2/decision_exposure_coupling.txt",
-        "text_sha256": "c9858bf290afaeac7669ffa9b94025b56b5c7b8c7cea44835a69d590760aefef"
+        "pdf": null,
+        "pdf_sha256": null,
+        "text": "as_received_v3/decision_exposure_coupling.txt",
+        "text_sha256": "1865497f42590506d8f8947d4d1f3c766d8cd6a9123cacd12e5eb2aa3d28a3db",
+        "pdf_reason": "no PDF was delivered for this version",
+        "text_is": "the v2 extracted text with the replacements of as_received_v3/WORK_ORDER.md (apply_v3.py)",
+        "order_sha256": "93d4f561f2f642caa23838610041127182753158bc6ce954e98a69c4df3951b5"
       },
       "blocks": [
         {
@@ -518,13 +524,19 @@
             "diversity": null
           },
           "comments": [
-            "bool — the gate",
+            "bool — the gate: lived it vs wrote about it",
             "cab / floor / ward / classroom / field, with sub-role",
-            "exposed | sheltered",
-            "market | insider",
+            "exposed (real routes/shifts, own needs) | sheltered (family firm, hand-picked loads)",
+            "market pay | family / insider pay",
             "floor / cab | office | media | academia",
             "years since exposure",
-            "time measures different things; no single years threshold"
+            "organizing the work; individual — 1 yr for some, 5 for others",
+            "how long sustained at full exposure",
+            "how well biological needs were kept up over that span",
+            "range of conditions juggled: roles, seasons, regions, incidents",
+            "time measures different things; no single years threshold",
+            "years != experience (20 yrs in school != a PhD's work)",
+            "authority judged per dimension, not as one score"
           ],
           "comments_after": [
             "office seat writing about the floor = DERIVED at best, never OBSERVED",
@@ -671,6 +683,6 @@
       ]
     }
   ],
-  "delivery": "v2",
-  "supersedes": "records_v1.json (first delivery, kept unchanged)"
+  "delivery": "v3",
+  "supersedes": "records_v2.json (second delivery, kept unchanged)"
 }

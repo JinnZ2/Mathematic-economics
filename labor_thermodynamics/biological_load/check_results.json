@@ -7,22 +7,42 @@
       "detail": ""
     },
     {
-      "check": "v1 delivery, Biological Load Accounting for Truck Drivers: PDF and text hashes as recorded",
+      "check": "v1 delivery, Biological Load Accounting for Truck Drivers: file hashes as recorded",
       "state": "PASS",
       "detail": ""
     },
     {
-      "check": "v1 delivery, Decision-Exposure Coupling: PDF and text hashes as recorded",
+      "check": "v1 delivery, Decision-Exposure Coupling: file hashes as recorded",
       "state": "PASS",
       "detail": ""
     },
     {
-      "check": "records.json matches a rebuild from as_received_v2/",
+      "check": "records_v2.json matches a rebuild from as_received_v2/",
       "state": "PASS",
       "detail": ""
     },
     {
-      "check": "biological_load_accounting_for_truck_drivers: PDF and text hashes unchanged",
+      "check": "v2 delivery, Biological Load Accounting for Truck Drivers: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v2 delivery, Decision-Exposure Coupling: file hashes as recorded",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "records.json matches a rebuild from as_received_v3/",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "v3 text is the v2 text plus exactly the work order's two replacements",
+      "state": "PASS",
+      "detail": "{\"decision_exposure_coupling.txt\": {\"v2_lines_replaced\": [54, 68], \"v3_lines\": 17}, \"biological_load_accounting_for_truck_drivers.txt\": {\"v2_lines_replaced\": [390, 391], \"v3_lines\": 1}}"
+    },
+    {
+      "check": "biological_load_accounting_for_truck_drivers: text and work-order hashes (no PDF in this delivery) unchanged",
       "state": "PASS",
       "detail": ""
     },
@@ -37,7 +57,7 @@
       "detail": "8 blocks"
     },
     {
-      "check": "decision_exposure_coupling: PDF and text hashes unchanged",
+      "check": "decision_exposure_coupling: text and work-order hashes (no PDF in this delivery) unchanged",
       "state": "PASS",
       "detail": ""
     },
@@ -87,14 +107,21 @@
       "detail": ""
     },
     {
+      "check": "pointer: false_denominator.fix is defined in the coupling document",
+      "state": "PASS",
+      "detail": ""
+    },
+    {
       "check": "pointer: the truck document's PROVENANCE points to a block the coupling document carries",
       "state": "PASS",
       "detail": ""
     }
   ],
   "info": {
-    "changes_v1_to_v2": [
+    "changes_between_deliveries": [
       {
+        "from": "v1",
+        "to": "v2",
         "document": "Biological Load Accounting for Truck Drivers",
         "blocks_removed": [
           "PROVENANCE"
@@ -104,19 +131,21 @@
           {
             "block": "BUFFER_INTRUSION",
             "field": "false_denominator/definition",
-            "v1": "a comparison where results measured under one rule set or condition set are applied to agents under another",
-            "v2": "canonical in Decision-Exposure Coupling"
+            "from": "a comparison where results measured under one rule set or condition set are applied to agents under another",
+            "to": "canonical in Decision-Exposure Coupling"
           },
           {
             "block": "BUFFER_INTRUSION",
             "field": "false_denominator/status",
-            "v1": "false statement regardless of intent — a lie needs no intention",
-            "v2": "canonical in Decision-Exposure Coupling"
+            "from": "false statement regardless of intent — a lie needs no intention",
+            "to": "canonical in Decision-Exposure Coupling"
           }
         ],
         "comments_changed": []
       },
       {
+        "from": "v1",
+        "to": "v2",
         "document": "Decision-Exposure Coupling",
         "blocks_removed": [],
         "blocks_added": [],
@@ -124,20 +153,20 @@
           {
             "block": "PROVENANCE",
             "field": "conditions",
-            "v1": "ABSENT",
-            "v2": null
+            "from": "ABSENT",
+            "to": null
           },
           {
             "block": "PROVENANCE",
             "field": "role_and_conditions",
-            "v1": null,
-            "v2": "ABSENT"
+            "from": null,
+            "to": "ABSENT"
           },
           {
             "block": "PROVENANCE",
             "field": "role_type",
-            "v1": "ABSENT",
-            "v2": null
+            "from": "ABSENT",
+            "to": null
           }
         ],
         "comments_changed": [
@@ -146,13 +175,60 @@
             "added": [
               "cab / floor / ward / classroom / field, with sub-role",
               "CANONICAL: PROVENANCE and FALSE_DENOMINATOR are defined here; companion docs point here"
-            ]
+            ],
+            "removed": []
           },
           {
             "block": "SENSOR_VALIDITY",
             "added": [
               "None = unassessed (void): neither pass nor fail",
               "all True -> valid sensor"
+            ],
+            "removed": []
+          }
+        ]
+      },
+      {
+        "from": "v2",
+        "to": "v3",
+        "document": "Biological Load Accounting for Truck Drivers",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [
+          {
+            "block": "BUFFER_INTRUSION",
+            "field": "false_denominator/fix",
+            "from": "same rules, same conditions, same metrics on both sides before comparing",
+            "to": "canonical in Decision-Exposure Coupling"
+          }
+        ],
+        "comments_changed": []
+      },
+      {
+        "from": "v2",
+        "to": "v3",
+        "document": "Decision-Exposure Coupling",
+        "blocks_removed": [],
+        "blocks_added": [],
+        "values_changed": [],
+        "comments_changed": [
+          {
+            "block": "PROVENANCE",
+            "added": [
+              "bool — the gate: lived it vs wrote about it",
+              "exposed (real routes/shifts, own needs) | sheltered (family firm, hand-picked loads)",
+              "market pay | family / insider pay",
+              "organizing the work; individual — 1 yr for some, 5 for others",
+              "how long sustained at full exposure",
+              "how well biological needs were kept up over that span",
+              "range of conditions juggled: roles, seasons, regions, incidents",
+              "years != experience (20 yrs in school != a PhD's work)",
+              "authority judged per dimension, not as one score"
+            ],
+            "removed": [
+              "bool — the gate",
+              "exposed | sheltered",
+              "market | insider"
             ]
           }
         ]
@@ -193,7 +269,7 @@
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "lived_firsthand",
-        "reason": "bool — the gate"
+        "reason": "bool — the gate: lived it vs wrote about it"
       },
       {
         "document": "decision_exposure_coupling",
@@ -205,13 +281,13 @@
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "conditions",
-        "reason": "exposed | sheltered"
+        "reason": "exposed (real routes/shifts, own needs) | sheltered (family firm, hand-picked loads)"
       },
       {
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "compensation_basis",
-        "reason": "market | insider"
+        "reason": "market pay | family / insider pay"
       },
       {
         "document": "decision_exposure_coupling",
@@ -229,25 +305,25 @@
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "learning",
-        "reason": "no reason given in the document"
+        "reason": "organizing the work; individual — 1 yr for some, 5 for others"
       },
       {
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "endurance",
-        "reason": "no reason given in the document"
+        "reason": "how long sustained at full exposure"
       },
       {
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "maintenance",
-        "reason": "no reason given in the document"
+        "reason": "how well biological needs were kept up over that span"
       },
       {
         "document": "decision_exposure_coupling",
         "block": "PROVENANCE",
         "field": "diversity",
-        "reason": "no reason given in the document"
+        "reason": "range of conditions juggled: roles, seasons, regions, incidents"
       },
       {
         "document": "decision_exposure_coupling",
@@ -492,6 +568,12 @@
           "resolves": true
         },
         {
+          "field": "BUFFER_INTRUSION/false_denominator/fix",
+          "points_to": "Decision-Exposure Coupling",
+          "resolves_to": "same rules, same conditions, same metrics on both sides",
+          "resolves": true
+        },
+        {
           "field": "PROVENANCE",
           "points_to": "Decision-Exposure Coupling",
           "resolves_to": [
@@ -510,10 +592,9 @@
         }
       ],
       "kept_in_truck_document": {
-        "instance": "automated systems studied on fixed lanes, good weather, close-cut-in metrics, outcome-based judging; humans held to full following-distance rules, HOS, CSA, all weather",
-        "fix": "same rules, same conditions, same metrics on both sides before comparing"
+        "instance": "automated systems studied on fixed lanes, good weather, close-cut-in metrics, outcome-based judging; humans held to full following-distance rules, HOS, CSA, all weather"
       },
-      "note": "the truck document keeps its own instance and fix lines for the false denominator; its fix line reads 'same rules, same conditions, same metrics on both sides before comparing', the coupling document's 'same rules, same conditions, same metrics on both sides'"
+      "note": "the truck document keeps its own instance and fix lines for the false denominator; its fix line reads 'canonical in Decision-Exposure Coupling', the coupling document's 'same rules, same conditions, same metrics on both sides'"
     },
     "sensor_validity": {
       "fields": 7,
@@ -523,7 +604,7 @@
     }
   },
   "summary": {
-    "checks": 18,
+    "checks": 23,
     "failed": 0,
     "voids": 26,
     "external_figures_not_opened": 9
