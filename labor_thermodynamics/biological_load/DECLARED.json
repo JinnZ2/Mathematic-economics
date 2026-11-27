@@ -106,6 +106,20 @@
         "two_documents": "not touched. records.json (v5) stays as it is.",
         "figures": "nothing opened. New outside names or figures are listed NOT OPENED with the document's own mark."
       }
+    },
+    {
+      "date": "2026-11-27",
+      "name": "addendum to v5: material_dependency inside BRIDGE",
+      "after": "branch biological-load-accounting at 2f862b5. By the owner's work order of 2026-11-27 (addendum to v5). Declared before its files, records or checker changes are committed.",
+      "status": "PROPOSED",
+      "rules": {
+        "order_text": "the order is kept verbatim in as_received_v5_addendum/WORK_ORDER.md. No PDF was delivered.",
+        "text": "apply_v5_addendum.py takes the BRIDGE block as the v5 order wrote it (as_received_v5/engineered_stability_additions.txt; checked equal to the second PDF's BRIDGE), and inserts the addendum's lines, cut from the order file, after the closing line of \"fuel_chain\". It refuses unless that line is found exactly once. The result is stored as as_received_v5_addendum/bridge_block.txt. Nothing is retyped.",
+        "records": "records_engineered_stability.json becomes records_engineered_stability_v3.json (same bytes). The new file is the second PDF's blocks with BRIDGE read from bridge_block.txt. The checker requires the new BRIDGE to equal the PDF's BRIDGE plus the one key material_dependency, placed right after fuel_chain; every other block unchanged.",
+        "voids": "every None is a void, never zero. The order also says 'every value void until checked': the strings that are written stay as written and are marked NOT CHECKED in the report; they are not turned into None.",
+        "figures": "nothing opened. The three chain lines the document marks NOT OPENED are listed as outside figures NOT OPENED.",
+        "two_documents": "not touched."
+      }
     }
   ]
 }
